@@ -71,13 +71,26 @@ class CategoryController extends BaseController
             $type = $_POST['type'] ?? 'main'; // 'main' or 'sub'
             $parent_id = ($type === 'sub') ? ($_POST['parent_id'] ?? null) : null;
 
-            // Image Upload Logic (Simplified)
+            // Image Upload Logic (Fixed)
             $imagePath = '';
             if (isset($_FILES['image']) && $_FILES['image']['error'] == 0) {
-                $targetDir = "assets/uploads/";
+                // Use absolute path
+                $targetDir = $_SERVER['DOCUMENT_ROOT'] . "/Ecom-CMS/assets/uploads/";
+
+                // Create dir if not exists
+                if (!is_dir($targetDir)) {
+                    mkdir($targetDir, 0777, true);
+                }
+
                 $fileName = time() . '_' . basename($_FILES['image']['name']);
-                if (move_uploaded_file($_FILES['image']['tmp_name'], $targetDir . $fileName)) {
+                $targetFile = $targetDir . $fileName;
+
+                if (move_uploaded_file($_FILES['image']['tmp_name'], $targetFile)) {
                     $imagePath = $fileName;
+                } else {
+                    // Debugging: Fail silently or log error? For now, let's just proceed with empty image, 
+                    // or echo error for dev.
+                    // echo "Upload failed to: " . $targetFile; exit; 
                 }
             }
 
@@ -138,9 +151,14 @@ class CategoryController extends BaseController
             // Image Logic
             $imagePath = null;
             if (isset($_FILES['image']) && $_FILES['image']['error'] == 0) {
-                $targetDir = "assets/uploads/";
+                $targetDir = $_SERVER['DOCUMENT_ROOT'] . "/Ecom-CMS/assets/uploads/";
+                if (!is_dir($targetDir))
+                    mkdir($targetDir, 0777, true);
+
                 $fileName = time() . '_' . basename($_FILES['image']['name']);
-                if (move_uploaded_file($_FILES['image']['tmp_name'], $targetDir . $fileName)) {
+                $targetFile = $targetDir . $fileName;
+
+                if (move_uploaded_file($_FILES['image']['tmp_name'], $targetFile)) {
                     $imagePath = $fileName;
                 }
             }

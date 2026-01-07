@@ -39,9 +39,14 @@ class SizeGuideController extends BaseController
             // Image Upload
             $imagePath = '';
             if (isset($_FILES['image']) && $_FILES['image']['error'] == 0) {
-                $targetDir = "assets/uploads/";
+                $targetDir = $_SERVER['DOCUMENT_ROOT'] . "/Ecom-CMS/assets/uploads/";
+                if (!is_dir($targetDir))
+                    mkdir($targetDir, 0777, true);
+
                 $fileName = time() . '_sg_' . basename($_FILES['image']['name']);
-                if (move_uploaded_file($_FILES['image']['tmp_name'], $targetDir . $fileName)) {
+                $targetFile = $targetDir . $fileName;
+
+                if (move_uploaded_file($_FILES['image']['tmp_name'], $targetFile)) {
                     $imagePath = $fileName;
                 }
             }
