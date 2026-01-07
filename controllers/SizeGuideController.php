@@ -1,0 +1,68 @@
+<?php
+/**
+ * Size Guide Controller
+ */
+require_once 'models/SizeGuide.php';
+
+class SizeGuideController extends BaseController
+{
+
+    private $model;
+
+    public function __construct()
+    {
+        $this->model = new SizeGuide();
+    }
+
+    public function index()
+    {
+        $guides = $this->model->getAll();
+        $this->view('admin/sizeguides/index', [
+            'title' => 'Size Guides',
+            'guides' => $guides
+        ]);
+    }
+
+    public function add()
+    {
+        $this->view('admin/sizeguides/form', [
+            'title' => 'Add Size Guide',
+            'mode' => 'add'
+        ]);
+    }
+
+    public function store()
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $name = $_POST['name'] ?? '';
+
+            // Image Upload
+            $imagePath = '';
+            if (isset($_FILES['image']) && $_FILES['image']['error'] == 0) {
+                $targetDir = "assets/uploads/";
+                $fileName = time() . '_sg_' . basename($_FILES['image']['name']);
+                if (move_uploaded_file($_FILES['image']['tmp_name'], $targetDir . $fileName)) {
+                    $imagePath = $fileName;
+                }
+            }
+
+            if (
+                $this->model->create([
+                    'name' => $name,
+                    'image_path' => $imagePath
+                ])
+            ) {
+                $this->redirect('sizeguide/index');
+            } else {
+                echo "Error adding size guide.";
+            }
+        }
+    }
+
+    public function delete($id)
+    {
+        $this->model->delete($id);
+        $this->redirect('sizeguide/index');
+    }
+}
+?>
