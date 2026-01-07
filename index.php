@@ -17,6 +17,11 @@ session_start();
 // 2. Load the Database Configuration
 require_once 'config/db.php';
 
+// 2.1 Load Base Classes (Core)
+// We need these to be available before any Controller or Model is used.
+require_once 'controllers/BaseController.php';
+require_once 'models/BaseModel.php';
+
 // 3. Simple Router Logic
 // We get the URL path. If it's empty, we assume they want the 'home' page.
 // Example: http://localhost/Ecom-CMS/login -> $request = 'login'

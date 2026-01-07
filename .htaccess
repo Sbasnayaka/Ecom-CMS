@@ -19,6 +19,6 @@ RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 
 # 3. Redirect everything else to index.php
-# The 'QSA' flag keeps any URL parameters (like ?search=shoe)
-# The 'L' flag means "Last Rule" (stop processing here)
-RewriteRule ^(.*)$ index.php [QSA,L]
+# We explicitly pass the captured path ($1) to the 'url' query parameter
+# so index.php can read it via $_GET['url'].
+RewriteRule ^(.*)$ index.php?url=$1 [QSA,L]
