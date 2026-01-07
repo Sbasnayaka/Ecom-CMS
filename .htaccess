@@ -1,0 +1,24 @@
+# .htaccess Configuration
+# This file tells the Apache server how to handle URLs.
+# We want all requests (like /login, /products) to go to index.php
+# so our PHP code can decide what to show.
+
+RewriteEngine On
+
+# Base directory - IMPORTANT
+# Since we are in http://localhost/Ecom-CMS/, we set this base.
+RewriteBase /Ecom-CMS/
+
+# 1. Block access to protected directories
+# We don't want people to see our config or internal logic files directly.
+RewriteRule ^(config|models|views|controllers)/ - [F,L]
+
+# 2. Allow existing files and folders to be accessed directly
+# This allows 'assets/css/style.css' to load normally without going to index.php
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+# 3. Redirect everything else to index.php
+# The 'QSA' flag keeps any URL parameters (like ?search=shoe)
+# The 'L' flag means "Last Rule" (stop processing here)
+RewriteRule ^(.*)$ index.php [QSA,L]
