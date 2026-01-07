@@ -44,5 +44,29 @@ class AdminController extends BaseController
             'latest_products' => $products
         ]);
     }
+
+    /**
+     * Settings Page
+     * Logic: Shop Owner -> Gatekeeper View. Developer -> Full Settings View.
+     */
+    public function settings()
+    {
+        if (!isset($_SESSION['user_id'])) {
+            $this->redirect('auth/login');
+            return;
+        }
+
+        // Check Role
+        // Currently we only have 'developer' or 'owner' (default)
+        // If it's a shop owner, show the gatekeeper
+
+        if (isset($_SESSION['role']) && $_SESSION['role'] === 'developer') {
+            // TODO: Create the Developer Settings View later
+            echo "<h1>Developer Settings (Coming Soon)</h1>";
+        } else {
+            // Shop Owner View (Restricted)
+            $this->view('admin/settings_gatekeeper', ['title' => 'Settings - Authenticate']);
+        }
+    }
 }
 ?>

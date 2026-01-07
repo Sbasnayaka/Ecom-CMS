@@ -4,23 +4,44 @@ $current_page = $current_page ?? 'dashboard';
 ?>
 <div class="bottom-nav">
     <a href="/Ecom-CMS/admin/dashboard" class="nav-item <?= $current_page == 'dashboard' ? 'active' : '' ?>">
-        <span class="nav-icon">📊</span>
+        <img src="/Ecom-CMS/assets/icons/dashboard.png" class="nav-icon-img" alt="Dash">
         <span>Dashboard</span>
     </a>
     <a href="/Ecom-CMS/admin/products" class="nav-item <?= $current_page == 'products' ? 'active' : '' ?>">
-        <span class="nav-icon">📦</span>
+        <img src="/Ecom-CMS/assets/icons/products.png" class="nav-icon-img" alt="Prod">
         <span>Products</span>
     </a>
     <a href="/Ecom-CMS/admin/feedbacks" class="nav-item <?= $current_page == 'feedbacks' ? 'active' : '' ?>">
-        <span class="nav-icon">💬</span>
+        <img src="/Ecom-CMS/assets/icons/feedback.png" class="nav-icon-img" alt="Feed">
         <span>Feedback</span>
     </a>
     <a href="/Ecom-CMS/admin/myshop" class="nav-item <?= $current_page == 'myshop' ? 'active' : '' ?>">
-        <span class="nav-icon">🏪</span>
+        <!-- Using Dashboard icon as placeholder as requested -->
+        <img src="/Ecom-CMS/assets/icons/dashboard.png" class="nav-icon-img" alt="Shop">
         <span>My Shop</span>
     </a>
     <a href="/Ecom-CMS/admin/settings" class="nav-item <?= $current_page == 'settings' ? 'active' : '' ?>">
-        <span class="nav-icon">⚙️</span>
+        <img src="/Ecom-CMS/assets/icons/settings.png" class="nav-icon-img" alt="Set">
         <span>Settings</span>
     </a>
 </div>
+
+<style>
+    /* Icon Styles */
+    .nav-icon-img {
+        width: 24px;
+        height: 24px;
+        display: block;
+        margin: 0 auto 4px auto;
+        object-fit: contain;
+        /* Basic filter to ensure they look okay if black/white */
+        opacity: 0.6;
+    }
+
+    .nav-item.active .nav-icon-img {
+        opacity: 1;
+        /* Full visibility when active */
+        /* Optional: If icons are black SVG/PNGs, you can use filters to colorize them to match the theme */
+        /* filter: invert(36%) sepia(96%) saturate(2256%) hue-rotate(203deg) brightness(98%) contrast(106%); #007bff approx */
+    }
+</style>
