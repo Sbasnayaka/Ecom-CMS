@@ -1,0 +1,168 @@
+<?php
+/**
+ * Category Controller
+ */
+require_once 'models/Category.php';
+
+class CategoryController extends BaseController
+{
+
+    private $categoryModel;
+
+    public function __construct()
+    {
+        $this->categoryModel = new Category();
+    }
+
+    /**
+     * List all categories (The "Selector" Page)
+     */
+    public function index()
+    {
+        $categories = $this->categoryModel->getAll();
+
+        // Organize into Tree Structure for View
+        $tree = [];
+        $keyMap = [];
+
+        // First pass: Keys
+        foreach ($categories as $cat) {
+            $keyMap[$cat['id']] = $cat;
+            $keyMap[$cat['id']]['children'] = [];
+        }
+
+        // Second pass: Build Tree
+        foreach ($keyMap as $id => &$cat) {
+            if ($cat['parent_id']) {
+                if (isset($keyMap[$cat['parent_id']])) {
+                    $keyMap[$cat['parent_id']]['children'][] = &$cat;
+                }
+            } else {
+                $tree[] = &$cat;
+            }
+        }
+
+        $this->view('admin/categories/index', [
+            'title' => 'Categories',
+            'categoryTree' => $tree
+        ]);
+    }
+
+    /**
+     * Show Add Form
+     */
+    public function add()
+    {
+        $mainCategories = $this->categoryModel->getMainCategories();
+        $this->view('admin/categories/form', [
+            'title' => 'Add Category',
+            'mode' => 'add',
+            'parents' => $mainCategories
+        ]);
+    }
+
+    /**
+     * Handle Creation
+     */
+    public function store()
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $name = $_POST['name'] ?? '';
+            $type = $_POST['type'] ?? 'main'; // 'main' or 'sub'
+            $parent_id = ($type === 'sub') ? ($_POST['parent_id'] ?? null) : null;
+
+            // Image Upload Logic (Simplified)
+            $imagePath = '';
+            if (isset($_FILES['image']) && $_FILES['image']['error'] == 0) {
+                $targetDir = "assets/uploads/";
+                $fileName = time() . '_' . basename($_FILES['image']['name']);
+                if (move_uploaded_file($_FILES['image']['tmp_name'], $targetDir . $fileName)) {
+                    $imagePath = $fileName;
+                }
+            }
+
+            if (
+                $this->categoryModel->create([
+                    'name' => $name,
+                    'image' => $imagePath,
+                    'parent_id' => $parent_id
+                ])
+            ) {
+                $this->redirect('category/index');
+            } else {
+                echo "Error adding category.";
+            }
+        }
+    }
+
+    /**
+     * Show Edit Form
+     */
+    public function edit()
+    {
+        // Need ID from URL usually passed via router logic in index.php
+        // Our simplified router might need updating to pass params, 
+        // BUT currently index.php implementation: call_user_func_array passes params.
+        // So edit($id) works if we define it like that.
+        // Let's get ID from func_get_args or parameter
+        $args = func_get_args();
+        $id = $args[0] ?? null;
+
+        if (!$id) {
+            $this->redirect('category/index');
+            return;
+        }
+
+        $category = $this->categoryModel->getById($id);
+        $mainCategories = $this->categoryModel->getMainCategories();
+
+        $this->view('admin/categories/form', [
+            'title' => 'Edit Category',
+            'mode' => 'edit',
+            'category' => $category,
+            'parents' => $mainCategories
+        ]);
+    }
+
+    /**
+     * Handle Update
+     */
+    public function update()
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $id = $_POST['id'];
+            $name = $_POST['name'] ?? '';
+            $type = $_POST['type'] ?? 'main';
+            $parent_id = ($type === 'sub') ? ($_POST['parent_id'] ?? null) : null;
+
+            // Image Logic
+            $imagePath = null;
+            if (isset($_FILES['image']) && $_FILES['image']['error'] == 0) {
+                $targetDir = "assets/uploads/";
+                $fileName = time() . '_' . basename($_FILES['image']['name']);
+                if (move_uploaded_file($_FILES['image']['tmp_name'], $targetDir . $fileName)) {
+                    $imagePath = $fileName;
+                }
+            }
+
+            if (
+                $this->categoryModel->update($id, [
+                    'name' => $name,
+                    'image' => $imagePath,
+                    'parent_id' => $parent_id
+                ])
+            ) {
+                $this->redirect('category/index');
+            } else {
+                echo "Error updating category.";
+            }
+        }
+    }
+
+    public function delete($id)
+    {
+        $store = $this->categoryModel->delete($id);
+        $this->redirect('category/index');
+    }
+}
+?>
