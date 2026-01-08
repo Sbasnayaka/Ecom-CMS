@@ -1,52 +1,56 @@
 <?php
 /**
  * User Model
- * 
- * This class handles all database interactions related to Users (Developers & Shop Owners).
- * It extends BaseModel to get access to the database connection ($this->conn).
  */
 require_once 'models/BaseModel.php';
 
 class User extends BaseModel
 {
 
-    /**
-     * Login Function
-     * 
-     * Checks if a user exists and if the password is correct.
-     * 
-     * @param string $username The username entered.
-     * @param string $password The plain text password entered.
-     * @return array|false Returns the user data array if successful, or false if failed.
-     */
-    public function login($username, $password)
+    public function getByUsername($username)
     {
-        // 1. Prepare the SQL query
-        // We use :username as a placeholder to prevent SQL Injection (Security).
         $sql = "SELECT * FROM users WHERE username = :username LIMIT 1";
-
         $stmt = $this->conn->prepare($sql);
-
-        // 2. Bind the value and execute
         $stmt->bindParam(':username', $username);
         $stmt->execute();
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
 
-        // 3. Fetch the user
-        $user = $stmt->fetch(PDO::FETCH_ASSOC);
+    public function getByRole($role)
+    {
+        $sql = "SELECT * FROM users WHERE role = :role LIMIT 1";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bindParam(':role', $role);
+        $stmt->execute();
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
 
-        // 4. Verify Password
-        // If user exists, we check the password hash.
-        if ($user) {
-            // password_verify() checks if the plain text password matches the hash in DB.
-            if (password_verify($password, $user['password_hash'])) {
-                // Password is correct! Return the user info (minus the password for safety).
-                unset($user['password_hash']);
-                return $user;
-            }
+    public function create($username, $password, $role = 'owner')
+    {
+        $hash = password_hash($password, PASSWORD_DEFAULT);
+        $sql = "INSERT INTO users (username, password_hash, role) VALUES (:username, :hash, :role)";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bindParam(':username', $username);
+        $stmt->bindParam(':hash', $hash);
+        $stmt->bindParam(':role', $role);
+        return $stmt->execute();
+    }
+
+    public function updateOwnerProfile($id, $username, $password = null)
+    {
+        if (!empty($password)) {
+            $hash = password_hash($password, PASSWORD_DEFAULT);
+            $sql = "UPDATE users SET username = :user, password_hash = :hash WHERE id = :id";
+            $stmt = $this->conn->prepare($sql);
+            $stmt->bindParam(':hash', $hash);
+        } else {
+            $sql = "UPDATE users SET username = :user WHERE id = :id";
+            $stmt = $this->conn->prepare($sql);
         }
 
-        // If user not found OR password wrong, return false.
-        return false;
+        $stmt->bindParam(':user', $username);
+        $stmt->bindParam(':id', $id);
+        return $stmt->execute();
     }
 }
 ?>
