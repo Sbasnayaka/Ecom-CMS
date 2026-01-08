@@ -4,21 +4,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>
-        <?= $title ?>
-    </title>
+    <title><?= $title ?></title>
     <link rel="stylesheet" href="/Ecom-CMS/assets/css/admin.css">
     <style>
         .header-bar {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 30px;
+            margin-bottom: 20px;
         }
 
-        .logo-top {
-            font-size: 20px;
-            font-weight: bold;
+        .logo-img {
+            height: 40px;
         }
 
         .publish-txt {
@@ -85,25 +82,28 @@
             box-sizing: border-box;
         }
 
-        /* Red Border Section for User Management */
+        /* Red Border Section */
         .user-mgmt-box {
             border: 1px solid #ff3b30;
             border-radius: 15px;
-            padding: 20px;
+            padding: 25px 20px;
             margin-top: 30px;
-            background: #fff5f5;
+            background: white;
+            position: relative;
         }
 
-        .user-mgmt-title {
+        .user-mgmt-label {
             color: #ff3b30;
             font-weight: bold;
-            margin-bottom: 15px;
-            font-size: 12px;
+            margin-bottom: 8px;
+            font-size: 13px;
+            display: block;
         }
 
         .input-pink {
             background: #ffeaea;
             border: none;
+            margin-bottom: 15px;
         }
 
         .update-link {
@@ -111,10 +111,27 @@
             text-decoration: underline;
             font-weight: bold;
             float: right;
-            font-size: 14px;
+            font-size: 15px;
             cursor: pointer;
             border: none;
             background: none;
+            padding: 0;
+        }
+
+        /* Green Button */
+        .btn-global-styles {
+            display: block;
+            width: 100%;
+            background-color: #7ab586;
+            color: white;
+            padding: 12px;
+            border-radius: 25px;
+            text-align: center;
+            text-decoration: none;
+            font-weight: bold;
+            margin-top: 40px;
+            border: none;
+            font-size: 16px;
         }
     </style>
 </head>
@@ -125,7 +142,7 @@
         <div class="container" style="padding-bottom:100px;">
 
             <div class="header-bar">
-                <div class="logo-top"><span style="color:#2ea043;">🍃</span> Asseminate</div>
+                <img src="/Ecom-CMS/assets/icons/Asseminate-Logo.png" class="logo-img" alt="Asseminate">
                 <button type="submit" class="publish-txt">PUBLISH</button>
             </div>
 
@@ -185,17 +202,20 @@
                 <div class="user-mgmt-box">
                     <input type="hidden" name="owner_id" value="<?= $owner['id'] ?>">
 
-                    <span class="user-mgmt-title">Shop Owner Username</span>
+                    <label class="user-mgmt-label">Shop Owner Username</label>
                     <input type="text" name="owner_username" class="input-box input-pink"
                         value="<?= htmlspecialchars($owner['username']) ?>">
 
-                    <span class="user-mgmt-title">Shop Owner Password</span>
+                    <label class="user-mgmt-label">Shop Owner Password</label>
                     <input type="text" name="owner_password" class="input-box input-pink" placeholder="***********">
 
                     <button type="submit" class="update-link">Update</button>
                     <div style="clear:both;"></div>
                 </div>
             <?php endif; ?>
+
+            <!-- Global Styles Button -->
+            <a href="/Ecom-CMS/settings/styles" class="btn-global-styles">Global Styles</a>
 
         </div>
     </form>

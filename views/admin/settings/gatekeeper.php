@@ -4,9 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>
-        <?= $title ?>
-    </title>
+    <title><?= $title ?></title>
     <link rel="stylesheet" href="/Ecom-CMS/assets/css/admin.css">
     <style>
         .gatekeeper-card {
@@ -22,6 +20,14 @@
             font-size: 50px;
             display: block;
             margin-bottom: 20px;
+            color: #ff3b30;
+        }
+
+        .lock-svg {
+            width: 50px;
+            height: auto;
+            display: block;
+            margin: 0 auto 20px auto;
         }
 
         .warning-text {
@@ -71,6 +77,11 @@
 
         .logo-footer {
             margin-top: 50px;
+            margin-bottom: 10px;
+        }
+
+        .logo-img {
+            height: 40px;
         }
 
         .warning-footer {
@@ -100,7 +111,12 @@
 
     <div class="container">
         <div class="gatekeeper-card">
-            <div class="lock-icon">🔒</div>
+            <!-- SVG Lock Icon -->
+            <svg class="lock-svg" viewBox="0 0 24 24" fill="none" stroke="#ff3b30" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+            </svg>
 
             <p class="warning-text">
                 This Page is only for<br>
@@ -123,8 +139,8 @@
 
         <!-- Footer -->
         <div style="text-align:center;">
-            <div style="font-size:24px; font-weight:bold; color:#0e4aad;">
-                <span style="color:#2ea043;">🍃</span> Asseminate
+            <div class="logo-footer">
+                <img src="/Ecom-CMS/assets/icons/Asseminate-Logo.png" class="logo-img" alt="Asseminate">
             </div>
 
             <p class="warning-footer">

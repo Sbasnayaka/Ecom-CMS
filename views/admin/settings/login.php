@@ -4,9 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>
-        <?= $title ?>
-    </title>
+    <title><?= $title ?></title>
     <link rel="stylesheet" href="/Ecom-CMS/assets/css/admin.css">
     <style>
         .login-card {
@@ -14,10 +12,8 @@
             margin-top: 80px;
         }
 
-        .logo-large {
-            font-size: 32px;
-            font-weight: bold;
-            color: #000;
+        .logo-img {
+            height: 50px;
             margin-bottom: 30px;
         }
 
@@ -74,9 +70,7 @@
 
     <div class="container">
         <div class="login-card">
-            <div class="logo-large">
-                <span style="color:#2ea043;">🍃</span> Asseminate
-            </div>
+            <img src="/Ecom-CMS/assets/icons/Asseminate-Logo.png" class="logo-img" alt="Asseminate">
 
             <p class="warning-red">
                 Please ensure you enter the correct password. Multiple failed attempts will result in the <span
@@ -93,9 +87,7 @@
                 </p>
 
                 <?php if (isset($error)): ?>
-                    <p style="color:red; font-weight:bold; margin-bottom:15px;">
-                        <?= $error ?>
-                    </p>
+                    <p style="color:red; font-weight:bold; margin-bottom:15px;"><?= $error ?></p>
                 <?php endif; ?>
 
                 <button type="submit" class="btn-login">Login as Admin</button>
