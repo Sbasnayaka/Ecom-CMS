@@ -25,8 +25,23 @@ class ProductController extends BaseController
 
     public function index()
     {
-        // Todo: List all products logic
-        $this->view('admin/products/index', ['title' => 'Products']);
+        $products = $this->productModel->getAll();
+        $this->view('admin/products/index', [
+            'title' => 'Products',
+            'products' => $products
+        ]);
+    }
+
+    public function delete($id)
+    {
+        $this->productModel->delete($id);
+        $this->redirect('product/index');
+    }
+
+    public function delete_all()
+    {
+        $this->productModel->deleteAll();
+        $this->redirect('product/index');
     }
 
     public function add()

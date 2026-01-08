@@ -7,6 +7,18 @@ require_once 'models/BaseModel.php';
 class Product extends BaseModel
 {
 
+    public function getAll()
+    {
+        // specific query to join categories
+        $sql = "SELECT p.*, c.name as category_name 
+                FROM products p 
+                LEFT JOIN categories c ON p.category_id = c.id 
+                ORDER BY p.created_at DESC";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
     public function create($data)
     {
         try {
@@ -84,6 +96,21 @@ class Product extends BaseModel
             // Log error in production
             return false;
         }
+    }
+
+    public function delete($id)
+    {
+        $sql = "DELETE FROM products WHERE id = :id";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bindParam(':id', $id);
+        return $stmt->execute();
+    }
+
+    public function deleteAll()
+    {
+        $sql = "DELETE FROM products";
+        $stmt = $this->conn->prepare($sql);
+        return $stmt->execute();
     }
 
     private function createSlug($string)

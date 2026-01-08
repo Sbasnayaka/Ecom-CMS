@@ -7,7 +7,7 @@ $current_page = $current_page ?? 'dashboard';
         <img src="/Ecom-CMS/assets/icons/dashboard.png" class="nav-icon-img" alt="Dash">
         <span>Dashboard</span>
     </a>
-    <a href="/Ecom-CMS/admin/products" class="nav-item <?= $current_page == 'products' ? 'active' : '' ?>">
+    <a href="/Ecom-CMS/product/index" class="nav-item <?= $current_page == 'products' ? 'active' : '' ?>">
         <img src="/Ecom-CMS/assets/icons/products.png" class="nav-icon-img" alt="Prod">
         <span>Products</span>
     </a>
