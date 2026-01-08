@@ -15,9 +15,9 @@ $current_page = $current_page ?? 'dashboard';
         <img src="/Ecom-CMS/assets/icons/feedback.png" class="nav-icon-img" alt="Feed">
         <span>Feedback</span>
     </a>
-    <a href="/Ecom-CMS/admin/myshop" class="nav-item <?= $current_page == 'myshop' ? 'active' : '' ?>">
+    <a href="/Ecom-CMS/myshop/index" class="nav-item <?= $current_page == 'myshop' ? 'active' : '' ?>">
         <!-- Using Dashboard icon as placeholder as requested -->
-        <img src="/Ecom-CMS/assets/icons/dashboard.png" class="nav-icon-img" alt="Shop">
+        <img src="/Ecom-CMS/assets/icons/myshop.png" class="nav-icon-img" alt="Shop">
         <span>My Shop</span>
     </a>
     <a href="/Ecom-CMS/admin/settings" class="nav-item <?= $current_page == 'settings' ? 'active' : '' ?>">
