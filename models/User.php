@@ -16,6 +16,15 @@ class User extends BaseModel
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
+    public function login($username, $password)
+    {
+        $user = $this->getByUsername($username);
+        if ($user && password_verify($password, $user['password_hash'])) {
+            return $user;
+        }
+        return false;
+    }
+
     public function getByRole($role)
     {
         $sql = "SELECT * FROM users WHERE role = :role LIMIT 1";

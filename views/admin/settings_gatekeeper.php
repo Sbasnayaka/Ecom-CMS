@@ -160,7 +160,7 @@
                     Solution Admin Team.
                 </p>
 
-                <a href="/Ecom-CMS/auth/login?role=developer" class="btn-login-admin">
+                <a href="/Ecom-CMS/settings/login" class="btn-login-admin">
                     Login as Admin
                 </a>
             </div>

@@ -22,7 +22,6 @@ class SettingsController extends BaseController
     // 1. Gatekeeper / Main Entry
     public function index()
     {
-        // If already authenticated
         if (isset($_SESSION['dev_access_granted']) && $_SESSION['dev_access_granted'] === true) {
             $this->redirect('settings/edit');
             return;
@@ -42,8 +41,7 @@ class SettingsController extends BaseController
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $password = $_POST['password'] ?? '';
 
-            // Hardcoded Developer Password as requested
-            // In production, this should be hashed, but for this specific requirement:
+            // Developer Password from requirements
             if ($password === 'Asseminate@01') {
                 $_SESSION['dev_access_granted'] = true;
                 $this->redirect('settings/edit');
@@ -74,6 +72,7 @@ class SettingsController extends BaseController
         $settings = $this->settingModel->getMultiple($keys);
 
         // Get Shop Owner credentials
+        // Use LIMIT 1 as we generally assume single tenant/owner for this setup
         $owner = $this->userModel->getByRole('owner');
 
         $this->view('admin/settings/form', [
@@ -118,13 +117,21 @@ class SettingsController extends BaseController
                 }
             }
 
-            // Owner Credentials Update
-            $ownerId = $_POST['owner_id'] ?? null;
+            // Owner Credentials Update / Create
+            $ownerId = $_POST['owner_id'] ?? '';
             $newUsername = $_POST['owner_username'] ?? '';
             $newPass = $_POST['owner_password'] ?? '';
 
-            if ($ownerId && !empty($newUsername)) {
-                $this->userModel->updateOwnerProfile($ownerId, $newUsername, $newPass);
+            if (!empty($ownerId)) {
+                // Update Existing
+                if (!empty($newUsername)) {
+                    $this->userModel->updateOwnerProfile($ownerId, $newUsername, $newPass);
+                }
+            } else {
+                // Create New if not exists and fields are filled
+                if (!empty($newUsername) && !empty($newPass)) {
+                    $this->userModel->create($newUsername, $newPass, 'owner');
+                }
             }
 
             $this->redirect('settings/edit');
@@ -136,12 +143,13 @@ class SettingsController extends BaseController
     {
         $this->checkAuth();
 
-        // Fetch existing style settings or defaults
         $styleKeys = [
             'font_family',
             'h1_size',
+            'h1_line_height',
             'h1_color',
             'body_size',
+            'body_line_height',
             'body_color',
             'primary_color',
             'secondary_color',

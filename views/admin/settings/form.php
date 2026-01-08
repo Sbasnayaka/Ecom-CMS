@@ -198,21 +198,21 @@
                 value="<?= htmlspecialchars($settings['currency_symbol'] ?? '') ?>">
 
             <!-- User Management -->
-            <?php if ($owner): ?>
-                <div class="user-mgmt-box">
-                    <input type="hidden" name="owner_id" value="<?= $owner['id'] ?>">
+            <div class="user-mgmt-box">
+                <!-- Hidden ID if exists -->
+                <input type="hidden" name="owner_id" value="<?= $owner['id'] ?? '' ?>">
 
-                    <label class="user-mgmt-label">Shop Owner Username</label>
-                    <input type="text" name="owner_username" class="input-box input-pink"
-                        value="<?= htmlspecialchars($owner['username']) ?>">
+                <label class="user-mgmt-label">Shop Owner Username</label>
+                <input type="text" name="owner_username" class="input-box input-pink"
+                    value="<?= htmlspecialchars($owner['username'] ?? '') ?>" placeholder="Enter Username" required>
 
-                    <label class="user-mgmt-label">Shop Owner Password</label>
-                    <input type="text" name="owner_password" class="input-box input-pink" placeholder="***********">
+                <label class="user-mgmt-label">Shop Owner Password</label>
+                <input type="text" name="owner_password" class="input-box input-pink" placeholder="***********"
+                    <?= empty($owner) ? 'required' : '' ?>>
 
-                    <button type="submit" class="update-link">Update</button>
-                    <div style="clear:both;"></div>
-                </div>
-            <?php endif; ?>
+                <button type="submit" class="update-link"><?= empty($owner) ? 'Create' : 'Update' ?></button>
+                <div style="clear:both;"></div>
+            </div>
 
             <!-- Global Styles Button -->
             <a href="/Ecom-CMS/settings/styles" class="btn-global-styles">Global Styles</a>
