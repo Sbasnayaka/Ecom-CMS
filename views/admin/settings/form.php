@@ -143,7 +143,11 @@
 
             <div class="header-bar">
                 <img src="/Ecom-CMS/assets/icons/Asseminate-Logo.png" class="logo-img" alt="Asseminate">
-                <button type="submit" class="publish-txt">PUBLISH</button>
+                <div style="display:flex; gap:15px; align-items:center;">
+                    <a href="/Ecom-CMS/auth/logout"
+                        style="text-decoration:none; color:#ff3b30; font-weight:bold; font-size:14px;">Logout</a>
+                    <button type="submit" class="publish-txt">PUBLISH</button>
+                </div>
             </div>
 
             <h2 style="margin:0 0 20px 0;">Shop Settings</h2>
