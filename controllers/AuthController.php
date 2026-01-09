@@ -62,11 +62,16 @@ class AuthController extends BaseController
                 $_SESSION['username'] = $user['username'];
 
                 // Redirect based on role (Developer vs Shop Owner)
+                // Both go to the main dashboard now
+                $this->redirect('admin/dashboard');
+
+                /* 
                 if ($user['role'] === 'developer') {
                     $this->redirect('admin/dashboard');
                 } else {
                     $this->redirect('shop/dashboard');
                 }
+                */
             } else {
                 // FAILURE: Wrong credentials
                 $this->redirect('auth/login?error=invalid_credentials');

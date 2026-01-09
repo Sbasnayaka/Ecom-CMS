@@ -29,14 +29,22 @@
 
     <div class="container">
         <!-- Header -->
-        <div class="page-header">
-            <div class="welcome-section">
+        <div class="page-header"
+            style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+            <div class="welcome-section" style="margin-bottom: 0;">
                 <h1 class="welcome-title">Welcome back!</h1>
                 <p class="welcome-sub"><?= $_SESSION['username'] ?? 'Shop Owner' ?></p>
             </div>
-            <!-- Placeholder for Avatar -->
-            <div class="user-avatar"
-                style="background: #ddd; display:flex; align-items:center; justify-content:center;">👤</div>
+
+            <div style="display: flex; gap: 10px; align-items: center;">
+                <!-- User Avatar -->
+                <div class="user-avatar"
+                    style="background: #ddd; display:flex; align-items:center; justify-content:center;">👤</div>
+
+                <!-- Logout Button -->
+                <a href="/Ecom-CMS/auth/logout"
+                    style="background-color: #ff3b30; color: white; padding: 8px 12px; border-radius: 6px; text-decoration: none; font-size: 14px; font-weight: bold;">Logout</a>
+            </div>
         </div>
 
         <!-- Stats Grid -->
