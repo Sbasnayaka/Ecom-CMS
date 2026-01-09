@@ -141,12 +141,46 @@
     <form action="/Ecom-CMS/settings/update" method="POST" enctype="multipart/form-data">
         <div class="container" style="padding-bottom:100px;">
 
+            <style>
+                .btn-publish {
+                    background: linear-gradient(135deg, #007aff, #0056b3);
+                    color: white;
+                    border: none;
+                    padding: 10px 20px;
+                    border-radius: 25px;
+                    font-weight: bold;
+                    cursor: pointer;
+                    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+                    transition: transform 0.2s, box-shadow 0.2s;
+                }
+
+                .btn-publish:hover {
+                    transform: translateY(-2px);
+                    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+                }
+
+                .btn-exit {
+                    background: white;
+                    color: #ff3b30;
+                    border: 2px solid #ff3b30;
+                    padding: 8px 16px;
+                    border-radius: 25px;
+                    text-decoration: none;
+                    font-weight: bold;
+                    font-size: 14px;
+                    transition: all 0.3s;
+                }
+
+                .btn-exit:hover {
+                    background: #ff3b30;
+                    color: white;
+                }
+            </style>
             <div class="header-bar">
                 <img src="/Ecom-CMS/assets/icons/Asseminate-Logo.png" class="logo-img" alt="Asseminate">
                 <div style="display:flex; gap:15px; align-items:center;">
-                    <a href="/Ecom-CMS/auth/logout"
-                        style="text-decoration:none; color:#ff3b30; font-weight:bold; font-size:14px;">Logout</a>
-                    <button type="submit" class="publish-txt">PUBLISH</button>
+                    <a href="/Ecom-CMS/settings/exit_dev" class="btn-exit">Exit</a>
+                    <button type="submit" class="publish-txt btn-publish">PUBLISH</button>
                 </div>
             </div>
 

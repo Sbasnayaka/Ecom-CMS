@@ -179,6 +179,13 @@ class SettingsController extends BaseController
         }
     }
 
+    // 8. Exit Developer Mode
+    public function exit_dev()
+    {
+        unset($_SESSION['dev_access_granted']);
+        $this->redirect('settings/index');
+    }
+
     private function checkAuth()
     {
         if (!isset($_SESSION['dev_access_granted']) || $_SESSION['dev_access_granted'] !== true) {
