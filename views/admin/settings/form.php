@@ -175,10 +175,42 @@
                     background: #ff3b30;
                     color: white;
                 }
+
+                @media (max-width: 600px) {
+                    .header-bar {
+                        flex-direction: row;
+                        flex-wrap: wrap;
+                        gap: 10px;
+                    }
+
+                    .logo-img {
+                        height: 30px;
+                        /* Slightly smaller logo */
+                    }
+
+                    .header-actions {
+                        margin-left: auto;
+                        /* Push to right */
+                        display: flex;
+                        gap: 8px !important;
+                        /* Reduce gap */
+                        align-items: center;
+                    }
+
+                    .btn-publish {
+                        padding: 8px 14px;
+                        font-size: 13px;
+                    }
+
+                    .btn-exit {
+                        padding: 6px 12px;
+                        font-size: 13px;
+                    }
+                }
             </style>
             <div class="header-bar">
                 <img src="/Ecom-CMS/assets/icons/Asseminate-Logo.png" class="logo-img" alt="Asseminate">
-                <div style="display:flex; gap:15px; align-items:center;">
+                <div class="header-actions" style="display:flex; gap:15px; align-items:center;">
                     <a href="/Ecom-CMS/settings/exit_dev" class="btn-exit">Exit</a>
                     <button type="submit" class="publish-txt btn-publish">PUBLISH</button>
                 </div>
