@@ -118,19 +118,32 @@ class SettingsController extends BaseController
             }
 
             // Owner Credentials Update / Create
+            // Owner Credentials Update / Create
             $ownerId = $_POST['owner_id'] ?? '';
             $newUsername = $_POST['owner_username'] ?? '';
             $newPass = $_POST['owner_password'] ?? '';
+            $action = $_POST['owner_action'] ?? 'update';
 
-            if (!empty($ownerId)) {
-                // Update Existing
-                if (!empty($newUsername)) {
-                    $this->userModel->updateOwnerProfile($ownerId, $newUsername, $newPass);
+            if ($action === 'create') {
+                // Delete old owner if exists
+                if (!empty($ownerId)) {
+                    $this->userModel->delete($ownerId);
                 }
-            } else {
-                // Create New if not exists and fields are filled
+                // Create new owner
                 if (!empty($newUsername) && !empty($newPass)) {
                     $this->userModel->create($newUsername, $newPass, 'owner');
+                }
+            } else {
+                // Update Existing
+                if (!empty($ownerId)) {
+                    if (!empty($newUsername)) {
+                        $this->userModel->updateOwnerProfile($ownerId, $newUsername, $newPass);
+                    }
+                } else {
+                    // Fallback: Create if not exists
+                    if (!empty($newUsername) && !empty($newPass)) {
+                        $this->userModel->create($newUsername, $newPass, 'owner');
+                    }
                 }
             }
 

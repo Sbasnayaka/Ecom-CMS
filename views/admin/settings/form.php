@@ -280,7 +280,16 @@
                 <input type="text" name="owner_password" class="input-box input-pink" placeholder="***********"
                     <?= empty($owner) ? 'required' : '' ?>>
 
-                <button type="submit" class="update-link"><?= empty($owner) ? 'Create' : 'Update' ?></button>
+                <div style="display:flex; gap:10px; margin-top:15px;">
+                    <button type="submit" name="owner_action" value="update" class="update-link"
+                        style="border:1px solid #ff3b30; border-radius:15px; padding:8px 15px; text-decoration:none; font-size:14px;">Update
+                        Existing</button>
+
+                    <button type="submit" name="owner_action" value="create" class="update-link"
+                        style="background:#ff3b30; color:white; border-radius:15px; padding:8px 15px; text-decoration:none; font-size:14px;"
+                        onclick="return confirm('Warning: This will DELETE the existing owner account and create a new one. The old login will stop working. Continue?')">Create
+                        New</button>
+                </div>
                 <div style="clear:both;"></div>
             </div>
 

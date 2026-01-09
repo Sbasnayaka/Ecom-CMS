@@ -61,5 +61,13 @@ class User extends BaseModel
         $stmt->bindParam(':id', $id);
         return $stmt->execute();
     }
+
+    public function delete($id)
+    {
+        $sql = "DELETE FROM users WHERE id = :id";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bindParam(':id', $id);
+        return $stmt->execute();
+    }
 }
 ?>
