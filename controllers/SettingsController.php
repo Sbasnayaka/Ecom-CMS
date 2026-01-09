@@ -156,7 +156,36 @@ class SettingsController extends BaseController
             'bg_color',
             'btn_radius',
             'btn_text_color',
-            'btn_bg_color'
+            'btn_bg_color',
+            // Layout
+            'bp_mobile',
+            'bp_tablet',
+            'bp_desktop',
+            'bp_wide',
+            'container_mobile',
+            'container_tablet',
+            'container_desktop',
+            'grid_cols',
+            'grid_gutter',
+            // Media
+            'aspect_product',
+            'aspect_banner',
+            'aspect_thumb',
+            'global_img_radius',
+            // Behavior
+            'sticky_header',
+            'sticky_filters',
+            'sticky_cart',
+            'scroll_smooth',
+            'scroll_offset',
+            'hover_interaction',
+            // System
+            'skeleton_type',
+            'skeleton_speed',
+            'z_header',
+            'z_modal',
+            'z_drawer',
+            'z_tooltip'
         ];
         $styles = $this->settingModel->getMultiple($styleKeys);
 
