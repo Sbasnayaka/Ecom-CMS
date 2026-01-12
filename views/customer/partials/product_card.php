@@ -1,6 +1,10 @@
 <?php
 // Product Card Partial
-// Expects $prod array available
+// Expects $prod array available AND $settings array (global or passed)
+// We need to ensure $settings is available here. In Home view it is.
+
+$currency = isset($settings['currency_symbol']) ? $settings['currency_symbol'] : 'LKR';
+// Fallback to LKR if not set, but database usually has it.
 
 $imagePath = !empty($prod['main_image'])
     ? '/Ecom-CMS/assets/uploads/' . $prod['main_image']
@@ -15,40 +19,26 @@ $isOnSale = !empty($prod['sale_price']) && $prod['sale_price'] < $prod['price'];
             <img src="<?= $imagePath ?>" class="product-thumb" alt="<?= htmlspecialchars($prod['title']) ?>">
         </a>
 
-        <!-- Badges -->
         <?php if ($isOnSale): ?>
-            <span class="sale-badge">SALE</span>
+            <div class="sale-badge">SALE</div>
         <?php endif; ?>
 
-        <!-- Add to Cart / Actions Overlay -->
-        <div class="badge-overlay">
-            <div class="cart-btn" onclick="addToCart(<?= $prod['id'] ?>)">
-                <i class="fas fa-shopping-cart" style="font-size: 12px;"></i>
-            </div>
+        <div class="cart-btn-overlay" onclick="addToCart(<?= $prod['id'] ?>)">
+            <i class="fas fa-shopping-cart" style="font-size: 14px;"></i>
         </div>
     </div>
 
     <div class="product-info">
         <h3 class="product-name">
-            <a href="/Ecom-CMS/shop/product/<?= $prod['id'] ?>">
-                <?= htmlspecialchars($prod['title']) ?>
-            </a>
+            <a href="/Ecom-CMS/shop/product/<?= $prod['id'] ?>"><?= htmlspecialchars($prod['title']) ?></a>
         </h3>
-        <div class="product-category" style="font-size:10px; color:#888; margin-bottom: 5px;">
-            <?= isset($prod['category_name']) ? htmlspecialchars($prod['category_name']) : 'General' ?>
-        </div>
 
-        <div class="product-price">
+        <div class="product-price-box">
             <?php if ($isOnSale): ?>
-                <span class="old-price">LKR
-                    <?= number_format($prod['price'], 2) ?>
-                </span>
-                <span class="current-price" style="color:red;">LKR
-                    <?= number_format($prod['sale_price'], 2) ?>
-                </span>
+                <span class="old-price"><?= $currency ?>     <?= number_format($prod['price'], 0) ?></span>
+                <span class="current-price price-sale"><?= $currency ?>     <?= number_format($prod['sale_price'], 0) ?></span>
             <?php else: ?>
-                LKR
-                <?= number_format($prod['price'], 2) ?>
+                <span class="current-price"><?= $currency ?>     <?= number_format($prod['price'], 0) ?></span>
             <?php endif; ?>
         </div>
     </div>
