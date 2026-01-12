@@ -27,8 +27,8 @@
                 ;
                 */
                 /* Note: User screenshot shows white card bg, but maybe body is lavender? 
-                               Safe to keep body white for now as per "UI design" request unless user sets it explicitly.
-                               Let's trust the CSS default for "clean white" look matching screenshot. */
+                                       Safe to keep body white for now as per "UI design" request unless user sets it explicitly.
+                                       Let's trust the CSS default for "clean white" look matching screenshot. */
             <?php endif; ?>
 
             <?php if (!empty($settings['font_family'])): ?>
@@ -57,9 +57,14 @@
         <div>
             <!-- Shop Avatar/Logo -->
             <?php
-            $logoPath = 'assets/uploads/' . ($settings['shop_logo'] ?? '');
-            $logo = (!empty($settings['shop_logo']) && file_exists($_SERVER['DOCUMENT_ROOT'] . '/Ecom-CMS/' . $logoPath))
-                ? '/Ecom-CMS/' . $logoPath
+            // Settings store full web path (e.g. /Ecom-CMS/assets/uploads/logo.png)
+            $logoUrl = $settings['shop_logo'] ?? '';
+
+            // Construct physical path for check: Root + LogoUrl
+            $physicalPath = $_SERVER['DOCUMENT_ROOT'] . $logoUrl;
+
+            $logo = (!empty($logoUrl) && file_exists($physicalPath))
+                ? $logoUrl
                 : 'https://via.placeholder.com/40';
             ?>
             <img src="<?= $logo ?>" class="shop-avatar" alt="Shop Logo">
@@ -71,8 +76,12 @@
         <div class="header-inner">
             <div class="logo-area">
                 <?php
-                $logo = isset($settings['shop_logo']) && !empty($settings['shop_logo'])
-                    ? '/Ecom-CMS/assets/uploads/' . $settings['shop_logo']
+                // Use same logic as mobile
+                $logoUrl = $settings['shop_logo'] ?? '';
+                $physicalPath = $_SERVER['DOCUMENT_ROOT'] . $logoUrl;
+
+                $logo = (!empty($logoUrl) && file_exists($physicalPath))
+                    ? $logoUrl
                     : 'https://via.placeholder.com/50';
                 ?>
                 <div style="display:flex; align-items:center; gap:10px;">
@@ -80,7 +89,7 @@
                         style="width: 50px; height: 50px; border-radius: 50%; object-fit: cover;">
                     <div>
                         <h2 style="margin:0; font-size: 18px;">
-                            <?= isset($settings['shop_name']) ? htmlspecialchars($settings['shop_name']) : 'Shop Name' ?>
+                            <?= !empty($settings['shop_name']) ? htmlspecialchars($settings['shop_name']) : 'Dark Lavender Clothing!' ?>
                         </h2>
                     </div>
                 </div>
