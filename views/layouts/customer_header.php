@@ -27,8 +27,8 @@
                 ;
                 */
                 /* Note: User screenshot shows white card bg, but maybe body is lavender? 
-                   Safe to keep body white for now as per "UI design" request unless user sets it explicitly.
-                   Let's trust the CSS default for "clean white" look matching screenshot. */
+                               Safe to keep body white for now as per "UI design" request unless user sets it explicitly.
+                               Let's trust the CSS default for "clean white" look matching screenshot. */
             <?php endif; ?>
 
             <?php if (!empty($settings['font_family'])): ?>
@@ -47,18 +47,19 @@
 <body>
 
     <!-- Mobile Header (Visible only on Mobile) -->
-    <div class="mobile-header d-lg-none" style="display: none;"> <!-- CSS handles display, adding ID for logic -->
+    <div class="mobile-header d-lg-none"> <!-- CSS handles display, adding ID for logic -->
         <div class="welcome-text">
             <h1>Welcome!</h1>
             <p>
-                <?= isset($settings['shop_name']) ? htmlspecialchars($settings['shop_name']) : 'Our Shop' ?>
+                <?= !empty($settings['shop_name']) ? htmlspecialchars($settings['shop_name']) : 'Dark Lavender Clothing!' ?>
             </p>
         </div>
         <div>
             <!-- Shop Avatar/Logo -->
             <?php
-            $logo = isset($settings['shop_logo']) && !empty($settings['shop_logo'])
-                ? '/Ecom-CMS/assets/uploads/' . $settings['shop_logo']
+            $logoPath = 'assets/uploads/' . ($settings['shop_logo'] ?? '');
+            $logo = (!empty($settings['shop_logo']) && file_exists($_SERVER['DOCUMENT_ROOT'] . '/Ecom-CMS/' . $logoPath))
+                ? '/Ecom-CMS/' . $logoPath
                 : 'https://via.placeholder.com/40';
             ?>
             <img src="<?= $logo ?>" class="shop-avatar" alt="Shop Logo">

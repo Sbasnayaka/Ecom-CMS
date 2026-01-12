@@ -6,9 +6,10 @@
 $currency = isset($settings['currency_symbol']) ? $settings['currency_symbol'] : 'LKR';
 // Fallback to LKR if not set, but database usually has it.
 
-$imagePath = !empty($prod['main_image'])
-    ? '/Ecom-CMS/assets/uploads/' . $prod['main_image']
-    : 'https://via.placeholder.com/300';
+$prodPath = 'assets/uploads/' . ($prod['main_image'] ?? '');
+$imagePath = (!empty($prod['main_image']) && file_exists($_SERVER['DOCUMENT_ROOT'] . '/Ecom-CMS/' . $prodPath))
+    ? '/Ecom-CMS/' . $prodPath
+    : 'https://via.placeholder.com/300?text=' . urlencode($prod['title']);
 
 $isOnSale = !empty($prod['sale_price']) && $prod['sale_price'] < $prod['price'];
 ?>

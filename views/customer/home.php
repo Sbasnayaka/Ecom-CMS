@@ -42,7 +42,10 @@
             <?php foreach ($categories as $cat): ?>
                 <div class="cat-item">
                     <?php
-                    $img = !empty($cat['image']) ? '/Ecom-CMS/assets/uploads/' . $cat['image'] : 'https://via.placeholder.com/70';
+                    $catPath = 'assets/uploads/' . ($cat['image'] ?? '');
+                    $img = (!empty($cat['image']) && file_exists($_SERVER['DOCUMENT_ROOT'] . '/Ecom-CMS/' . $catPath))
+                        ? '/Ecom-CMS/' . $catPath
+                        : 'https://via.placeholder.com/80?text=' . urlencode($cat['name']);
                     ?>
                     <img src="<?= $img ?>" class="cat-img" alt="<?= htmlspecialchars($cat['name']) ?>">
                     <div class="cat-name">
