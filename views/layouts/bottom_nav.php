@@ -38,6 +38,17 @@ $current_page = $current_page ?? 'dashboard';
         opacity: 0.6;
     }
 
+    .nav-item {
+        padding: 5px 10px;
+        border-radius: 12px;
+        transition: background-color 0.2s;
+    }
+
+    .nav-item.active,
+    .nav-item:hover {
+        background-color: #e1f0ff;
+    }
+
     .nav-item.active .nav-icon-img {
         opacity: 1;
         /* Full visibility when active */
