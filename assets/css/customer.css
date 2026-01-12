@@ -25,6 +25,15 @@ body {
     padding-bottom: 80px;
 }
 
+/* Helper Classes */
+.display-desktop-only {
+    display: none !important;
+}
+
+.display-mobile-only {
+    display: block !important;
+}
+
 a {
     text-decoration: none;
     color: inherit;
@@ -331,26 +340,229 @@ p {
     body {
         padding-bottom: 0;
         background: #f8f9fa;
+        /* Light grey bg for desktop usually looks better for cards */
     }
 
-    .product-grid {
-        grid-template-columns: repeat(4, 1fr);
+    .display-desktop-only {
+        display: block !important;
     }
 
-    /* On desktop, maybe we still want scroll for "Latest"? 
-       Or switch to grid? User asked for "slide scroll" generally.
-       Let's keep scroll for Home on Mobile, but design usually implies Grid on Desktop or Carousel.
-       For now, let's make .products-scroll behave like a grid on Desktop if needed, OR keep it scrollable?
-       Usually Home Page sliders are sliders on desktop too. 
-       But let's stick to Mobile Request primarily.
-       If we want grid on desktop for these sections, we can reset flex to grid.
-    */
+    .display-mobile-only {
+        display: none !important;
+    }
+
+    /* Layout Container */
+    .home-layout {
+        display: flex;
+        gap: 30px;
+        padding-top: 20px;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+
+    /* Sidebar */
+    .sidebar {
+        width: 260px;
+        flex-shrink: 0;
+        background: transparent;
+    }
+
+    .filter-group {
+        margin-bottom: 30px;
+    }
+
+    .filter-title {
+        font-size: 14px;
+        font-weight: 700;
+        margin-bottom: 10px;
+        display: block;
+        color: #000;
+    }
+
+    .checkbox-label {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 13px;
+        color: #555;
+        margin-bottom: 8px;
+        cursor: pointer;
+    }
+
+    .checkbox-label input[type="checkbox"] {
+        width: 16px;
+        height: 16px;
+        border: 1px solid #ccc;
+        border-radius: 3px;
+    }
+
+    /* Shop Info Box in Sidebar */
+    .shop-info-box {
+        margin-top: 50px;
+        padding: 20px 0;
+        border-top: 1px solid #eaeaea;
+    }
+
+    .shop-info-title {
+        font-size: 18px;
+        font-weight: 800;
+        margin-bottom: 10px;
+        line-height: 1.2;
+    }
+
+    .shop-desc {
+        font-size: 12px;
+        color: #666;
+        margin-bottom: 15px;
+        line-height: 1.5;
+    }
+
+    .btn-review {
+        background: #6AD07F;
+        /* Green from screenshot */
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 8px;
+        font-weight: 600;
+        width: 100%;
+        cursor: pointer;
+        margin-bottom: 15px;
+    }
+
+    .social-icons {
+        display: flex;
+        gap: 15px;
+    }
+
+    .social-icons i {
+        font-size: 20px;
+        cursor: pointer;
+    }
+
+    /* Main Content */
+    .main-content {
+        flex-grow: 1;
+        min-width: 0;
+        /* Prevent flex overflow */
+    }
+
+    /* Desktop Product Grid Transformation */
     .products-scroll {
-        /* Optional: Turn into grid on desktop? Or keep simplified scroll? */
-        /* display: grid; grid-template-columns: repeat(4, 1fr); overflow: visible; */
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        /* 3 columns per screenshot */
+        gap: 20px;
+        padding: 0;
+        /* Align with headers */
+        overflow: visible;
+        width: 100%;
+    }
+
+    .products-scroll .product-card {
+        width: 100%;
+        min-width: unset;
+        /* Remove mobile constraint */
+        flex: unset;
+        margin-bottom: 0;
+    }
+
+    /* Hide scrollbars for desktop if any remain */
+    .products-scroll::-webkit-scrollbar {
+        display: none;
     }
 
     .mobile-header {
         display: none;
+    }
+
+    /* Desktop Header enhancements */
+    .desktop-header {
+        background: white;
+        padding: 15px 0;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+        margin-bottom: 20px;
+    }
+
+    .header-inner {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 30px;
+    }
+
+    .logo-area {
+        flex: 0 0 auto;
+    }
+
+    .search-bar {
+        flex: 1;
+        position: relative;
+        max-width: 500px;
+    }
+
+    .search-input {
+        width: 100%;
+        padding: 10px 40px 10px 15px;
+        border: 1px solid #eee;
+        border-radius: 4px;
+        background: #f9f9f9;
+        font-size: 13px;
+    }
+
+    .header-actions {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+    }
+
+    .cat-btn {
+        background: #4A90E2;
+        /* Blue */
+        color: white;
+        border: none;
+        padding: 8px 15px;
+        border-radius: 4px;
+        font-size: 13px;
+        font-weight: 600;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+    }
+
+    .btn-red {
+        background: #ff3b30;
+        color: white;
+        border: none;
+        padding: 8px 20px;
+        border-radius: 4px;
+        /* Rectangular as in design */
+        font-size: 13px;
+        font-weight: 600;
+        cursor: pointer;
+    }
+
+    /* Secondary Nav */
+    .desktop-nav-links {
+        max-width: 1200px;
+        margin: 15px auto 0;
+        padding: 0 20px;
+        display: flex;
+        gap: 30px;
+        justify-content: center;
+        /* Centered visually in screenshot maybe? Or left? Screenshot looks aligned with content start? Actually centered-ish or spread. */
+        font-size: 13px;
+        font-weight: 500;
+        color: #555;
+    }
+
+    .desktop-nav-links a:hover {
+        color: var(--primary-color);
     }
 }

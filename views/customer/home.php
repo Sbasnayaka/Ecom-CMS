@@ -6,10 +6,28 @@
 
 <div class="home-layout">
 
+    <?php
+    // Organize Categories into Tree
+    $categoryTree = [];
+    // First pass: Main categories
+    foreach ($categories as $cat) {
+        if (empty($cat['parent_id'])) {
+            $categoryTree[$cat['id']] = $cat;
+            $categoryTree[$cat['id']]['children'] = [];
+        }
+    }
+    // Second pass: Subcategories
+    foreach ($categories as $cat) {
+        if (!empty($cat['parent_id']) && isset($categoryTree[$cat['parent_id']])) {
+            $categoryTree[$cat['parent_id']]['children'][] = $cat;
+        }
+    }
+    ?>
+
     <!-- DESKTOP SIDEBAR (Visible only on Desktop) -->
     <aside class="sidebar display-desktop-only">
         <div class="filter-group">
-            <span class="filter-title">Filter by Price</span>
+            <span class="filter-title">Filter by Price,</span>
             <div style="display: flex; gap: 10px;">
                 <input type="text" placeholder="Min"
                     style="width: 60px; padding: 5px; border: 1px solid #ddd; border-radius: 4px;">
@@ -20,12 +38,45 @@
 
         <div class="filter-group">
             <span class="filter-title">Filter by Category</span>
-            <?php foreach ($categories as $cat): ?>
+            <?php foreach ($categoryTree as $mainCat): ?>
                 <label class="checkbox-label">
                     <input type="checkbox">
-                    <?= htmlspecialchars($cat['name']) ?>
+                    <strong><?= htmlspecialchars($mainCat['name']) ?></strong>
                 </label>
+                <?php if (!empty($mainCat['children'])): ?>
+                    <div style="margin-left: 10px; display: flex; flex-direction: column;">
+                        <?php foreach ($mainCat['children'] as $childCat): ?>
+                            <label class="checkbox-label" style="font-size: 12px; color: #777;">
+                                <input type="checkbox">
+                                -- <?= htmlspecialchars($childCat['name']) ?>
+                            </label>
+                        <?php endforeach; ?>
+                    </div>
+                <?php endif; ?>
             <?php endforeach; ?>
+        </div>
+
+        <!-- Shop Info Box -->
+        <div class="shop-info-box">
+            <div class="shop-info-title">
+                <?= !empty($settings['shop_name']) ? htmlspecialchars($settings['shop_name']) : 'Dark Lavender Clothing' ?>
+            </div>
+            <div class="shop-desc">
+                Tailored to your tastes...<br><br>
+                No: 213/7, Ghanawimala Mw,<br>
+                Hewagama, Kaduwela.<br><br>
+                076 260 00 00 / 077 255 55 55<br>
+                info@darklavender.com
+            </div>
+
+            <button class="btn-review">Give us a Review!</button>
+
+            <div class="social-icons">
+                <i class="fab fa-facebook" style="color: #1877F2;"></i>
+                <i class="fab fa-tiktok" style="color: #000;"></i>
+                <i class="fab fa-instagram" style="color: #C13584;"></i>
+                <i class="fab fa-youtube" style="color: #FF0000;"></i>
+            </div>
         </div>
     </aside>
 

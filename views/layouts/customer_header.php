@@ -27,8 +27,8 @@
                 ;
                 */
                 /* Note: User screenshot shows white card bg, but maybe body is lavender? 
-                                       Safe to keep body white for now as per "UI design" request unless user sets it explicitly.
-                                       Let's trust the CSS default for "clean white" look matching screenshot. */
+                                           Safe to keep body white for now as per "UI design" request unless user sets it explicitly.
+                                           Let's trust the CSS default for "clean white" look matching screenshot. */
             <?php endif; ?>
 
             <?php if (!empty($settings['font_family'])): ?>
@@ -110,6 +110,14 @@
                 </div>
                 <button class="btn-red">Sale Items</button>
             </div>
+        </div>
+
+        <!-- Secondary Nav Links -->
+        <div class="desktop-nav-links">
+            <a href="/Ecom-CMS/">Home Page</a>
+            <a href="/Ecom-CMS/latest">Newly Released Products</a>
+            <a href="/Ecom-CMS/featured">Featured Products</a>
+            <a href="/Ecom-CMS/sale">Sale! Sale! (Discounts)</a>
         </div>
     </header>
 
