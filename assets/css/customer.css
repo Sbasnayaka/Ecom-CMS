@@ -182,9 +182,11 @@ p {
 }
 
 .products-scroll .product-card {
+    width: 160px;
+    /* Fixed width */
     min-width: 160px;
-    /* Fixed width for card in scroll */
-    flex-shrink: 0;
+    flex: 0 0 160px;
+    /* Prevent shrinking/growing */
     margin-bottom: 0;
 }
 
@@ -204,11 +206,11 @@ p {
 .product-thumb-container {
     position: relative;
     border-radius: 20px;
-    /* Matching design */
     overflow: hidden;
     margin-bottom: 10px;
-    aspect-ratio: 1/1.2;
-    /* Taller images */
+    width: 100%;
+    aspect-ratio: 1 / 1.2;
+    /* Fixed frame size ratio */
     background: #f9f9f9;
 }
 
