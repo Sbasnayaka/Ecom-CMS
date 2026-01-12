@@ -60,7 +60,7 @@
             <div class="section-header">
                 <h2 class="section-title">Featured Products <span class="tag special">SPECIAL</span></h2>
             </div>
-            <div class="product-grid">
+            <div class="products-scroll">
                 <?php foreach ($featuredProducts as $prod): ?>
                     <?php include 'views/customer/partials/product_card.php'; ?>
                 <?php endforeach; ?>
@@ -71,7 +71,7 @@
         <div class="section-header">
             <h2 class="section-title">Latest Products <span class="tag new">NEW</span></h2>
         </div>
-        <div class="product-grid">
+        <div class="products-scroll">
             <?php foreach ($latestProducts as $prod): ?>
                 <?php include 'views/customer/partials/product_card.php'; ?>
             <?php endforeach; ?>
@@ -82,7 +82,7 @@
             <div class="section-header">
                 <h2 class="section-title">Sale Products <span class="tag sale">Sale..!</span></h2>
             </div>
-            <div class="product-grid">
+            <div class="products-scroll">
                 <?php foreach ($saleProducts as $prod): ?>
                     <?php include 'views/customer/partials/product_card.php'; ?>
                 <?php endforeach; ?>

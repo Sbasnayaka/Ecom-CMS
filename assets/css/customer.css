@@ -166,11 +166,33 @@ p {
 }
 
 /* --- Product Grid --- */
+/* --- Product Scroll (Mobile) --- */
+.products-scroll {
+    display: flex;
+    overflow-x: auto;
+    gap: 15px;
+    padding: 0 20px;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    align-items: flex-start;
+}
+
+.products-scroll::-webkit-scrollbar {
+    display: none;
+}
+
+.products-scroll .product-card {
+    min-width: 160px;
+    /* Fixed width for card in scroll */
+    flex-shrink: 0;
+    margin-bottom: 0;
+}
+
+/* Grid for desktop or shop page */
 .product-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 15px;
-    /* Space between cards */
     padding: 0 20px;
 }
 
@@ -311,6 +333,19 @@ p {
 
     .product-grid {
         grid-template-columns: repeat(4, 1fr);
+    }
+
+    /* On desktop, maybe we still want scroll for "Latest"? 
+       Or switch to grid? User asked for "slide scroll" generally.
+       Let's keep scroll for Home on Mobile, but design usually implies Grid on Desktop or Carousel.
+       For now, let's make .products-scroll behave like a grid on Desktop if needed, OR keep it scrollable?
+       Usually Home Page sliders are sliders on desktop too. 
+       But let's stick to Mobile Request primarily.
+       If we want grid on desktop for these sections, we can reset flex to grid.
+    */
+    .products-scroll {
+        /* Optional: Turn into grid on desktop? Or keep simplified scroll? */
+        /* display: grid; grid-template-columns: repeat(4, 1fr); overflow: visible; */
     }
 
     .mobile-header {
