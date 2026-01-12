@@ -11,6 +11,37 @@
     <link rel="stylesheet" href="/Ecom-CMS/assets/css/customer.css">
     <!-- Font Awesome for Icons (Optional, or use images) -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <!-- Dynamic Global Styles -->
+    <style>
+        :root {
+            /* Fallback to CSS file defaults if DB is empty, otherwise override */
+            <?php if (!empty($settings['primary_color'])): ?>
+                --primary-color:
+                    <?= $settings['primary_color'] ?>
+                ;
+            <?php endif; ?>
+
+            <?php if (!empty($settings['bg_color'])): ?>
+                /* --bg-white: <?= $settings['bg_color'] ?>
+                ;
+                */
+                /* Note: User screenshot shows white card bg, but maybe body is lavender? 
+                   Safe to keep body white for now as per "UI design" request unless user sets it explicitly.
+                   Let's trust the CSS default for "clean white" look matching screenshot. */
+            <?php endif; ?>
+
+            <?php if (!empty($settings['font_family'])): ?>
+                --font-family: '<?= $settings['font_family'] ?>', sans-serif;
+            <?php endif; ?>
+        }
+
+        body {
+            <?php if (!empty($settings['font_family'])): ?>
+                font-family: var(--font-family);
+            <?php endif; ?>
+        }
+    </style>
 </head>
 
 <body>

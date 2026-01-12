@@ -52,10 +52,11 @@ p {
 }
 
 .welcome-text h1 {
-    font-size: 28px;
-    /* Larger as per design */
-    font-weight: 700;
+    font-size: 32px;
+    font-weight: 800;
+    /* Extra Bold */
     color: #000;
+    line-height: 1.1;
 }
 
 .welcome-text p {
@@ -86,6 +87,8 @@ p {
 .section-title {
     font-size: 18px;
     font-weight: 700;
+    display: flex;
+    align-items: center;
 }
 
 .view-all {
@@ -243,6 +246,9 @@ p {
     margin-top: 5px;
     font-size: 13px;
     font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 5px;
 }
 
 .old-price {
