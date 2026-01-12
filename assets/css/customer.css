@@ -340,7 +340,6 @@ p {
     body {
         padding-bottom: 0;
         background: #f8f9fa;
-        /* Light grey bg for desktop usually looks better for cards */
     }
 
     .display-desktop-only {
@@ -360,6 +359,8 @@ p {
         margin: 0 auto;
         padding-left: 20px;
         padding-right: 20px;
+        overflow-x: hidden;
+        /* Prevent horizontal scroll */
     }
 
     /* Sidebar */
@@ -376,7 +377,7 @@ p {
     .filter-title {
         font-size: 14px;
         font-weight: 700;
-        margin-bottom: 10px;
+        margin-bottom: 15px;
         display: block;
         color: #000;
     }
@@ -387,7 +388,7 @@ p {
         gap: 8px;
         font-size: 13px;
         color: #555;
-        margin-bottom: 8px;
+        margin-bottom: 10px;
         cursor: pointer;
     }
 
@@ -401,7 +402,7 @@ p {
     /* Shop Info Box in Sidebar */
     .shop-info-box {
         margin-top: 50px;
-        padding: 20px 0;
+        padding-top: 20px;
         border-top: 1px solid #eaeaea;
     }
 
@@ -421,15 +422,15 @@ p {
 
     .btn-review {
         background: #6AD07F;
-        /* Green from screenshot */
+        /* Green */
         color: white;
         border: none;
         padding: 10px 20px;
-        border-radius: 8px;
+        border-radius: 6px;
         font-weight: 600;
         width: 100%;
         cursor: pointer;
-        margin-bottom: 15px;
+        margin-bottom: 20px;
     }
 
     .social-icons {
@@ -438,38 +439,52 @@ p {
     }
 
     .social-icons i {
-        font-size: 20px;
-        cursor: pointer;
+        /* Keeping FA as fallback or alongside, but user asked for icons in assets */
+        display: none;
     }
+
+    .social-icon-img {
+        width: 24px;
+        height: 24px;
+        cursor: pointer;
+        transition: transform 0.2s;
+    }
+
+    .social-icon-img:hover {
+        transform: scale(1.1);
+    }
+
+    /* Using background images for social icons if <i> tags are used, 
+       but we need to change HTML to use <img> if we want to use assets/icons directly.
+       Or we can use standard CSS background on the <i> if we want.
+       Let's stick to 3 columns and footer hiding first correctly. */
 
     /* Main Content */
     .main-content {
         flex-grow: 1;
         min-width: 0;
-        /* Prevent flex overflow */
     }
 
     /* Desktop Product Grid Transformation */
     .products-scroll {
         display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        /* 3 columns per screenshot */
+        grid-template-columns: repeat(3, 1fr) !important;
+        /* 3 Columns */
         gap: 20px;
         padding: 0;
-        /* Align with headers */
         overflow: visible;
         width: 100%;
     }
 
     .products-scroll .product-card {
         width: 100%;
-        min-width: unset;
-        /* Remove mobile constraint */
-        flex: unset;
         margin-bottom: 0;
     }
 
-    /* Hide scrollbars for desktop if any remain */
+    .products-scroll .product-thumb-container {
+        aspect-ratio: 1 / 1;
+    }
+
     .products-scroll::-webkit-scrollbar {
         display: none;
     }
@@ -481,7 +496,7 @@ p {
     /* Desktop Header enhancements */
     .desktop-header {
         background: white;
-        padding: 15px 0;
+        padding: 15px 0 0 0;
         box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
         margin-bottom: 20px;
     }
@@ -489,15 +504,18 @@ p {
     .header-inner {
         max-width: 1200px;
         margin: 0 auto;
-        padding: 0 20px;
+        padding: 10px 20px;
         display: flex;
         align-items: center;
         justify-content: space-between;
         gap: 30px;
     }
 
-    .logo-area {
-        flex: 0 0 auto;
+    .logo-area div h2 {
+        font-family: inherit;
+        /* User font */
+        font-weight: 800;
+        font-size: 20px;
     }
 
     .search-bar {
@@ -509,10 +527,29 @@ p {
     .search-input {
         width: 100%;
         padding: 10px 40px 10px 15px;
-        border: 1px solid #eee;
+        border: none;
+        background: #f1f2f3;
         border-radius: 4px;
-        background: #f9f9f9;
         font-size: 13px;
+    }
+
+    /* Hide FA icon for search if checking assets */
+    .search-bar i {
+        display: none;
+    }
+
+    /* Add search icon via pseudo-element or background */
+    .search-bar::after {
+        content: '';
+        position: absolute;
+        right: 15px;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 16px;
+        height: 16px;
+        background: url('/Ecom-CMS/assets/icons/search.png') no-repeat center center;
+        background-size: contain;
+        opacity: 0.5;
     }
 
     .header-actions {
@@ -522,8 +559,8 @@ p {
     }
 
     .cat-btn {
-        background: #4A90E2;
-        /* Blue */
+        background: #5A9BF0;
+        /* Specific Blue */
         color: white;
         border: none;
         padding: 8px 15px;
@@ -537,12 +574,11 @@ p {
     }
 
     .btn-red {
-        background: #ff3b30;
+        background: #FF3B30;
         color: white;
         border: none;
         padding: 8px 20px;
         border-radius: 4px;
-        /* Rectangular as in design */
         font-size: 13px;
         font-weight: 600;
         cursor: pointer;
@@ -552,17 +588,24 @@ p {
     .desktop-nav-links {
         max-width: 1200px;
         margin: 15px auto 0;
-        padding: 0 20px;
+        padding: 15px 20px;
         display: flex;
         gap: 30px;
         justify-content: center;
-        /* Centered visually in screenshot maybe? Or left? Screenshot looks aligned with content start? Actually centered-ish or spread. */
         font-size: 13px;
         font-weight: 500;
-        color: #555;
+        color: #666;
+        border-top: 1px solid #f9f9f9;
+        margin-top: 10px;
     }
 
     .desktop-nav-links a:hover {
         color: var(--primary-color);
+    }
+
+    /* HIDE FOOTER ON DESKTOP */
+    .main-footer,
+    footer.main-footer {
+        display: none !important;
     }
 }

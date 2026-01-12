@@ -24,8 +24,10 @@ $isOnSale = !empty($prod['sale_price']) && $prod['sale_price'] < $prod['price'];
             <div class="sale-badge">SALE</div>
         <?php endif; ?>
 
-        <div class="cart-btn-overlay" onclick="addToCart(<?= $prod['id'] ?>)">
-            <i class="fas fa-shopping-cart" style="font-size: 14px;"></i>
+        <!-- Cart Icon (Top Right, Black Circle) -->
+        <div class="cart-btn-overlay" onclick="addToCart(<?= $prod['id'] ?>)"
+            style="top: 10px; right: 10px; background: #000; color: #fff;">
+            <i class="fas fa-shopping-cart" style="font-size: 12px;"></i>
         </div>
     </div>
 

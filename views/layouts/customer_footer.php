@@ -68,33 +68,6 @@
 <?php endif; ?>
 
 <!-- Responsive Display Helpers (Inlined for simplicity, or move to CSS) -->
-<style>
-    .display-mobile-only {
-        display: flex;
-    }
-
-    .display-desktop-only {
-        display: none;
-    }
-
-    @media (min-width: 1024px) {
-        .display-mobile-only {
-            display: none !important;
-        }
-
-        .display-desktop-only {
-            display: block !important;
-        }
-
-        a.floating-whatsapp.display-desktop-only {
-            display: flex !important;
-        }
-
-        header.display-desktop-only {
-            display: block !important;
-        }
-    }
-</style>
 </body>
 
 </html>

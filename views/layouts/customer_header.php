@@ -27,8 +27,8 @@
                 ;
                 */
                 /* Note: User screenshot shows white card bg, but maybe body is lavender? 
-                                           Safe to keep body white for now as per "UI design" request unless user sets it explicitly.
-                                           Let's trust the CSS default for "clean white" look matching screenshot. */
+                                               Safe to keep body white for now as per "UI design" request unless user sets it explicitly.
+                                               Let's trust the CSS default for "clean white" look matching screenshot. */
             <?php endif; ?>
 
             <?php if (!empty($settings['font_family'])): ?>

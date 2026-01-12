@@ -72,10 +72,10 @@
             <button class="btn-review">Give us a Review!</button>
 
             <div class="social-icons">
-                <i class="fab fa-facebook" style="color: #1877F2;"></i>
-                <i class="fab fa-tiktok" style="color: #000;"></i>
-                <i class="fab fa-instagram" style="color: #C13584;"></i>
-                <i class="fab fa-youtube" style="color: #FF0000;"></i>
+                <img src="/Ecom-CMS/assets/icons/facebook.png" alt="FB" class="social-icon-img">
+                <img src="/Ecom-CMS/assets/icons/tiktok.png" alt="TikTok" class="social-icon-img">
+                <img src="/Ecom-CMS/assets/icons/instagram.png" alt="IG" class="social-icon-img">
+                <img src="/Ecom-CMS/assets/icons/youtube.png" alt="YT" class="social-icon-img">
             </div>
         </div>
     </aside>
