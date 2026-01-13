@@ -40,16 +40,8 @@ $current_page = $current_page ?? 'dashboard';
 
     .nav-item {
         padding: 5px 4px;
-        /* Reduced horizontal padding to prevent wrapping on small screens */
         border-radius: 12px;
         transition: background-color 0.2s;
-        box-sizing: border-box;
-        flex: 1;
-        /* Distribute space evenly */
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
     }
 
     .nav-item.active,
