@@ -68,7 +68,8 @@ class ProductController extends BaseController
 
             // 1. Handle Main Image
             $mainImagePath = '';
-            $uploadDir = $_SERVER['DOCUMENT_ROOT'] . "/Ecom-CMS/assets/uploads/";
+            // Use dirname(__DIR__) to get project root reliably
+            $uploadDir = dirname(__DIR__) . "/assets/uploads/";
             if (!is_dir($uploadDir))
                 mkdir($uploadDir, 0777, true);
 

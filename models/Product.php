@@ -51,7 +51,8 @@ class Product extends BaseModel
             $stmt->bindParam(':description', $data['description']);
             $stmt->bindParam(':main_image', $data['main_image']);
 
-            $isFeatured = isset($data['is_featured']) ? 1 : 0;
+            // Fix: isset check is always true for boolean false. Use !empty or direct cast.
+            $isFeatured = !empty($data['is_featured']) ? 1 : 0;
             $stmt->bindParam(':is_featured', $isFeatured);
 
             $stmt->bindParam(':category_id', $data['category_id']);
