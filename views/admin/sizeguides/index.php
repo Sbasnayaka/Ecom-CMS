@@ -7,7 +7,7 @@
     <title>
         <?= $title ?>
     </title>
-    <link rel="stylesheet" href="/Ecom-CMS/assets/css/admin.css">
+    <link rel="stylesheet" href="<?= BASE_URL ?>assets/css/admin.css">
     <style>
         .guide-list {
             margin-top: 20px;
@@ -84,11 +84,11 @@
     <div class="container">
         <div class="header-bar">
             <!-- Assuming back goes to Dashboard or previous page. Screenshot shows Back Arrow. -->
-            <a href="/Ecom-CMS/admin/dashboard" class="back-circle">❮</a>
+            <a href="<?= BASE_URL ?>admin/dashboard" class="back-circle">❮</a>
             <h2 style="margin:0;">Size Guides</h2>
         </div>
 
-        <a href="/Ecom-CMS/sizeguide/add" class="btn btn-outline-primary btn-block"
+        <a href="<?= BASE_URL ?>sizeguide/add" class="btn btn-outline-primary btn-block"
             style="border:1px solid var(--primary-color); color:var(--primary-color); background:white;">
             Add Size Guide
         </a>
@@ -98,7 +98,7 @@
                 <div class="guide-item">
                     <div class="guide-info">
                         <?php if (!empty($guide['image_path'])): ?>
-                            <img src="/Ecom-CMS/assets/uploads/<?= htmlspecialchars($guide['image_path']) ?>"
+                            <img src="<?= BASE_URL ?>assets/uploads/<?= htmlspecialchars($guide['image_path']) ?>"
                                 class="guide-thumb" alt="SG">
                         <?php else: ?>
                             <div class="guide-thumb"></div>
@@ -109,7 +109,7 @@
                         </span>
                     </div>
 
-                    <a href="/Ecom-CMS/sizeguide/delete/<?= $guide['id'] ?>" class="delete-btn-icon"
+                    <a href="<?= BASE_URL ?>sizeguide/delete/<?= $guide['id'] ?>" class="delete-btn-icon"
                         onclick="return confirm('Delete this size guide?')">
                         🗑️
                     </a>

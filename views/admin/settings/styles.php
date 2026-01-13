@@ -7,7 +7,7 @@
     <title>
         <?= $title ?>
     </title>
-    <link rel="stylesheet" href="/Ecom-CMS/assets/css/admin.css">
+    <link rel="stylesheet" href="<?= BASE_URL ?>assets/css/admin.css">
     <style>
         .page-header {
             display: flex;
@@ -121,11 +121,11 @@
 
 <body>
 
-    <form action="/Ecom-CMS/settings/updateStyles" method="POST">
+    <form action="<?= BASE_URL ?>settings/updateStyles" method="POST">
         <div class="container">
 
             <div class="page-header">
-                <a href="/Ecom-CMS/settings/edit" style="text-decoration:none; color:black; font-size:24px;">❮</a>
+                <a href="<?= BASE_URL ?>settings/edit" style="text-decoration:none; color:black; font-size:24px;">❮</a>
                 <div class="header-title">Global Styles</div>
             </div>
 

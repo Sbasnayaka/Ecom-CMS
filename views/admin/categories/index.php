@@ -7,7 +7,7 @@
     <title>
         <?= $title ?>
     </title>
-    <link rel="stylesheet" href="/Ecom-CMS/assets/css/admin.css">
+    <link rel="stylesheet" href="<?= BASE_URL ?>assets/css/admin.css">
     <style>
         .category-list {
             background: #fff;
@@ -94,11 +94,11 @@
 
     <div class="container">
         <div class="header-bar">
-            <a href="/Ecom-CMS/admin/dashboard" class="back-circle">❮</a>
+            <a href="<?= BASE_URL ?>admin/dashboard" class="back-circle">❮</a>
             <h2 style="margin:0;">Categories</h2>
         </div>
 
-        <a href="/Ecom-CMS/category/add" class="btn btn-outline-primary btn-block"
+        <a href="<?= BASE_URL ?>category/add" class="btn btn-outline-primary btn-block"
             style="border:1px solid var(--primary-color); color:var(--primary-color); background:white;">
             Add New Category
         </a>

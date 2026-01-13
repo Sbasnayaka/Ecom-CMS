@@ -7,7 +7,7 @@
     <title>
         <?= $title ?>
     </title>
-    <link rel="stylesheet" href="/Ecom-CMS/assets/css/admin.css">
+    <link rel="stylesheet" href="<?= BASE_URL ?>assets/css/admin.css">
     <style>
         .header-bar {
             display: flex;
@@ -99,7 +99,7 @@
     <div class="container">
         <div class="header-bar">
             <div style="display:flex; align-items:center; gap:10px;">
-                <a href="/Ecom-CMS/feedback/index" class="back-circle">❮</a>
+                <a href="<?= BASE_URL ?>feedback/index" class="back-circle">❮</a>
                 <h2 style="margin:0;">Add Reviews</h2>
             </div>
             <button type="button" class="publish-txt" onclick="uploadImages()">PUBLISH</button>
@@ -185,7 +185,7 @@
             });
 
             // Send
-            fetch('/Ecom-CMS/feedback/store', {
+            fetch('<?= BASE_URL ?>feedback/store', {
                 method: 'POST',
                 body: formData
             })
@@ -194,7 +194,7 @@
                         window.location.href = response.url;
                     } else {
                         // If backend does replace location manually or returns text
-                        window.location.href = '/Ecom-CMS/feedback/index';
+                        window.location.href = '<?= BASE_URL ?>feedback/index';
                     }
                 })
                 .catch(err => {

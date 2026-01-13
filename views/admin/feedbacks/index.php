@@ -7,7 +7,7 @@
     <title>
         <?= $title ?>
     </title>
-    <link rel="stylesheet" href="/Ecom-CMS/assets/css/admin.css">
+    <link rel="stylesheet" href="<?= BASE_URL ?>assets/css/admin.css">
     <style>
         .page-header {
             display: flex;
@@ -129,14 +129,14 @@
             </div>
             <div>
                 <!-- Logo or Avatar placeholder -->
-                <a href="/Ecom-CMS/feedback/add" class="add-btn-blue">Add New</a>
+                <a href="<?= BASE_URL ?>feedback/add" class="add-btn-blue">Add New</a>
             </div>
         </div>
 
         <div class="feedback-grid">
             <?php foreach ($feedbacks as $fb): ?>
                 <div class="fb-item">
-                    <img src="/Ecom-CMS/assets/uploads/<?= htmlspecialchars($fb['image_path']) ?>" class="fb-img"
+                    <img src="<?= BASE_URL ?>assets/uploads/<?= htmlspecialchars($fb['image_path']) ?>" class="fb-img"
                         alt="Feedback">
                     <div class="delete-btn" onclick="confirmDelete(<?= $fb['id'] ?>)">
                         🗑
@@ -166,7 +166,7 @@
         function confirmDelete(id) {
             const modal = document.getElementById('confirmModal');
             const link = document.getElementById('deleteLink');
-            link.href = '/Ecom-CMS/feedback/delete/' + id;
+            link.href = '<?= BASE_URL ?>feedback/delete/' + id;
             modal.style.display = 'flex';
         }
 

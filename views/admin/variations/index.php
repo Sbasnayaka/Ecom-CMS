@@ -7,7 +7,7 @@
     <title>
         <?= $title ?>
     </title>
-    <link rel="stylesheet" href="/Ecom-CMS/assets/css/admin.css">
+    <link rel="stylesheet" href="<?= BASE_URL ?>assets/css/admin.css">
     <style>
         .header-bar {
             display: flex;
@@ -66,7 +66,7 @@
     <div class="container">
         <div class="header-bar">
             <div style="display:flex; align-items:center;">
-                <a href="/Ecom-CMS/admin/dashboard" class="back-circle">❮</a>
+                <a href="<?= BASE_URL ?>admin/dashboard" class="back-circle">❮</a>
                 <div>
                     <h2 style="margin:0;">Variation</h2>
                     <p style="margin:0; font-size:12px; color:#999;">Add Variations to your Product</p>
@@ -75,7 +75,7 @@
             <!-- Logo placeholder top right if needed -->
         </div>
 
-        <a href="/Ecom-CMS/variation/add" class="create-btn">Create Variations +</a>
+        <a href="<?= BASE_URL ?>variation/add" class="create-btn">Create Variations +</a>
 
         <div class="variation-list">
             <?php foreach ($variations as $var): ?>
@@ -83,14 +83,15 @@
                     <div class="var-name">
                         <?= htmlspecialchars($var['name']) ?>
                         <!-- Delete (Optional, not in screenshot but needed for CRUD) -->
-                        <a href="/Ecom-CMS/variation/delete/<?= $var['id'] ?>"
+                        <a href="<?= BASE_URL ?>variation/delete/<?= $var['id'] ?>"
                             style="float:right; text-decoration:none; font-size:14px;"
                             onclick="return confirm('Delete?')">🗑️</a>
                     </div>
                     <div class="var-values">
                         <?php
                         $valNames = array_map(function ($v) {
-                            return $v['value']; }, $var['values']);
+                            return $v['value'];
+                        }, $var['values']);
                         echo implode(", ", $valNames);
                         ?>
                     </div>

@@ -39,7 +39,8 @@ class BaseController
      */
     protected function redirect($url)
     {
-        header("Location: /Ecom-CMS/" . $url);
+        // Use BASE_URL from config.php
+        header("Location: " . BASE_URL . $url);
         exit;
     }
 }

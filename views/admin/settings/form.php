@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?= $title ?></title>
-    <link rel="stylesheet" href="/Ecom-CMS/assets/css/admin.css">
+    <link rel="stylesheet" href="<?= BASE_URL ?>assets/css/admin.css">
     <style>
         .header-bar {
             display: flex;
@@ -138,7 +138,7 @@
 
 <body>
 
-    <form action="/Ecom-CMS/settings/update" method="POST" enctype="multipart/form-data">
+    <form action="<?= BASE_URL ?>settings/update" method="POST" enctype="multipart/form-data">
         <div class="container" style="padding-bottom:100px;">
 
             <style>
@@ -209,9 +209,9 @@
                 }
             </style>
             <div class="header-bar">
-                <img src="/Ecom-CMS/assets/icons/Asseminate-Logo.png" class="logo-img" alt="Asseminate">
+                <img src="<?= BASE_URL ?>assets/icons/Asseminate-Logo.png" class="logo-img" alt="Asseminate">
                 <div class="header-actions" style="display:flex; gap:15px; align-items:center;">
-                    <a href="/Ecom-CMS/settings/exit_dev" class="btn-exit">Exit</a>
+                    <a href="<?= BASE_URL ?>settings/exit_dev" class="btn-exit">Exit</a>
                     <button type="submit" class="publish-txt btn-publish">PUBLISH</button>
                 </div>
             </div>
@@ -294,7 +294,7 @@
             </div>
 
             <!-- Global Styles Button -->
-            <a href="/Ecom-CMS/settings/styles" class="btn-global-styles">Global Styles</a>
+            <a href="<?= BASE_URL ?>settings/styles" class="btn-global-styles">Global Styles</a>
 
         </div>
     </form>

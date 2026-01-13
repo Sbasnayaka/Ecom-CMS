@@ -7,8 +7,8 @@ $currency = isset($settings['currency_symbol']) ? $settings['currency_symbol'] :
 // Fallback to LKR if not set, but database usually has it.
 
 $prodPath = 'assets/uploads/' . ($prod['main_image'] ?? '');
-$imagePath = (!empty($prod['main_image']) && file_exists($_SERVER['DOCUMENT_ROOT'] . '/Ecom-CMS/' . $prodPath))
-    ? '/Ecom-CMS/' . $prodPath
+$imagePath = (!empty($prod['main_image']) && file_exists(ROOT_PATH . $prodPath))
+    ? BASE_URL . $prodPath
     : 'https://via.placeholder.com/300?text=' . urlencode($prod['title']);
 
 $isOnSale = !empty($prod['sale_price']) && $prod['sale_price'] < $prod['price'];
@@ -16,7 +16,7 @@ $isOnSale = !empty($prod['sale_price']) && $prod['sale_price'] < $prod['price'];
 
 <div class="product-card">
     <div class="product-thumb-container">
-        <a href="/Ecom-CMS/shop/product/<?= $prod['id'] ?>">
+        <a href="<?= BASE_URL ?>shop/product/<?= $prod['id'] ?>">
             <img src="<?= $imagePath ?>" class="product-thumb" alt="<?= htmlspecialchars($prod['title']) ?>">
         </a>
 
@@ -25,15 +25,14 @@ $isOnSale = !empty($prod['sale_price']) && $prod['sale_price'] < $prod['price'];
         <?php endif; ?>
 
         <!-- Cart Icon (Top Right, Black Circle) -->
-        <div class="cart-btn-overlay" onclick="addToCart(<?= $prod['id'] ?>)"
-            style="top: 10px; right: 10px; background: #000; color: #fff;">
+        <div class="cart-btn-overlay" onclick="addToCart(<?= $prod['id'] ?>)">
             <i class="fas fa-shopping-cart" style="font-size: 12px;"></i>
         </div>
     </div>
 
     <div class="product-info">
         <h3 class="product-name">
-            <a href="/Ecom-CMS/shop/product/<?= $prod['id'] ?>"><?= htmlspecialchars($prod['title']) ?></a>
+            <a href="<?= BASE_URL ?>shop/product/<?= $prod['id'] ?>"><?= htmlspecialchars($prod['title']) ?></a>
         </h3>
 
         <div class="product-price-box">

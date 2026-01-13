@@ -2,7 +2,7 @@
 
 <!-- Mobile Bottom Navigation -->
 <nav class="bottom-nav display-mobile-only">
-    <a href="/Ecom-CMS/" class="nav-item active">
+    <a href="<?= BASE_URL ?>" class="nav-item active">
         <i class="fas fa-home nav-icon" style="display:block; font-size: 20px; margin: 0 auto;"></i>
         <span>Home</span>
     </a>
@@ -10,7 +10,7 @@
         <i class="fas fa-bolt nav-icon" style="display:block; font-size: 20px; margin: 0 auto;"></i>
         <span>Discounts</span>
     </a>
-    <a href="/Ecom-CMS/shop" class="nav-item">
+    <a href="<?= BASE_URL ?>shop" class="nav-item">
         <i class="fas fa-th-large nav-icon" style="display:block; font-size: 20px; margin: 0 auto;"></i>
         <span>Categories</span>
     </a>

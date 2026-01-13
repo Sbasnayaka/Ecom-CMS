@@ -7,7 +7,7 @@
     <title>
         <?= $title ?>
     </title>
-    <link rel="stylesheet" href="/Ecom-CMS/assets/css/admin.css">
+    <link rel="stylesheet" href="<?= BASE_URL ?>assets/css/admin.css">
     <style>
         .page-header {
             margin-bottom: 20px;
@@ -207,7 +207,7 @@
         </div>
 
         <!-- Edit Form -->
-        <form action="/Ecom-CMS/myshop/update" method="POST">
+        <form action="<?= BASE_URL ?>myshop/update" method="POST">
             <div class="gray-form-card">
 
                 <label class="section-title">My shop Review Link:</label>
@@ -218,14 +218,14 @@
 
                 <!-- Facebook -->
                 <div class="social-row">
-                    <img src="/Ecom-CMS/assets/icons/facebook.png" class="social-icon">
+                    <img src="<?= BASE_URL ?>assets/icons/facebook.png" class="social-icon">
                     <input type="text" name="social_fb" class="input-white" style="margin-bottom:0;"
                         placeholder="Enter Link here" value="<?= htmlspecialchars($settings['social_fb']) ?>">
                 </div>
 
                 <!-- Tiktok -->
                 <div class="social-row">
-                    <img src="/Ecom-CMS/assets/icons/tiktok.png" class="social-icon">
+                    <img src="<?= BASE_URL ?>assets/icons/tiktok.png" class="social-icon">
                     <input type="text" name="social_tiktok" class="input-white" style="margin-bottom:0;"
                         placeholder="Enter Link here" value="<?= htmlspecialchars($settings['social_tiktok']) ?>">
                 </div>

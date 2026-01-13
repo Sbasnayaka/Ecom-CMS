@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?= $title ?></title>
-    <link rel="stylesheet" href="/Ecom-CMS/assets/css/admin.css">
+    <link rel="stylesheet" href="<?= BASE_URL ?>assets/css/admin.css">
     <style>
         /* Specific tweaks for dashboard */
         .welcome-section {
@@ -42,7 +42,7 @@
                     style="background: #ddd; display:flex; align-items:center; justify-content:center;">👤</div>
 
                 <!-- Logout Button -->
-                <a href="/Ecom-CMS/auth/logout"
+                <a href="<?= BASE_URL ?>auth/logout"
                     style="background-color: #ff3b30; color: white; padding: 8px 12px; border-radius: 6px; text-decoration: none; font-size: 14px; font-weight: bold;">Logout</a>
             </div>
         </div>
@@ -83,8 +83,8 @@
                 <?php foreach ($latest_products as $product): ?>
                     <div class="product-item">
                         <div class="delete-icon">🗑️</div>
-                        <img src="/Ecom-CMS/assets/uploads/<?= $product['main_image'] ?? 'default.png' ?>" class="product-thumb"
-                            alt="Img">
+                        <img src="<?= BASE_URL ?>assets/uploads/<?= $product['main_image'] ?? 'default.png' ?>"
+                            class="product-thumb" alt="Img">
                         <div class="product-info">
                             <h4 class="product-name"><?= htmlspecialchars($product['title']) ?></h4>
                             <p class="product-category"><?= htmlspecialchars($product['category_name'] ?? 'Uncategorized') ?>

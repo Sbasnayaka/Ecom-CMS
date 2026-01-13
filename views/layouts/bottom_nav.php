@@ -3,25 +3,25 @@
 $current_page = $current_page ?? 'dashboard';
 ?>
 <div class="bottom-nav">
-    <a href="/Ecom-CMS/admin/dashboard" class="nav-item <?= $current_page == 'dashboard' ? 'active' : '' ?>">
-        <img src="/Ecom-CMS/assets/icons/dashboard.png" class="nav-icon-img" alt="Dash">
+    <a href="<?= BASE_URL ?>admin/dashboard" class="nav-item <?= $current_page == 'dashboard' ? 'active' : '' ?>">
+        <img src="<?= BASE_URL ?>assets/icons/dashboard.png" class="nav-icon-img" alt="Dash">
         <span>Dashboard</span>
     </a>
-    <a href="/Ecom-CMS/product/index" class="nav-item <?= $current_page == 'products' ? 'active' : '' ?>">
-        <img src="/Ecom-CMS/assets/icons/products.png" class="nav-icon-img" alt="Prod">
+    <a href="<?= BASE_URL ?>product/index" class="nav-item <?= $current_page == 'products' ? 'active' : '' ?>">
+        <img src="<?= BASE_URL ?>assets/icons/products.png" class="nav-icon-img" alt="Prod">
         <span>Products</span>
     </a>
-    <a href="/Ecom-CMS/feedback/index" class="nav-item <?= $current_page == 'feedback' ? 'active' : '' ?>">
-        <img src="/Ecom-CMS/assets/icons/feedback.png" class="nav-icon-img" alt="Feed">
+    <a href="<?= BASE_URL ?>feedback/index" class="nav-item <?= $current_page == 'feedback' ? 'active' : '' ?>">
+        <img src="<?= BASE_URL ?>assets/icons/feedback.png" class="nav-icon-img" alt="Feed">
         <span>Feedback</span>
     </a>
-    <a href="/Ecom-CMS/myshop/index" class="nav-item <?= $current_page == 'myshop' ? 'active' : '' ?>">
+    <a href="<?= BASE_URL ?>myshop/index" class="nav-item <?= $current_page == 'myshop' ? 'active' : '' ?>">
         <!-- Using Dashboard icon as placeholder as requested -->
-        <img src="/Ecom-CMS/assets/icons/myshop.png" class="nav-icon-img" alt="Shop">
+        <img src="<?= BASE_URL ?>assets/icons/myshop.png" class="nav-icon-img" alt="Shop">
         <span>My Shop</span>
     </a>
-    <a href="/Ecom-CMS/settings/index" class="nav-item <?= $current_page == 'settings' ? 'active' : '' ?>">
-        <img src="/Ecom-CMS/assets/icons/settings.png" class="nav-icon-img" alt="Set">
+    <a href="<?= BASE_URL ?>settings/index" class="nav-item <?= $current_page == 'settings' ? 'active' : '' ?>">
+        <img src="<?= BASE_URL ?>assets/icons/settings.png" class="nav-icon-img" alt="Set">
         <span>Settings</span>
     </a>
 </div>

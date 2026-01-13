@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?= $title ?></title>
-    <link rel="stylesheet" href="/Ecom-CMS/assets/css/admin.css">
+    <link rel="stylesheet" href="<?= BASE_URL ?>assets/css/admin.css">
     <style>
         .page-header {
             display: flex;
@@ -150,7 +150,7 @@
             <div>
                 <!-- Shop Logo Placeholder -->
                 <!-- <div style="width:30px; height:30px; background:#ddd; border-radius:50%; display:inline-block;"></div> -->
-                <a href="/Ecom-CMS/product/add" class="add-btn-blue">Add New</a>
+                <a href="<?= BASE_URL ?>product/add" class="add-btn-blue">Add New</a>
             </div>
         </div>
 
@@ -158,7 +158,7 @@
         <div class="search-container">
             <input type="text" class="search-input" placeholder="Type here to search...">
             <div class="search-icon-circle">
-                <img src="/Ecom-CMS/assets/icons/search.png" class="search-icon-img" alt="S">
+                <img src="<?= BASE_URL ?>assets/icons/search.png" class="search-icon-img" alt="S">
             </div>
         </div>
 
@@ -166,7 +166,7 @@
         <div class="list-header">
             <span>Products</span>
             <?php if (!empty($products)): ?>
-                <a href="/Ecom-CMS/product/delete_all" class="delete-all-btn"
+                <a href="<?= BASE_URL ?>product/delete_all" class="delete-all-btn"
                     onclick="return confirm('Delete ALL products? This cannot be undone!')">
                     🗑 Delete All
                 </a>
@@ -178,15 +178,15 @@
             <?php if (!empty($products)): ?>
                 <?php foreach ($products as $prod): ?>
                     <div class="prod-item">
-                        <a href="/Ecom-CMS/product/delete/<?= $prod['id'] ?>" class="trash-icon"
+                        <a href="<?= BASE_URL ?>product/delete/<?= $prod['id'] ?>" class="trash-icon"
                             onclick="return confirm('Delete this item?')">
                             🗑
                         </a>
 
                         <?php
                         $imgSrc = !empty($prod['main_image'])
-                            ? "/Ecom-CMS/assets/uploads/" . $prod['main_image']
-                            : "/Ecom-CMS/assets/icons/products.png"; // Fallback
+                            ? BASE_URL . "assets/uploads/" . $prod['main_image']
+                            : BASE_URL . "assets/icons/products.png"; // Fallback
                         ?>
                         <img src="<?= $imgSrc ?>" class="prod-thumb">
 
@@ -199,7 +199,7 @@
             <?php else: ?>
                 <p style="text-align:center; color:#999; margin-top:30px;">
                     No products found.<br>
-                    <a href="/Ecom-CMS/product/add" style="color:#007aff;">Add your first product</a>
+                    <a href="<?= BASE_URL ?>product/add" style="color:#007aff;">Add your first product</a>
                 </p>
             <?php endif; ?>
         </div>

@@ -233,7 +233,7 @@ p {
     position: absolute;
     top: 10px;
     right: 10px;
-    background: rgba(255, 255, 255, 0.9);
+    background: #000;
     width: 30px;
     height: 30px;
     border-radius: 50%;
@@ -241,7 +241,7 @@ p {
     align-items: center;
     justify-content: center;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    color: var(--text-dark);
+    color: #fff;
 }
 
 .sale-badge {
@@ -496,28 +496,102 @@ p {
         min-width: 0;
     }
 
-    /* Desktop Product Grid Transformation */
+    /* Desktop Product Grid/Scroll Transformation */
     .products-scroll {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr) !important;
-        /* 3 Columns */
+        display: flex;
+        /* Back to Flex for slide scroll */
         gap: 20px;
         padding: 0;
-        overflow: visible;
+        overflow-x: auto;
+        /* Enable Horizontal Scroll */
         width: 100%;
+        scroll-snap-type: x mandatory;
+        padding-bottom: 20px;
+        /* Space for scrollbar if visible/behavior */
     }
 
     .products-scroll .product-card {
-        width: 100%;
-        margin-bottom: 0;
+        /* Show 3 items: (100% - (2 * 20px gap)) / 3 = calc((100% - 40px) / 3) */
+        /* Actually simpler: flex-basis */
+        min-width: calc((100% - 40px) / 3);
+        width: calc((100% - 40px) / 3);
+        flex: 0 0 calc((100% - 40px) / 3);
+        margin-bottom: 10px;
+        scroll-snap-align: start;
     }
 
     .products-scroll .product-thumb-container {
         aspect-ratio: 1 / 1;
+        border-radius: 25px;
+        /* Highly rounded per design */
     }
 
     .products-scroll::-webkit-scrollbar {
-        display: none;
+        /* Optional: Styled scrollbar for desktop */
+        height: 6px;
+    }
+
+    .products-scroll::-webkit-scrollbar-thumb {
+        background: #ddd;
+        border-radius: 3px;
+    }
+
+    /* Desktop Product Card Overrides */
+
+    /* Sale Badge: Top Right */
+    .products-scroll .sale-badge {
+        left: auto;
+        right: 15px;
+        top: 15px;
+        width: 35px;
+        height: 35px;
+        font-size: 10px;
+    }
+
+    /* Cart Button: Top Right (Below Sale if present, or just top right) */
+    /* Default position */
+    .products-scroll .cart-btn-overlay {
+        top: 15px;
+        right: 15px;
+        background: #000;
+        color: #fff;
+        width: 35px;
+        height: 35px;
+        opacity: 1;
+        /* Always visible on desktop? or absolute? */
+    }
+
+    /* If Sale Badge exists, push Cart Button down */
+    .products-scroll .sale-badge~.cart-btn-overlay {
+        top: 60px;
+        /* 15px top + 35px badge + 10px gap */
+    }
+
+    /* Typography Overrides */
+    .products-scroll .product-name {
+        font-size: 15px;
+        font-weight: 600;
+        color: #444;
+        margin-top: 10px;
+    }
+
+    .products-scroll .old-price {
+        font-size: 14px;
+        color: #777;
+    }
+
+    .products-scroll .current-price.price-sale {
+        font-size: 16px;
+        font-weight: 700;
+        color: #FF3B30;
+    }
+
+    .products-scroll .product-category {
+        display: block;
+        /* Ensure visible */
+        font-size: 11px;
+        color: #888;
+        margin-top: 2px;
     }
 
     .mobile-header {

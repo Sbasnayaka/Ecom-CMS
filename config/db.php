@@ -8,14 +8,18 @@
  * a new connection every time we need data. This makes the site faster.
  */
 
-class Database {
-    // Configuration Settings
-    private $host = 'localhost';
-    private $db_name = 'ecom_cms';
-    private $username = 'root';
-    private $password = ''; // Default XAMPP password is empty
-    private $port = '3307'; // Your specific XAMPP MySQL port
-    
+// Load the main configuration file
+require_once dirname(__DIR__) . '/config/config.php';
+
+class Database
+{
+    // Configuration Settings (Now loaded from constants)
+    private $host = DB_HOST;
+    private $db_name = DB_NAME;
+    private $username = DB_USER;
+    private $password = DB_PASS;
+    private $port = DB_PORT;
+
     // The connection variable
     public $conn;
 
@@ -26,25 +30,27 @@ class Database {
      * If successful, it returns the connection object.
      * If it fails, it shows an error message.
      */
-    public function getConnection() {
+    public function getConnection()
+    {
         $this->conn = null;
 
         try {
             // "DSN" (Data Source Name) is the address string for the database
             // It tells PHP: "Connect to MySQL on localhost:3307 and select database 'ecom_cms'"
             $dsn = "mysql:host=" . $this->host . ";port=" . $this->port . ";dbname=" . $this->db_name . ";charset=utf8";
-            
+
             // Create the PDO connection
             // PDO (PHP Data Objects) is a secure way to connect to databases
             $this->conn = new PDO($dsn, $this->username, $this->password);
-            
+
             // Set error mode to exception
             // This means if there is a SQL error, PHP will stop and tell us exactly what's wrong
             // instead of silently failing.
             $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            
-        } catch(PDOException $exception) {
+
+        } catch (PDOException $exception) {
             // If connection fails, stop everything and show the error
+            // PRO TIP: On production, don't show specific errors to users!
             echo "Connection error: " . $exception->getMessage();
         }
 

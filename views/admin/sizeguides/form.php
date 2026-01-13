@@ -7,7 +7,7 @@
     <title>
         <?= $title ?>
     </title>
-    <link rel="stylesheet" href="/Ecom-CMS/assets/css/admin.css">
+    <link rel="stylesheet" href="<?= BASE_URL ?>assets/css/admin.css">
     <style>
         .upload-area {
             background: #f0f0f0;
@@ -51,11 +51,11 @@
 
 <body>
 
-    <form action="/Ecom-CMS/sizeguide/store" method="POST" enctype="multipart/form-data">
+    <form action="<?= BASE_URL ?>sizeguide/store" method="POST" enctype="multipart/form-data">
         <div class="container">
             <div class="header-bar">
                 <div style="display:flex; gap:10px; align-items:center;">
-                    <a href="/Ecom-CMS/sizeguide/index" class="back-circle">❮</a>
+                    <a href="<?= BASE_URL ?>sizeguide/index" class="back-circle">❮</a>
                     <h2 style="margin:0;">Add Guide</h2>
                 </div>
                 <button type="submit" class="save-txt">SAVE</button>

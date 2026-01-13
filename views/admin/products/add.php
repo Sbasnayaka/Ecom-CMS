@@ -7,7 +7,7 @@
     <title>
         <?= $title ?>
     </title>
-    <link rel="stylesheet" href="/Ecom-CMS/assets/css/admin.css">
+    <link rel="stylesheet" href="<?= BASE_URL ?>assets/css/admin.css">
     <style>
         .header-bar {
             display: flex;
@@ -270,11 +270,11 @@
     </div>
 
     <!-- Form -->
-    <form action="/Ecom-CMS/product/store" method="POST" enctype="multipart/form-data" id="productForm">
+    <form action="<?= BASE_URL ?>product/store" method="POST" enctype="multipart/form-data" id="productForm">
         <div class="container" style="padding-bottom: 80px;">
 
             <div class="header-bar">
-                <a href="/Ecom-CMS/product/index" class="back-circle">❮</a>
+                <a href="<?= BASE_URL ?>product/index" class="back-circle">❮</a>
                 <div>
                     <h2 style="margin:0;">Add Product</h2>
                     <p style="margin:0; font-size:11px; color:#888;">List New Items in One Minute...</p>

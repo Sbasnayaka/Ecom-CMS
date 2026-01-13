@@ -133,14 +133,14 @@
 
             <a href="https://wa.me/94718456999" class="btn-green">071 84 56 999</a>
             <br>
-            <a href="/Ecom-CMS/admin/dashboard" class="btn-orange">⬅ Go to Dashboard</a>
+            <a href="<?= BASE_URL ?>admin/dashboard" class="btn-orange">⬅ Go to Dashboard</a>
 
         </div>
 
         <!-- Footer -->
         <div style="text-align:center;">
             <div class="logo-footer">
-                <img src="/Ecom-CMS/assets/icons/Asseminate-Logo.png" class="logo-img" alt="Asseminate">
+                <img src="<?= BASE_URL ?>assets/icons/Asseminate-Logo.png" class="logo-img" alt="Asseminate">
             </div>
 
             <p class="warning-footer">
@@ -148,7 +148,7 @@
                 Admin Team.
             </p>
 
-            <a href="/Ecom-CMS/settings/login" class="btn-pink">Login as Admin</a>
+            <a href="<?= BASE_URL ?>settings/login" class="btn-pink">Login as Admin</a>
         </div>
     </div>
 

@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?= $title ?></title>
-    <link rel="stylesheet" href="/Ecom-CMS/assets/css/admin.css">
+    <link rel="stylesheet" href="<?= BASE_URL ?>assets/css/admin.css">
     <style>
         .login-card {
             text-align: center;
@@ -70,14 +70,14 @@
 
     <div class="container">
         <div class="login-card">
-            <img src="/Ecom-CMS/assets/icons/Asseminate-Logo.png" class="logo-img" alt="Asseminate">
+            <img src="<?= BASE_URL ?>assets/icons/Asseminate-Logo.png" class="logo-img" alt="Asseminate">
 
             <p class="warning-red">
                 Please ensure you enter the correct password. Multiple failed attempts will result in the <span
                     style="text-decoration:underline; font-weight:bold;">permanent suspension</span> of your account.
             </p>
 
-            <form action="/Ecom-CMS/settings/authenticate" method="POST">
+            <form action="<?= BASE_URL ?>settings/authenticate" method="POST">
                 <label class="pwd-label">Enter Password to Continue</label>
                 <input type="password" name="password" class="pwd-input" placeholder="******************" required
                     autofocus>
@@ -94,7 +94,7 @@
             </form>
 
             <br>
-            <a href="/Ecom-CMS/settings/index" style="color:#aaa; font-size:12px; text-decoration:none;">Cancel</a>
+            <a href="<?= BASE_URL ?>settings/index" style="color:#aaa; font-size:12px; text-decoration:none;">Cancel</a>
         </div>
     </div>
 

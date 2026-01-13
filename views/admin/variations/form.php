@@ -7,7 +7,7 @@
     <title>
         <?= $title ?>
     </title>
-    <link rel="stylesheet" href="/Ecom-CMS/assets/css/admin.css">
+    <link rel="stylesheet" href="<?= BASE_URL ?>assets/css/admin.css">
     <style>
         .header-bar {
             display: flex;
@@ -100,11 +100,11 @@
 
 <body>
 
-    <form action="/Ecom-CMS/variation/store" method="POST" id="varForm">
+    <form action="<?= BASE_URL ?>variation/store" method="POST" id="varForm">
         <div class="container">
             <div class="header-bar">
                 <div style="display:flex; gap:10px; align-items:center;">
-                    <a href="/Ecom-CMS/variation/index" class="back-circle">❮</a>
+                    <a href="<?= BASE_URL ?>variation/index" class="back-circle">❮</a>
                     <div>
                         <h2 style="margin:0;">Create New</h2>
                         <p style="margin:0; font-size:11px; color:#888;">Create New Variation</p>

@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Settings - Restricted</title>
-    <link rel="stylesheet" href="/Ecom-CMS/assets/css/admin.css">
+    <link rel="stylesheet" href="<?= BASE_URL ?>assets/css/admin.css">
     <style>
         .gatekeeper-container {
             background-color: #f5f5f5;
@@ -144,7 +144,7 @@
             </a>
 
             <!-- Go to Dashboard -->
-            <a href="/Ecom-CMS/admin/dashboard" class="btn-dashboard">
+            <a href="<?= BASE_URL ?>admin/dashboard" class="btn-dashboard">
                 ⬅ Go to Dashboard
             </a>
 
@@ -160,7 +160,7 @@
                     Solution Admin Team.
                 </p>
 
-                <a href="/Ecom-CMS/settings/login" class="btn-login-admin">
+                <a href="<?= BASE_URL ?>settings/login" class="btn-login-admin">
                     Login as Admin
                 </a>
             </div>

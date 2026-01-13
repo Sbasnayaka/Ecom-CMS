@@ -72,10 +72,10 @@
             <button class="btn-review">Give us a Review!</button>
 
             <div class="social-icons">
-                <img src="/Ecom-CMS/assets/icons/facebook.png" alt="FB" class="social-icon-img">
-                <img src="/Ecom-CMS/assets/icons/tiktok.png" alt="TikTok" class="social-icon-img">
-                <img src="/Ecom-CMS/assets/icons/instagram.png" alt="IG" class="social-icon-img">
-                <img src="/Ecom-CMS/assets/icons/youtube.png" alt="YT" class="social-icon-img">
+                <img src="<?= BASE_URL ?>assets/icons/facebook.png" alt="FB" class="social-icon-img">
+                <img src="<?= BASE_URL ?>assets/icons/tiktok.png" alt="TikTok" class="social-icon-img">
+                <img src="<?= BASE_URL ?>assets/icons/instagram.png" alt="IG" class="social-icon-img">
+                <img src="<?= BASE_URL ?>assets/icons/youtube.png" alt="YT" class="social-icon-img">
             </div>
         </div>
     </aside>
@@ -86,17 +86,17 @@
         <!-- Top Categories (Mobile Horizontal Scroll / Desktop Grid?) -->
         <div class="section-header">
             <h2 class="section-title">Top Categories</h2>
-            <a href="/Ecom-CMS/shop" class="view-all">View All</a>
+            <a href="<?= BASE_URL ?>shop" class="view-all">View All</a>
         </div>
 
         <div class="categories-scroll">
             <?php foreach ($categories as $cat): ?>
                 <div class="cat-item">
                     <?php
-                    $catPath = 'assets/uploads/' . ($cat['image'] ?? '');
-                    $img = (!empty($cat['image']) && file_exists($_SERVER['DOCUMENT_ROOT'] . '/Ecom-CMS/' . $catPath))
-                        ? '/Ecom-CMS/' . $catPath
-                        : 'https://via.placeholder.com/80?text=' . urlencode($cat['name']);
+                    $catPath = 'assets/uploads/' . $cat['image'];
+                    $img = (!empty($cat['image']) && file_exists(ROOT_PATH . $catPath))
+                        ? BASE_URL . $catPath
+                        : 'https://via.placeholder.com/60?text=' . urlencode($cat['name']);
                     ?>
                     <img src="<?= $img ?>" class="cat-img" alt="<?= htmlspecialchars($cat['name']) ?>">
                     <div class="cat-name">

@@ -97,7 +97,7 @@
             </div>
         <?php endif; ?>
 
-        <form action="/Ecom-CMS/auth/authenticate" method="POST">
+        <form action="<?= BASE_URL ?>auth/authenticate" method="POST">
             <div class="form-group">
                 <label for="username">Username</label>
                 <input type="text" id="username" name="username" required placeholder="Enter username">
