@@ -326,7 +326,7 @@ p {
     left: 0;
     width: 100%;
     background: white;
-    display: flex;
+    display: flex !important;
     justify-content: space-around;
     padding: 10px 0 25px 0;
     /* Extra padding for iPhone home bar */
