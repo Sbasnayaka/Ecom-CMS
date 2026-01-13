@@ -43,5 +43,19 @@ $isOnSale = !empty($prod['sale_price']) && $prod['sale_price'] < $prod['price'];
                 <span class="current-price"><?= $currency ?>     <?= number_format($prod['price'], 0) ?></span>
             <?php endif; ?>
         </div>
+
+        <!-- Category Info (Parent | Child) -->
+        <div class="product-category">
+            <?php
+            $catName = htmlspecialchars($prod['category_name'] ?? '');
+            $parentName = htmlspecialchars($prod['parent_category_name'] ?? '');
+
+            if (!empty($parentName) && !empty($catName)) {
+                echo $parentName . ' | ' . $catName;
+            } else {
+                echo $catName;
+            }
+            ?>
+        </div>
     </div>
 </div>

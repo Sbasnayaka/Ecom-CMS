@@ -9,10 +9,11 @@ class Product extends BaseModel
 
     public function getAll()
     {
-        // specific query to join categories
-        $sql = "SELECT p.*, c.name as category_name 
+        // specific query to join categories and parent categories
+        $sql = "SELECT p.*, c.name as category_name, pc.name as parent_category_name
                 FROM products p 
                 LEFT JOIN categories c ON p.category_id = c.id 
+                LEFT JOIN categories pc ON c.parent_id = pc.id
                 ORDER BY p.created_at DESC";
         $stmt = $this->conn->prepare($sql);
         $stmt->execute();
@@ -124,9 +125,10 @@ class Product extends BaseModel
      */
     public function getFeatured($limit = 6)
     {
-        $sql = "SELECT p.*, c.name as category_name 
+        $sql = "SELECT p.*, c.name as category_name, pc.name as parent_category_name
                 FROM products p 
                 LEFT JOIN categories c ON p.category_id = c.id 
+                LEFT JOIN categories pc ON c.parent_id = pc.id
                 WHERE p.is_featured = 1 AND p.is_active = 1
                 ORDER BY p.created_at DESC LIMIT :limit";
         $stmt = $this->conn->prepare($sql);
@@ -140,9 +142,10 @@ class Product extends BaseModel
      */
     public function getLatest($limit = 6)
     {
-        $sql = "SELECT p.*, c.name as category_name 
+        $sql = "SELECT p.*, c.name as category_name, pc.name as parent_category_name
                 FROM products p 
                 LEFT JOIN categories c ON p.category_id = c.id 
+                LEFT JOIN categories pc ON c.parent_id = pc.id
                 WHERE p.is_active = 1
                 ORDER BY p.created_at DESC LIMIT :limit";
         $stmt = $this->conn->prepare($sql);
@@ -156,9 +159,10 @@ class Product extends BaseModel
      */
     public function getOnSale($limit = 6)
     {
-        $sql = "SELECT p.*, c.name as category_name 
+        $sql = "SELECT p.*, c.name as category_name, pc.name as parent_category_name
                 FROM products p 
                 LEFT JOIN categories c ON p.category_id = c.id 
+                LEFT JOIN categories pc ON c.parent_id = pc.id
                 WHERE p.sale_price IS NOT NULL AND p.sale_price < p.price AND p.is_active = 1
                 ORDER BY p.created_at DESC LIMIT :limit";
         $stmt = $this->conn->prepare($sql);

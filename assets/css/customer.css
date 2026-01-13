@@ -272,7 +272,9 @@ p {
 
 .product-category {
     font-size: 11px;
-    color: #999;
+    color: #888;
+    margin-top: 2px;
+    line-height: 1.2;
 }
 
 .product-price-box {
@@ -297,6 +299,9 @@ p {
 
 .price-sale {
     color: var(--accent-red);
+    font-weight: 700;
+    font-size: 15px;
+    /* Slightly larger for emphasis */
 }
 
 /* Floating WhatsApp */
