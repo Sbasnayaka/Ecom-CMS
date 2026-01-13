@@ -1,24 +1,16 @@
 # .htaccess Configuration
 # This file tells the Apache server how to handle URLs.
 # We want all requests (like /login, /products) to go to index.php
-# so our PHP code can decide what to show.
 
 RewriteEngine On
 
-# Base directory - IMPORTANT
-# Since we are in http://localhost/Ecom-CMS/, we set this base.
-RewriteBase /Ecom-CMS/
-
 # 1. Block access to protected directories
-# We don't want people to see our config or internal logic files directly.
 RewriteRule ^(config|models|views|controllers)/ - [F,L]
 
 # 2. Allow existing files and folders to be accessed directly
-# This allows 'assets/css/style.css' to load normally without going to index.php
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 
 # 3. Redirect everything else to index.php
-# We explicitly pass the captured path ($1) to the 'url' query parameter
-# so index.php can read it via $_GET['url'].
+# Using relative path for index.php so it works in /test/ OR /Ecom-CMS/
 RewriteRule ^(.*)$ index.php?url=$1 [QSA,L]
