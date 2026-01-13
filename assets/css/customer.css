@@ -362,7 +362,8 @@ p {
 /* --- Desktop Styles Override --- */
 @media (min-width: 1024px) {
     body {
-        padding-bottom: 0;
+        padding-bottom: 100px;
+        /* Add space at bottom on desktop too */
         background: #f8f9fa;
     }
 
