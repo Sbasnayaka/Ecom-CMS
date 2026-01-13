@@ -1,7 +1,7 @@
 </div> <!-- End Main Wrapper -->
 
 <!-- Mobile Bottom Navigation -->
-<nav class="bottom-nav display-mobile-only">
+<nav class="bottom-nav">
     <a href="<?= BASE_URL ?>" class="nav-item active">
         <i class="fas fa-home nav-icon" style="display:block; font-size: 20px; margin: 0 auto;"></i>
         <span>Home</span>

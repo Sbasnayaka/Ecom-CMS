@@ -369,6 +369,10 @@ p {
         display: none !important;
     }
 
+    .bottom-nav {
+        display: none !important;
+    }
+
     /* Layout Container */
     .home-layout {
         display: flex;
