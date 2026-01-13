@@ -89,7 +89,7 @@ class SettingsController extends BaseController
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-            $uploadDir = $_SERVER['DOCUMENT_ROOT'] . "/Ecom-CMS/assets/uploads/";
+            $uploadDir = ROOT_PATH . "assets/uploads/";
             if (!is_dir($uploadDir))
                 mkdir($uploadDir, 0777, true);
 
@@ -97,7 +97,7 @@ class SettingsController extends BaseController
             if (isset($_FILES['shop_logo']) && $_FILES['shop_logo']['error'] == 0) {
                 $fileName = time() . '_logo_' . basename($_FILES['shop_logo']['name']);
                 if (move_uploaded_file($_FILES['shop_logo']['tmp_name'], $uploadDir . $fileName)) {
-                    $this->settingModel->set('shop_logo', "/Ecom-CMS/assets/uploads/" . $fileName);
+                    $this->settingModel->set('shop_logo', BASE_URL . "assets/uploads/" . $fileName);
                 }
             }
 
@@ -105,7 +105,7 @@ class SettingsController extends BaseController
             if (isset($_FILES['shop_qr']) && $_FILES['shop_qr']['error'] == 0) {
                 $fileName = time() . '_qr_' . basename($_FILES['shop_qr']['name']);
                 if (move_uploaded_file($_FILES['shop_qr']['tmp_name'], $uploadDir . $fileName)) {
-                    $this->settingModel->set('shop_qr', "/Ecom-CMS/assets/uploads/" . $fileName);
+                    $this->settingModel->set('shop_qr', BASE_URL . "assets/uploads/" . $fileName);
                 }
             }
 
