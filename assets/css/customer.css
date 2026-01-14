@@ -692,14 +692,27 @@ p {
         margin: 30px 0 0 0;
         padding: 0;
         max-width: none;
+        display: flex;
         justify-content: flex-start;
+        gap: 15px;
+        /* Space between buttons */
         background: transparent;
+        pointer-events: auto;
+        /* Ensure clickable */
     }
 
     .btn-action {
-        max-width: 250px;
-        height: 50px;
-        font-size: 16px;
+        /* Fix button sizes to be identical */
+        flex: 0 0 auto;
+        /* Don't stretch */
+        width: 180px;
+        /* Fixed width for uniformity */
+        height: 45px;
+        /* Fixed height */
+        font-size: 14px;
+        border-radius: 30px;
+        margin: 0;
+        /* consistent */
     }
 
     /* Show Header/Footer */
