@@ -40,7 +40,7 @@
                     $gUrl = (file_exists(ROOT_PATH . $gPath)) ? BASE_URL . $gPath : '';
                     if ($gUrl):
                         ?>
-                        <img src="<?= $gUrl ?>" class="gallery-img" alt="Gallery Image" style="display:none;">
+                        <img src="<?= $gUrl ?>" class="gallery-img" alt="Gallery Image">
                     <?php endif; endforeach; ?>
             <?php endif; ?>
         </div>

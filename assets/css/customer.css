@@ -601,6 +601,18 @@ p {
 }
 
 
+/* Desktop Gallery Constraints */
+@media (min-width: 1024px) {
+    .product-detail-page {
+        max-width: 500px;
+        margin: 0 auto;
+        border: 1px solid #eee;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.05);
+        min-height: 100vh;
+        background: #fff;
+    }
+}
+
 /* --- Desktop Styles Override --- */
 @media (min-width: 1024px) {
     body {
