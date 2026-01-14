@@ -1,17 +1,6 @@
 <?php require_once 'views/layouts/customer_header.php'; ?>
 
-<!-- Single Product View Styles (Inline for specific, move to CSS later if needed, but preferably in customer.css) -->
-<!-- We will use customer.css classes -->
-<style>
-    /* Hide global header/nav for this immersive page */
-    .mobile-header, .desktop-header, .bottom-nav {
-        display: none !important;
-    }
-    body {
-        padding-bottom: 0 !important; /* Reset body padding since we manage it in .product-detail-page */
-    }
-</style>
-
+<!-- Single Product View Styles (All handled in customer.css now) -->
 <div class="product-detail-page">
 
     <!-- Image Gallery Section -->
@@ -156,8 +145,8 @@
         </div>
     </div>
     <script>
-        function openSizeGuide() { document.getElementById('sgModal').style.display = 'flex'; }
-        function closeSizeGuide() { document.getElementById('sgModal').style.display = 'none'; }
+            function openSizeGuide() { document.getElementById('sgModal').style.display = 'flex'; }
+            function closeSizeGuide() { document.getElementById('sgModal').style.display = 'none'; }
     </script>
 <?php endif; ?>
 

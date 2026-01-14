@@ -601,15 +601,112 @@ p {
 }
 
 
-/* Desktop Gallery Constraints */
+/* Desktop Product Detail View (2-Column) */
 @media (min-width: 1024px) {
+
+    /* Reset Page logic */
     .product-detail-page {
-        max-width: 500px;
-        margin: 0 auto;
-        border: 1px solid #eee;
-        box-shadow: 0 0 20px rgba(0, 0, 0, 0.05);
-        min-height: 100vh;
-        background: #fff;
+        max-width: 1200px;
+        /* Standard Width */
+        margin: 40px auto;
+        border: none;
+        box-shadow: none;
+        min-height: auto;
+        background: transparent;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        /* 50/50 Split */
+        gap: 50px;
+        padding: 0 20px;
+    }
+
+    /* Left Column: Gallery */
+    .product-gallery {
+        width: 100%;
+        background: transparent;
+        margin-bottom: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    /* Turn off slider behavior and show grid or large image */
+    .gallery-slider {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        /* 2x2 Grid of images? Or Main + thumbs? */
+        /* Let's do a simple grid of all images for now, or Main Image Large + Grid below */
+        /* Actually simpler: just vertically stack them or grid them since we have high res */
+        gap: 15px;
+        overflow: visible;
+        aspect-ratio: auto;
+    }
+
+    .gallery-slider img {
+        width: 100%;
+        height: auto;
+        aspect-ratio: 1/1.2;
+        border-radius: 10px;
+        cursor: pointer;
+    }
+
+    /* Make first image spread full width? */
+    .gallery-slider img:first-child {
+        grid-column: 1 / -1;
+    }
+
+    /* Hide Mobile Controls */
+    .back-btn-overlay,
+    .gallery-dots {
+        display: none;
+    }
+
+    /* Right Column: Info */
+    .product-info-container {
+        padding: 0;
+        /* Align with grid */
+        position: sticky;
+        top: 100px;
+        /* Sticky scroll */
+        height: fit-content;
+    }
+
+    .pd-title {
+        font-size: 32px;
+        margin-bottom: 20px;
+    }
+
+    .pd-price-row {
+        justify-content: flex-start;
+        gap: 20px;
+    }
+
+    .pd-sale-price {
+        font-size: 28px;
+    }
+
+    /* Move Actions to static position */
+    .pd-bottom-actions {
+        position: static;
+        transform: none;
+        margin: 30px 0 0 0;
+        padding: 0;
+        max-width: none;
+        justify-content: flex-start;
+        background: transparent;
+    }
+
+    .btn-action {
+        max-width: 250px;
+        height: 50px;
+        font-size: 16px;
+    }
+
+    /* Show Header/Footer */
+    .main-footer,
+    footer.main-footer {
+        display: block !important;
+        /* Re-enable footer */
     }
 }
 
