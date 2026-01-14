@@ -85,7 +85,7 @@
                 <?php endif; ?>
             </div>
 
-            <?php if (!empty($product['size_guide_id'])): ?>
+            <?php if (!empty($product['size_guide_image'])): ?>
                 <button class="btn-size-guide" onclick="openSizeGuide()">Size Guide</button>
             <?php endif; ?>
         </div>
