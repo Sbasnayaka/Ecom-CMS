@@ -139,12 +139,12 @@
     $sgImg = BASE_URL . 'assets/uploads/' . $product['size_guide_image'];
     ?>
     <div id="sgModal" class="modal-overlay" onclick="closeSizeGuide()">
-        <div class="modal-content" onclick="event.stopPropagation()" style="position: relative; padding-top: 40px;">
+        <div class="modal-content" onclick="event.stopPropagation()" style="position: relative; padding: 0;">
             <div onclick="closeSizeGuide()"
-                style="position: absolute; top: 10px; right: 10px; cursor: pointer; z-index: 100;">
-                <img src="<?= BASE_URL ?>assets/icons/delete.png" alt="Close" style="width: 30px; height: 30px;">
+                style="position: absolute; top: 10px; right: 10px; cursor: pointer; z-index: 100; background: rgba(255,255,255,0.7); border-radius: 50%; padding: 5px; width: 30px; height: 30px; display: flex; align-items: center; justify-content: center;">
+                <img src="<?= BASE_URL ?>assets/icons/delete.png" alt="Close" style="width: 15px; height: 15px;">
             </div>
-            <img src="<?= $sgImg ?>" style="width:100%; border-radius:10px;">
+            <img src="<?= $sgImg ?>" style="width:100%; border-radius:10px; display: block;">
         </div>
     </div>
     <script>
