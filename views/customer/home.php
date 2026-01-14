@@ -62,11 +62,10 @@
                 <?= !empty($settings['shop_name']) ? htmlspecialchars($settings['shop_name']) : 'Dark Lavender Clothing' ?>
             </div>
             <div class="shop-desc">
-                Tailored to your tastes...<br><br>
-                No: 213/7, Ghanawimala Mw,<br>
-                Hewagama, Kaduwela.<br><br>
-                076 260 00 00 / 077 255 55 55<br>
-                info@darklavender.com
+                <?php
+                $about = $settings['shop_about'] ?? '';
+                echo nl2br(htmlspecialchars($about));
+                ?>
             </div>
 
             <button class="btn-review">Give us a Review!</button>
