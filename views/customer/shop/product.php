@@ -141,9 +141,7 @@
     <div id="sgModal" class="modal-overlay" onclick="closeSizeGuide()">
         <div class="modal-content" onclick="event.stopPropagation()">
             <img src="<?= $sgImg ?>" style="width:100%; border-radius:10px;">
-            <div onclick="closeSizeGuide()" style="margin-top:10px; text-align:center; cursor:pointer;">
-                <img src="<?= BASE_URL ?>assets/icons/delete.png" alt="Close" style="width: 30px; height: 30px;">
-            </div>
+            <img src="<?= BASE_URL ?>assets/icons/delete.png" class="modal-close-icon" onclick="closeSizeGuide()" alt="Close">
         </div>
     </div>
     <script>
