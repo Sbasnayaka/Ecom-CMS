@@ -51,5 +51,20 @@ class Setting extends BaseModel
         }
         return $results;
     }
+
+    // Get ALL setting pairs [key => value]
+    public function getAllPairs()
+    {
+        $sql = "SELECT setting_key, setting_value FROM settings";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute();
+        $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        $pairs = [];
+        foreach ($rows as $r) {
+            $pairs[$r['setting_key']] = $r['setting_value'];
+        }
+        return $pairs;
+    }
 }
 ?>
