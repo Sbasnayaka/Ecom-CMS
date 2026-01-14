@@ -359,6 +359,248 @@ p {
 }
 
 
+/* --- Single Product Page Styles --- */
+.product-detail-page {
+    position: relative;
+    padding-bottom: 80px;
+    /* Space for floating buttons */
+}
+
+/* Gallery - Full Width Slider */
+.product-gallery {
+    position: relative;
+    width: 100%;
+    background: #f9f9f9;
+    margin-bottom: 20px;
+}
+
+.gallery-slider {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    aspect-ratio: 1 / 1.2;
+}
+
+.gallery-slider img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    flex-shrink: 0;
+    scroll-snap-align: start;
+}
+
+.back-btn-overlay {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    background: rgba(0, 0, 0, 0.6);
+    color: white;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+    font-size: 16px;
+}
+
+.gallery-dots {
+    position: absolute;
+    bottom: 15px;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+}
+
+.gallery-dots .dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.2);
+    border: 1px solid #fff;
+}
+
+.gallery-dots .dot.active {
+    background: #000;
+}
+
+/* Info Container */
+.product-info-container {
+    padding: 0 20px;
+}
+
+.pd-breadcrumb {
+    font-size: 11px;
+    color: #888;
+    margin-bottom: 5px;
+}
+
+.pd-title {
+    font-size: 24px;
+    font-weight: 800;
+    line-height: 1.2;
+    margin-bottom: 10px;
+}
+
+.pd-price-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+.pd-prices {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.pd-old-price {
+    text-decoration: line-through;
+    color: #999;
+    font-size: 14px;
+}
+
+.pd-sale-price {
+    color: var(--accent-red);
+    font-size: 20px;
+    font-weight: 800;
+}
+
+.btn-size-guide {
+    background: #00C4CC;
+    /* Cyan */
+    color: white;
+    border: none;
+    padding: 7px 12px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+/* Variations */
+.var-section {
+    margin-bottom: 20px;
+}
+
+.var-label {
+    display: block;
+    font-weight: 700;
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+
+.var-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.var-pill {
+    padding: 8px 18px;
+    border: 1px solid #eee;
+    border-radius: 6px;
+    font-size: 13px;
+    cursor: pointer;
+    background: white;
+    color: #333;
+    transition: all 0.2s;
+}
+
+.var-pill.active {
+    background: #000;
+    color: #00C4CC;
+    /* Cyan Text */
+    border-color: #000;
+    font-weight: 600;
+}
+
+.pd-description {
+    font-size: 13px;
+    color: #555;
+    line-height: 1.6;
+    margin-top: 30px;
+    margin-bottom: 20px;
+}
+
+.delivery-fee-line {
+    margin-top: 15px;
+    font-weight: 500;
+    color: #333;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+/* Bottom Actions Floating above Nav */
+.pd-bottom-actions {
+    position: fixed;
+    bottom: 70px;
+    /* Above Bottom Nav */
+    left: 0;
+    right: 0;
+    padding: 10px 20px;
+    display: flex;
+    gap: 15px;
+    /* Clean transparent floating look or white actions container */
+    pointer-events: none;
+    /* Let clicks pass through container */
+    z-index: 900;
+    justify-content: center;
+}
+
+/* Enable pointer events on buttons */
+.btn-action {
+    pointer-events: auto;
+    flex: 1;
+    max-width: 200px;
+    /* Don't stretch too wide on desktop */
+    padding: 12px;
+    border-radius: 30px;
+    /* Pill buttons */
+    border: none;
+    font-weight: 700;
+    font-size: 14px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    text-decoration: none;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.btn-whatsapp {
+    background: #25D366;
+    color: white;
+}
+
+.btn-cart {
+    background: #000;
+    color: white;
+}
+
+/* Desktop override for bottom actions */
+@media (min-width: 1024px) {
+    .pd-bottom-actions {
+        bottom: 20px;
+        /* Lower on desktop since no nav bar */
+        justify-content: flex-start;
+        /* Align left or keep center? */
+        max-width: 600px;
+        /* Limit width */
+        margin: 0 auto;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+}
+
+
 /* --- Desktop Styles Override --- */
 @media (min-width: 1024px) {
     body {

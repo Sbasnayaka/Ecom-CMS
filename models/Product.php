@@ -170,5 +170,68 @@ class Product extends BaseModel
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+    /**
+     * Get Single Product by ID
+     */
+    public function getById($id)
+    {
+        $sql = "SELECT p.*, c.name as category_name, pc.name as parent_category_name, sg.image_path as size_guide_image
+                FROM products p 
+                LEFT JOIN categories c ON p.category_id = c.id 
+                LEFT JOIN categories pc ON c.parent_id = pc.id
+                LEFT JOIN size_guides sg ON p.size_guide_id = sg.id
+                WHERE p.id = :id";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bindParam(':id', $id);
+        $stmt->execute();
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
+    /**
+     * Get Gallery Images
+     */
+    public function getGalleryImages($productId)
+    {
+        $sql = "SELECT image_path FROM product_images WHERE product_id = :pid";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bindParam(':pid', $productId);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_COLUMN); // Returns array of strings
+    }
+
+    /**
+     * Get Product Variations
+     * Grouped by Variation Name (e.g. Color => [ {val_id, val_name}, ... ])
+     */
+    public function getVariations($productId)
+    {
+        // Join product_variations -> variations, variation_values
+        $sql = "SELECT v.name as var_name, vv.id as val_id, vv.value as val_name, vv.color_hex
+                FROM product_variations pv
+                JOIN variations v ON pv.variation_id = v.id
+                JOIN variation_values vv ON pv.variation_value_id = vv.id
+                WHERE pv.product_id = :pid
+                ORDER BY v.id, vv.id"; // Order ensures grouping works easily
+
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bindParam(':pid', $productId);
+        $stmt->execute();
+        $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        // Grouping logic
+        $grouped = [];
+        foreach ($rows as $row) {
+            $name = $row['var_name']; // e.g. "Color" or "Size"
+            if (!isset($grouped[$name])) {
+                $grouped[$name] = [];
+            }
+            $grouped[$name][] = [
+                'id' => $row['val_id'],
+                'value' => $row['val_name'],
+                'hex' => $row['color_hex']
+            ];
+        }
+        return $grouped;
+    }
 }
 ?>
