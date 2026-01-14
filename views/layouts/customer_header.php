@@ -8,7 +8,7 @@
         <?= isset($title) ? $title : 'Ecom Shop' ?>
     </title>
     <!-- Use the new Customer CSS -->
-    <link rel="stylesheet" href="<?= BASE_URL ?>assets/css/customer.css">
+    <link rel="stylesheet" href="<?= BASE_URL ?>assets/css/customer.css?v=<?= time() ?>">
     <!-- Font Awesome for Icons (Optional, or use images) -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
@@ -27,8 +27,8 @@
                 ;
                 */
                 /* Note: User screenshot shows white card bg, but maybe body is lavender? 
-                                                   Safe to keep body white for now as per "UI design" request unless user sets it explicitly.
-                                                   Let's trust the CSS default for "clean white" look matching screenshot. */
+                                                       Safe to keep body white for now as per "UI design" request unless user sets it explicitly.
+                                                       Let's trust the CSS default for "clean white" look matching screenshot. */
             <?php endif; ?>
 
             <?php if (!empty($settings['font_family'])): ?>

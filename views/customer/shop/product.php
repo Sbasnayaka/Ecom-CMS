@@ -2,6 +2,15 @@
 
 <!-- Single Product View Styles (Inline for specific, move to CSS later if needed, but preferably in customer.css) -->
 <!-- We will use customer.css classes -->
+<style>
+    /* Hide global header/nav for this immersive page */
+    .mobile-header, .desktop-header, .bottom-nav {
+        display: none !important;
+    }
+    body {
+        padding-bottom: 0 !important; /* Reset body padding since we manage it in .product-detail-page */
+    }
+</style>
 
 <div class="product-detail-page">
 
