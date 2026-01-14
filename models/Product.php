@@ -233,5 +233,23 @@ class Product extends BaseModel
         }
         return $grouped;
     }
+
+    /**
+     * Get Related Products (Same category, excluding current)
+     */
+    public function getRelated($categoryId, $excludeId, $limit = 4)
+    {
+        $sql = "SELECT p.*, c.name as category_name 
+                FROM products p
+                LEFT JOIN categories c ON p.category_id = c.id
+                WHERE p.category_id = :catId AND p.id != :excludeId
+                ORDER BY RAND() LIMIT :limit";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bindParam(':catId', $categoryId);
+        $stmt->bindParam(':excludeId', $excludeId);
+        $stmt->bindParam(':limit', $limit, PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
 }
 ?>

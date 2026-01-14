@@ -604,21 +604,24 @@ p {
 /* Desktop Product Detail View (2-Column) */
 @media (min-width: 1024px) {
 
-    /* Reset Page logic */
+    /* Reset Page logic to fit inside Sidebar Layout */
     .product-detail-page {
-        max-width: 1200px;
-        /* Standard Width */
-        margin: 40px auto;
+        width: 100%;
+        /* Fill main-content */
+        max-width: none;
+        margin: 20px 0;
+        /* Vertical margin only */
         border: none;
         box-shadow: none;
         min-height: auto;
         background: transparent;
         display: grid;
-        grid-template-columns: 1fr 1fr;
-        /* 50/50 Split */
-        gap: 50px;
-        padding: 0 20px;
+        grid-template-columns: 1.2fr 1fr;
+        /* Image slightly wider? or 1:1 */
+        gap: 40px;
+        padding: 0;
     }
+
 
     /* Left Column: Gallery */
     .product-gallery {

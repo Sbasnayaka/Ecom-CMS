@@ -1,138 +1,162 @@
 <?php require_once 'views/layouts/customer_header.php'; ?>
 
-<!-- Single Product View Styles (All handled in customer.css now) -->
-<div class="product-detail-page">
+<!-- Wrappers for Sidebar Layout -->
+<div class="home-layout">
+    
+    <!-- Include Sidebar -->
+    <?php include 'views/customer/partials/sidebar.php'; ?>
 
-    <!-- Image Gallery Section -->
-    <div class="product-gallery">
-        <!-- Back Button Overlay -->
-        <a href="<?= BASE_URL ?>" class="back-btn-overlay">
-            <img src="<?= BASE_URL ?>assets/icons/delete.png" alt="Back" style="width: 18px; height: 18px;">
-        </a>
+    <main class="main-content">
+        
+        <!-- Single Product View Styles (All handled in customer.css now) -->
+        <div class="product-detail-page">
 
-        <div class="gallery-slider">
-            <!-- Main Image First -->
-            <?php
-            $mainImg = 'assets/uploads/' . $product['main_image'];
-            if (empty($product['main_image']) || !file_exists(ROOT_PATH . $mainImg)) {
-                $mainImg = 'https://via.placeholder.com/600x600?text=' . urlencode($product['title']);
-            } else {
-                $mainImg = BASE_URL . $mainImg;
-            }
-            ?>
-            <img src="<?= $mainImg ?>" class="gallery-img current" alt="Main Image">
+            <!-- Image Gallery Section -->
+            <div class="product-gallery">
+                <!-- Back Button Overlay -->
+                <a href="<?= BASE_URL ?>" class="back-btn-overlay">
+                    <img src="<?= BASE_URL ?>assets/icons/delete.png" alt="Back" style="width: 18px; height: 18px;">
+                </a>
 
-            <!-- Gallery Images -->
-            <?php if (!empty($gallery)): ?>
-                <?php foreach ($gallery as $gImg):
-                    $gPath = 'assets/uploads/' . $gImg;
-                    $gUrl = (file_exists(ROOT_PATH . $gPath)) ? BASE_URL . $gPath : '';
-                    if ($gUrl):
-                        ?>
-                        <img src="<?= $gUrl ?>" class="gallery-img" alt="Gallery Image">
-                    <?php endif; endforeach; ?>
-            <?php endif; ?>
-        </div>
-
-        <!-- Pagination Dots (Visual Only for now, or simple JS) -->
-        <div class="gallery-dots">
-            <span class="dot active"></span>
-            <?php if (!empty($gallery)): ?>
-                <?php foreach ($gallery as $g): ?>
-                    <span class="dot"></span>
-                <?php endforeach; ?>
-            <?php endif; ?>
-        </div>
-    </div>
-
-    <!-- Info Section -->
-    <div class="product-info-container">
-
-        <!-- Breadcrumb / Category -->
-        <div class="pd-breadcrumb">
-            <?php
-            $catName = htmlspecialchars($product['category_name'] ?? '');
-            $parentName = htmlspecialchars($product['parent_category_name'] ?? '');
-            echo (!empty($parentName) ? $parentName . ' | ' : '') . $catName;
-            ?>
-        </div>
-
-        <!-- Title -->
-        <h1 class="pd-title">
-            <?= htmlspecialchars($product['title']) ?>
-        </h1>
-
-        <!-- Price & Guide Row -->
-        <div class="pd-price-row">
-            <div class="pd-prices">
-                <?php
-                $currency = $settings['currency_symbol'] ?? 'LKR';
-                if (!empty($product['sale_price']) && $product['sale_price'] < $product['price']):
+                <div class="gallery-slider">
+                    <!-- Main Image First -->
+                    <?php
+                    $mainImg = 'assets/uploads/' . $product['main_image'];
+                    if (empty($product['main_image']) || !file_exists(ROOT_PATH . $mainImg)) {
+                        $mainImg = 'https://via.placeholder.com/600x600?text=' . urlencode($product['title']);
+                    } else {
+                        $mainImg = BASE_URL . $mainImg;
+                    }
                     ?>
-                    <span class="pd-old-price">
-                        <?= $currency ?>
-                        <?= number_format($product['price'], 0) ?>
-                    </span>
-                    <span class="pd-sale-price">
-                        <?= $currency ?>
-                        <?= number_format($product['sale_price'], 0) ?>
-                    </span>
-                <?php else: ?>
-                    <span class="pd-sale-price">
-                        <?= $currency ?>
-                        <?= number_format($product['price'], 0) ?>
-                    </span>
-                <?php endif; ?>
+                    <img src="<?= $mainImg ?>" class="gallery-img current" alt="Main Image">
+
+                    <!-- Gallery Images -->
+                    <?php if (!empty($gallery)): ?>
+                        <?php foreach ($gallery as $gImg):
+                            $gPath = 'assets/uploads/' . $gImg;
+                            $gUrl = (file_exists(ROOT_PATH . $gPath)) ? BASE_URL . $gPath : '';
+                            if ($gUrl):
+                                ?>
+                                <img src="<?= $gUrl ?>" class="gallery-img" alt="Gallery Image">
+                            <?php endif; endforeach; ?>
+                    <?php endif; ?>
+                </div>
+
+                <!-- Pagination Dots (Visual Only for now, or simple JS) -->
+                <div class="gallery-dots">
+                    <span class="dot active"></span>
+                    <?php if (!empty($gallery)): ?>
+                        <?php foreach ($gallery as $g): ?>
+                            <span class="dot"></span>
+                        <?php endforeach; ?>
+                    <?php endif; ?>
+                </div>
             </div>
 
-            <?php if (!empty($product['size_guide_image'])): ?>
-                <button class="btn-size-guide" onclick="openSizeGuide()">Size Guide</button>
-            <?php endif; ?>
-        </div>
+            <!-- Info Section -->
+            <div class="product-info-container">
 
-        <!-- Variations -->
-        <?php if (!empty($variations)): ?>
-            <?php foreach ($variations as $varName => $values): ?>
-                <div class="var-section">
-                    <span class="var-label">
-                        <?= htmlspecialchars(ucfirst($varName)) ?>
-                    </span>
-                    <div class="var-pills">
-                        <?php foreach ($values as $val): ?>
-                            <div class="var-pill" onclick="selectVariation(this, '<?= $varName ?>', '<?= $val['id'] ?>')">
-                                <?= htmlspecialchars($val['value']) ?>
+                <!-- Breadcrumb / Category -->
+                <div class="pd-breadcrumb">
+                    <?php
+                    $catName = htmlspecialchars($product['category_name'] ?? '');
+                    $parentName = htmlspecialchars($product['parent_category_name'] ?? '');
+                    echo (!empty($parentName) ? $parentName . ' | ' : '') . $catName;
+                    ?>
+                </div>
+
+                <!-- Title -->
+                <h1 class="pd-title">
+                    <?= htmlspecialchars($product['title']) ?>
+                </h1>
+
+                <!-- Price & Guide Row -->
+                <div class="pd-price-row">
+                    <div class="pd-prices">
+                        <?php
+                        $currency = $settings['currency_symbol'] ?? 'LKR';
+                        if (!empty($product['sale_price']) && $product['sale_price'] < $product['price']):
+                            ?>
+                            <span class="pd-old-price">
+                                <?= $currency ?>
+                                <?= number_format($product['price'], 0) ?>
+                            </span>
+                            <span class="pd-sale-price">
+                                <?= $currency ?>
+                                <?= number_format($product['sale_price'], 0) ?>
+                            </span>
+                        <?php else: ?>
+                            <span class="pd-sale-price">
+                                <?= $currency ?>
+                                <?= number_format($product['price'], 0) ?>
+                            </span>
+                        <?php endif; ?>
+                    </div>
+
+                    <?php if (!empty($product['size_guide_image'])): ?>
+                        <button class="btn-size-guide" onclick="openSizeGuide()">Size Guide</button>
+                    <?php endif; ?>
+                </div>
+
+                <!-- Variations -->
+                <?php if (!empty($variations)): ?>
+                    <?php foreach ($variations as $varName => $values): ?>
+                        <div class="var-section">
+                            <span class="var-label">
+                                <?= htmlspecialchars(ucfirst($varName)) ?>
+                            </span>
+                            <div class="var-pills">
+                                <?php foreach ($values as $val): ?>
+                                    <div class="var-pill" onclick="selectVariation(this, '<?= $varName ?>', '<?= $val['id'] ?>')">
+                                        <?= htmlspecialchars($val['value']) ?>
+                                    </div>
+                                <?php endforeach; ?>
                             </div>
-                        <?php endforeach; ?>
+                        </div>
+                    <?php endforeach; ?>
+                <?php endif; ?>
+
+                <!-- Description -->
+                <div class="pd-description">
+                    <?= nl2br(htmlspecialchars($product['description'])) ?>
+
+                    <div class="delivery-fee-line">
+                        <span style="color:#FF3B30;">♦</span> Delivery Fee: 350/-
                     </div>
                 </div>
-            <?php endforeach; ?>
-        <?php endif; ?>
 
-        <!-- Description -->
-        <div class="pd-description">
-            <?= nl2br(htmlspecialchars($product['description'])) ?>
+                <!-- Bottom Actions -->
+                <div class="pd-bottom-actions">
+                    <!-- WhatsApp Order -->
+                    <a href="https://wa.me/<?= str_replace(['+', ' '], '', $settings['shop_whatsapp'] ?? '') ?>?text=I would like to order <?= urlencode($product['title']) ?>"
+                        class="btn-action btn-whatsapp">
+                        <i class="fab fa-whatsapp"></i> Order Now
+                    </a>
 
-            <div class="delivery-fee-line">
-                <span style="color:#FF3B30;">♦</span> Delivery Fee: 350/-
+                    <!-- Add to Cart -->
+                    <button class="btn-action btn-cart" onclick="addToCart(<?= $product['id'] ?>)">
+                        <i class="fas fa-cart-plus"></i> Add to cart
+                    </button>
+                </div>
+
             </div>
         </div>
-    </div>
 
-    <!-- Bottom Actions -->
-    <div class="pd-bottom-actions">
-        <!-- WhatsApp Order -->
-        <a href="https://wa.me/<?= str_replace(['+', ' '], '', $settings['shop_whatsapp'] ?? '') ?>?text=I would like to order <?= urlencode($product['title']) ?>"
-            class="btn-action btn-whatsapp">
-            <i class="fab fa-whatsapp"></i> Order Now
-        </a>
+        <!-- You May Also Like Section -->
+        <?php if (!empty($relatedProducts)): ?>
+        <div style="margin-top: 50px; border-top: 1px solid #eee; padding-top: 30px;">
+            <h3 style="margin-bottom: 20px;">You May Also Like...</h3>
+            <div class="products-scroll" style="display:flex; overflow-x:auto; gap:15px; padding-bottom:10px;">
+                <?php foreach ($relatedProducts as $prod): ?>
+                    <?php include 'views/customer/partials/product_card.php'; ?>
+                <?php endforeach; ?>
+            </div>
+        </div>
+        <?php endif; ?>
 
-        <!-- Add to Cart -->
-        <button class="btn-action btn-cart" onclick="addToCart(<?= $product['id'] ?>)">
-            <i class="fas fa-cart-plus"></i> Add to cart
-        </button>
-    </div>
-
+    </main>
 </div>
+<!-- End Wrappers -->
 
 <!-- Size Guide Modal (Basic) -->
 <?php if (!empty($product['size_guide_image'])):

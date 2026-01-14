@@ -41,6 +41,10 @@ class ShopController extends BaseController
         // Fetch additional details
         $gallery = $this->productModel->getGalleryImages($id);
         $variations = $this->productModel->getVariations($id);
+        $relatedProducts = $this->productModel->getRelated($product['category_id'], $id, 3);
+
+        // Fetch Categories for Sidebar
+        $categories = $this->categoryModel->getAll();
 
         // Pass global settings for currency etc
         $settings = $this->settingModel->getAllPairs();
@@ -50,6 +54,8 @@ class ShopController extends BaseController
             'product' => $product,
             'gallery' => $gallery,
             'variations' => $variations,
+            'relatedProducts' => $relatedProducts,
+            'categories' => $categories, // For sidebar
             'settings' => $settings
         ]);
     }
