@@ -7,7 +7,7 @@
     <div class="product-gallery">
         <!-- Back Button Overlay -->
         <a href="<?= BASE_URL ?>" class="back-btn-overlay">
-            <i class="fas fa-chevron-left"></i>
+            <img src="<?= BASE_URL ?>assets/icons/delete.png" alt="Back" style="width: 18px; height: 18px;">
         </a>
 
         <div class="gallery-slider">

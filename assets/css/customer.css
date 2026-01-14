@@ -656,9 +656,22 @@ p {
     }
 
     /* Hide Mobile Controls */
-    .back-btn-overlay,
+    /* Hide Mobile Controls - Only dots, Keep Back button as Close */
     .gallery-dots {
         display: none;
+    }
+
+    .back-btn-overlay {
+        display: flex;
+        /* Show it */
+        position: absolute;
+        top: 20px;
+        left: 20px;
+        background: rgba(255, 255, 255, 0.9);
+        /* Lighter background for desktop */
+        color: #000;
+        z-index: 50;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     }
 
     /* Right Column: Info */
