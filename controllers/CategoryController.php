@@ -75,7 +75,7 @@ class CategoryController extends BaseController
             $imagePath = '';
             if (isset($_FILES['image']) && $_FILES['image']['error'] == 0) {
                 // Use absolute path
-                $targetDir = $_SERVER['DOCUMENT_ROOT'] . "/Ecom-CMS/assets/uploads/";
+                $targetDir = dirname(__DIR__) . "/assets/uploads/";
 
                 // Create dir if not exists
                 if (!is_dir($targetDir)) {
@@ -151,7 +151,7 @@ class CategoryController extends BaseController
             // Image Logic
             $imagePath = null;
             if (isset($_FILES['image']) && $_FILES['image']['error'] == 0) {
-                $targetDir = $_SERVER['DOCUMENT_ROOT'] . "/Ecom-CMS/assets/uploads/";
+                $targetDir = dirname(__DIR__) . "/assets/uploads/";
                 if (!is_dir($targetDir))
                     mkdir($targetDir, 0777, true);
 
