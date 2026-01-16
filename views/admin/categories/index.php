@@ -112,7 +112,9 @@
                     </span>
                     <div class="cat-actions">
                         <div class="check-box"></div>
-                        <a href="/Ecom-CMS/category/edit/<?= $mainCat['id'] ?>" class="edit-btn">✏️</a>
+                        <a href="<?= BASE_URL ?>category/edit/<?= $mainCat['id'] ?>" class="edit-btn">✏️</a>
+                        <a href="<?= BASE_URL ?>category/delete/<?= $mainCat['id'] ?>" class="edit-btn"
+                            style="background-color:#ff3b30;" onclick="return confirm('Delete Category?')">🗑️</a>
                     </div>
                 </div>
 
@@ -125,7 +127,9 @@
                             </span>
                             <div class="cat-actions">
                                 <div class="check-box"></div>
-                                <a href="/Ecom-CMS/category/edit/<?= $subCat['id'] ?>" class="edit-btn">✏️</a>
+                                <a href="<?= BASE_URL ?>category/edit/<?= $subCat['id'] ?>" class="edit-btn">✏️</a>
+                                <a href="<?= BASE_URL ?>category/delete/<?= $subCat['id'] ?>" class="edit-btn"
+                                    style="background-color:#ff3b30;" onclick="return confirm('Delete Category?')">🗑️</a>
                             </div>
                         </div>
                     <?php endforeach; ?>

@@ -7,7 +7,7 @@
     <title>
         <?= $title ?>
     </title>
-    <link rel="stylesheet" href="/Ecom-CMS/assets/css/admin.css">
+    <link rel="stylesheet" href="<?= BASE_URL ?>assets/css/admin.css">
     <style>
         .toggle-group {
             display: flex;
@@ -26,7 +26,9 @@
         }
 
         .toggle-btn.active {
-            border-color: #333;
+            border-color: #0F172A;
+            background-color: #0F172A;
+            color: white;
             font-weight: bold;
         }
 
@@ -84,7 +86,7 @@
 
 <body>
 
-    <form action="/Ecom-CMS/category/<?= $mode === 'edit' ? 'update' : 'store' ?>" method="POST"
+    <form action="<?= BASE_URL ?>category/<?= $mode === 'edit' ? 'update' : 'store' ?>" method="POST"
         enctype="multipart/form-data">
         <?php if ($mode === 'edit'): ?>
             <input type="hidden" name="id" value="<?= $category['id'] ?>">
@@ -93,7 +95,7 @@
         <div class="container">
             <div class="header-bar">
                 <div style="display:flex; gap:10px; align-items:center;">
-                    <a href="/Ecom-CMS/category/index" class="back-circle">❮</a>
+                    <a href="<?= BASE_URL ?>category/index" class="back-circle">❮</a>
                     <h2 style="margin:0;">
                         <?= $mode === 'edit' ? 'Edit Category' : 'Add Category' ?>
                     </h2>
@@ -103,7 +105,7 @@
 
             <?php if ($mode === 'edit'): ?>
                 <div style="margin-bottom: 20px;">
-                    <a href="/Ecom-CMS/category/delete/<?= $category['id'] ?>" class="delete-btn-red"
+                    <a href="<?= BASE_URL ?>category/delete/<?= $category['id'] ?>" class="delete-btn-red"
                         onclick="return confirm('Are you sure?')">
                         🗑️ DELETE
                     </a>
@@ -156,12 +158,12 @@
             }
         }
 
-    // Initialize state
-    <?php if (isset($category['parent_id']) && $category['parent_id']): ?>
-                setType('sub');
-    <?php else: ?>
-                setType('main');
-    <?php endif; ?>
+        // Initialize state
+        <?php if (isset($category['parent_id']) && $category['parent_id']): ?>
+            setType('sub');
+        <?php else: ?>
+            setType('main');
+        <?php endif; ?>
     </script>
 
 </body>
