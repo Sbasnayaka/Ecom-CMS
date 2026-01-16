@@ -349,7 +349,7 @@
             <!-- Size Guide -->
             <div style="display:flex; justify-content:space-between; align-items:center;">
                 <span class="section-label">Size Guide</span>
-                <a href="<?= BASE_URL ?>sizeguide/index" target="_blank"
+                <a href="<?= BASE_URL ?>sizeGuide/index" target="_blank"
                     style="font-size:12px; color:#007aff; text-decoration:none; font-weight:600;">+ Add / Manage
                     Guides</a>
             </div>

@@ -4,7 +4,7 @@
  */
 require_once 'models/SizeGuide.php';
 
-class SizeguideController extends BaseController
+class SizeGuideController extends BaseController
 {
 
     private $model;
@@ -58,7 +58,7 @@ class SizeguideController extends BaseController
                     'image_path' => $imagePath
                 ])
             ) {
-                $this->redirect('sizeguide/index');
+                $this->redirect('sizeGuide/index');
             } else {
                 echo "Error adding size guide.";
             }
@@ -68,7 +68,7 @@ class SizeguideController extends BaseController
     public function delete($id)
     {
         $this->model->delete($id);
-        $this->redirect('sizeguide/index');
+        $this->redirect('sizeGuide/index');
     }
 }
 ?>
