@@ -232,21 +232,21 @@
 
                 <!-- Instagram -->
                 <div class="social-row">
-                    <img src="/Ecom-CMS/assets/icons/Instagram.png" class="social-icon">
+                    <img src="<?= BASE_URL ?>assets/icons/Instagram.png" class="social-icon">
                     <input type="text" name="social_insta" class="input-white" style="margin-bottom:0;"
                         placeholder="Enter Link here" value="<?= htmlspecialchars($settings['social_insta']) ?>">
                 </div>
 
                 <!-- Youtube -->
                 <div class="social-row">
-                    <img src="/Ecom-CMS/assets/icons/youtube.png" class="social-icon">
+                    <img src="<?= BASE_URL ?>assets/icons/youtube.png" class="social-icon">
                     <input type="text" name="social_youtube" class="input-white" style="margin-bottom:0;"
                         placeholder="Enter Link here" value="<?= htmlspecialchars($settings['social_youtube']) ?>">
                 </div>
 
                 <!-- Whatsapp -->
                 <div class="social-row">
-                    <img src="/Ecom-CMS/assets/icons/whatsapp.png" class="social-icon">
+                    <img src="<?= BASE_URL ?>assets/icons/whatsapp.png" class="social-icon">
                     <input type="text" name="social_whatsapp" class="input-white" style="margin-bottom:0;"
                         placeholder="Enter Link here" value="<?= htmlspecialchars($settings['social_whatsapp']) ?>">
                 </div>
