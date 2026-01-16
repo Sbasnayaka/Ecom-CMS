@@ -347,13 +347,11 @@
                 placeholder="You can use external links, emojis... 🌸"></textarea>
 
             <!-- Size Guide -->
-            <div
-                style="display:flex; justify-content:space-between; align-items:center; margin-top:20px; margin-bottom:5px;">
-                <span class="section-label" style="margin:0;">Size Guide</span>
-                <a href="<?= BASE_URL ?>sizeguide/add" target="_blank"
-                    style="font-size:12px; color:#007aff; text-decoration:none; font-weight:bold;">
-                    + Create New Guide
-                </a>
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+                <span class="section-label">Size Guide</span>
+                <a href="<?= BASE_URL ?>sizeguide/index" target="_blank"
+                    style="font-size:12px; color:#007aff; text-decoration:none; font-weight:600;">+ Add / Manage
+                    Guides</a>
             </div>
             <select name="size_guide_id" class="input-box">
                 <option value="">+ Click here to select Size Guides</option>

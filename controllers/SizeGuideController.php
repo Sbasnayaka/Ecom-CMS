@@ -39,7 +39,8 @@ class SizeGuideController extends BaseController
             // Image Upload
             $imagePath = '';
             if (isset($_FILES['image']) && $_FILES['image']['error'] == 0) {
-                $targetDir = $_SERVER['DOCUMENT_ROOT'] . "/Ecom-CMS/assets/uploads/";
+                // Fix: Use dynamic path consistent with ProductController
+                $targetDir = dirname(__DIR__) . "/assets/uploads/";
                 if (!is_dir($targetDir))
                     mkdir($targetDir, 0777, true);
 
