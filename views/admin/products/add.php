@@ -311,7 +311,10 @@
             </div>
 
             <!-- Category -->
-            <span class="section-label">Select Categories <span style="color:red">*</span></span>
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+                <span class="section-label">Select Categories <span style="color:red">*</span></span>
+                <a href="<?= BASE_URL ?>category/index" target="_blank" style="font-size:12px; color:#007aff; text-decoration:none; font-weight:600;">+ Add / Manage Categories</a>
+            </div>
             <select name="category_id" class="input-box" required>
                 <option value="">+ Click here to select Categories</option>
                 <?php foreach ($categories as $cat): ?>
