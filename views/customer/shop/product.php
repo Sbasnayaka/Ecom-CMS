@@ -2,12 +2,12 @@
 
 <!-- Wrappers for Sidebar Layout -->
 <div class="home-layout">
-    
+
     <!-- Include Sidebar -->
     <?php include 'views/customer/partials/sidebar.php'; ?>
 
     <main class="main-content">
-        
+
         <!-- Single Product View Styles (All handled in customer.css now) -->
         <div class="product-detail-page">
 
@@ -93,7 +93,10 @@
                         <?php endif; ?>
                     </div>
 
-                    <?php if (!empty($product['size_guide_image'])): ?>
+                    <?php
+                    $sgPath = 'assets/uploads/' . ($product['size_guide_image'] ?? '');
+                    if (!empty($product['size_guide_image']) && file_exists(ROOT_PATH . $sgPath)):
+                        ?>
                         <button class="btn-size-guide" onclick="openSizeGuide()">Size Guide</button>
                     <?php endif; ?>
                 </div>
@@ -144,14 +147,14 @@
 
         <!-- You May Also Like Section -->
         <?php if (!empty($relatedProducts)): ?>
-        <div style="margin-top: 50px; border-top: 1px solid #eee; padding-top: 30px;">
-            <h3 style="margin-bottom: 20px;">You May Also Like...</h3>
-            <div class="products-scroll" style="display:flex; overflow-x:auto; gap:15px; padding-bottom:10px;">
-                <?php foreach ($relatedProducts as $prod): ?>
-                    <?php include 'views/customer/partials/product_card.php'; ?>
-                <?php endforeach; ?>
+            <div style="margin-top: 50px; border-top: 1px solid #eee; padding-top: 30px;">
+                <h3 style="margin-bottom: 20px;">You May Also Like...</h3>
+                <div class="products-scroll" style="display:flex; overflow-x:auto; gap:15px; padding-bottom:10px;">
+                        <?php foreach ($relatedProducts as $prod): ?>
+                                <?php include 'views/customer/partials/product_card.php'; ?>
+                  <?php endforeach; ?>
+                </div>
             </div>
-        </div>
         <?php endif; ?>
 
     </main>
@@ -159,8 +162,10 @@
 <!-- End Wrappers -->
 
 <!-- Size Guide Modal (Basic) -->
-<?php if (!empty($product['size_guide_image'])):
-    $sgImg = BASE_URL . 'assets/uploads/' . $product['size_guide_image'];
+<?php
+$sgPath = 'assets/uploads/' . ($product['size_guide_image'] ?? '');
+if (!empty($product['size_guide_image']) && file_exists(ROOT_PATH . $sgPath)):
+    $sgImg = BASE_URL . $sgPath;
     ?>
     <div id="sgModal" class="modal-overlay" onclick="closeSizeGuide()" style="display: none;">
         <div class="modal-content" onclick="event.stopPropagation()" style="position: relative; padding: 0;">
