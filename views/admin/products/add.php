@@ -386,7 +386,11 @@
         <!-- Variations Modal -->
         <div class="modal-overlay" id="varModal">
             <div class="modal-content">
-                <h3>Select Variations</h3>
+                <div style="display:flex; justify-content:space-between; align-items:center;">
+                    <h3 style="margin:0;">Select Variations</h3>
+                    <a href="<?= BASE_URL ?>variation/index" target="_blank"
+                        style="font-size:12px; color:#007aff; text-decoration:none;">+ Manage Variations</a>
+                </div>
                 <p style="color:#666; font-size:12px;">Tap to select available options</p>
 
                 <div style="max-height: 300px; overflow-y: auto;">
