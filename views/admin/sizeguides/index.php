@@ -88,7 +88,7 @@
             <h2 style="margin:0;">Size Guides</h2>
         </div>
 
-        <a href="<?= BASE_URL ?>sizeguide/add" class="btn btn-outline-primary btn-block"
+        <a href="<?= BASE_URL ?>sizeGuide/add" class="btn btn-outline-primary btn-block"
             style="border:1px solid var(--primary-color); color:var(--primary-color); background:white;">
             Add Size Guide
         </a>
@@ -109,7 +109,7 @@
                         </span>
                     </div>
 
-                    <a href="<?= BASE_URL ?>sizeguide/delete/<?= $guide['id'] ?>" class="delete-btn-icon"
+                    <a href="<?= BASE_URL ?>sizeGuide/delete/<?= $guide['id'] ?>" class="delete-btn-icon"
                         onclick="return confirm('Delete this size guide?')">
                         🗑️
                     </a>

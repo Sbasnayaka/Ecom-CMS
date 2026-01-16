@@ -51,7 +51,7 @@
 
 <body>
 
-    <form action="<?= BASE_URL ?>sizeguide/store" method="POST" enctype="multipart/form-data">
+    <form action="<?= BASE_URL ?>sizeGuide/store" method="POST" enctype="multipart/form-data">
         <div class="container">
             <div class="header-bar">
                 <div style="display:flex; gap:10px; align-items:center;">
