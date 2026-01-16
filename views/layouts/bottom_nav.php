@@ -15,9 +15,9 @@ $current_page = $current_page ?? 'dashboard';
         <img src="<?= BASE_URL ?>assets/icons/feedback.png" class="nav-icon-img" alt="Feed">
         <span>Feedback</span>
     </a>
-    <a href="<?= BASE_URL ?>myshop/index" class="nav-item <?= $current_page == 'myshop' ? 'active' : '' ?>">
+    <a href="<?= BASE_URL ?>myShop/index" class="nav-item <?= $current_page == 'myshop' ? 'active' : '' ?>">
         <!-- Using Dashboard icon as placeholder as requested -->
-        <img src="<?= BASE_URL ?>assets/icons/myshop.png" class="nav-icon-img" alt="Shop">
+        <img src="<?= BASE_URL ?>assets/icons/Myshop.png" class="nav-icon-img" alt="Shop">
         <span>My Shop</span>
     </a>
     <a href="<?= BASE_URL ?>settings/index" class="nav-item <?= $current_page == 'settings' ? 'active' : '' ?>">

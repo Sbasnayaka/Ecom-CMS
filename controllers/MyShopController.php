@@ -57,7 +57,7 @@ class MyShopController extends BaseController
             }
 
             // Redirect back with success
-            $this->redirect('myshop/index');
+            $this->redirect('myShop/index');
         }
     }
 }
