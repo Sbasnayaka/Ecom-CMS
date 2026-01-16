@@ -4,7 +4,7 @@
  */
 require_once 'models/SizeGuide.php';
 
-class SizeGuideController extends BaseController
+class SizeguideController extends BaseController
 {
 
     private $model;
