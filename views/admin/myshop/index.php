@@ -232,7 +232,7 @@
 
                 <!-- Instagram -->
                 <div class="social-row">
-                    <img src="<?= BASE_URL ?>assets/icons/Instagram.png" class="social-icon">
+                    <img src="<?= BASE_URL ?>assets/icons/instagram.png" class="social-icon">
                     <input type="text" name="social_insta" class="input-white" style="margin-bottom:0;"
                         placeholder="Enter Link here" value="<?= htmlspecialchars($settings['social_insta']) ?>">
                 </div>
