@@ -34,7 +34,7 @@ class FeedbackController extends BaseController
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-            $uploadDir = $_SERVER['DOCUMENT_ROOT'] . "/Ecom-CMS/assets/uploads/";
+            $uploadDir = dirname(__DIR__) . "/assets/uploads/";
             if (!is_dir($uploadDir))
                 mkdir($uploadDir, 0777, true);
 
