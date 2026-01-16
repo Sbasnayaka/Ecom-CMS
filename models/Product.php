@@ -100,6 +100,111 @@ class Product extends BaseModel
         }
     }
 
+    public function update($data)
+    {
+        try {
+            $this->conn->beginTransaction();
+
+            // 1. Update Core Product
+            $sql = "UPDATE products SET 
+                    title = :title, 
+                    slug = :slug, 
+                    sku = :sku, 
+                    price = :price, 
+                    sale_price = :sale_price, 
+                    description = :description, 
+                    is_featured = :is_featured, 
+                    category_id = :category_id, 
+                    size_guide_id = :size_guide_id
+                    WHERE id = :id";
+
+            // Only update main_image if a new one is provided or we strictly want to
+            if (!empty($data['main_image'])) {
+                $sql = "UPDATE products SET 
+                        title = :title, 
+                        slug = :slug, 
+                        sku = :sku, 
+                        price = :price, 
+                        sale_price = :sale_price, 
+                        description = :description, 
+                        main_image = :main_image,
+                        is_featured = :is_featured, 
+                        category_id = :category_id, 
+                        size_guide_id = :size_guide_id
+                        WHERE id = :id";
+            }
+
+            $stmt = $this->conn->prepare($sql);
+
+            $slug = $this->createSlug($data['title']);
+
+            $stmt->bindParam(':id', $data['id']);
+            $stmt->bindParam(':title', $data['title']);
+            $stmt->bindParam(':slug', $slug);
+            $stmt->bindParam(':sku', $data['sku']);
+            $stmt->bindParam(':price', $data['price']);
+
+            $salePrice = !empty($data['sale_price']) ? $data['sale_price'] : null;
+            $stmt->bindParam(':sale_price', $salePrice);
+
+            $stmt->bindParam(':description', $data['description']);
+
+            if (!empty($data['main_image'])) {
+                $stmt->bindParam(':main_image', $data['main_image']);
+            }
+
+            $isFeatured = !empty($data['is_featured']) ? 1 : 0;
+            $stmt->bindParam(':is_featured', $isFeatured);
+
+            $stmt->bindParam(':category_id', $data['category_id']);
+
+            $sizeGuideId = !empty($data['size_guide_id']) ? $data['size_guide_id'] : null;
+            $stmt->bindParam(':size_guide_id', $sizeGuideId);
+
+            $stmt->execute();
+
+            // 2. Append New Gallery Images
+            if (!empty($data['new_gallery_images'])) {
+                $sqlImg = "INSERT INTO product_images (product_id, image_path) VALUES (:pid, :path)";
+                $stmtImg = $this->conn->prepare($sqlImg);
+
+                foreach ($data['new_gallery_images'] as $path) {
+                    $stmtImg->bindParam(':pid', $data['id']);
+                    $stmtImg->bindParam(':path', $path);
+                    $stmtImg->execute();
+                }
+            }
+
+            // 3. Update Variations (Delete All for this Product and Re-Insert)
+            // This assumes we send ALL selected variations every time.
+            if (isset($data['variations'])) {
+                $sqlDel = "DELETE FROM product_variations WHERE product_id = :pid";
+                $stmtDel = $this->conn->prepare($sqlDel);
+                $stmtDel->bindParam(':pid', $data['id']);
+                $stmtDel->execute();
+
+                if (!empty($data['variations'])) {
+                    $sqlVar = "INSERT INTO product_variations (product_id, variation_id, variation_value_id) VALUES (:pid, :vid, :vvid)";
+                    $stmtVar = $this->conn->prepare($sqlVar);
+
+                    foreach ($data['variations'] as $var) {
+                        $stmtVar->bindParam(':pid', $data['id']);
+                        $stmtVar->bindParam(':vid', $var['variation_id']);
+                        $stmtVar->bindParam(':vvid', $var['variation_value_id']);
+                        $stmtVar->execute();
+                    }
+                }
+            }
+
+            $this->conn->commit();
+            return true;
+
+        } catch (Exception $e) {
+            $this->conn->rollBack();
+            return false;
+        }
+    }
+
     public function delete($id)
     {
         $sql = "DELETE FROM products WHERE id = :id";

@@ -270,16 +270,22 @@
     </div>
 
     <!-- Form -->
-    <form action="<?= BASE_URL ?>product/store" method="POST" enctype="multipart/form-data" id="productForm">
+    <form action="<?= BASE_URL ?>product/<?= isset($mode) && $mode === 'edit' ? 'update' : 'store' ?>" method="POST"
+        enctype="multipart/form-data" id="productForm">
         <div class="container" style="padding-bottom: 80px;">
 
             <div class="header-bar">
                 <a href="<?= BASE_URL ?>product/index" class="back-circle">❮</a>
                 <div>
-                    <h2 style="margin:0;">Add Product</h2>
+                    <h2 style="margin:0;"><?= isset($mode) && $mode === 'edit' ? 'Edit Product' : 'Add Product' ?></h2>
                     <p style="margin:0; font-size:11px; color:#888;">List New Items in One Minute...</p>
                 </div>
             </div>
+
+            <?php if (isset($mode) && $mode === 'edit'): ?>
+                <input type="hidden" name="id" value="<?= $product['id'] ?>">
+                <input type="hidden" name="current_main_image" value="<?= $product['main_image'] ?>">
+            <?php endif; ?>
 
             <!-- Images -->
             <span class="section-label">Product Images</span>
@@ -288,137 +294,165 @@
             <div class="images-container">
                 <!-- Main Image -->
                 <div class="main-img-box" onclick="document.getElementById('mainImgInput').click()">
-                    <img id="mainPreview" class="preview-img">
-                    <div id="mainPlaceholder">
-                        <div style="font-size:24px;">📷</div>
-                        <p style="font-size:10px; color:#555;">Tap here to<br>upload a photo</p>
-                    </div>
-                    <input type="file" name="main_image" id="mainImgInput" style="display:none;" accept="image/*"
-                        required>
-                </div>
-
-                <!-- Gallery -->
-                <div class="gallery-box" onclick="document.getElementById('galImgInput').click()">
-                    <!-- Show count if selected -->
-                    <div id="galPlaceholder">
-                        <div style="font-size:24px;">📷 📷 📷</div>
-                        <p style="font-size:10px; color:#555;">Tap here to upload photos<br>Max: 10 Photos</p>
-                    </div>
-                    <p id="galCount" style="display:none; font-weight:bold; color:#007aff;">0 Selected</p>
-                    <input type="file" name="gallery_images[]" id="galImgInput" style="display:none;" accept="image/*"
-                        multiple>
-                </div>
-            </div>
-
-            <!-- Category -->
-            <div style="display:flex; justify-content:space-between; align-items:center;">
-                <span class="section-label">Select Categories <span style="color:red">*</span></span>
-                <a href="<?= BASE_URL ?>category/index" target="_blank" style="font-size:12px; color:#007aff; text-decoration:none; font-weight:600;">+ Add / Manage Categories</a>
-            </div>
-            <select name="category_id" class="input-box" required>
-                <option value="">+ Click here to select Categories</option>
-                <?php foreach ($categories as $cat): ?>
-                    <!-- Simple logic: if parent_id is null, it's a main cat -->
-                    <?php if (!$cat['parent_id']): ?>
-                        <optgroup label="<?= htmlspecialchars($cat['name']) ?>">
-                            <!-- Find children -->
-                            <?php foreach ($categories as $sub): ?>
-                                <?php if ($sub['parent_id'] == $cat['id']): ?>
-                                    <option value="<?= $sub['id'] ?>">
-                                        <?= htmlspecialchars($sub['name']) ?>
-                                    </option>
-                                <?php endif; ?>
-                            <?php endforeach; ?>
-                        </optgroup>
-                    <?php endif; ?>
-                <?php endforeach; ?>
-            </select>
-
-            <!-- Info -->
-            <span class="section-label">Product Title <span style="color:red">*</span></span>
-            <input type="text" name="title" class="input-box" placeholder="Enter product name here..." required>
-
-            <span class="section-label">Price</span>
-            <div class="price-row">
-                <input type="number" name="price" class="input-box" placeholder="Normal Price" step="0.01" required>
-                <input type="number" name="sale_price" class="input-box" placeholder="Discounted Price" step="0.01"
-                    style="background:#ffeaea;">
-            </div>
-
-            <span class="section-label">Product Description</span>
-            <textarea name="description" class="input-box" rows="4"
-                placeholder="You can use external links, emojis... 🌸"></textarea>
-
-            <!-- Size Guide -->
-            <div style="display:flex; justify-content:space-between; align-items:center;">
-                <span class="section-label">Size Guide</span>
-                <a href="<?= BASE_URL ?>sizeGuide/index" target="_blank"
-                    style="font-size:12px; color:#007aff; text-decoration:none; font-weight:600;">+ Add / Manage
-                    Guides</a>
-            </div>
-            <select name="size_guide_id" class="input-box">
-                <option value="">+ Click here to select Size Guides</option>
-                <?php foreach ($sizeGuides as $sg): ?>
-                    <option value="<?= $sg['id'] ?>">
-                        <?= htmlspecialchars($sg['name']) ?>
-                    </option>
-                <?php endforeach; ?>
-            </select>
-
-            <!-- SKU -->
-            <span class="section-label">Product Code (SKU)</span>
-            <input type="text" name="sku" class="input-box" placeholder="Enter product name here...">
-
-            <!-- Featured -->
-            <span class="section-label">Featured Product</span>
-            <label class="toggle-switch">
-                <input type="checkbox" name="is_featured">
-                <span class="slider"></span>
-            </label>
-
-            <div style="margin-top: 30px;">
-                <button type="button" class="btn-yellow" onclick="openVarModal()">Add Variations</button>
-                <button type="submit" class="btn-blue">Publish</button>
-            </div>
-
-        </div>
-
-        <!-- Variations Hidden Inputs container -->
-        <div id="hiddenVars"></div>
-
-        <!-- Variations Modal -->
-        <div class="modal-overlay" id="varModal">
-            <div class="modal-content">
-                <div style="display:flex; justify-content:space-between; align-items:center;">
-                    <h3 style="margin:0;">Select Variations</h3>
-                    <a href="<?= BASE_URL ?>variation/index" target="_blank"
-                        style="font-size:12px; color:#007aff; text-decoration:none;">+ Manage Variations</a>
-                </div>
-                <p style="color:#666; font-size:12px;">Tap to select available options</p>
-
-                <div style="max-height: 300px; overflow-y: auto;">
-                    <?php foreach ($variations as $var): ?>
-                        <div class="var-group">
-                            <div class="var-title">
-                                <?= htmlspecialchars($var['name']) ?>
-                            </div>
-                            <div>
-                                <?php foreach ($var['values'] as $val): ?>
-                                    <div class="var-opt" data-id="<?= $var['id'] ?>_<?= $val['id'] ?>"
-                                        onclick="toggleVar(this)">
-                                        <?= htmlspecialchars($val['value']) ?>
-                                    </div>
-                                <?php endforeach; ?>
-                            </div>
+                    <?php if (isset($mode) && $mode === 'edit' && !empty($product['main_image'])): ?>
+                        <img id="mainPreview" class="preview-img"
+                            src="<?= BASE_URL ?>assets/uploads/<?= $product['main_image'] ?>" style="display:block;">
+                        <div id="mainPlaceholder" style="display:none;">
+                        <?php else: ?>
+                            <img id="mainPreview" class="preview-img">
+                            <div id="mainPlaceholder">
+                            <?php endif; ?>
+                            <div style="font-size:24px;">📷</div>
+                            <p style="font-size:10px; color:#555;">Tap here to<br>upload a photo</p>
                         </div>
-                    <?php endforeach; ?>
+                        <input type="file" name="main_image" id="mainImgInput" style="display:none;" accept="image/*"
+                            required>
+                    </div>
+
+                    <!-- Gallery -->
+                    <div class="gallery-box" onclick="document.getElementById('galImgInput').click()">
+                        <!-- Show count if selected -->
+                        <div id="galPlaceholder">
+                            <div style="font-size:24px;">📷 📷 📷</div>
+                            <p style="font-size:10px; color:#555;">Tap here to upload photos<br>Max: 10 Photos</p>
+                        </div>
+                        <p id="galCount" style="display:none; font-weight:bold; color:#007aff;">0 Selected</p>
+                        <input type="file" name="gallery_images[]" id="galImgInput" style="display:none;"
+                            accept="image/*" multiple>
+                    </div>
                 </div>
 
-                <div style="margin-top:20px; text-align:right;">
-                    <button type="button" class="btn-blue" style="width:100%;" onclick="closeVarModal()">Done</button>
+                <!-- Category -->
+                <div style="display:flex; justify-content:space-between; align-items:center;">
+                    <span class="section-label">Select Categories <span style="color:red">*</span></span>
+                    <a href="<?= BASE_URL ?>category/index" target="_blank"
+                        style="font-size:12px; color:#007aff; text-decoration:none; font-weight:600;">+ Add / Manage
+                        Categories</a>
+                </div>
+                <select name="category_id" class="input-box" required>
+                    <option value="">+ Click here to select Categories</option>
+                    <?php foreach ($categories as $cat): ?>
+                        <!-- Simple logic: if parent_id is null, it's a main cat -->
+                        <?php if (!$cat['parent_id']): ?>
+                            <optgroup label="<?= htmlspecialchars($cat['name']) ?>">
+                                <!-- Find children -->
+                                <?php foreach ($categories as $sub): ?>
+                                    <?php if ($sub['parent_id'] == $cat['id']): ?>
+                                        <option value="<?= $sub['id'] ?>" <?= (isset($product['category_id']) && $product['category_id'] == $sub['id']) ? 'selected' : '' ?>>
+                                            <?= htmlspecialchars($sub['name']) ?>
+                                        </option>
+                                    <?php endif; ?>
+                                <?php endforeach; ?>
+                            </optgroup>
+                        <?php endif; ?>
+                    <?php endforeach; ?>
+                </select>
+
+                <!-- Info -->
+                <span class="section-label">Product Title <span style="color:red">*</span></span>
+                <input type="text" name="title" class="input-box" placeholder="Enter product name here..."
+                    value="<?= htmlspecialchars($product['title'] ?? '') ?>" required>
+
+                <span class="section-label">Price</span>
+                <div class="price-row">
+                    <input type="number" name="price" class="input-box" placeholder="Normal Price" step="0.01"
+                        value="<?= $product['price'] ?? '' ?>" required>
+                    <input type="number" name="sale_price" class="input-box" placeholder="Discounted Price" step="0.01"
+                        style="background:#ffeaea;" value="<?= $product['sale_price'] ?? '' ?>">
+                </div>
+
+                <span class="section-label">Product Description</span>
+                <textarea name="description" class="input-box" rows="4"
+                    placeholder="You can use external links, emojis... 🌸"><?= htmlspecialchars($product['description'] ?? '') ?></textarea>
+
+                <!-- Size Guide -->
+                <div style="display:flex; justify-content:space-between; align-items:center;">
+                    <span class="section-label">Size Guide</span>
+                    <a href="<?= BASE_URL ?>sizeGuide/index" target="_blank"
+                        style="font-size:12px; color:#007aff; text-decoration:none; font-weight:600;">+ Add / Manage
+                        Guides</a>
+                </div>
+                <select name="size_guide_id" class="input-box">
+                    <option value="">+ Click here to select Size Guides</option>
+                    <?php foreach ($sizeGuides as $sg): ?>
+                        <option value="<?= $sg['id'] ?>" <?= (isset($product['size_guide_id']) && $product['size_guide_id'] == $sg['id']) ? 'selected' : '' ?>>
+                            <?= htmlspecialchars($sg['name']) ?>
+                        </option>
+                    <?php endforeach; ?>
+                </select>
+
+                <!-- SKU -->
+                <span class="section-label">Product Code (SKU)</span>
+                <input type="text" name="sku" class="input-box" placeholder="Enter product name here..."
+                    value="<?= htmlspecialchars($product['sku'] ?? '') ?>">
+
+                <!-- Featured -->
+                <span class="section-label">Featured Product</span>
+                <label class="toggle-switch">
+                    <input type="checkbox" name="is_featured" <?= (isset($product['is_featured']) && $product['is_featured']) ? 'checked' : '' ?>>
+                    <span class="slider"></span>
+                </label>
+
+                <div style="margin-top: 30px;">
+                    <button type="button" class="btn-yellow" onclick="openVarModal()">Add Variations</button>
+                    <button type="submit" class="btn-blue">Publish</button>
+                </div>
+
+            </div>
+
+            <!-- Variations Hidden Inputs container -->
+            <div id="hiddenVars"></div>
+
+            <!-- Variations Modal -->
+            <div class="modal-overlay" id="varModal">
+                <div class="modal-content">
+                    <div style="display:flex; justify-content:space-between; align-items:center;">
+                        <h3 style="margin:0;">Select Variations</h3>
+                        <a href="<?= BASE_URL ?>variation/index" target="_blank"
+                            style="font-size:12px; color:#007aff; text-decoration:none;">+ Manage Variations</a>
+                    </div>
+                    <p style="color:#666; font-size:12px;">Tap to select available options</p>
+
+                    <div style="max-height: 300px; overflow-y: auto;">
+                        <?php foreach ($variations as $var): ?>
+                            <div class="var-group">
+                                <div class="var-title">
+                                    <?= htmlspecialchars($var['name']) ?>
+                                </div>
+                                <div>
+                                    <?php foreach ($var['values'] as $val): ?>
+                                        <?php
+                                        // Check if this value is selected in the product data
+                                        $selected = '';
+                                        if (isset($product['variations']) && is_array($product['variations'])) {
+                                            // $product['variations'] is grouped: 'Color' => [[id=X, value=Y]]
+                                            // We need to check if $val['id'] exists in any of the grouped arrays
+                                            foreach ($product['variations'] as $group) {
+                                                foreach ($group as $gItem) {
+                                                    if ($gItem['id'] == $val['id']) {
+                                                        $selected = 'selected';
+                                                        break 2;
+                                                    }
+                                                }
+                                            }
+                                        }
+                                        ?>
+                                        <div class="var-opt <?= $selected ?>" data-id="<?= $var['id'] ?>_<?= $val['id'] ?>"
+                                            onclick="toggleVar(this)">
+                                            <?= htmlspecialchars($val['value']) ?>
+                                        </div>
+                                    <?php endforeach; ?>
+                                </div>
+                            </div>
+                        <?php endforeach; ?>
+                    </div>
+
+                    <div style="margin-top:20px; text-align:right;">
+                        <button type="button" class="btn-blue" style="width:100%;"
+                            onclick="closeVarModal()">Done</button>
+                    </div>
                 </div>
             </div>
-        </div>
 
     </form>
 
@@ -485,6 +519,11 @@
         // Form Submit Loading
         document.getElementById('productForm').addEventListener('submit', function () {
             document.getElementById('loadingScreen').style.display = 'flex';
+        });
+
+        // Run on load in case we are in edit mode
+        window.addEventListener('load', function () {
+            populateHiddenVars();
         });
     </script>
 
