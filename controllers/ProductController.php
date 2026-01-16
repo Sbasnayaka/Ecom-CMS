@@ -203,7 +203,7 @@ class ProductController extends BaseController
         // We might need raw variation lines to pre-select, but let's see how the form expects it.
         // The form writes to hidden inputs 'selected_variations[]' as 'varId_valId'.
         // We need to reconstruct that list.
-        
+
         $this->view('admin/products/add', [
             'title' => 'Edit Product',
             'product' => $product,
@@ -218,14 +218,15 @@ class ProductController extends BaseController
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $id = $_POST['id'];
-            
+
             // Basic fields
             $title = $_POST['title'] ?? '';
             $price = $_POST['price'] ?? '';
             $categoryId = $_POST['category_id'] ?? '';
-            
+
             if (empty($title) || empty($price) || empty($categoryId)) {
-                 echo "Missing required fields."; return;
+                echo "Missing required fields.";
+                return;
             }
 
             // Upload Dir
@@ -234,10 +235,10 @@ class ProductController extends BaseController
             // Handle Main Image (Only if new one uploaded)
             $mainImagePath = $_POST['current_main_image'] ?? '';
             if (isset($_FILES['main_image']) && $_FILES['main_image']['error'] == 0) {
-                 $fileName = time() . '_main_' . preg_replace('/[^a-zA-Z0-9\._-]/', '', basename($_FILES['main_image']['name']));
-                 if (move_uploaded_file($_FILES['main_image']['tmp_name'], $uploadDir . $fileName)) {
-                     $mainImagePath = $fileName;
-                 }
+                $fileName = time() . '_main_' . preg_replace('/[^a-zA-Z0-9\._-]/', '', basename($_FILES['main_image']['name']));
+                if (move_uploaded_file($_FILES['main_image']['tmp_name'], $uploadDir . $fileName)) {
+                    $mainImagePath = $fileName;
+                }
             }
 
             // Handle Gallery (Append or Replace? Usually append in simple CMS, or complex management. 
@@ -245,10 +246,10 @@ class ProductController extends BaseController
             // Let's just ADD new ones to the list.)
             // Actually, `ProductModel->update` usually handles logic. Let's check ProductModel.
             // Wait, I haven't checked ProductModel->update capability.
-            
+
             // Let's assume we pass data and Model handles it. 
             // But we need to process uploads first.
-            
+
             $galleryPaths = []; // New images
             if (isset($_FILES['gallery_images'])) {
                 $files = $_FILES['gallery_images'];
@@ -263,7 +264,7 @@ class ProductController extends BaseController
                     }
                 }
             }
-            
+
             // Variations
             $formattedVars = [];
             if (isset($_POST['selected_variations']) && is_array($_POST['selected_variations'])) {
@@ -301,4 +302,5 @@ class ProductController extends BaseController
 
         }
     }
+}
 ?>
