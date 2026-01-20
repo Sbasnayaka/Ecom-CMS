@@ -138,6 +138,57 @@
             }
 
         <?php endif; ?>
+
+        /* Navigation Styling Overrides */
+        <?php if (!empty($settings['nav_mobile_bg'])): ?>
+            .bottom-nav {
+                background-color:
+                    <?= $settings['nav_mobile_bg'] ?>
+                    !important;
+            }
+
+        <?php endif; ?>
+
+        <?php if (!empty($settings['nav_mobile_icon_color'])): ?>
+            .nav-item,
+            .nav-item i,
+            .nav-icon-img {
+                color:
+                    <?= $settings['nav_mobile_icon_color'] ?>
+                    !important;
+            }
+
+        <?php endif; ?>
+
+        <?php if (!empty($settings['nav_mobile_active_color'])): ?>
+            .nav-item.active,
+            .nav-item.active i,
+            .nav-item.active span {
+                color:
+                    <?= $settings['nav_mobile_active_color'] ?>
+                    !important;
+            }
+
+        <?php endif; ?>
+
+        <?php if (!empty($settings['nav_desktop_bg'])): ?>
+            .desktop-header {
+                background-color:
+                    <?= $settings['nav_desktop_bg'] ?>
+                    !important;
+            }
+
+        <?php endif; ?>
+
+        <?php if (!empty($settings['nav_desktop_link_color'])): ?>
+            .desktop-nav-links,
+            .desktop-nav-links a {
+                color:
+                    <?= $settings['nav_desktop_link_color'] ?>
+                    !important;
+            }
+
+        <?php endif; ?>
     </style>
 </head>
 
