@@ -298,6 +298,56 @@
                 </div>
             </div>
 
+            <!-- Navigation Styling -->
+            <div class="style-card">
+                <div class="card-header">Navigation Styling</div>
+                <div style="display:flex; flex-wrap:wrap; gap:20px;">
+                    <!-- Mobile Nav -->
+                    <div style="flex:1;">
+                        <h4 style="margin:0 0 10px 0; font-size:14px; color:#333;">Mobile Bottom Bar</h4>
+                        <div class="control-group">
+                            <label class="control-label">Background Color</label>
+                            <div class="color-picker-row">
+                                <input type="color" name="nav_mobile_bg" class="color-input" value="<?= $styles['nav_mobile_bg'] ?? '#ffffff' ?>">
+                                <input type="text" class="color-text" value="<?= $styles['nav_mobile_bg'] ?? '#ffffff' ?>" readonly>
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label">Icon/Text Color</label>
+                            <div class="color-picker-row">
+                                <input type="color" name="nav_mobile_icon_color" class="color-input" value="<?= $styles['nav_mobile_icon_color'] ?? '#999999' ?>">
+                                <input type="text" class="color-text" value="<?= $styles['nav_mobile_icon_color'] ?? '#999999' ?>" readonly>
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label">Active Item Color</label>
+                            <div class="color-picker-row">
+                                <input type="color" name="nav_mobile_active_color" class="color-input" value="<?= $styles['nav_mobile_active_color'] ?? '#555555' ?>">
+                                <input type="text" class="color-text" value="<?= $styles['nav_mobile_active_color'] ?? '#555555' ?>" readonly>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Desktop Nav -->
+                    <div style="flex:1;">
+                        <h4 style="margin:0 0 10px 0; font-size:14px; color:#333;">Desktop Top Bar</h4>
+                        <div class="control-group">
+                            <label class="control-label">Background Color</label>
+                            <div class="color-picker-row">
+                                <input type="color" name="nav_desktop_bg" class="color-input" value="<?= $styles['nav_desktop_bg'] ?? '#ffffff' ?>">
+                                <input type="text" class="color-text" value="<?= $styles['nav_desktop_bg'] ?? '#ffffff' ?>" readonly>
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label">Link Text Color</label>
+                            <div class="color-picker-row">
+                                <input type="color" name="nav_desktop_link_color" class="color-input" value="<?= $styles['nav_desktop_link_color'] ?? '#666666' ?>">
+                                <input type="text" class="color-text" value="<?= $styles['nav_desktop_link_color'] ?? '#666666' ?>" readonly>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <!-- Behavior & Interactions -->
             <div class="style-card">
                 <div class="card-header">Behavior & Interactions</div>

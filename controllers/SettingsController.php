@@ -198,7 +198,15 @@ class SettingsController extends BaseController
             'z_header',
             'z_modal',
             'z_drawer',
-            'z_tooltip'
+            'z_modal',
+            'z_drawer',
+            'z_tooltip',
+            // Navigation
+            'nav_mobile_bg',
+            'nav_mobile_icon_color',
+            'nav_mobile_active_color',
+            'nav_desktop_bg',
+            'nav_desktop_link_color'
         ];
         $styles = $this->settingModel->getMultiple($styleKeys);
 
