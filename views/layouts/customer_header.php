@@ -196,35 +196,49 @@
 
     <!-- Mobile Header (Visible only on Mobile) -->
     <div class="mobile-header d-lg-none"> <!-- CSS handles display, adding ID for logic -->
-        <div class="welcome-text">
-            <h1>Welcome!</h1>
-            <p>
-                <?= !empty($settings['shop_name']) ? htmlspecialchars($settings['shop_name']) : 'Dark Lavender Clothing!' ?>
-            </p>
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+            <div class="welcome-text">
+                <h1>Welcome!</h1>
+                <p>
+                    <?= !empty($settings['shop_name']) ? htmlspecialchars($settings['shop_name']) : 'Dark Lavender Clothing!' ?>
+                </p>
+            </div>
+            <div>
+                <!-- Shop Avatar/Logo -->
+                <?php
+                $logoUrl = $settings['shop_logo'] ?? '';
+                $logoUrl = str_replace('/Ecom-CMS/', BASE_URL, $logoUrl);
+                $physicalPath = $_SERVER['DOCUMENT_ROOT'] . $logoUrl;
+                $logo = (!empty($logoUrl) && file_exists($physicalPath))
+                    ? $logoUrl
+                    : 'https://via.placeholder.com/40';
+                ?>
+                <img src="<?= $logo ?>" class="shop-avatar" alt="Shop Logo">
+            </div>
         </div>
-        <div>
-            <!-- Shop Avatar/Logo -->
-            <?php
-            $logoUrl = $settings['shop_logo'] ?? '';
-            // If logo url has /Ecom-CMS/ prefix, we might need to strip it if storing relative
-            // But if stored as /Ecom-CMS/assets/..., we should be careful. 
-            // For now, assuming $settings['shop_logo'] saves the full web path.
-            // BETTER PRACTICE: Save relative path 'assets/uploads/...' in DB.
-            // FIX: If path starts with /Ecom-CMS/, replace with BASE_URL dynamic
-            $logoUrl = str_replace('/Ecom-CMS/', BASE_URL, $logoUrl);
 
-            // Construct physical path for check: Root + LogoUrl
-            $physicalPath = $_SERVER['DOCUMENT_ROOT'] . $logoUrl;
-            // Note: On some setups DOCUMENT_ROOT + /Ecom-CMS/ might duplicate if alias used?
-            // Safer: ROOT_PATH . 'assets/...' if we can parse it.
-            // Minimal Change: JUST fix the /Ecom-CMS/ part in the URL for display.
-            
-            $logo = (!empty($logoUrl) && file_exists($physicalPath))
-                ? $logoUrl
-                : 'https://via.placeholder.com/40';
-            ?>
-            <img src="<?= $logo ?>" class="shop-avatar" alt="Shop Logo">
+        <!-- Mobile Search Bar -->
+        <div class="search-bar mobile-search" style="margin-top: 15px; position: relative;">
+            <input type="text" id="mobileSearchInput" placeholder="Search..." class="search-input"
+                style="width: 100%; padding: 10px 35px 10px 15px; border-radius: 20px; border: 1px solid #eee; background: #fff;">
+            <i class="fas fa-search" onclick="triggerMobileSearch()"
+                style="position: absolute; right: 15px; top: 50%; transform: translateY(-50%); color: #aaa; cursor: pointer;"></i>
         </div>
+
+        <script>
+            function triggerMobileSearch() {
+                const query = document.getElementById('mobileSearchInput').value;
+                if (query.trim() !== '') {
+                    window.location.href = '<?= BASE_URL ?>product/search?q=' + encodeURIComponent(query);
+                }
+            }
+
+            document.getElementById('mobileSearchInput').addEventListener('keypress', function (e) {
+                if (e.key === 'Enter') {
+                    triggerMobileSearch();
+                }
+            });
+        </script>
     </div>
 
     <!-- Desktop Header (Visible only on Desktop) -->
@@ -253,8 +267,22 @@
             </div>
 
             <div class="search-bar">
-                <input type="text" placeholder="Search..." class="search-input">
-                <i class="fas fa-search" style="position: absolute; right: 15px; top: 12px; color: #aaa;"></i>
+                <input type="text" id="desktopSearchInput" placeholder="Search..." class="search-input">
+                <i class="fas fa-search" onclick="triggerDesktopSearch()" style="position: absolute; right: 15px; top: 12px; color: #aaa; cursor: pointer;"></i>
+                <script>
+                    function triggerDesktopSearch() {
+                        const query = document.getElementById('desktopSearchInput').value;
+                        if (query.trim() !== '') {
+                            window.location.href = '<?= BASE_URL ?>product/search?q=' + encodeURIComponent(query);
+                        }
+                    }
+
+                    document.getElementById('desktopSearchInput').addEventListener('keypress', function(e) {
+                        if (e.key === 'Enter') {
+                            triggerDesktopSearch();
+                        }
+                    });
+                </script>
             </div>
 
             <div class="header-actions">
