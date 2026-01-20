@@ -25,7 +25,8 @@ class ProductController extends BaseController
 
     public function index()
     {
-        $products = $this->productModel->getAll();
+        $search = $_GET['search'] ?? null;
+        $products = $this->productModel->getAll($search);
         $this->view('admin/products/index', [
             'title' => 'Products',
             'products' => $products

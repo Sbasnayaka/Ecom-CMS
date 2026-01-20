@@ -155,12 +155,13 @@
         </div>
 
         <!-- Search -->
-        <div class="search-container">
-            <input type="text" class="search-input" placeholder="Type here to search...">
-            <div class="search-icon-circle">
+        <form class="search-container" action="<?= BASE_URL ?>product/index" method="GET">
+            <input type="text" name="search" class="search-input" placeholder="Type here to search..."
+                value="<?= htmlspecialchars($_GET['search'] ?? '') ?>">
+            <div class="search-icon-circle" onclick="this.parentElement.submit()" style="cursor:pointer;">
                 <img src="<?= BASE_URL ?>assets/icons/search.png" class="search-icon-img" alt="S">
             </div>
-        </div>
+        </form>
 
         <!-- List Header -->
         <div class="list-header">

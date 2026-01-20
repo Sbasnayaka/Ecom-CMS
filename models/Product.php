@@ -7,15 +7,27 @@ require_once 'models/BaseModel.php';
 class Product extends BaseModel
 {
 
-    public function getAll()
+    public function getAll($search = null)
     {
         // specific query to join categories and parent categories
         $sql = "SELECT p.*, c.name as category_name, pc.name as parent_category_name
                 FROM products p 
                 LEFT JOIN categories c ON p.category_id = c.id 
-                LEFT JOIN categories pc ON c.parent_id = pc.id
-                ORDER BY p.created_at DESC";
+                LEFT JOIN categories pc ON c.parent_id = pc.id";
+
+        if ($search) {
+            $sql .= " WHERE p.title LIKE :search OR p.sku LIKE :search";
+        }
+
+        $sql .= " ORDER BY p.created_at DESC";
+
         $stmt = $this->conn->prepare($sql);
+
+        if ($search) {
+            $term = "%$search%";
+            $stmt->bindParam(':search', $term);
+        }
+
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
