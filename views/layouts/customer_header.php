@@ -268,18 +268,30 @@
 
             <div class="search-bar">
                 <input type="text" id="desktopSearchInput" placeholder="Search..." class="search-input">
-                <i class="fas fa-search" onclick="triggerDesktopSearch()" style="position: absolute; right: 15px; top: 12px; color: #aaa; cursor: pointer;"></i>
+                <i class="fas fa-search" id="desktopSearchIcon" style="position: absolute; right: 15px; top: 12px; color: #aaa; cursor: pointer;"></i>
                 <script>
-                    function triggerDesktopSearch() {
-                        const query = document.getElementById('desktopSearchInput').value;
-                        if (query.trim() !== '') {
-                            window.location.href = '<?= BASE_URL ?>product/search?q=' + encodeURIComponent(query);
-                        }
-                    }
+                    document.addEventListener('DOMContentLoaded', function() {
+                        const searchInput = document.getElementById('desktopSearchInput');
+                        const searchIcon = document.getElementById('desktopSearchIcon');
 
-                    document.getElementById('desktopSearchInput').addEventListener('keypress', function(e) {
-                        if (e.key === 'Enter') {
-                            triggerDesktopSearch();
+                        function performSearch() {
+                            const query = searchInput.value;
+                            if (query.trim() !== '') {
+                                // Redirect to Shop Controller which handles customer items
+                                window.location.href = '<?= BASE_URL ?>shop/index?search=' + encodeURIComponent(query);
+                            }
+                        }
+
+                        if (searchInput) {
+                            searchInput.addEventListener('keypress', function(e) {
+                                if (e.key === 'Enter') {
+                                    performSearch();
+                                }
+                            });
+                        }
+
+                        if (searchIcon) {
+                            searchIcon.addEventListener('click', performSearch);
                         }
                     });
                 </script>
