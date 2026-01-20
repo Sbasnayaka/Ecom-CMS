@@ -776,7 +776,7 @@ p {
     body {
         padding-bottom: 100px;
         /* Add space at bottom on desktop too */
-        background: #f8f9fa;
+        background: var(--bg-white);
     }
 
     .display-desktop-only {
@@ -1089,7 +1089,7 @@ p {
     }
 
     .cat-btn {
-        background: #5A9BF0;
+        background: var(--primary-color);
         /* Specific Blue */
         color: white;
         border: none;
