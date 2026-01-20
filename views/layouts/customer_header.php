@@ -126,44 +126,8 @@
                     px !important;
             }
 
-        /* Navigation Styling Overrides */
-        <?php if (!empty($settings['mobile_nav_bg'])): ?>
-        .bottom-nav {
-            background-color: <?= $settings['mobile_nav_bg'] ?> !important;
-        }
         <?php endif; ?>
-        
-        <?php if (!empty($settings['mobile_nav_item_color'])): ?>
-        .nav-item {
-            color: <?= $settings['mobile_nav_item_color'] ?> !important;
-        }
-        <?php endif; ?>
-
-        <?php if (!empty($settings['desktop_header_bg'])): ?>
-        .desktop-header {
-            background-color: <?= $settings['desktop_header_bg'] ?> !important;
-        }
-        <?php endif; ?>
-
-        <?php if (!empty($settings['desktop_nav_link_color'])): ?>
-        .desktop-nav-links a {
-            color: <?= $settings['desktop_nav_link_color'] ?> !important;
-        }
-        .header-inner .logo-area, .header-inner h2 {
-             color: <?= $settings['desktop_nav_link_color'] ?> !important;
-        }
-        <?php endif; ?>
-
     </style>
-    <!-- Dynamic Google Font Loader -->
-    <?php
-    if (!empty($settings['font_family'])) {
-        $font = $settings['font_family'];
-        // Handle spaces for URL
-        $fontUrl = urlencode($font);
-        echo "<link href='https://fonts.googleapis.com/css2?family={$fontUrl}:wght@300;400;600;700;800&display=swap' rel='stylesheet'>";
-    }
-    ?>
 </head>
 
 <body>

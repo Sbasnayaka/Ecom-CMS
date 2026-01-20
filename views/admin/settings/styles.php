@@ -143,14 +143,6 @@
                             <option value="Montserrat" <?= ($styles['font_family'] ?? '') == 'Montserrat' ? 'selected' : '' ?>>Montserrat</option>
                             <option value="Inter" <?= ($styles['font_family'] ?? '') == 'Inter' ? 'selected' : '' ?>>Inter
                             </option>
-                            <option value="Lato" <?= ($styles['font_family'] ?? '') == 'Lato' ? 'selected' : '' ?>>Lato
-                            </option>
-                            <option value="Poppins" <?= ($styles['font_family'] ?? '') == 'Poppins' ? 'selected' : '' ?>>
-                                Poppins</option>
-                            <option value="Playfair Display" <?= ($styles['font_family'] ?? '') == 'Playfair Display' ? 'selected' : '' ?>>Playfair Display</option>
-                            <option value="Nunito" <?= ($styles['font_family'] ?? '') == 'Nunito' ? 'selected' : '' ?>>
-                                Nunito</option>
-                            <option value="Nunito Sans" <?= ($styles['font_family'] ?? '') == 'Nunito Sans' ? 'selected' : '' ?>>Nunito Sans</option>
                         </select>
                     </div>
                     <div class="control-group">
