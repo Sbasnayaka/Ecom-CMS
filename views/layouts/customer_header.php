@@ -15,24 +15,41 @@
     <!-- Dynamic Global Styles -->
     <style>
         :root {
-            /* Fallback to CSS file defaults if DB is empty, otherwise override */
+            /* Core Colors */
             <?php if (!empty($settings['primary_color'])): ?>
                 --primary-color:
                     <?= $settings['primary_color'] ?>
                 ;
             <?php endif; ?>
 
-            <?php if (!empty($settings['bg_color'])): ?>
-                /* --bg-white: <?= $settings['bg_color'] ?>
+            <?php if (!empty($settings['secondary_color'])): ?>
+                --secondary-color:
+                    <?= $settings['secondary_color'] ?>
                 ;
-                */
-                /* Note: User screenshot shows white card bg, but maybe body is lavender? 
-                                                       Safe to keep body white for now as per "UI design" request unless user sets it explicitly.
-                                                       Let's trust the CSS default for "clean white" look matching screenshot. */
             <?php endif; ?>
 
+            <?php if (!empty($settings['bg_color'])): ?>
+                --bg-white:
+                    <?= $settings['bg_color'] ?>
+                ;
+            <?php endif; ?>
+
+            /* Typography */
             <?php if (!empty($settings['font_family'])): ?>
                 --font-family: '<?= $settings['font_family'] ?>', sans-serif;
+            <?php endif; ?>
+
+            <?php if (!empty($settings['body_color'])): ?>
+                --text-dark:
+                    <?= $settings['body_color'] ?>
+                ;
+            <?php endif; ?>
+
+            /* UI Elements */
+            <?php if (!empty($settings['global_img_radius'])): ?>
+                --border-radius:
+                    <?= $settings['global_img_radius'] ?>
+                    px;
             <?php endif; ?>
         }
 
@@ -40,7 +57,76 @@
             <?php if (!empty($settings['font_family'])): ?>
                 font-family: var(--font-family);
             <?php endif; ?>
+            <?php if (!empty($settings['body_size'])): ?>
+                font-size:
+                    <?= $settings['body_size'] ?>
+                    px;
+            <?php endif; ?>
+            <?php if (!empty($settings['body_line_height'])): ?>
+                line-height:
+                    <?= $settings['body_line_height'] ?>
+                ;
+            <?php endif; ?>
         }
+
+        h1,
+        h2,
+        h3,
+        .section-title,
+        .pd-title {
+            <?php if (!empty($settings['h1_color'])): ?>
+                color:
+                    <?= $settings['h1_color'] ?>
+                    !important;
+            <?php endif; ?>
+        }
+
+        <?php if (!empty($settings['h1_size'])): ?>
+            h1,
+            .pd-title {
+                font-size:
+                    <?= $settings['h1_size'] ?>
+                    px !important;
+            }
+
+        <?php endif; ?>
+
+        /* Button Overrides */
+        <?php if (!empty($settings['btn_bg_color'])): ?>
+            .btn-cart,
+            .btn-action,
+            .add-btn-blue,
+            .btn-red {
+                background-color:
+                    <?= $settings['btn_bg_color'] ?>
+                    !important;
+            }
+
+        <?php endif; ?>
+
+        <?php if (!empty($settings['btn_text_color'])): ?>
+            .btn-cart,
+            .btn-action,
+            .add-btn-blue,
+            .btn-red {
+                color:
+                    <?= $settings['btn_text_color'] ?>
+                    !important;
+            }
+
+        <?php endif; ?>
+
+        <?php if (!empty($settings['btn_radius'])): ?>
+            .btn-cart,
+            .btn-action,
+            .add-btn-blue,
+            .btn-red {
+                border-radius:
+                    <?= $settings['btn_radius'] ?>
+                    px !important;
+            }
+
+        <?php endif; ?>
     </style>
 </head>
 
