@@ -12,6 +12,17 @@
     <!-- Font Awesome for Icons (Optional, or use images) -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
+    <!-- Dynamic Google Fonts Loader -->
+    <?php if (!empty($settings['font_family'])):
+        $font = $settings['font_family'];
+        $fontUrl = urlencode($font);
+        // Load common weights: 300, 400, 500, 600, 700, 800
+        $gFontLink = "https://fonts.googleapis.com/css2?family={$fontUrl}:wght@300;400;500;600;700;800&display=swap";
+        ?>
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="<?= $gFontLink ?>" rel="stylesheet">
+    <?php endif; ?>
+
     <!-- Dynamic Global Styles -->
     <style>
         :root {
