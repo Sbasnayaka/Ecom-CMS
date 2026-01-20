@@ -21,10 +21,32 @@ class ShopController extends BaseController
         $this->settingModel = new Setting();
     }
 
-    // List all products (Future)
+    // List all products (Shop Index / Search Results)
     public function index()
     {
-        // Placeholder for Shop Index
+        // 1. Get Filters
+        $search = $_GET['search'] ?? null;
+        // Future: $catId = $_GET['cat'] ?? null;
+
+        // 2. Fetch Data
+        $products = $this->productModel->getAll($search);
+        $categories = $this->categoryModel->getAll();
+        $settings = $this->settingModel->getAllPairs();
+
+        // 3. Prepare View Data
+        $title = 'Shop';
+        if ($search) {
+            $title = 'Search Results for "' . htmlspecialchars($search) . '"';
+        }
+
+        // 4. Load View
+        $this->view('customer/shop/index', [
+            'title' => $title,
+            'products' => $products,
+            'categories' => $categories,
+            'settings' => $settings,
+            'search_query' => $search
+        ]);
     }
 
     // Single Product View
