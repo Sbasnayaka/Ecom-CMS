@@ -7,7 +7,7 @@
             <input type="text" id="maxPrice" placeholder="Max"
                 style="width: 60px; padding: 5px; border: 1px solid #ddd; border-radius: 4px;">
         </div>
-        <button id="applyPriceFilter" type="button" style="
+        <button id="applyPriceFilter" style="
             width: 100%; 
             padding: 6px; 
             background: #4a148c; 
