@@ -195,30 +195,32 @@
 <body>
 
     <!-- Mobile Header (Visible only on Mobile) -->
-    <div class="mobile-header d-lg-none" style="padding-bottom: 5px;">
-        <div style="display: flex; justify-content: space-between; align-items: center;">
+    <div class="mobile-header d-lg-none" style="padding-bottom: 10px; position: relative;">
+        
+        <!-- Top Row: Welcome + Controls -->
+        <div style="display: flex; justify-content: space-between; align-items: center; padding-top: 5px;">
             <div class="welcome-text">
-                <h1 style="font-size: 24px; margin-bottom: 0;">Welcome!</h1>
-                <p style="font-size: 14px; color: #777; margin: 0;">
+                <h1 style="font-size: 24px; margin-bottom: 2px; font-weight: 700;">Welcome!</h1>
+                <p style="font-size: 13px; color: #666; margin: 0;">
                     <?= !empty($settings['shop_name']) ? htmlspecialchars($settings['shop_name']) : 'Dark Lavender Clothing!' ?>
                 </p>
             </div>
             
             <!-- Right Side: Search Icon + Logo -->
-            <div style="display: flex; align-items: center; gap: 10px;">
+            <div style="display: flex; align-items: center; gap: 8px;">
                 
-                <!-- Search Trigger Button (Visible by default) -->
+                <!-- Search Trigger Button -->
                 <div id="searchTriggerBtn" onclick="toggleMobileSearch()" style="
                     background: #f3e5f5; 
-                    width: 38px; 
-                    height: 38px; 
-                    border-radius: 12px; 
+                    width: 36px; 
+                    height: 36px; 
+                    border-radius: 10px; 
                     display: flex; 
                     align-items: center; 
                     justify-content: center; 
                     cursor: pointer;
-                    transition: opacity 0.2s;">
-                    <i class="fas fa-search" style="color: #4a148c; font-size: 15px;"></i> <!-- Darker purple icon -->
+                    margin-right: 5px;">
+                    <i class="fas fa-search" style="color: #4a148c; font-size: 16px;"></i>
                 </div>
 
                 <!-- Shop Avatar/Logo -->
@@ -231,26 +233,30 @@
                     : 'https://via.placeholder.com/40';
                 ?>
                 <img src="<?= $logo ?>" alt="Shop Logo" style="
-                    width: 40px; 
-                    height: 40px; 
+                    width: 38px; 
+                    height: 38px; 
                     border-radius: 50%; 
                     object-fit: cover;
-                    border: 1px solid #eee;">
+                    border: 1px solid #ddd;">
             </div>
         </div>
         
-        <!-- Mobile Search Bar (Expandable Block) -->
-        <!-- Matches Screenshot 2: Full width pill input below header -->
+        <!-- Mobile Search Dropdown (Overlay) -->
         <div id="mobileSearchBar" class="search-bar mobile-search" style="
             display: none;
-            margin-top: 15px;
-            width: 100%;
+            position: absolute;
+            top: 65px; /* Positioned just below the top row */
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: #fff;
+            padding: 5px 0 15px 0;
         ">
             <div style="position: relative;">
                 <input type="text" id="mobileSearchInput" placeholder="Search products........." class="search-input" 
-                    style="width: 100%; padding: 12px 45px 12px 20px; border-radius: 30px; border: none; background: #ede7f6; font-size: 14px; color: #333;">
+                    style="width: 100%; padding: 10px 45px 10px 20px; border-radius: 30px; border: 1px solid #333; background: #f3e5f5; font-size: 14px; color: #333;">
                 <i class="fas fa-search" onclick="triggerMobileSearch()" 
-                    style="position: absolute; right: 20px; top: 50%; transform: translateY(-50%); color: #5e35b1; cursor: pointer; font-size: 16px;"></i>
+                    style="position: absolute; right: 20px; top: 50%; transform: translateY(-50%); color: #4a148c; cursor: pointer; font-size: 16px;"></i>
             </div>
         </div>
 
@@ -260,15 +266,23 @@
                 const triggerBtn = document.getElementById('searchTriggerBtn');
                 
                 if (searchBar.style.display === 'none') {
-                    // Open State
+                    // Show
                     searchBar.style.display = 'block';
-                    triggerBtn.style.display = 'none'; // Hide trigger as per Screenshot 2
+                    triggerBtn.style.visibility = 'hidden'; // Hide trigger physically but keep spacing? Or just hide. 
+                    // Screenshot shows usage of space suggests buttons shift. Let's use display:none to be safe based on "ugly" feedback.
+                    triggerBtn.style.display = 'none'; 
                     setTimeout(() => { document.getElementById('mobileSearchInput').focus(); }, 50);
                 } else {
-                    // Closed State
-                    searchBar.style.display = 'none';
-                    triggerBtn.style.display = 'flex';
+                    hideSearch();
                 }
+            }
+
+            function hideSearch() {
+                const searchBar = document.getElementById('mobileSearchBar');
+                const triggerBtn = document.getElementById('searchTriggerBtn');
+                searchBar.style.display = 'none';
+                triggerBtn.style.display = 'flex';
+                triggerBtn.style.visibility = 'visible';
             }
 
             function triggerMobileSearch() {
@@ -284,16 +298,19 @@
                 }
             });
 
-            // Close search when clicking outside
+            // Global Click Listener for "Background Click"
             document.addEventListener('click', function(event) {
                 const searchBar = document.getElementById('mobileSearchBar');
-                const trigger = document.getElementById('searchTriggerBtn');
-                const isClickInside = searchBar.contains(event.target) || trigger.contains(event.target);
+                const triggerBtn = document.getElementById('searchTriggerBtn');
                 
-                // Only close if it's open, and click is OUTSIDE both bar and trigger
-                if (!isClickInside && searchBar.style.display === 'block') {
-                    searchBar.style.display = 'none';
-                    trigger.style.display = 'flex'; // Show trigger again
+                // If search is open
+                if (searchBar.style.display === 'block') {
+                    const isClickInsideSearch = searchBar.contains(event.target);
+                    const isClickInsideTrigger = triggerBtn.contains(event.target);
+                    
+                    if (!isClickInsideSearch && !isClickInsideTrigger) {
+                        hideSearch();
+                    }
                 }
             });
         </script>
