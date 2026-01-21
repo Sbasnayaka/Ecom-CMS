@@ -60,7 +60,7 @@
                 const urlParams = new URLSearchParams(window.location.search);
                 const search = urlParams.get('search') || '';
 
-                // API Endpoint: Use BASE_URL if reliable, otherwise relative could be used. 
+                // API Endpoint: Use BASE_URL if reliable
                 const apiUrl = '<?= BASE_URL ?>shop/filter?min=' + encodeURIComponent(min) + '&max=' + encodeURIComponent(max) + '&search=' + encodeURIComponent(search);
 
                 // UI Feedback
