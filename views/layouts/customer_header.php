@@ -195,7 +195,7 @@
 <body>
 
     <!-- Mobile Header (Visible only on Mobile) -->
-    <div class="mobile-header d-lg-none" style="padding-bottom: 10px; position: relative;">
+    <div class="mobile-header d-lg-none" style="padding-bottom: 5px;">
         
         <!-- Top Row: Welcome + Controls -->
         <div style="display: flex; justify-content: space-between; align-items: center; padding-top: 5px;">
@@ -207,19 +207,19 @@
             </div>
             
             <!-- Right Side: Search Icon + Logo -->
-            <div style="display: flex; align-items: center; gap: 8px;">
+            <div id="headerControls" style="display: flex; align-items: center; gap: 10px;">
                 
                 <!-- Search Trigger Button -->
                 <div id="searchTriggerBtn" onclick="toggleMobileSearch()" style="
                     background: #f3e5f5; 
-                    width: 36px; 
-                    height: 36px; 
-                    border-radius: 10px; 
+                    width: 38px; 
+                    height: 38px; 
+                    border-radius: 12px; 
                     display: flex; 
                     align-items: center; 
                     justify-content: center; 
                     cursor: pointer;
-                    margin-right: 5px;">
+                    transition: all 0.2s;">
                     <i class="fas fa-search" style="color: #4a148c; font-size: 16px;"></i>
                 </div>
 
@@ -233,28 +233,24 @@
                     : 'https://via.placeholder.com/40';
                 ?>
                 <img src="<?= $logo ?>" alt="Shop Logo" style="
-                    width: 38px; 
-                    height: 38px; 
+                    width: 40px; 
+                    height: 40px; 
                     border-radius: 50%; 
                     object-fit: cover;
                     border: 1px solid #ddd;">
             </div>
         </div>
         
-        <!-- Mobile Search Dropdown (Overlay) -->
+        <!-- Mobile Search Dropdown (Static Block - Pushes content down) -->
         <div id="mobileSearchBar" class="search-bar mobile-search" style="
             display: none;
-            position: absolute;
-            top: 65px; /* Positioned just below the top row */
-            left: 0;
-            right: 0;
-            z-index: 1000;
-            background: #fff;
-            padding: 5px 0 15px 0;
+            margin-top: 15px; 
+            margin-bottom: 10px;
+            width: 100%;
         ">
             <div style="position: relative;">
                 <input type="text" id="mobileSearchInput" placeholder="Search products........." class="search-input" 
-                    style="width: 100%; padding: 10px 45px 10px 20px; border-radius: 30px; border: 1px solid #333; background: #f3e5f5; font-size: 14px; color: #333;">
+                    style="width: 100%; padding: 12px 45px 12px 20px; border-radius: 30px; border: none; background: #ede7f6; font-size: 14px; color: #333; box-shadow: none;">
                 <i class="fas fa-search" onclick="triggerMobileSearch()" 
                     style="position: absolute; right: 20px; top: 50%; transform: translateY(-50%); color: #4a148c; cursor: pointer; font-size: 16px;"></i>
             </div>
@@ -266,11 +262,9 @@
                 const triggerBtn = document.getElementById('searchTriggerBtn');
                 
                 if (searchBar.style.display === 'none') {
-                    // Show
+                    // Start Open
                     searchBar.style.display = 'block';
-                    triggerBtn.style.visibility = 'hidden'; // Hide trigger physically but keep spacing? Or just hide. 
-                    // Screenshot shows usage of space suggests buttons shift. Let's use display:none to be safe based on "ugly" feedback.
-                    triggerBtn.style.display = 'none'; 
+                    triggerBtn.style.display = 'none'; // Completely remove from flow
                     setTimeout(() => { document.getElementById('mobileSearchInput').focus(); }, 50);
                 } else {
                     hideSearch();
@@ -281,8 +275,7 @@
                 const searchBar = document.getElementById('mobileSearchBar');
                 const triggerBtn = document.getElementById('searchTriggerBtn');
                 searchBar.style.display = 'none';
-                triggerBtn.style.display = 'flex';
-                triggerBtn.style.visibility = 'visible';
+                triggerBtn.style.display = 'flex'; // Restore
             }
 
             function triggerMobileSearch() {
@@ -303,9 +296,10 @@
                 const searchBar = document.getElementById('mobileSearchBar');
                 const triggerBtn = document.getElementById('searchTriggerBtn');
                 
-                // If search is open
+                // Only act if search is visible
                 if (searchBar.style.display === 'block') {
                     const isClickInsideSearch = searchBar.contains(event.target);
+                    // Also check trigger to prevent immediate close when opening
                     const isClickInsideTrigger = triggerBtn.contains(event.target);
                     
                     if (!isClickInsideSearch && !isClickInsideTrigger) {
