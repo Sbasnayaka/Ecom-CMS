@@ -2,7 +2,7 @@
 
 <div class="home-layout">
 
-    <!-- SIDEBAR -->
+    <!-- SIDEBAR (Reused) -->
     <?php include 'views/customer/partials/sidebar.php'; ?>
 
     <!-- MAIN CONTENT AREA -->
@@ -10,7 +10,7 @@
 
         <div class="section-header">
             <?php if (!empty($search_query)): ?>
-                <h2 class="section-title">Search Results for "<?= htmlspecialchars($search_query) ?>"</h2>
+                <h2 class="section-title">Searched Products</h2>
             <?php else: ?>
                 <h2 class="section-title">All Products</h2>
             <?php endif; ?>
@@ -44,11 +44,13 @@
 
 </div>
 
+
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         const applyBtn = document.getElementById('applyPriceFilter');
         const minInput = document.getElementById('minPrice');
         const maxInput = document.getElementById('maxPrice');
+        // Robust Selector: Targets the permanent container ID
         const shopGrid = document.getElementById('product-grid-container');
 
         if (applyBtn && minInput && maxInput && shopGrid) {
@@ -58,7 +60,7 @@
                 const urlParams = new URLSearchParams(window.location.search);
                 const search = urlParams.get('search') || '';
 
-                // API URL construction
+                // API Endpoint: Use BASE_URL if reliable, otherwise relative could be used. 
                 const apiUrl = '<?= BASE_URL ?>shop/filter?min=' + encodeURIComponent(min) + '&max=' + encodeURIComponent(max) + '&search=' + encodeURIComponent(search);
 
                 // UI Feedback
