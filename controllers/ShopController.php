@@ -81,5 +81,32 @@ class ShopController extends BaseController
             'settings' => $settings
         ]);
     }
+
+    // AJAX Filter Handler (Price Range)
+    public function filter()
+    {
+        $min = $_GET['min'] ?? null;
+        $max = $_GET['max'] ?? null;
+        $search = $_GET['search'] ?? null;
+
+        // Fetch Settings for Currency Symbol
+        $settings = $this->settingModel->getAllPairs();
+
+        // Get Filtered Products
+        $products = $this->productModel->getFiltered($min, $max, $search);
+
+        if (empty($products)) {
+            echo '<div style="grid-column: 1 / -1; text-align: center; padding: 40px; color: #777;">
+                    <h3>No products found.</h3>
+                    <p>Try adjusting your price range.</p>
+                  </div>';
+            return;
+        }
+
+        // Render Partial HTML
+        foreach ($products as $prod) {
+            include 'views/customer/partials/product_card.php';
+        }
+    }
 }
 ?>
