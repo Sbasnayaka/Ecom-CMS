@@ -86,3 +86,65 @@
         </div>
     </div>
 </aside>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Event Delegation for "Apply" Button
+        document.addEventListener('click', function (e) {
+            if (e.target && e.target.id === 'applyPriceFilter') {
+                e.preventDefault();
+
+                const minInput = document.getElementById('minPrice');
+                const maxInput = document.getElementById('maxPrice');
+
+                // Check if we are on the Shop Page (Grid Container Exists)
+                const shopGrid = document.getElementById('product-grid-container');
+
+                if (!minInput || !maxInput) {
+                    console.error('Filter Inputs missing');
+                    return;
+                }
+
+                const min = minInput.value.trim();
+                const max = maxInput.value.trim();
+
+                // Construct Query Params
+                const urlParams = new URLSearchParams(window.location.search);
+                if (min) urlParams.set('min', min); else urlParams.delete('min');
+                if (max) urlParams.set('max', max); else urlParams.delete('max');
+
+                // Scenario A: We are on the Shop Page -> Use AJAX
+                if (shopGrid) {
+                    const search = urlParams.get('search') || '';
+                    const apiUrl = '<?= BASE_URL ?>shop/filter?min=' + encodeURIComponent(min) + '&max=' + encodeURIComponent(max) + '&search=' + encodeURIComponent(search);
+
+                    shopGrid.style.opacity = '0.5';
+
+                    fetch(apiUrl)
+                        .then(r => {
+                            if (!r.ok) throw new Error('Network error');
+                            return r.text();
+                        })
+                        .then(html => {
+                            shopGrid.innerHTML = html;
+                            shopGrid.style.opacity = '1';
+                            // Update URL silently
+                            window.history.pushState({}, '', '?' + urlParams.toString());
+                        })
+                        .catch(e => {
+                            console.error(e);
+                            shopGrid.innerHTML = '<p style="grid-column:1/-1;color:red;text-align:center;">Error loading products.</p>';
+                            shopGrid.style.opacity = '1';
+                        });
+                }
+                // Scenario B: We are elsewhere (Home, Product Detail) -> Redirect
+                else {
+                    // Redirect to Shop Index with params
+                    // Note: 'shop' might need 'shop/index' depending on router, but usually 'shop' works.
+                    // We use the full constructed URL params.
+                    window.location.href = '<?= BASE_URL ?>shop?' + urlParams.toString();
+                }
+            }
+        });
+    });
+</script>
