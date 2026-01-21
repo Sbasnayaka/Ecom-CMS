@@ -7,17 +7,7 @@
             <input type="text" id="maxPrice" placeholder="Max"
                 style="width: 60px; padding: 5px; border: 1px solid #ddd; border-radius: 4px;">
         </div>
-        <button id="applyPriceFilter" style="
-            width: 100%; 
-            padding: 6px; 
-            background: #4a148c; 
-            color: white; 
-            border: none; 
-            border-radius: 4px; 
-            cursor: pointer;
-            font-size: 13px;">
-            Apply
-        </button>
+
     </div>
 
     <div class="filter-group">
@@ -45,7 +35,7 @@
         ?>
         <?php foreach ($categoryTree as $mainCat): ?>
             <label class="checkbox-label">
-                <input type="checkbox">
+                <input type="checkbox" class="category-filter-checkbox" value="<?= $mainCat['id'] ?>" <?= (isset($_GET['cat']) && in_array($mainCat['id'], explode(',', $_GET['cat']))) ? 'checked' : '' ?>>
                 <strong>
                     <?= htmlspecialchars($mainCat['name']) ?>
                 </strong>
@@ -54,7 +44,7 @@
                 <div style="margin-left: 10px; display: flex; flex-direction: column;">
                     <?php foreach ($mainCat['children'] as $childCat): ?>
                         <label class="checkbox-label" style="font-size: 12px; color: #777;">
-                            <input type="checkbox">
+                            <input type="checkbox" class="category-filter-checkbox" value="<?= $childCat['id'] ?>" <?= (isset($_GET['cat']) && in_array($childCat['id'], explode(',', $_GET['cat']))) ? 'checked' : '' ?>>
                             --
                             <?= htmlspecialchars($childCat['name']) ?>
                         </label>
@@ -62,6 +52,18 @@
                 </div>
             <?php endif; ?>
         <?php endforeach; ?>
+        <button id="applyPriceFilter" style="
+            width: 100%; 
+            padding: 6px; 
+            background: #4a148c; 
+            color: white; 
+            border: none; 
+            border-radius: 4px; 
+            cursor: pointer;
+            font-size: 13px;
+            margin-top: 15px;">
+            Apply
+        </button>
     </div>
 
     <!-- Shop Info Box -->
@@ -88,63 +90,66 @@
 </aside>
 
 <script>
-    document.addEventListener('DOMContentLoaded', function () {
-        // Event Delegation for "Apply" Button
-        document.addEventListener('click', function (e) {
-            if (e.target && e.target.id === 'applyPriceFilter') {
-                e.preventDefault();
+document.addEventListener('DOMContentLoaded', function() {
+    // Event Delegation for "Apply" Button
+    document.addEventListener('click', function(e) {
+        if (e.target && e.target.id === 'applyPriceFilter') {
+            e.preventDefault();
 
-                const minInput = document.getElementById('minPrice');
-                const maxInput = document.getElementById('maxPrice');
+            const minInput = document.getElementById('minPrice');
+            const maxInput = document.getElementById('maxPrice');
+            
+            // Check if we are on the Shop Page (Grid Container Exists)
+            const shopGrid = document.getElementById('product-grid-container');
 
-                // Check if we are on the Shop Page (Grid Container Exists)
-                const shopGrid = document.getElementById('product-grid-container');
-
-                if (!minInput || !maxInput) {
-                    console.error('Filter Inputs missing');
-                    return;
-                }
-
-                const min = minInput.value.trim();
-                const max = maxInput.value.trim();
-
-                // Construct Query Params
-                const urlParams = new URLSearchParams(window.location.search);
-                if (min) urlParams.set('min', min); else urlParams.delete('min');
-                if (max) urlParams.set('max', max); else urlParams.delete('max');
-
-                // Scenario A: We are on the Shop Page -> Use AJAX
-                if (shopGrid) {
-                    const search = urlParams.get('search') || '';
-                    const apiUrl = '<?= BASE_URL ?>shop/filter?min=' + encodeURIComponent(min) + '&max=' + encodeURIComponent(max) + '&search=' + encodeURIComponent(search);
-
-                    shopGrid.style.opacity = '0.5';
-
-                    fetch(apiUrl)
-                        .then(r => {
-                            if (!r.ok) throw new Error('Network error');
-                            return r.text();
-                        })
-                        .then(html => {
-                            shopGrid.innerHTML = html;
-                            shopGrid.style.opacity = '1';
-                            // Update URL silently
-                            window.history.pushState({}, '', '?' + urlParams.toString());
-                        })
-                        .catch(e => {
-                            console.error(e);
-                            shopGrid.innerHTML = '<p style="grid-column:1/-1;color:red;text-align:center;">Error loading products.</p>';
-                            shopGrid.style.opacity = '1';
-                        });
-                }
-                // Scenario B: We are elsewhere (Home, Product Detail) -> Redirect
-                else {
-                    // Redirect to Shop Index with params
-                    // Note: 'shop' might need 'shop/index' depending on router, but usually 'shop' works.
-                    // We use the full constructed URL params.
-                    window.location.href = '<?= BASE_URL ?>shop?' + urlParams.toString();
-                }
+            if (!minInput || !maxInput) {
+                console.error('Filter Inputs missing');
+                return;
             }
-        });
+
+            const min = minInput.value.trim();
+            const max = maxInput.value.trim();
+            
+            // Collect Selected Categories
+            const checkedBoxes = document.querySelectorAll('.category-filter-checkbox:checked');
+            const catIds = Array.from(checkedBoxes).map(cb => cb.value).join(',');
+            
+            // Construct Query Params
+            const urlParams = new URLSearchParams(window.location.search);
+            if (min) urlParams.set('min', min); else urlParams.delete('min');
+            if (max) urlParams.set('max', max); else urlParams.delete('max');
+            if (catIds) urlParams.set('cat', catIds); else urlParams.delete('cat');
+            
+            // Scenario A: We are on the Shop Page -> Use AJAX
+            if (shopGrid) {
+                const search = urlParams.get('search') || '';
+                const apiUrl = '<?= BASE_URL ?>shop/filter?min=' + encodeURIComponent(min) + '&max=' + encodeURIComponent(max) + '&cat=' + encodeURIComponent(catIds) + '&search=' + encodeURIComponent(search);
+
+                shopGrid.style.opacity = '0.5';
+
+                fetch(apiUrl)
+                    .then(r => {
+                        if (!r.ok) throw new Error('Network error');
+                        return r.text();
+                    })
+                    .then(html => {
+                        shopGrid.innerHTML = html;
+                        shopGrid.style.opacity = '1';
+                        // Update URL silently
+                        window.history.pushState({}, '', '?' + urlParams.toString());
+                    })
+                    .catch(e => {
+                        console.error(e);
+                        shopGrid.innerHTML = '<p style="grid-column:1/-1;color:red;text-align:center;">Error loading products.</p>';
+                        shopGrid.style.opacity = '1';
+                    });
+            } 
+            // Scenario B: We are elsewhere (Home, Product Detail) -> Redirect
+            else {
+                // Redirect to Shop Index with params
+                window.location.href = '<?= BASE_URL ?>shop?' + urlParams.toString();
+            }
+        }
     });
+});
 </script>

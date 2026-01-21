@@ -373,7 +373,7 @@ class Product extends BaseModel
      * Get Filtered Products (Price Range)
      * Safe, clean implementation
      */
-    public function getFiltered($minPrice = null, $maxPrice = null, $search = null)
+    public function getFiltered($minPrice = null, $maxPrice = null, $search = null, $categoryIds = [])
     {
         $sql = "SELECT p.*, c.name as category_name, pc.name as parent_category_name
                 FROM products p 
@@ -384,11 +384,7 @@ class Product extends BaseModel
         // Params array for execution
         $params = [];
 
-        // Price Logic: Check both 'price' and 'sale_price' (effective price)
-        // Simplification: Filtering by 'price' column usually sufficient, but ideally checking sale_price.
-        // For strict safety without complex logic, we'll filter by 'price' column as per standard initial implementation.
-        // Or better: COALESCE(sale_price, price) but let's stick to standard price column unless requested otherwise.
-
+        // 1. Price Filter (Standard)
         if (!empty($minPrice)) {
             $sql .= " AND p.price >= :minPrice";
             $params[':minPrice'] = $minPrice;
@@ -399,9 +395,29 @@ class Product extends BaseModel
             $params[':maxPrice'] = $maxPrice;
         }
 
+        // 2. Search Filter
         if (!empty($search)) {
             $sql .= " AND (p.title LIKE :search OR p.sku LIKE :search)";
             $params[':search'] = "%$search%";
+        }
+
+        // 3. Category Filter (Array of IDs)
+        // If categories are selected, we filter products that match ANY of these IDs.
+        if (!empty($categoryIds) && is_array($categoryIds)) {
+            // Create placeholders: ?, ?, ?
+            // Since we use named params elsewhere, we can mix if careful or use named params with index
+            // Safest with PDO is IN clause with generated named keys.
+
+            $inQuery = "";
+            foreach ($categoryIds as $i => $id) {
+                $key = ":cat" . $i;
+                $inQuery .= ($inQuery ? ", " : "") . $key;
+                $params[$key] = $id;
+            }
+
+            if (!empty($inQuery)) {
+                $sql .= " AND p.category_id IN ($inQuery)";
+            }
         }
 
         $sql .= " ORDER BY p.created_at DESC";

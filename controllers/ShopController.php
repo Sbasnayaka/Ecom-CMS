@@ -89,11 +89,20 @@ class ShopController extends BaseController
         $max = $_GET['max'] ?? null;
         $search = $_GET['search'] ?? null;
 
+        // Handle Category Filter (Comma separated IDs: 1,2,3)
+        $catParam = $_GET['cat'] ?? null;
+        $categoryIds = [];
+        if (!empty($catParam)) {
+            $categoryIds = explode(',', $catParam);
+            // Sanitize integers
+            $categoryIds = array_filter($categoryIds, 'is_numeric');
+        }
+
         // Fetch Settings for Currency Symbol
         $settings = $this->settingModel->getAllPairs();
 
         // Get Filtered Products
-        $products = $this->productModel->getFiltered($min, $max, $search);
+        $products = $this->productModel->getFiltered($min, $max, $search, $categoryIds);
 
         if (empty($products)) {
             echo '<div style="grid-column: 1 / -1; text-align: center; padding: 40px; color: #777;">
