@@ -47,20 +47,29 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-        const applyBtn = document.getElementById('applyPriceFilter');
-        const minInput = document.getElementById('minPrice');
-        const maxInput = document.getElementById('maxPrice');
-        // Robust Selector: Targets the permanent container ID
-        const shopGrid = document.getElementById('product-grid-container');
+        // Event Delegation: Listen on document to ensure we catch the click even if timing is off
+        document.addEventListener('click', function (e) {
+            
+            // Check if the clicked element is our Apply Button
+            if (e.target && e.target.id === 'applyPriceFilter') {
+                e.preventDefault(); // Stop any default form submission
+                
+                const minInput = document.getElementById('minPrice');
+                const maxInput = document.getElementById('maxPrice');
+                const shopGrid = document.getElementById('product-grid-container');
 
-        if (applyBtn && minInput && maxInput && shopGrid) {
-            applyBtn.addEventListener('click', function () {
+                // Safety Check at Click Time
+                if (!minInput || !maxInput || !shopGrid) {
+                    console.error('Price Filter: Missing required elements.');
+                    return;
+                }
+
                 const min = minInput.value.trim();
                 const max = maxInput.value.trim();
                 const urlParams = new URLSearchParams(window.location.search);
                 const search = urlParams.get('search') || '';
 
-                // API Endpoint: Use BASE_URL if reliable
+                // Use absolute path with BASE_URL to prevent 404s
                 const apiUrl = '<?= BASE_URL ?>shop/filter?min=' + encodeURIComponent(min) + '&max=' + encodeURIComponent(max) + '&search=' + encodeURIComponent(search);
 
                 // UI Feedback
@@ -82,11 +91,11 @@
                     })
                     .catch(error => {
                         console.error('Error:', error);
-                        shopGrid.innerHTML = '<p style="grid-column:1/-1;color:red;text-align:center;">Error filtering products. Please try again.</p>';
+                        shopGrid.innerHTML = '<p style="grid-column:1/-1;color:red;text-align:center;">Error loading filtered products. Please try again.</p>';
                         shopGrid.style.opacity = '1';
                     });
-            });
-        }
+            }
+        });
     });
 </script>
 
