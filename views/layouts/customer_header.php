@@ -195,32 +195,34 @@
 <body>
 
     <!-- Mobile Header (Visible only on Mobile) -->
-    <div class="mobile-header d-lg-none" style="padding-bottom: 5px;">
+    <div class="mobile-header d-lg-none" style="padding-bottom: 10px; width: 100%;">
         
-        <!-- Top Row: Welcome + Controls -->
-        <div style="display: flex; justify-content: space-between; align-items: center; padding-top: 5px;">
-            <div class="welcome-text">
-                <h1 style="font-size: 24px; margin-bottom: 2px; font-weight: 700;">Welcome!</h1>
-                <p style="font-size: 13px; color: #666; margin: 0;">
+        <!-- Top Row: Flex Container -->
+        <div style="display: flex; align-items: center; justify-content: space-between; width: 100%; padding-top: 10px;">
+            
+            <!-- Left: Welcome Text -->
+            <div class="welcome-text" style="flex: 1;"> <!-- Flex 1 allows it to take space but not push controls off -->
+                <h1 style="font-size: 22px; font-weight: 800; margin: 0; line-height: 1.2; color: #000;">Welcome!</h1>
+                <p style="font-size: 13px; color: #757575; margin: 0; line-height: 1.2;">
                     <?= !empty($settings['shop_name']) ? htmlspecialchars($settings['shop_name']) : 'Dark Lavender Clothing!' ?>
                 </p>
             </div>
             
-            <!-- Right Side: Search Icon + Logo -->
-            <div id="headerControls" style="display: flex; align-items: center; gap: 10px;">
+            <!-- Right: Controls (FORCED RIGHT ALIGNMENT) -->
+            <div id="headerControls" style="display: flex; align-items: center; gap: 10px; margin-left: auto; flex-shrink: 0;">
                 
                 <!-- Search Trigger Button -->
                 <div id="searchTriggerBtn" onclick="toggleMobileSearch()" style="
-                    background: #f3e5f5; 
-                    width: 38px; 
-                    height: 38px; 
+                    background: #ede7f6; /* Matching Screenshot lighter purple */
+                    width: 40px; 
+                    height: 40px; 
                     border-radius: 12px; 
                     display: flex; 
                     align-items: center; 
                     justify-content: center; 
                     cursor: pointer;
                     transition: all 0.2s;">
-                    <i class="fas fa-search" style="color: #4a148c; font-size: 16px;"></i>
+                    <i class="fas fa-search" style="color: #5e35b1; font-size: 18px;"></i> <!-- Darker purple icon -->
                 </div>
 
                 <!-- Shop Avatar/Logo -->
@@ -237,22 +239,24 @@
                     height: 40px; 
                     border-radius: 50%; 
                     object-fit: cover;
-                    border: 1px solid #ddd;">
+                    border: 1px solid #eee;">
             </div>
         </div>
         
-        <!-- Mobile Search Dropdown (Static Block - Pushes content down) -->
+        <!-- Mobile Search Bar (Popped Under) -->
         <div id="mobileSearchBar" class="search-bar mobile-search" style="
             display: none;
             margin-top: 15px; 
-            margin-bottom: 10px;
             width: 100%;
         ">
             <div style="position: relative;">
+                <!-- Exact visual match for Input: Pill shape, light purple bg, no border -->
                 <input type="text" id="mobileSearchInput" placeholder="Search products........." class="search-input" 
-                    style="width: 100%; padding: 12px 45px 12px 20px; border-radius: 30px; border: none; background: #ede7f6; font-size: 14px; color: #333; box-shadow: none;">
+                    style="width: 100%; height: 45px; padding: 0 45px 0 20px; border-radius: 50px; border: none; background: #ede7f6; font-size: 14px; color: #333; outline: none;">
+                
+                <!-- Icon inside input (Right) -->
                 <i class="fas fa-search" onclick="triggerMobileSearch()" 
-                    style="position: absolute; right: 20px; top: 50%; transform: translateY(-50%); color: #4a148c; cursor: pointer; font-size: 16px;"></i>
+                    style="position: absolute; right: 20px; top: 50%; transform: translateY(-50%); color: #5e35b1; cursor: pointer; font-size: 16px;"></i>
             </div>
         </div>
 
@@ -262,9 +266,9 @@
                 const triggerBtn = document.getElementById('searchTriggerBtn');
                 
                 if (searchBar.style.display === 'none') {
-                    // Start Open
+                    // Open
                     searchBar.style.display = 'block';
-                    triggerBtn.style.display = 'none'; // Completely remove from flow
+                    triggerBtn.style.display = 'none'; // Hide trigger
                     setTimeout(() => { document.getElementById('mobileSearchInput').focus(); }, 50);
                 } else {
                     hideSearch();
@@ -275,7 +279,7 @@
                 const searchBar = document.getElementById('mobileSearchBar');
                 const triggerBtn = document.getElementById('searchTriggerBtn');
                 searchBar.style.display = 'none';
-                triggerBtn.style.display = 'flex'; // Restore
+                triggerBtn.style.display = 'flex'; // Show trigger
             }
 
             function triggerMobileSearch() {
