@@ -205,20 +205,20 @@
             </div>
             
             <!-- Right Side: Search Icon + Logo -->
-            <div style="display: flex; align-items: center; gap: 12px;">
+            <div style="display: flex; align-items: center; gap: 10px;">
                 
                 <!-- Search Trigger Button (Visible by default) -->
                 <div id="searchTriggerBtn" onclick="toggleMobileSearch()" style="
                     background: #f3e5f5; 
                     width: 38px; 
                     height: 38px; 
-                    border-radius: 10px; 
+                    border-radius: 12px; 
                     display: flex; 
                     align-items: center; 
                     justify-content: center; 
                     cursor: pointer;
-                    transition: background 0.2s;">
-                    <i class="fas fa-search" style="color: #6a1b9a; font-size: 16px;"></i>
+                    transition: opacity 0.2s;">
+                    <i class="fas fa-search" style="color: #4a148c; font-size: 15px;"></i> <!-- Darker purple icon -->
                 </div>
 
                 <!-- Shop Avatar/Logo -->
@@ -240,16 +240,17 @@
         </div>
         
         <!-- Mobile Search Bar (Expandable Block) -->
+        <!-- Matches Screenshot 2: Full width pill input below header -->
         <div id="mobileSearchBar" class="search-bar mobile-search" style="
             display: none;
             margin-top: 15px;
             width: 100%;
         ">
             <div style="position: relative;">
-                <input type="text" id="mobileSearchInput" placeholder="Search products..." class="search-input" 
-                    style="width: 100%; padding: 12px 45px 12px 15px; border-radius: 12px; border: none; background: #f3e5f5; font-size: 16px; color: #333;">
+                <input type="text" id="mobileSearchInput" placeholder="Search products........." class="search-input" 
+                    style="width: 100%; padding: 12px 45px 12px 20px; border-radius: 30px; border: none; background: #ede7f6; font-size: 14px; color: #333;">
                 <i class="fas fa-search" onclick="triggerMobileSearch()" 
-                    style="position: absolute; right: 15px; top: 50%; transform: translateY(-50%); color: #666; cursor: pointer; font-size: 18px;"></i>
+                    style="position: absolute; right: 20px; top: 50%; transform: translateY(-50%); color: #5e35b1; cursor: pointer; font-size: 16px;"></i>
             </div>
         </div>
 
