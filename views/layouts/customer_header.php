@@ -195,7 +195,7 @@
 <body>
 
     <!-- Mobile Header (Visible only on Mobile) -->
-    <div class="mobile-header d-lg-none" style="position: relative;">
+    <div class="mobile-header d-lg-none"> <!-- CSS handles display, adding ID for logic -->
         <div style="display: flex; justify-content: space-between; align-items: center;">
             <div class="welcome-text">
                 <h1>Welcome!</h1>
@@ -203,13 +203,22 @@
                     <?= !empty($settings['shop_name']) ? htmlspecialchars($settings['shop_name']) : 'Dark Lavender Clothing!' ?>
                 </p>
             </div>
-
+            
+            <!-- Right Side: Search Icon + Logo -->
             <div style="display: flex; align-items: center; gap: 10px;">
-                <!-- Mobile Search Trigger Icon -->
-                <button onclick="toggleMobileSearchInput()"
-                    style="background: #f3e5f5; border: none; width: 40px; height: 40px; border-radius: 12px; display: flex; align-items: center; justify-content: center; cursor: pointer;">
-                    <i class="fas fa-search" style="color: #4a148c; font-size: 16px;"></i>
-                </button>
+                
+                <!-- Search Trigger Button -->
+                <div onclick="toggleMobileSearch()" style="
+                    background: #f3e5f5; 
+                    width: 40px; 
+                    height: 40px; 
+                    border-radius: 12px; 
+                    display: flex; 
+                    align-items: center; 
+                    justify-content: center; 
+                    cursor: pointer;">
+                    <i class="fas fa-search" style="color: #333; font-size: 16px;"></i>
+                </div>
 
                 <!-- Shop Avatar/Logo -->
                 <?php
@@ -220,29 +229,27 @@
                     ? $logoUrl
                     : 'https://via.placeholder.com/40';
                 ?>
-                <img src="<?= $logo ?>" class="shop-avatar" alt="Shop Logo"
-                    style="width: 40px; height: 40px; border-radius: 50%; object-fit: cover;">
+                <img src="<?= $logo ?>" class="shop-avatar" alt="Shop Logo">
             </div>
         </div>
-
-        <!-- Hidden Mobile Search Input (Toggles on Click) -->
-        <div id="mobileSearchContainer" style="display: none; margin-top: 15px;">
-            <div class="search-bar mobile-search" style="position: relative;">
-                <input type="text" id="mobileSearchInput" placeholder="Search..." class="search-input"
-                    style="width: 100%; padding: 10px 35px 10px 15px; border-radius: 20px; border: 1px solid #eee; background: #fff;">
-                <i class="fas fa-search" onclick="triggerMobileSearch()"
-                    style="position: absolute; right: 15px; top: 50%; transform: translateY(-50%); color: #aaa; cursor: pointer;"></i>
-            </div>
+        
+        <!-- Mobile Search Bar (Collapsible) -->
+        <div id="mobileSearchBar" class="search-bar mobile-search" style="margin-top: 15px; position: relative; display: none;">
+            <input type="text" id="mobileSearchInput" placeholder="Search..." class="search-input" 
+                style="width: 100%; padding: 12px 40px 12px 15px; border-radius: 12px; border: 1px solid #eee; background: #fff; box-shadow: 0 2px 10px rgba(0,0,0,0.05);">
+            <i class="fas fa-arrow-right" onclick="triggerMobileSearch()" 
+                style="position: absolute; right: 15px; top: 50%; transform: translateY(-50%); color: var(--primary-color, #a855f7); cursor: pointer;"></i>
         </div>
 
         <script>
-            function toggleMobileSearchInput() {
-                const container = document.getElementById('mobileSearchContainer');
-                if (container.style.display === 'none' || container.style.display === '') {
-                    container.style.display = 'block';
-                    document.getElementById('mobileSearchInput').focus();
+            function toggleMobileSearch() {
+                const searchBar = document.getElementById('mobileSearchBar');
+                if (searchBar.style.display === 'none') {
+                    searchBar.style.display = 'block';
+                    // Auto-focus the input
+                    setTimeout(() => { document.getElementById('mobileSearchInput').focus(); }, 100);
                 } else {
-                    container.style.display = 'none';
+                    searchBar.style.display = 'none';
                 }
             }
 
@@ -252,7 +259,7 @@
                     window.location.href = '<?= BASE_URL ?>shop/index?search=' + encodeURIComponent(query);
                 }
             }
-
+            
             document.getElementById('mobileSearchInput').addEventListener('keypress', function (e) {
                 if (e.key === 'Enter') {
                     triggerMobileSearch();
@@ -288,10 +295,9 @@
 
             <div class="search-bar">
                 <input type="text" id="desktopSearchInput" placeholder="Search..." class="search-input">
-                <i class="fas fa-search" id="desktopSearchIcon"
-                    style="position: absolute; right: 15px; top: 12px; color: #aaa; cursor: pointer;"></i>
+                <i class="fas fa-search" id="desktopSearchIcon" style="position: absolute; right: 15px; top: 12px; color: #aaa; cursor: pointer;"></i>
                 <script>
-                    document.addEventListener('DOMContentLoaded', function () {
+                    document.addEventListener('DOMContentLoaded', function() {
                         const searchInput = document.getElementById('desktopSearchInput');
                         const searchIcon = document.getElementById('desktopSearchIcon');
 
@@ -304,7 +310,7 @@
                         }
 
                         if (searchInput) {
-                            searchInput.addEventListener('keypress', function (e) {
+                            searchInput.addEventListener('keypress', function(e) {
                                 if (e.key === 'Enter') {
                                     performSearch();
                                 }
