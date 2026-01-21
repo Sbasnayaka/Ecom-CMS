@@ -217,56 +217,90 @@ class ProductController extends BaseController
 
     public function update()
     {
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $id = $_POST['id'];
+        // 1. Check for POST Max Size Limit Exceeded
+        // Mirrors logic from store() to prevent silent failures on large uploads
+        if ($_SERVER['REQUEST_METHOD'] === 'POST' && empty($_POST) && empty($_FILES) && isset($_SERVER['CONTENT_LENGTH']) && $_SERVER['CONTENT_LENGTH'] > 0) {
+            $maxPost = ini_get('post_max_size');
+            echo "<div style='color:red; padding:20px; text-align:center; font-family:sans-serif;'>
+                    <h1>Upload Failed</h1>
+                    <p>The total size of your files exceeds the server limit ($maxPost).</p>
+                    <p>Please try uploading fewer images or compressing them first.</p>
+                    <a href='javascript:history.back()'>Go Back</a>
+                  </div>";
+            return;
+        }
 
-            // Basic fields
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $id = $_POST['id'] ?? null;
+
+            // 2. Validate ID and Required Fields
+            // Strict check: we must have an ID to update
+            if (empty($id)) {
+                echo "<div style='color:red; padding:20px; font-family:sans-serif;'>
+                        <h1>Update Failed</h1>
+                        <p>Product ID missing. Please go back and try again.</p>
+                        <a href='javascript:history.back()'>Go Back</a>
+                      </div>";
+                return;
+            }
+
             $title = $_POST['title'] ?? '';
             $price = $_POST['price'] ?? '';
             $categoryId = $_POST['category_id'] ?? '';
 
             if (empty($title) || empty($price) || empty($categoryId)) {
-                echo "Missing required fields.";
+                echo "<div style='color:red; padding:20px; font-family:sans-serif;'>
+                        <h1>Missing Information</h1>
+                        <p>Please fill in all required fields (Title, Price, Category).</p>
+                        <a href='javascript:history.back()'>Go Back</a>
+                      </div>";
                 return;
             }
 
-            // Upload Dir
+            // 3. Setup Upload Directory (Safety Check)
             $uploadDir = dirname(__DIR__) . "/assets/uploads/";
-
-            // Handle Main Image (Only if new one uploaded)
-            $mainImagePath = $_POST['current_main_image'] ?? '';
-            if (isset($_FILES['main_image']) && $_FILES['main_image']['error'] == 0) {
-                $fileName = time() . '_main_' . preg_replace('/[^a-zA-Z0-9\._-]/', '', basename($_FILES['main_image']['name']));
-                if (move_uploaded_file($_FILES['main_image']['tmp_name'], $uploadDir . $fileName)) {
-                    $mainImagePath = $fileName;
+            if (!is_dir($uploadDir)) {
+                if (!mkdir($uploadDir, 0777, true)) {
+                    echo "Error: Failed to create upload directory. Please check server permissions.";
+                    return;
                 }
             }
 
-            // Handle Gallery (Append or Replace? Usually append in simple CMS, or complex management. 
-            // For simplicity/strictness, we'll keep existing unless explicit delete - but UI doesn't allow delete yet.
-            // Let's just ADD new ones to the list.)
-            // Actually, `ProductModel->update` usually handles logic. Let's check ProductModel.
-            // Wait, I haven't checked ProductModel->update capability.
+            // 4. Handle Main Image (Update only if new one provided)
+            $mainImagePath = $_POST['current_main_image'] ?? '';
+            if (isset($_FILES['main_image']) && $_FILES['main_image']['error'] == 0) {
+                // Validate Image Type
+                $allowed = ['jpg', 'jpeg', 'png', 'gif', 'webp'];
+                $ext = strtolower(pathinfo($_FILES['main_image']['name'], PATHINFO_EXTENSION));
 
-            // Let's assume we pass data and Model handles it. 
-            // But we need to process uploads first.
+                if (in_array($ext, $allowed)) {
+                    $fileName = time() . '_main_' . preg_replace('/[^a-zA-Z0-9\._-]/', '', basename($_FILES['main_image']['name']));
+                    if (move_uploaded_file($_FILES['main_image']['tmp_name'], $uploadDir . $fileName)) {
+                        $mainImagePath = $fileName;
+                    }
+                }
+            }
 
-            $galleryPaths = []; // New images
+            // 5. Handle Gallery Images (Append new ones)
+            $galleryPaths = [];
             if (isset($_FILES['gallery_images'])) {
                 $files = $_FILES['gallery_images'];
                 $count = count($files['name']);
                 for ($i = 0; $i < $count; $i++) {
                     if (!empty($files['name'][$i]) && $files['error'][$i] == 0) {
-                        $cleanName = preg_replace('/[^a-zA-Z0-9\._-]/', '', basename($files['name'][$i]));
-                        $gFileName = time() . "_gal_{$i}_" . $cleanName;
-                        if (move_uploaded_file($files['tmp_name'][$i], $uploadDir . $gFileName)) {
-                            $galleryPaths[] = $gFileName;
+                        $ext = strtolower(pathinfo($files['name'][$i], PATHINFO_EXTENSION));
+                        if (in_array($ext, ['jpg', 'jpeg', 'png', 'gif', 'webp'])) {
+                            $cleanName = preg_replace('/[^a-zA-Z0-9\._-]/', '', basename($files['name'][$i]));
+                            $gFileName = time() . "_gal_{$i}_" . $cleanName;
+                            if (move_uploaded_file($files['tmp_name'][$i], $uploadDir . $gFileName)) {
+                                $galleryPaths[] = $gFileName;
+                            }
                         }
                     }
                 }
             }
 
-            // Variations
+            // 6. Handle Variations
             $formattedVars = [];
             if (isset($_POST['selected_variations']) && is_array($_POST['selected_variations'])) {
                 foreach ($_POST['selected_variations'] as $combo) {
@@ -280,6 +314,7 @@ class ProductController extends BaseController
                 }
             }
 
+            // 7. Prepare Data for Model
             $data = [
                 'id' => $id,
                 'title' => $title,
@@ -289,16 +324,22 @@ class ProductController extends BaseController
                 'description' => $_POST['description'] ?? '',
                 'category_id' => $categoryId,
                 'size_guide_id' => !empty($_POST['size_guide_id']) ? $_POST['size_guide_id'] : null,
-                'is_featured' => isset($_POST['is_featured']),
+                'is_featured' => isset($_POST['is_featured']), // Checkbox sends 'on' if checked
                 'main_image' => $mainImagePath,
-                'new_gallery_images' => $galleryPaths, // array of new paths
+                'new_gallery_images' => $galleryPaths, // array of new paths to ADD
                 'variations' => $formattedVars
             ];
 
+            // 8. Execute Update
             if ($this->productModel->update($data)) {
                 $this->redirect('product/index');
             } else {
-                echo "Error updating product.";
+                echo "<div style='color:red; padding:20px; font-family:sans-serif;'>
+                        <h1>Update Failed</h1>
+                        <p>There was an issue updating the product in the database.</p>
+                        <p>It's possible that no changes were detected or the ID was invalid.</p>
+                        <a href='javascript:history.back()'>Go Back</a>
+                      </div>";
             }
 
         }
