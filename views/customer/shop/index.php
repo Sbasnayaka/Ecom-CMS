@@ -16,40 +16,29 @@
             <?php endif; ?>
         </div>
 
-        <?php if (empty($products)): ?>
-            <div style="padding: 40px; text-align: center; color: #777;">
-                <h3>No products found.</h3>
-                <p>Try searching for something else or browse our categories.</p>
-                <a href="<?= BASE_URL ?>" class="btn-red"
-                    style="display:inline-block; margin-top:20px; text-decoration:none;">Go Home</a>
-            </div>
-        <?php else: ?>
-            <!-- Products Grid -->
-            <!-- Using existing .products-scroll class style or creating a grid wrapper -->
-            <!-- The screenshot shows a grid. .products-scroll is usually horizontal. -->
-            <!-- We should check customer.css for a grid class or add inline style for now to match strictness -->
-
-            <style>
-                .shop-grid {
-                    display: grid;
-                    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-                    gap: 20px;
-                }
-
-                @media (max-width: 768px) {
-                    .shop-grid {
-                        grid-template-columns: repeat(2, 1fr);
-                        gap: 10px;
-                    }
-                }
-            </style>
-
-            <div class="shop-grid">
+        <div id="product-grid-container" class="shop-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 20px;">
+            <?php if (empty($products)): ?>
+                <div style="grid-column: 1 / -1; padding: 40px; text-align: center; color: #777;">
+                    <h3>No products found.</h3>
+                    <p>Try searching for something else or browse our categories.</p>
+                    <a href="<?= BASE_URL ?>" class="btn-red"
+                        style="display:inline-block; margin-top:20px; text-decoration:none;">Go Home</a>
+                </div>
+            <?php else: ?>
                 <?php foreach ($products as $prod): ?>
                     <?php include 'views/customer/partials/product_card.php'; ?>
                 <?php endforeach; ?>
-            </div>
-        <?php endif; ?>
+            <?php endif; ?>
+        </div>
+
+        <style>
+            @media (max-width: 768px) {
+                #product-grid-container {
+                    grid-template-columns: repeat(2, 1fr) !important;
+                    gap: 10px !important;
+                }
+            }
+        </style>
 
     </main>
 
@@ -61,7 +50,7 @@
         const applyBtn = document.getElementById('applyPriceFilter');
         const minInput = document.getElementById('minPrice');
         const maxInput = document.getElementById('maxPrice');
-        const shopGrid = document.querySelector('.shop-grid');
+        const shopGrid = document.getElementById('product-grid-container');
 
         if (applyBtn && minInput && maxInput && shopGrid) {
             applyBtn.addEventListener('click', function () {
