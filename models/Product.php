@@ -175,6 +175,17 @@ class Product extends BaseModel
 
             $stmt->execute();
 
+            // Check if any row was actually updated
+            // Note: If values are identical to existing, MySQL might return 0 affected rows depending on flags.
+            // But usually for an ID based update, if ID exists, it returns 1 or 0.
+            // If ID matches nothing, it returns 0.
+            // We want to ensure we don't return false if data was just identical (silent success), 
+            // but we MUST fail if ID was wrong.
+            // However, user specifically asked: "return true only when the update is successful and at least one row is affected."
+            // So we will enforce rowCount > 0 condition for strictness.
+
+            $mainUpdateSuccess = $stmt->rowCount() > 0;
+
             // 2. Append New Gallery Images
             if (!empty($data['new_gallery_images'])) {
                 $sqlImg = "INSERT INTO product_images (product_id, image_path) VALUES (:pid, :path)";
@@ -184,16 +195,22 @@ class Product extends BaseModel
                     $stmtImg->bindParam(':pid', $data['id']);
                     $stmtImg->bindParam(':path', $path);
                     $stmtImg->execute();
+                    $mainUpdateSuccess = true; // Consider success if we added images
                 }
             }
 
-            // 3. Update Variations (Delete All for this Product and Re-Insert)
-            // This assumes we send ALL selected variations every time.
+            // 3. Update Variations
             if (isset($data['variations'])) {
+                // Delete existing
                 $sqlDel = "DELETE FROM product_variations WHERE product_id = :pid";
                 $stmtDel = $this->conn->prepare($sqlDel);
                 $stmtDel->bindParam(':pid', $data['id']);
                 $stmtDel->execute();
+
+                // If we deleted vars, that's a change too
+                if ($stmtDel->rowCount() > 0) {
+                    $mainUpdateSuccess = true;
+                }
 
                 if (!empty($data['variations'])) {
                     $sqlVar = "INSERT INTO product_variations (product_id, variation_id, variation_value_id) VALUES (:pid, :vid, :vvid)";
@@ -204,12 +221,15 @@ class Product extends BaseModel
                         $stmtVar->bindParam(':vid', $var['variation_id']);
                         $stmtVar->bindParam(':vvid', $var['variation_value_id']);
                         $stmtVar->execute();
+                        $mainUpdateSuccess = true; // Consider success if we added vars
                     }
                 }
             }
 
             $this->conn->commit();
-            return true;
+
+            // Return true if at least something changed (Main Product, Images, or Variations)
+            return $mainUpdateSuccess;
 
         } catch (Exception $e) {
             $this->conn->rollBack();
