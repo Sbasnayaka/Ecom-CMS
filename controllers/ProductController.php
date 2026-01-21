@@ -217,6 +217,9 @@ class ProductController extends BaseController
 
     public function update()
     {
+        // DEBUG: Temporary diagnostic output
+        // echo "<pre>"; print_r($_POST); print_r($_FILES); echo "</pre>"; die("DEBUG MODE ACTIVE");
+
         // 1. Check for POST Max Size Limit Exceeded
         // Mirrors logic from store() to prevent silent failures on large uploads
         if ($_SERVER['REQUEST_METHOD'] === 'POST' && empty($_POST) && empty($_FILES) && isset($_SERVER['CONTENT_LENGTH']) && $_SERVER['CONTENT_LENGTH'] > 0) {
@@ -331,7 +334,11 @@ class ProductController extends BaseController
             ];
 
             // 8. Execute Update
-            if ($this->productModel->update($data)) {
+            // DEBUG: Trace Model Result
+            $result = $this->productModel->update($data);
+            // var_dump($result); die("Model Update Result");
+
+            if ($result) {
                 $this->redirect('product/index');
             } else {
                 echo "<div style='color:red; padding:20px; font-family:sans-serif;'>
