@@ -195,19 +195,21 @@
 <body>
 
     <!-- Mobile Header (Visible only on Mobile) -->
-    <div class="mobile-header d-lg-none" style="padding-bottom: 5px;">
+    <!-- Enforce display: block to ensure vertical stacking of Top Row and Search Bar -->
+    <div class="mobile-header d-lg-none" style="display: block; padding-bottom: 10px; width: 100%;">
         
         <!-- Top Row: Welcome + Controls -->
-        <div style="display: flex; justify-content: space-between; align-items: center; padding-top: 5px;">
+        <!-- Enforce width: 100% to push Welcome and Controls to corners -->
+        <div style="display: flex; justify-content: space-between; align-items: center; width: 100%; padding-top: 5px;">
             <div class="welcome-text">
-                <h1 style="font-size: 24px; margin-bottom: 2px; font-weight: 700;">Welcome!</h1>
+                <h1 style="font-size: 24px; margin-bottom: 2px; font-weight: 700; color: #000;">Welcome!</h1>
                 <p style="font-size: 13px; color: #666; margin: 0;">
                     <?= !empty($settings['shop_name']) ? htmlspecialchars($settings['shop_name']) : 'Dark Lavender Clothing!' ?>
                 </p>
             </div>
             
             <!-- Right Side: Search Icon + Logo -->
-            <div id="headerControls" style="display: flex; align-items: center; gap: 10px;">
+            <div id="headerControls" style="display: flex; align-items: center; gap: 8px;">
                 
                 <!-- Search Trigger Button -->
                 <div id="searchTriggerBtn" onclick="toggleMobileSearch()" style="
@@ -219,7 +221,8 @@
                     align-items: center; 
                     justify-content: center; 
                     cursor: pointer;
-                    transition: all 0.2s;">
+                    margin-right: 2px;
+                    transition: opacity 0.2s;">
                     <i class="fas fa-search" style="color: #4a148c; font-size: 16px;"></i>
                 </div>
 
@@ -241,11 +244,11 @@
             </div>
         </div>
         
-        <!-- Mobile Search Dropdown (Static Block - Pushes content down) -->
+        <!-- Mobile Search Dropdown (Static Block - "Pops Up" Under Text) -->
         <div id="mobileSearchBar" class="search-bar mobile-search" style="
             display: none;
             margin-top: 15px; 
-            margin-bottom: 10px;
+            margin-bottom: 5px;
             width: 100%;
         ">
             <div style="position: relative;">
@@ -262,9 +265,9 @@
                 const triggerBtn = document.getElementById('searchTriggerBtn');
                 
                 if (searchBar.style.display === 'none') {
-                    // Start Open
+                    // Open
                     searchBar.style.display = 'block';
-                    triggerBtn.style.display = 'none'; // Completely remove from flow
+                    triggerBtn.style.display = 'none'; // Hides trigger to match screenshot
                     setTimeout(() => { document.getElementById('mobileSearchInput').focus(); }, 50);
                 } else {
                     hideSearch();
@@ -275,7 +278,7 @@
                 const searchBar = document.getElementById('mobileSearchBar');
                 const triggerBtn = document.getElementById('searchTriggerBtn');
                 searchBar.style.display = 'none';
-                triggerBtn.style.display = 'flex'; // Restore
+                triggerBtn.style.display = 'flex'; // Shows trigger again
             }
 
             function triggerMobileSearch() {
@@ -291,7 +294,7 @@
                 }
             });
 
-            // Global Click Listener for "Background Click"
+            // Global Click Listener for hiding search when clicking background
             document.addEventListener('click', function(event) {
                 const searchBar = document.getElementById('mobileSearchBar');
                 const triggerBtn = document.getElementById('searchTriggerBtn');
@@ -299,7 +302,7 @@
                 // Only act if search is visible
                 if (searchBar.style.display === 'block') {
                     const isClickInsideSearch = searchBar.contains(event.target);
-                    // Also check trigger to prevent immediate close when opening
+                    // Also check trigger to prevent immediate close on toggle
                     const isClickInsideTrigger = triggerBtn.contains(event.target);
                     
                     if (!isClickInsideSearch && !isClickInsideTrigger) {
