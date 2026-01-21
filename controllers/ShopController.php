@@ -26,10 +26,19 @@ class ShopController extends BaseController
     {
         // 1. Get Filters
         $search = $_GET['search'] ?? null;
-        // Future: $catId = $_GET['cat'] ?? null;
+        $min = $_GET['min'] ?? null;
+        $max = $_GET['max'] ?? null;
+        $catParam = $_GET['cat'] ?? null;
+
+        $categoryIds = [];
+        if (!empty($catParam)) {
+            $categoryIds = explode(',', $catParam);
+            $categoryIds = array_filter($categoryIds, 'is_numeric');
+        }
 
         // 2. Fetch Data
-        $products = $this->productModel->getAll($search);
+        // Use getFiltered to handle all filter cases (Search + Price + Category)
+        $products = $this->productModel->getFiltered($min, $max, $search, $categoryIds);
         $categories = $this->categoryModel->getAll();
         $settings = $this->settingModel->getAllPairs();
 

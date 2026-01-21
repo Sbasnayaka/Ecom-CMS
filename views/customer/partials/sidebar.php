@@ -2,9 +2,9 @@
     <div class="filter-group">
         <span class="filter-title">Filter by Price,</span>
         <div style="display: flex; gap: 10px; margin-bottom: 10px;">
-            <input type="text" id="minPrice" placeholder="Min"
+            <input type="text" id="minPrice" placeholder="Min" value="<?= htmlspecialchars($_GET['min'] ?? '') ?>"
                 style="width: 60px; padding: 5px; border: 1px solid #ddd; border-radius: 4px;">
-            <input type="text" id="maxPrice" placeholder="Max"
+            <input type="text" id="maxPrice" placeholder="Max" value="<?= htmlspecialchars($_GET['max'] ?? '') ?>"
                 style="width: 60px; padding: 5px; border: 1px solid #ddd; border-radius: 4px;">
         </div>
 
