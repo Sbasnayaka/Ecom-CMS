@@ -1,12 +1,23 @@
 <aside class="sidebar display-desktop-only">
     <div class="filter-group">
         <span class="filter-title">Filter by Price,</span>
-        <div style="display: flex; gap: 10px;">
-            <input type="text" placeholder="Min"
+        <div style="display: flex; gap: 10px; margin-bottom: 10px;">
+            <input type="text" id="minPrice" placeholder="Min"
                 style="width: 60px; padding: 5px; border: 1px solid #ddd; border-radius: 4px;">
-            <input type="text" placeholder="Max"
+            <input type="text" id="maxPrice" placeholder="Max"
                 style="width: 60px; padding: 5px; border: 1px solid #ddd; border-radius: 4px;">
         </div>
+        <button id="applyPriceFilter" style="
+            width: 100%; 
+            padding: 6px; 
+            background: #4a148c; 
+            color: white; 
+            border: none; 
+            border-radius: 4px; 
+            cursor: pointer;
+            font-size: 13px;">
+            Apply
+        </button>
     </div>
 
     <div class="filter-group">
