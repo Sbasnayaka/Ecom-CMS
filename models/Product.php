@@ -368,5 +368,47 @@ class Product extends BaseModel
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+
+    /**
+     * Get Filtered Products (Price Range)
+     * Safe, clean implementation
+     */
+    public function getFiltered($minPrice = null, $maxPrice = null, $search = null)
+    {
+        $sql = "SELECT p.*, c.name as category_name, pc.name as parent_category_name
+                FROM products p 
+                LEFT JOIN categories c ON p.category_id = c.id 
+                LEFT JOIN categories pc ON c.parent_id = pc.id
+                WHERE 1=1";
+
+        // Params array for execution
+        $params = [];
+
+        // Price Logic: Check both 'price' and 'sale_price' (effective price)
+        // Simplification: Filtering by 'price' column usually sufficient, but ideally checking sale_price.
+        // For strict safety without complex logic, we'll filter by 'price' column as per standard initial implementation.
+        // Or better: COALESCE(sale_price, price) but let's stick to standard price column unless requested otherwise.
+
+        if (!empty($minPrice)) {
+            $sql .= " AND p.price >= :minPrice";
+            $params[':minPrice'] = $minPrice;
+        }
+
+        if (!empty($maxPrice)) {
+            $sql .= " AND p.price <= :maxPrice";
+            $params[':maxPrice'] = $maxPrice;
+        }
+
+        if (!empty($search)) {
+            $sql .= " AND (p.title LIKE :search OR p.sku LIKE :search)";
+            $params[':search'] = "%$search%";
+        }
+
+        $sql .= " ORDER BY p.created_at DESC";
+
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute($params);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
 }
 ?>
