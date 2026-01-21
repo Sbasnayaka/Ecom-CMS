@@ -195,7 +195,7 @@
 <body>
 
     <!-- Mobile Header (Visible only on Mobile) -->
-    <div class="mobile-header d-lg-none" style="position: relative; padding-bottom: 10px;"> <!-- Added relative for dropdown positioning -->
+    <div class="mobile-header d-lg-none" style="padding-bottom: 20px;">
         <div style="display: flex; justify-content: space-between; align-items: center;">
             <div class="welcome-text">
                 <h1 style="font-size: 24px; margin-bottom: 0;">Welcome!</h1>
@@ -205,20 +205,20 @@
             </div>
             
             <!-- Right Side: Search Icon + Logo -->
-            <div style="display: flex; align-items: center; gap: 12px;"> <!-- Adjusted gap for better touch targets -->
+            <div style="display: flex; align-items: center; gap: 12px;">
                 
                 <!-- Search Trigger Button -->
-                <div onclick="toggleMobileSearch()" style="
+                <div id="mobileSearchTrigger" onclick="openMobileSearch()" style="
                     background: #f3e5f5; 
                     width: 38px; 
                     height: 38px; 
-                    border-radius: 10px; 
+                    border-radius: 12px; 
                     display: flex; 
                     align-items: center; 
                     justify-content: center; 
                     cursor: pointer;
-                    transition: background 0.2s;">
-                    <i class="fas fa-search" style="color: #6a1b9a; font-size: 16px;"></i> <!-- Darker purple for contrast -->
+                    transition: all 0.2s;">
+                    <i class="fas fa-search" style="color: #6a1b9a; font-size: 16px;"></i>
                 </div>
 
                 <!-- Shop Avatar/Logo -->
@@ -231,49 +231,54 @@
                     : 'https://via.placeholder.com/40';
                 ?>
                 <img src="<?= $logo ?>" alt="Shop Logo" style="
-                    width: 40px; 
-                    height: 40px; 
+                    width: 45px; 
+                    height: 45px; 
                     border-radius: 50%; 
                     object-fit: cover;
                     border: 1px solid #eee;">
             </div>
         </div>
         
-        <!-- Mobile Search Bar (Overlay Dropdown) -->
+        <!-- Mobile Search Bar (Inline Expansion) -->
         <div id="mobileSearchBar" class="search-bar mobile-search" style="
             display: none;
-            position: absolute;
-            top: 100%;
-            left: 0;
-            right: 0;
-            z-index: 999;
-            background: #fff;
-            padding: 10px 15px 20px 15px;
-            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1);
-            border-bottom-left-radius: 15px;
-            border-bottom-right-radius: 15px;
-            margin-top: 5px;
+            margin-top: 20px;
+            width: 100%;
         ">
             <div style="position: relative;">
-                <input type="text" id="mobileSearchInput" placeholder="Search products..." class="search-input" 
-                    style="width: 100%; padding: 12px 45px 12px 15px; border-radius: 12px; border: 1px solid #e0e0e0; background: #f9f9f9; font-size: 16px;"> <!-- Font size 16px prevents iOS zoom -->
-                <i class="fas fa-arrow-right" onclick="triggerMobileSearch()" 
-                    style="position: absolute; right: 15px; top: 50%; transform: translateY(-50%); color: var(--primary-color, #a855f7); cursor: pointer; font-size: 18px;"></i>
+                <input type="text" id="mobileSearchInput" placeholder="Search products........." class="search-input" 
+                    style="
+                    width: 100%; 
+                    padding: 12px 40px 12px 20px; 
+                    border-radius: 30px; 
+                    border: none; 
+                    background: #F3E5F5; 
+                    font-size: 15px; 
+                    color: #555;
+                    outline: none;">
+                <i class="fas fa-search" onclick="triggerMobileSearch()" 
+                    style="position: absolute; right: 15px; top: 50%; transform: translateY(-50%); color: #666; cursor: pointer; font-size: 16px;"></i>
             </div>
         </div>
 
         <script>
-            function toggleMobileSearch() {
+            function openMobileSearch() {
+                // Hide Trigger, Show Bar
+                document.getElementById('mobileSearchTrigger').style.display = 'none';
                 const searchBar = document.getElementById('mobileSearchBar');
-                if (searchBar.style.display === 'none') {
-                    // Slide Down Effect (Mocked with display)
-                    searchBar.style.display = 'block';
-                    setTimeout(() => { document.getElementById('mobileSearchInput').focus(); }, 50);
-                } else {
-                    searchBar.style.display = 'none';
-                }
+                searchBar.style.display = 'block';
+                
+                // Focus and add animation class if supported, or just simple show
+                setTimeout(() => { document.getElementById('mobileSearchInput').focus(); }, 50);
             }
 
+            // Optional: Close if clicked outside or empty blur? 
+            // For now, simple interaction as requested. 
+            // We adding a simple way to close: if input is empty and loses focus, revert? 
+            // Or maybe easier: click on the logo to reset? 
+            // Let's stick to the prompt's scope: Open mechanism.
+            // Adding a simple "Close" listener for better UX if needed, but keeping it minimal.
+            
             function triggerMobileSearch() {
                 const query = document.getElementById('mobileSearchInput').value;
                 if (query.trim() !== '') {
@@ -284,17 +289,6 @@
             document.getElementById('mobileSearchInput').addEventListener('keypress', function (e) {
                 if (e.key === 'Enter') {
                     triggerMobileSearch();
-                }
-            });
-
-            // Close search when clicking outside (Optional polish)
-            document.addEventListener('click', function(event) {
-                const searchBar = document.getElementById('mobileSearchBar');
-                const trigger = document.querySelector('[onclick="toggleMobileSearch()"]');
-                const isClickInside = searchBar.contains(event.target) || trigger.contains(event.target);
-                
-                if (!isClickInside && searchBar.style.display === 'block') {
-                    searchBar.style.display = 'none';
                 }
             });
         </script>
