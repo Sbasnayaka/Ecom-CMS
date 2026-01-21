@@ -7,7 +7,7 @@
             <input type="text" id="maxPrice" placeholder="Max"
                 style="width: 60px; padding: 5px; border: 1px solid #ddd; border-radius: 4px;">
         </div>
-        <button id="applyPriceFilter" style="
+        <button id="applyPriceFilter" type="button" style="
             width: 100%; 
             padding: 6px; 
             background: #4a148c; 
@@ -86,71 +86,3 @@
         </div>
     </div>
 </aside>
-
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        const applyBtn = document.getElementById('applyPriceFilter');
-        const minInput = document.getElementById('minPrice');
-        const maxInput = document.getElementById('maxPrice');
-        // Check for Shop Grid (AJAX Mode)
-        const shopGrid = document.getElementById('product-grid-container');
-
-        if (applyBtn && minInput && maxInput) {
-            applyBtn.addEventListener('click', function () {
-                const min = minInput.value.trim();
-                const max = maxInput.value.trim();
-
-                // Get existing search param
-                const urlParams = new URLSearchParams(window.location.search);
-                const search = urlParams.get('search') || '';
-
-                // MODE 1: AJAX UPDATE (Shop Page)
-                if (shopGrid) {
-                    console.log("Price Filter: AJAX Mode");
-
-                    // Visual Feedback
-                    applyBtn.textContent = '...';
-                    shopGrid.style.opacity = '0.5';
-
-                    const apiUrl = '<?= BASE_URL ?>shop/filter?min=' + encodeURIComponent(min) + '&max=' + encodeURIComponent(max) + '&search=' + encodeURIComponent(search);
-
-                    fetch(apiUrl)
-                        .then(response => {
-                            if (!response.ok) throw new Error('Network response was not ok');
-                            return response.text();
-                        })
-                        .then(html => {
-                            shopGrid.innerHTML = html;
-                            shopGrid.style.opacity = '1';
-                            applyBtn.textContent = 'Apply';
-
-                            // URL Update
-                            const newUrl = new URL(window.location);
-                            if (min) newUrl.searchParams.set('min', min); else newUrl.searchParams.delete('min');
-                            if (max) newUrl.searchParams.set('max', max); else newUrl.searchParams.delete('max');
-                            window.history.pushState({}, '', newUrl);
-                        })
-                        .catch(error => {
-                            console.error('Filter Error:', error);
-                            shopGrid.style.opacity = '1';
-                            applyBtn.textContent = 'Apply';
-                            alert('Failed to load products.');
-                        });
-
-                }
-                // MODE 2: REDIRECT (Home/Other Pages)
-                else {
-                    console.log("Price Filter: Redirect Mode");
-                    // Construct URL: shop/index + params
-                    let redirectUrl = '<?= BASE_URL ?>shop?';
-                    const params = new URLSearchParams();
-                    if (min) params.append('min', min);
-                    if (max) params.append('max', max);
-                    if (search) params.append('search', search); // Persist search if any
-
-                    window.location.href = redirectUrl + params.toString();
-                }
-            });
-        }
-    });
-</script>
