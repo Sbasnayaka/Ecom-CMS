@@ -195,7 +195,7 @@
 <body>
 
     <!-- Mobile Header (Visible only on Mobile) -->
-    <div class="mobile-header d-lg-none" style="padding-bottom: 20px;">
+    <div class="mobile-header d-lg-none" style="padding-bottom: 5px;">
         <div style="display: flex; justify-content: space-between; align-items: center;">
             <div class="welcome-text">
                 <h1 style="font-size: 24px; margin-bottom: 0;">Welcome!</h1>
@@ -207,17 +207,17 @@
             <!-- Right Side: Search Icon + Logo -->
             <div style="display: flex; align-items: center; gap: 12px;">
                 
-                <!-- Search Trigger Button -->
-                <div id="mobileSearchTrigger" onclick="openMobileSearch()" style="
+                <!-- Search Trigger Button (Visible by default) -->
+                <div id="searchTriggerBtn" onclick="toggleMobileSearch()" style="
                     background: #f3e5f5; 
                     width: 38px; 
                     height: 38px; 
-                    border-radius: 12px; 
+                    border-radius: 10px; 
                     display: flex; 
                     align-items: center; 
                     justify-content: center; 
                     cursor: pointer;
-                    transition: all 0.2s;">
+                    transition: background 0.2s;">
                     <i class="fas fa-search" style="color: #6a1b9a; font-size: 16px;"></i>
                 </div>
 
@@ -231,54 +231,45 @@
                     : 'https://via.placeholder.com/40';
                 ?>
                 <img src="<?= $logo ?>" alt="Shop Logo" style="
-                    width: 45px; 
-                    height: 45px; 
+                    width: 40px; 
+                    height: 40px; 
                     border-radius: 50%; 
                     object-fit: cover;
                     border: 1px solid #eee;">
             </div>
         </div>
         
-        <!-- Mobile Search Bar (Inline Expansion) -->
+        <!-- Mobile Search Bar (Expandable Block) -->
         <div id="mobileSearchBar" class="search-bar mobile-search" style="
             display: none;
-            margin-top: 20px;
+            margin-top: 15px;
             width: 100%;
         ">
             <div style="position: relative;">
-                <input type="text" id="mobileSearchInput" placeholder="Search products........." class="search-input" 
-                    style="
-                    width: 100%; 
-                    padding: 12px 40px 12px 20px; 
-                    border-radius: 30px; 
-                    border: none; 
-                    background: #F3E5F5; 
-                    font-size: 15px; 
-                    color: #555;
-                    outline: none;">
+                <input type="text" id="mobileSearchInput" placeholder="Search products..." class="search-input" 
+                    style="width: 100%; padding: 12px 45px 12px 15px; border-radius: 12px; border: none; background: #f3e5f5; font-size: 16px; color: #333;">
                 <i class="fas fa-search" onclick="triggerMobileSearch()" 
-                    style="position: absolute; right: 15px; top: 50%; transform: translateY(-50%); color: #666; cursor: pointer; font-size: 16px;"></i>
+                    style="position: absolute; right: 15px; top: 50%; transform: translateY(-50%); color: #666; cursor: pointer; font-size: 18px;"></i>
             </div>
         </div>
 
         <script>
-            function openMobileSearch() {
-                // Hide Trigger, Show Bar
-                document.getElementById('mobileSearchTrigger').style.display = 'none';
+            function toggleMobileSearch() {
                 const searchBar = document.getElementById('mobileSearchBar');
-                searchBar.style.display = 'block';
+                const triggerBtn = document.getElementById('searchTriggerBtn');
                 
-                // Focus and add animation class if supported, or just simple show
-                setTimeout(() => { document.getElementById('mobileSearchInput').focus(); }, 50);
+                if (searchBar.style.display === 'none') {
+                    // Open State
+                    searchBar.style.display = 'block';
+                    triggerBtn.style.display = 'none'; // Hide trigger as per Screenshot 2
+                    setTimeout(() => { document.getElementById('mobileSearchInput').focus(); }, 50);
+                } else {
+                    // Closed State
+                    searchBar.style.display = 'none';
+                    triggerBtn.style.display = 'flex';
+                }
             }
 
-            // Optional: Close if clicked outside or empty blur? 
-            // For now, simple interaction as requested. 
-            // We adding a simple way to close: if input is empty and loses focus, revert? 
-            // Or maybe easier: click on the logo to reset? 
-            // Let's stick to the prompt's scope: Open mechanism.
-            // Adding a simple "Close" listener for better UX if needed, but keeping it minimal.
-            
             function triggerMobileSearch() {
                 const query = document.getElementById('mobileSearchInput').value;
                 if (query.trim() !== '') {
@@ -289,6 +280,19 @@
             document.getElementById('mobileSearchInput').addEventListener('keypress', function (e) {
                 if (e.key === 'Enter') {
                     triggerMobileSearch();
+                }
+            });
+
+            // Close search when clicking outside
+            document.addEventListener('click', function(event) {
+                const searchBar = document.getElementById('mobileSearchBar');
+                const trigger = document.getElementById('searchTriggerBtn');
+                const isClickInside = searchBar.contains(event.target) || trigger.contains(event.target);
+                
+                // Only close if it's open, and click is OUTSIDE both bar and trigger
+                if (!isClickInside && searchBar.style.display === 'block') {
+                    searchBar.style.display = 'none';
+                    trigger.style.display = 'flex'; // Show trigger again
                 }
             });
         </script>
