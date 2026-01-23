@@ -217,12 +217,6 @@ class ProductController extends BaseController
 
     public function update()
     {
-        // DEBUG: Temporary diagnostic output
-        echo "<pre>";
-        print_r($_POST);
-        print_r($_FILES);
-        echo "</pre>";
-        die("DEBUG MODE ACTIVE");
 
         // 1. Check for POST Max Size Limit Exceeded
         // Mirrors logic from store() to prevent silent failures on large uploads
