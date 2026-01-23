@@ -306,7 +306,7 @@
                             <p style="font-size:10px; color:#555;">Tap here to<br>upload a photo</p>
                         </div>
                         <input type="file" name="main_image" id="mainImgInput" style="display:none;" accept="image/*"
-                            required>
+                            <?= (isset($mode) && $mode === 'edit' && !empty($product['main_image'])) ? '' : 'required' ?>>
                     </div>
 
                     <!-- Gallery -->
@@ -332,18 +332,19 @@
                 <select name="category_id" class="input-box" required>
                     <option value="">+ Click here to select Categories</option>
                     <?php foreach ($categories as $cat): ?>
-                        <!-- Simple logic: if parent_id is null, it's a main cat -->
                         <?php if (!$cat['parent_id']): ?>
-                            <optgroup label="<?= htmlspecialchars($cat['name']) ?>">
-                                <!-- Find children -->
-                                <?php foreach ($categories as $sub): ?>
-                                    <?php if ($sub['parent_id'] == $cat['id']): ?>
-                                        <option value="<?= $sub['id'] ?>" <?= (isset($product['category_id']) && $product['category_id'] == $sub['id']) ? 'selected' : '' ?>>
-                                            <?= htmlspecialchars($sub['name']) ?>
-                                        </option>
-                                    <?php endif; ?>
-                                <?php endforeach; ?>
-                            </optgroup>
+                            <!-- Main Category (Selectable) -->
+                            <option value="<?= $cat['id'] ?>" style="font-weight:bold;" <?= (isset($product['category_id']) && $product['category_id'] == $cat['id']) ? 'selected' : '' ?>>
+                                <?= htmlspecialchars($cat['name']) ?>
+                            </option>
+                            <!-- Sub Categories -->
+                            <?php foreach ($categories as $sub): ?>
+                                <?php if ($sub['parent_id'] == $cat['id']): ?>
+                                    <option value="<?= $sub['id'] ?>" <?= (isset($product['category_id']) && $product['category_id'] == $sub['id']) ? 'selected' : '' ?>>
+                                        &nbsp;&nbsp;&nbsp;&nbsp;-- <?= htmlspecialchars($sub['name']) ?>
+                                    </option>
+                                <?php endif; ?>
+                            <?php endforeach; ?>
                         <?php endif; ?>
                     <?php endforeach; ?>
                 </select>
