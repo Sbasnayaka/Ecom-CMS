@@ -49,6 +49,38 @@ class VariationController extends BaseController
         }
     }
 
+    public function edit($id)
+    {
+        $variation = $this->model->getById($id);
+        if ($variation) {
+            $this->view('admin/variations/edit', [
+                'title' => 'Edit Variation',
+                'variation' => $variation
+            ]);
+        } else {
+            $this->redirect('variation/index');
+        }
+    }
+
+    public function update()
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $id = $_POST['id'] ?? null;
+            $name = $_POST['name'] ?? '';
+            $values = $_POST['values'] ?? [];
+
+            if ($id && !empty($name) && !empty($values)) {
+                if ($this->model->updateWithValues($id, $name, $values)) {
+                    $this->redirect('variation/index');
+                } else {
+                    echo "Error updating variation.";
+                }
+            } else {
+                echo "Attribute name and at least one value required.";
+            }
+        }
+    }
+
     public function delete($id)
     {
         $this->model->delete($id);

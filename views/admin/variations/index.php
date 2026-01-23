@@ -86,6 +86,10 @@
                         <a href="<?= BASE_URL ?>variation/delete/<?= $var['id'] ?>"
                             style="float:right; text-decoration:none; font-size:14px;"
                             onclick="return confirm('Delete?')">🗑️</a>
+                        <a href="<?= BASE_URL ?>variation/edit/<?= $var['id'] ?>" style="float:right; margin-right:10px;">
+                            <img src="<?= BASE_URL ?>assets/icons/edit.png" alt="Edit"
+                                style="width:18px; height:18px; display:block;">
+                        </a>
                     </div>
                     <div class="var-values">
                         <?php

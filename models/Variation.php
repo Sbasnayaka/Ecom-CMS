@@ -87,6 +87,51 @@ class Variation extends BaseModel
         }
     }
 
+    /**
+     * Update Variation Name and Values
+     * @param int $id Variation ID
+     * @param string $name Attribute Name
+     * @param array $values Array of value strings
+     */
+    public function updateWithValues($id, $name, $values)
+    {
+        try {
+            $this->conn->beginTransaction();
+
+            // 1. Update Attribute Name
+            $sql = "UPDATE variations SET name = :name WHERE id = :id";
+            $stmt = $this->conn->prepare($sql);
+            $stmt->bindParam(':name', $name);
+            $stmt->bindParam(':id', $id);
+            $stmt->execute();
+
+            // 2. Clear Old Values (Simplest way to handle sync)
+            $sqlDel = "DELETE FROM variation_values WHERE variation_id = :vid";
+            $stmtDel = $this->conn->prepare($sqlDel);
+            $stmtDel->bindParam(':vid', $id);
+            $stmtDel->execute();
+
+            // 3. Insert New Values
+            $sqlVal = "INSERT INTO variation_values (variation_id, value) VALUES (:vid, :val)";
+            $stmtVal = $this->conn->prepare($sqlVal);
+
+            foreach ($values as $val) {
+                if (!empty(trim($val))) {
+                    $stmtVal->bindParam(':vid', $id);
+                    $stmtVal->bindValue(':val', trim($val));
+                    $stmtVal->execute();
+                }
+            }
+
+            $this->conn->commit();
+            return true;
+
+        } catch (Exception $e) {
+            $this->conn->rollBack();
+            return false;
+        }
+    }
+
     // Delete logic if needed
     public function delete($id)
     {
