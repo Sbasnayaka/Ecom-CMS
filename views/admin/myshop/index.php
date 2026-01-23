@@ -207,7 +207,7 @@
         </div>
 
         <!-- Edit Form -->
-        <form action="<?= BASE_URL ?>myshop/update" method="POST">
+        <form action="<?= BASE_URL ?>myShop/update" method="POST">
             <div class="gray-form-card">
 
                 <label class="section-title">My shop Review Link:</label>
