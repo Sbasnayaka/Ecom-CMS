@@ -158,14 +158,39 @@
 
             <div class="form-group">
                 <label for="password">Password</label>
-                <input type="password" id="password" name="password" required placeholder="Enter password">
+                <div style="position: relative;">
+                    <input type="password" id="password" name="password" required placeholder="Enter password"
+                        style="padding-right: 40px;">
+                    <img src="<?= BASE_URL ?>assets/icons/eye-close.png" id="togglePassword" alt="Show Password"
+                        style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); width: 20px; cursor: pointer;">
+                </div>
             </div>
 
             <button type="submit" class="btn">Login as Shop Owner</button>
 
-            <a href="#" class="forgot-pass">Forget Password?</a>
+            <a href="<?= BASE_URL ?>settings/index" class="forgot-pass">Forget Password?</a>
         </form>
     </div>
+
+    <script>
+        const togglePassword = document.getElementById('togglePassword');
+        const password = document.getElementById('password');
+
+        togglePassword.addEventListener('click', function () {
+            // Toggle the type attribute
+            const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+            password.setAttribute('type', type);
+
+            // Toggle the eye icon
+            // Assuming eye-close.png represents 'Hidden' state and eye-open.png represents 'Visible' state
+            if (type === 'password') {
+                this.src = '<?= BASE_URL ?>assets/icons/eye-close.png';
+            } else {
+                this.src = '<?= BASE_URL ?>assets/icons/eye-open.png';
+            }
+        });
+    </script>
+
 
 </body>
 
