@@ -409,12 +409,12 @@
                 <div class="modal-content">
                     <div style="display:flex; justify-content:space-between; align-items:center;">
                         <h3 style="margin:0;">Select Variations</h3>
-                        <a href="<?= BASE_URL ?>variation/index" target="_blank"
+                        <a href="javascript:void(0)" onclick="openManageModal()"
                             style="font-size:12px; color:#007aff; text-decoration:none;">+ Manage Variations</a>
                     </div>
                     <p style="color:#666; font-size:12px;">Tap to select available options</p>
 
-                    <div style="max-height: 300px; overflow-y: auto;">
+                    <div style="max-height: 300px; overflow-y: auto;" id="variationListContainer">
                         <?php foreach ($variations as $var): ?>
                             <div class="var-group">
                                 <div class="var-title">
@@ -455,6 +455,20 @@
                 </div>
             </div>
 
+            <!-- Manage Variations Iframe Modal -->
+            <div class="modal-overlay" id="varManageModal" style="z-index: 1001;">
+                <div class="modal-content"
+                    style="width: 95%; max-width: 600px; height: 80vh; display:flex; flex-direction:column; padding:0;">
+                    <div
+                        style="padding: 15px; border-bottom: 1px solid #eee; display:flex; justify-content:space-between; align-items:center;">
+                        <h3 style="margin:0;">Manage Variations</h3>
+                        <button type="button" onclick="closeManageModal()"
+                            style="border:none; background:none; font-size:20px; cursor:pointer;">&times;</button>
+                    </div>
+                    <iframe id="manageFrame" src="" style="flex:1; border:none; width:100%;"></iframe>
+                </div>
+            </div>
+
     </form>
 
     <script>
@@ -484,6 +498,7 @@
 
         // Modal Logic
         function openVarModal() { document.getElementById('varModal').style.display = 'flex'; }
+
         function closeVarModal() {
             document.getElementById('varModal').style.display = 'none';
             populateHiddenVars();
@@ -491,6 +506,28 @@
 
         function toggleVar(el) {
             el.classList.toggle('selected');
+        }
+
+        // Manage Modal Logic
+        function openManageModal() {
+            const frame = document.getElementById('manageFrame');
+            frame.src = "<?= BASE_URL ?>variation/index";
+            document.getElementById('varManageModal').style.display = 'flex';
+        }
+
+        function closeManageModal() {
+            document.getElementById('varManageModal').style.display = 'none';
+            // Optional: Reload page or notify user to refresh. 
+            // Since we cannot easily reload just the PHP loop without AJAX, 
+            // we will just close it. The user has "Done" button to save.
+            // If they added new variations, they might need to refresh the page unfortunately,
+            // OR we can suggest them to save as draft. 
+            // BUT for this task, the goal is just "Prevent navigation away".
+            // Ideally, we would fetch the updated list via AJAX, but that's out of scope "Minimal Changes".
+            // So we just close.
+            if (confirm("If you added new variations, please refresh this page to see them (Save your changes first!).")) {
+                // No action, just a notice.
+            }
         }
 
         // Convert selections to hidden inputs for form submission
@@ -527,7 +564,6 @@
             populateHiddenVars();
         });
     </script>
-
 </body>
 
 </html>
