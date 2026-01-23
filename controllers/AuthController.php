@@ -28,7 +28,16 @@ class AuthController extends BaseController
 
         // Load the view file: views/admin/login.php
         // We pass 'title' to be used in the HTML <title> tag
-        $this->view('admin/login', ['title' => 'Login - EcomCMS']);
+
+        // Fetch Settings for Logo and Name
+        require_once 'models/Setting.php';
+        $settingModel = new Setting();
+        $settings = $settingModel->getAllPairs();
+
+        $this->view('admin/login', [
+            'title' => 'Login - EcomCMS',
+            'settings' => $settings
+        ]);
     }
 
     /**

@@ -34,6 +34,33 @@
             color: #333;
         }
 
+        .shop-logo {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin: 0 auto 10px auto;
+            display: block;
+            border: 1px solid #ddd;
+        }
+
+        .shop-name {
+            font-size: 18px;
+            font-weight: bold;
+            color: #666;
+            margin-bottom: 5px;
+        }
+
+        .login-heading {
+            color: #f39c12;
+            /* Orange from design typically */
+            font-weight: bold;
+            text-transform: uppercase;
+            font-size: 16px;
+            margin-bottom: 30px;
+            margin-top: 0;
+        }
+
         .form-group {
             margin-bottom: 1rem;
             text-align: left;
@@ -51,23 +78,27 @@
             border: 1px solid #ddd;
             border-radius: 5px;
             box-sizing: border-box;
-            /* Ensures padding doesn't affect width */
+            background-color: #f2f2f2;
+            /* Light grey input bg */
+            border: none;
         }
 
         .btn {
-            background-color: #007bff;
+            background-color: #ff2b55;
+            /* Pink/Red from screenshot */
             color: white;
-            padding: 10px 15px;
+            padding: 12px 15px;
             border: none;
             border-radius: 5px;
             width: 100%;
             font-size: 1rem;
             cursor: pointer;
             transition: background 0.3s;
+            font-weight: bold;
         }
 
         .btn:hover {
-            background-color: #0056b3;
+            background-color: #e6224a;
         }
 
         .error {
@@ -78,13 +109,35 @@
             margin-bottom: 1rem;
             font-size: 0.9rem;
         }
+
+        .forgot-pass {
+            margin-top: 20px;
+            font-size: 13px;
+            color: #aaa;
+            text-decoration: underline;
+            display: block;
+        }
     </style>
 </head>
 
 <body>
 
     <div class="login-card">
-        <h2>System Login</h2>
+        <!-- Logo -->
+        <?php if (!empty($settings['shop_logo'])): ?>
+            <img src="<?= BASE_URL ?>assets/uploads/<?= $settings['shop_logo'] ?>" alt="Shop Logo" class="shop-logo">
+        <?php else: ?>
+            <div class="shop-logo" style="background:#ccc; display:flex; align-items:center; justify-content:center;">Logo
+            </div>
+        <?php endif; ?>
+
+        <!-- Shop Name -->
+        <div class="shop-name">
+            <?= !empty($settings['shop_name']) ? htmlspecialchars($settings['shop_name']) : 'My Shop' ?>
+        </div>
+
+        <!-- Title -->
+        <h2 class="login-heading">SHOP OWNER LOGIN</h2>
 
         <?php if (isset($_GET['error'])): ?>
             <div class="error">
@@ -108,7 +161,9 @@
                 <input type="password" id="password" name="password" required placeholder="Enter password">
             </div>
 
-            <button type="submit" class="btn">Login</button>
+            <button type="submit" class="btn">Login as Shop Owner</button>
+
+            <a href="#" class="forgot-pass">Forget Password?</a>
         </form>
     </div>
 
