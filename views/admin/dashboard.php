@@ -31,16 +31,23 @@
         <!-- Header -->
         <div class="page-header"
             style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
-            <div class="welcome-section" style="margin-bottom: 0;">
-                <h1 class="welcome-title">Welcome back!</h1>
-                <p class="welcome-sub"><?= $_SESSION['username'] ?? 'Shop Owner' ?></p>
+            <div class="welcome-section" style="margin-bottom: 0; display:flex; align-items:center; gap:15px;">
+                <!-- Shop Logo Injection -->
+                <?php if (!empty($settings['shop_logo'])): ?>
+                    <img src="<?= htmlspecialchars($settings['shop_logo']) ?>" alt="Shop Logo"
+                        style="width: 60px; height: 60px; border-radius: 50%; object-fit: cover; border: 1px solid #ddd;">
+                <?php endif; ?>
+
+                <div>
+                    <h1 class="welcome-title">
+                        <?= !empty($settings['shop_name']) ? htmlspecialchars($settings['shop_name']) : 'Welcome back!' ?>
+                    </h1>
+                    <p class="welcome-sub"><?= $_SESSION['username'] ?? 'Shop Owner' ?></p>
+                </div>
             </div>
 
+            <!-- Header Right Side -->
             <div style="display: flex; gap: 10px; align-items: center;">
-                <!-- User Avatar -->
-                <div class="user-avatar"
-                    style="background: #ddd; display:flex; align-items:center; justify-content:center;">👤</div>
-
                 <!-- Logout Button -->
                 <a href="<?= BASE_URL ?>auth/logout"
                     style="background-color: #ff3b30; color: white; padding: 8px 12px; border-radius: 6px; text-decoration: none; font-size: 14px; font-weight: bold;">Logout</a>
@@ -48,23 +55,35 @@
         </div>
 
         <!-- Stats Grid -->
+        <style>
+            .stat-card-link {
+                text-decoration: none;
+                color: inherit;
+                transition: transform 0.2s;
+                display: block;
+            }
+
+            .stat-card-link:hover {
+                transform: translateY(-5px);
+            }
+        </style>
         <div class="stats-grid">
-            <div class="stat-card">
+            <a href="<?= BASE_URL ?>category/index" class="stat-card stat-card-link">
                 <h2 class="stat-number"><?= $stats['categories'] ?? 0 ?></h2>
                 <p class="stat-label">Categories</p>
-            </div>
-            <div class="stat-card">
+            </a>
+            <a href="<?= BASE_URL ?>product/index" class="stat-card stat-card-link">
                 <h2 class="stat-number"><?= $stats['products'] ?? 0 ?></h2>
                 <p class="stat-label">Products</p>
-            </div>
-            <div class="stat-card">
+            </a>
+            <a href="<?= BASE_URL ?>sizeguide/index" class="stat-card stat-card-link">
                 <h2 class="stat-number"><?= $stats['size_guides'] ?? 0 ?></h2>
                 <p class="stat-label">Size Guides</p>
-            </div>
-            <div class="stat-card">
+            </a>
+            <a href="<?= BASE_URL ?>feedback/index" class="stat-card stat-card-link">
                 <h2 class="stat-number"><?= $stats['feedbacks'] ?? 0 ?></h2>
                 <p class="stat-label">Feedbacks</p>
-            </div>
+            </a>
         </div>
 
         <!-- Products Section -->

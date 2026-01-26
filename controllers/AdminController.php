@@ -22,11 +22,12 @@ class AdminController extends BaseController
         $db = (new Database())->getConnection();
 
         // 1. Get Counts
+        // FIX: size_guides count is now fetched from the database
         $stats = [
             'products' => $db->query("SELECT COUNT(*) FROM products")->fetchColumn(),
             'categories' => $db->query("SELECT COUNT(*) FROM categories")->fetchColumn(),
             'feedbacks' => $db->query("SELECT COUNT(*) FROM reviews")->fetchColumn(),
-            'size_guides' => 0 // Placeholder until we have this table
+            'size_guides' => $db->query("SELECT COUNT(*) FROM size_guides")->fetchColumn()
         ];
 
         // 2. Get Recent Products (Limit 5)
@@ -37,11 +38,17 @@ class AdminController extends BaseController
                 ORDER BY p.created_at DESC LIMIT 5";
         $products = $db->query($sql)->fetchAll(PDO::FETCH_ASSOC);
 
+        // 3. Get Shop Settings (Logo/Name)
+        require_once 'models/Setting.php';
+        $settingModel = new Setting();
+        $settings = $settingModel->getMultiple(['shop_name', 'shop_logo']);
+
         // Load the view
         $this->view('admin/dashboard', [
             'title' => 'Dashboard - EcomCMS',
             'stats' => $stats,
-            'latest_products' => $products
+            'latest_products' => $products,
+            'settings' => $settings
         ]);
     }
 
