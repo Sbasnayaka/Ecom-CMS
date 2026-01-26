@@ -116,9 +116,13 @@
                 value="<?= $category['name'] ?? '' ?>" required>
 
             <div class="upload-area" onclick="document.getElementById('cat-img').click()">
-                <p style="color:#888; margin:0;">Category Thumbnail</p>
-                <div style="font-size:24px;">📷</div>
-                <p style="font-size:10px; color:#aaa;">Tap here to upload a photo from gallery</p>
+                <div id="cat-placeholder">
+                    <p style="color:#888; margin:0;">Category Thumbnail</p>
+                    <div style="font-size:24px;">📷</div>
+                    <p style="font-size:10px; color:#aaa;">Tap here to upload a photo from gallery</p>
+                </div>
+                <p id="cat-feedback" style="display:none; color:#007aff; font-weight:bold; font-size:16px;">+1 image
+                    selected</p>
                 <input type="file" name="image" id="cat-img" style="display:none;">
             </div>
 
@@ -145,6 +149,17 @@
     </form>
 
     <script>
+        // Image Selection Feedback
+        document.getElementById('cat-img').addEventListener('change', function (e) {
+            if (e.target.files && e.target.files.length > 0) {
+                document.getElementById('cat-placeholder').style.display = 'none';
+                document.getElementById('cat-feedback').style.display = 'block';
+                // User requested exactly "+1 image selected" style, but dynamic count is safer if multiple supported later
+                // Since input is single file, length is 1.
+                document.getElementById('cat-feedback').innerText = "+" + e.target.files.length + " image selected";
+            }
+        });
+
         function setType(type) {
             document.getElementById('type-input').value = type;
             if (type === 'main') {
