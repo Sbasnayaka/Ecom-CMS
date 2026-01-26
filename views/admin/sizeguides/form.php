@@ -55,7 +55,7 @@
         <div class="container">
             <div class="header-bar">
                 <div style="display:flex; gap:10px; align-items:center;">
-                    <a href="<?= BASE_URL ?>sizeguide/index" class="back-circle">❮</a>
+                    <a href="<?= BASE_URL ?>sizeGuide/index" class="back-circle">❮</a>
                     <h2 style="margin:0;">Add Guide</h2>
                 </div>
                 <button type="submit" class="save-txt">SAVE</button>
