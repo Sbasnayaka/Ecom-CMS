@@ -64,14 +64,28 @@
             <input type="text" name="name" class="form-control" placeholder="Size Guide Name" required>
 
             <div class="upload-area" onclick="document.getElementById('guide-img').click()">
-                <p style="color:#888; margin:0;">Size Guide Image</p>
-                <div style="font-size:24px; margin: 10px 0;">📷</div>
-                <p style="font-size:10px; color:#aaa;">Tap here to upload a photo from gallery</p>
+                <div id="guide-placeholder">
+                    <p style="color:#888; margin:0;">Size Guide Image</p>
+                    <div style="font-size:24px; margin: 10px 0;">📷</div>
+                    <p style="font-size:10px; color:#aaa;">Tap here to upload a photo from gallery</p>
+                </div>
+                <p id="guide-feedback" style="display:none; color:#007aff; font-weight:bold; font-size:16px;">+1 image
+                    selected</p>
                 <input type="file" name="image" id="guide-img" style="display:none;" required>
             </div>
 
         </div>
     </form>
+
+    <script>
+        document.getElementById('guide-img').addEventListener('change', function (e) {
+            if (e.target.files && e.target.files.length > 0) {
+                document.getElementById('guide-placeholder').style.display = 'none';
+                document.getElementById('guide-feedback').style.display = 'block';
+                document.getElementById('guide-feedback').innerText = "+" + e.target.files.length + " image selected";
+            }
+        });
+    </script>
 
 </body>
 
