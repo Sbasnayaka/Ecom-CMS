@@ -107,10 +107,14 @@
 
         <!-- Upload Box -->
         <div class="upload-area" onclick="document.getElementById('fileInput').click()">
-            <p style="color:#666; font-size:14px; margin-bottom:10px;">Upload Customer's Feedbacks</p>
-            <div style="font-size:24px; margin-bottom:10px;">📷 📷 📷</div>
-            <p style="font-size:11px; color:#999;">Tap here to upload photos from gallery<br><span
-                    style="text-decoration:underline;">Max 15 Images at once</span></p>
+            <div id="feedback-placeholder">
+                <p style="color:#666; font-size:14px; margin-bottom:10px;">Upload Customer's Feedbacks</p>
+                <div style="font-size:24px; margin-bottom:10px;">📷 📷 📷</div>
+                <p style="font-size:11px; color:#999;">Tap here to upload photos from gallery<br><span
+                        style="text-decoration:underline;">Max 15 Images at once</span></p>
+            </div>
+            <p id="feedback-text" style="display:none; color:#007aff; font-weight:bold; font-size:16px;">+0 image
+                selected</p>
         </div>
 
         <!-- Hidden Input -->
@@ -140,9 +144,26 @@
                 addPreview(file);
             });
 
+            updateFeedback();
+
             // Reset input so same file can be selected again if needed (though unlikely)
             this.value = '';
         });
+
+        function updateFeedback() {
+            const count = selectedFiles.length;
+            const placeholder = document.getElementById('feedback-placeholder');
+            const feedback = document.getElementById('feedback-text');
+
+            if (count > 0) {
+                placeholder.style.display = 'none';
+                feedback.style.display = 'block';
+                feedback.innerText = "+" + count + " image selected";
+            } else {
+                placeholder.style.display = 'block';
+                feedback.style.display = 'none';
+            }
+        }
 
         function addPreview(file) {
             const grid = document.getElementById('previewGrid');
@@ -171,6 +192,8 @@
             selectedFiles = selectedFiles.filter(f => !(f.name === name && f.lastModified === lastMod));
             // Remove from DOM
             el.parentElement.remove();
+
+            updateFeedback();
         }
 
         function uploadImages() {
