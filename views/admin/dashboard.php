@@ -76,7 +76,7 @@
                 <h2 class="stat-number"><?= $stats['products'] ?? 0 ?></h2>
                 <p class="stat-label">Products</p>
             </a>
-            <a href="<?= BASE_URL ?>sizeguide/index" class="stat-card stat-card-link">
+            <a href="<?= BASE_URL ?>sizeGuide/index" class="stat-card stat-card-link">
                 <h2 class="stat-number"><?= $stats['size_guides'] ?? 0 ?></h2>
                 <p class="stat-label">Size Guides</p>
             </a>
