@@ -33,7 +33,7 @@
         <!-- Top Categories (Mobile Horizontal Scroll / Desktop Grid?) -->
         <div class="section-header">
             <h2 class="section-title">Top Categories</h2>
-            <a href="<?= BASE_URL ?>shop" class="view-all">View All</a>
+            <a href="<?= BASE_URL ?>shop/categories" class="view-all">View All</a>
         </div>
 
         <div class="categories-scroll">

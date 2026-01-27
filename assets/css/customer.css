@@ -71,10 +71,12 @@ p {
 
 /* --- Mobile Header --- */
 .mobile-header {
-    padding: 20px 20px 0 20px;
+    padding: 20px 0 0 0;
+    /* Top padding only, sides handled by body */
     display: flex;
     justify-content: space-between;
-    align-items: flex-start;
+    align-items: center;
+    /* Center align items vertically */
     margin-bottom: 20px;
 }
 

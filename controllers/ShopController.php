@@ -126,5 +126,17 @@ class ShopController extends BaseController
             include 'views/customer/partials/product_card.php';
         }
     }
+    // List All Categories Page (Task 2.1)
+    public function categories()
+    {
+        $categories = $this->categoryModel->getAll();
+        $settings = $this->settingModel->getAllPairs();
+
+        $this->view('customer/shop/categories', [
+            'title' => 'All Categories',
+            'categories' => $categories,
+            'settings' => $settings
+        ]);
+    }
 }
 ?>
