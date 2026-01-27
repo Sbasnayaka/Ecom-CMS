@@ -25,6 +25,24 @@ body {
     padding-bottom: 120px;
 }
 
+/* Global Mobile Padding */
+@media (max-width: 1023px) {
+    body {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+
+    /* Reset padding for full-width elements if any */
+    .mobile-header,
+    .section-header,
+    .categories-scroll,
+    .products-scroll,
+    .product-grid {
+        padding-left: 0;
+        padding-right: 0;
+    }
+}
+
 /* Helper Classes */
 .display-desktop-only {
     display: none !important;

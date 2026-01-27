@@ -6,7 +6,7 @@
         <img src="<?= BASE_URL ?>assets/icons/home.png" class="nav-icon-img" alt="Home">
         <span>Home</span>
     </a>
-    <a href="#" class="nav-item">
+    <a href="<?= BASE_URL ?>discounts" class="nav-item">
         <img src="<?= BASE_URL ?>assets/icons/discount.png" class="nav-icon-img" alt="Discounts">
         <span>Discounts</span>
     </a>
@@ -14,11 +14,11 @@
         <img src="<?= BASE_URL ?>assets/icons/category.png" class="nav-icon-img" alt="Categories">
         <span>Categories</span>
     </a>
-    <a href="#" class="nav-item">
+    <a href="<?= BASE_URL ?>cart" class="nav-item">
         <img src="<?= BASE_URL ?>assets/icons/cart.png" class="nav-icon-img" alt="My Cart">
         <span>My Cart</span>
     </a>
-    <a href="#" class="nav-item">
+    <a href="<?= BASE_URL ?>reviews" class="nav-item">
         <img src="<?= BASE_URL ?>assets/icons/reviews.png" class="nav-icon-img" alt="Reviews">
         <span>Reviews</span>
     </a>
