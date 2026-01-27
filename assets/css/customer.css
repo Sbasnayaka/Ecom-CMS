@@ -354,8 +354,11 @@ p {
     color: #555;
 }
 
-.nav-icon i {
-    font-size: 20px;
+.nav-icon-img {
+    width: 24px;
+    height: 24px;
+    object-fit: contain;
+    margin-bottom: 2px;
 }
 
 

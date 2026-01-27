@@ -2,24 +2,24 @@
 
 <!-- Mobile Bottom Navigation -->
 <nav class="bottom-nav">
-    <a href="<?= BASE_URL ?>" class="nav-item active">
-        <i class="fas fa-home nav-icon" style="display:block; font-size: 20px; margin: 0 auto;"></i>
+    <a href="<?= BASE_URL ?>" class="nav-item <?= ($current_page ?? '') == 'home' ? 'active' : '' ?>">
+        <img src="<?= BASE_URL ?>assets/icons/home.png" class="nav-icon-img" alt="Home">
         <span>Home</span>
     </a>
     <a href="#" class="nav-item">
-        <i class="fas fa-bolt nav-icon" style="display:block; font-size: 20px; margin: 0 auto;"></i>
+        <img src="<?= BASE_URL ?>assets/icons/discount.png" class="nav-icon-img" alt="Discounts">
         <span>Discounts</span>
     </a>
-    <a href="<?= BASE_URL ?>shop" class="nav-item">
-        <i class="fas fa-th-large nav-icon" style="display:block; font-size: 20px; margin: 0 auto;"></i>
+    <a href="<?= BASE_URL ?>shop" class="nav-item <?= ($current_page ?? '') == 'shop' ? 'active' : '' ?>">
+        <img src="<?= BASE_URL ?>assets/icons/category.png" class="nav-icon-img" alt="Categories">
         <span>Categories</span>
     </a>
     <a href="#" class="nav-item">
-        <i class="fas fa-shopping-cart nav-icon" style="display:block; font-size: 20px; margin: 0 auto;"></i>
+        <img src="<?= BASE_URL ?>assets/icons/cart.png" class="nav-icon-img" alt="My Cart">
         <span>My Cart</span>
     </a>
     <a href="#" class="nav-item">
-        <i class="fas fa-comment-dots nav-icon" style="display:block; font-size: 20px; margin: 0 auto;"></i>
+        <img src="<?= BASE_URL ?>assets/icons/reviews.png" class="nav-icon-img" alt="Reviews">
         <span>Reviews</span>
     </a>
 </nav>
