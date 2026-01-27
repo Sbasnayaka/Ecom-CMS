@@ -138,5 +138,39 @@ class ShopController extends BaseController
             'settings' => $settings
         ]);
     }
+    // Single Category Detail Page (Task 2.2)
+    public function category($id)
+    {
+        // 1. Get Main Category
+        $category = $this->categoryModel->getById($id);
+
+        if (!$category) {
+            // Fallback or 404
+            $this->redirect('shop/categories');
+            return;
+        }
+
+        // 2. Get Sub-Categories (Filter from all)
+        $allCats = $this->categoryModel->getAll();
+        $subCategories = array_filter($allCats, function ($c) use ($id) {
+            return $c['parent_id'] == $id;
+        });
+
+        // 3. Get Products (Include Main + Sub Categories)
+        $catIds = array_column($subCategories, 'id');
+        $catIds[] = $id;
+
+        // Pass IDs to filter
+        $products = $this->productModel->getFiltered(null, null, null, $catIds);
+
+        $settings = $this->settingModel->getAllPairs();
+
+        $this->view('customer/shop/category_detail', [
+            'category' => $category,
+            'subCategories' => $subCategories,
+            'products' => $products,
+            'settings' => $settings
+        ]);
+    }
 }
 ?>

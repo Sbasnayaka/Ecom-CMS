@@ -21,7 +21,7 @@
         <div class="product-grid"
             style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; padding: 0 0 40px 0;">
             <?php foreach ($categories as $cat): ?>
-                <a href="<?= BASE_URL ?>shop?cat=<?= $cat['id'] ?>" class="cat-grid-item"
+                <a href="<?= BASE_URL ?>shop/category/<?= $cat['id'] ?>" class="cat-grid-item"
                     style="display: block; text-align: center;">
                     <?php
                     $catPath = 'assets/uploads/' . $cat['image'];
