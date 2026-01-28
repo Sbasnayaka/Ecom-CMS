@@ -314,6 +314,7 @@
             });
         </script>
     </div>
+    <?php endif; ?>
 
     <!-- Desktop Header (Visible only on Desktop) -->
     <header class="desktop-header display-desktop-only">
