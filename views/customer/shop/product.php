@@ -119,7 +119,7 @@ require_once 'views/layouts/customer_header.php';
                             </span>
                             <div class="var-pills">
                                 <?php foreach ($values as $val): ?>
-                                    <div class="var-pill" onclick="selectVariation(this, '<?= $varName ?>', '<?= $val['id'] ?>')">
+                                    <div class="var-pill" onclick="selectVariation(this, '<?= $varName ?>', '<?= htmlspecialchars($val['value']) ?>')">
                                         <?= htmlspecialchars($val['value']) ?>
                                     </div>
                                 <?php endforeach; ?>
@@ -138,10 +138,10 @@ require_once 'views/layouts/customer_header.php';
                 <!-- Bottom Actions -->
                 <div class="pd-bottom-actions">
                     <!-- WhatsApp Order -->
-                    <a href="https://wa.me/<?= str_replace(['+', ' '], '', $settings['shop_whatsapp'] ?? '') ?>?text=I would like to order <?= urlencode($product['title']) ?>"
-                        class="btn-action btn-whatsapp">
+                    <!-- Order Now Button (Triggers Modal) -->
+                    <button class="btn-action btn-whatsapp" onclick="openOrderModal()">
                         <i class="fab fa-whatsapp"></i> Order Now
-                    </a>
+                    </button>
 
                     <!-- Add to Cart -->
                     <button class="btn-action btn-cart" onclick="addToCart(<?= $product['id'] ?>)">
@@ -188,13 +188,96 @@ if (!empty($product['size_guide_image']) && file_exists(ROOT_PATH . $sgPath)):
 <?php endif; ?>
 
 <script>
-    function selectVariation(el, name, id) {
+    // Variation Selection Logic
+    let selectedVariations = {}; // Store selected variations: { 'Color': 'Red', 'Size': 'M' }
+
+    function selectVariation(el, name, value) {
         // Toggle active class in this group
         let siblings = el.parentElement.querySelectorAll('.var-pill');
         siblings.forEach(s => s.classList.remove('active'));
         el.classList.add('active');
-        // Store selection logic here (future)
+        
+        // Store selection
+        selectedVariations[name] = value;
+        console.log("Selected:", selectedVariations);
     }
+
+    // --- Order Modal Logic (Task 4.1) ---
+
+    function openOrderModal() {
+        // Check if all variations are selected (Optional safety check, or let them order anyway)
+        // For now, allow opening.
+        document.getElementById('orderModal').style.display = 'flex';
+    }
+
+    function closeOrderModal() {
+        document.getElementById('orderModal').style.display = 'none';
+    }
+
+    function submitOrderToWhatsApp() {
+        // 1. Get Form Values
+        const name = document.getElementById('ordName').value.trim();
+        const address = document.getElementById('ordAddress').value.trim();
+        const city = document.getElementById('ordCity').value.trim();
+        const district = document.getElementById('ordDistrict').value.trim();
+        const postal = document.getElementById('ordPostal').value.trim();
+        const phone1 = document.getElementById('ordPhone1').value.trim();
+        const phone2 = document.getElementById('ordPhone2').value.trim();
+        const note = document.getElementById('ordNote').value.trim();
+
+        // 2. Validation
+        if (!name || !address || !city || !phone1) {
+            alert("Please fill in all required fields (Name, Address, City, Phone 01)");
+            return;
+        }
+
+        // 3. Construct Message
+        let msg = "*NEW ORDER REQUEST* 🛍️\n\n";
+        
+        // Product Details
+        msg += "*Product Details:*\n";
+        msg += "Name: <?= addslashes($product['title']) ?>\n";
+        msg += "Price: <?= $product['sale_price'] ? 'LKR ' . number_format($product['sale_price']) : 'LKR ' . number_format($product['price']) ?>\n";
+        msg += "Link: " + window.location.href + "\n";
+        
+        // Add Selected Variations
+        if (Object.keys(selectedVariations).length > 0) {
+            msg += "Variations: ";
+            for (const [key, val] of Object.entries(selectedVariations)) {
+                // We stored ID or Value? The logic above passed ID in PHP loop: selectVariation(this, 'Color', '12').
+                // Wait, the PHP loop passed ID? Let's check PHP above.
+                // PHP: selectVariation(this, '$varName', '$val['id']') 
+                // Ah, we need the TEXT value for the message, not the ID.
+                // Re-checking PHP loop: $val['value'] is the text.
+                // I will adjust selectVariation to take the text value instead of ID for the message construction, 
+                // OR getting the text content from the element.
+                msg += key + ": " + val + ", ";
+            }
+            msg = msg.slice(0, -2); // remove last comma
+            msg += "\n";
+        }
+        
+        msg += "\n*Customer Details:*\n";
+        msg += "Name: " + name + "\n";
+        msg += "Address: " + address + "\n";
+        msg += "City: " + city + "\n";
+        msg += "District: " + district + "\n";
+        msg += "Postal: " + postal + "\n";
+        msg += "Phone 01: " + phone1 + "\n";
+        msg += "Phone 02: " + phone2 + "\n";
+        if (note) msg += "Note: " + note + "\n";
+
+        // 4. Redirect
+        const shopPhone = "<?= str_replace(['+', ' '], '', $settings['shop_whatsapp'] ?? '') ?>";
+        const url = "https://wa.me/" + shopPhone + "?text=" + encodeURIComponent(msg);
+        window.open(url, '_blank');
+        closeOrderModal();
+    }
+
+    // Adjust selectVariation to store text value
+    // In PHP: selectVariation(this, 'Color', 'Red') -> I need to make sure PHP passes the VALUE not ID.
+    // The PHP code says: selectVariation(this, '<?= $varName ?>', '<?= $val['id'] ?>')
+    // I will UPDATE the PHP loop in a separate replacement chunk to pass VALUE.
 
     // Simple Gallery Slider (for now just manual logic or relying on CSS scroll snap if implemented)
     // We will assume CSS scroll snap for gallery-slider in css
