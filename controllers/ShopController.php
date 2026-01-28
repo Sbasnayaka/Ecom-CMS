@@ -48,13 +48,29 @@ class ShopController extends BaseController
             $title = 'Search Results for "' . htmlspecialchars($search) . '"';
         }
 
+        // Fetch Specific Category Details if Filtered (Task 2.3 Part 3)
+        $currentCategory = null;
+        if (!empty($categoryIds) && count($categoryIds) === 1) {
+            // Only strictly needed when ONE category is selected (Sub-Category View)
+            $currentCategoryId = reset($categoryIds);
+            $currentCategory = $this->categoryModel->getById($currentCategoryId);
+
+            // If it has a parent, fetch parent too for breadcrumb
+            if ($currentCategory && $currentCategory['parent_id']) {
+                $parentCat = $this->categoryModel->getById($currentCategory['parent_id']);
+                $currentCategory['parent_name'] = $parentCat['name'];
+                $currentCategory['parent_id'] = $parentCat['id'];
+            }
+        }
+
         // 4. Load View
         $this->view('customer/shop/index', [
             'title' => $title,
             'products' => $products,
             'categories' => $categories,
             'settings' => $settings,
-            'search_query' => $search
+            'search_query' => $search,
+            'currentCategory' => $currentCategory // Pass to view
         ]);
     }
 
