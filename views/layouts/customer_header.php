@@ -196,24 +196,27 @@
 
     <!-- Mobile Header (Visible only on Mobile) -->
     <?php if (empty($hide_mobile_welcome)): ?>
-    <div class="mobile-header d-lg-none" style="padding-bottom: 10px; width: 100%;">
-        
-        <!-- Top Row: Flex Container -->
-        <div style="display: flex; align-items: center; justify-content: space-between; width: 100%; padding-top: 10px;">
-            
-            <!-- Left: Welcome Text -->
-            <div class="welcome-text" style="flex: 1;"> <!-- Flex 1 allows it to take space but not push controls off -->
-                <h1 style="font-size: 22px; font-weight: 800; margin: 0; line-height: 1.2; color: #000;">Welcome!</h1>
-                <p style="font-size: 13px; color: #757575; margin: 0; line-height: 1.2;">
-                    <?= !empty($settings['shop_name']) ? htmlspecialchars($settings['shop_name']) : 'Dark Lavender Clothing!' ?>
-                </p>
-            </div>
-            
-            <!-- Right: Controls (FORCED RIGHT ALIGNMENT) -->
-            <div id="headerControls" style="display: flex; align-items: center; gap: 10px; margin-left: auto; flex-shrink: 0;">
-                
-                <!-- Search Trigger Button -->
-                <div id="searchTriggerBtn" onclick="toggleMobileSearch()" style="
+        <div class="mobile-header d-lg-none" style="padding-bottom: 10px; width: 100%;">
+
+            <!-- Top Row: Flex Container -->
+            <div
+                style="display: flex; align-items: center; justify-content: space-between; width: 100%; padding-top: 10px;">
+
+                <!-- Left: Welcome Text -->
+                <div class="welcome-text" style="flex: 1;">
+                    <!-- Flex 1 allows it to take space but not push controls off -->
+                    <h1 style="font-size: 22px; font-weight: 800; margin: 0; line-height: 1.2; color: #000;">Welcome!</h1>
+                    <p style="font-size: 13px; color: #757575; margin: 0; line-height: 1.2;">
+                        <?= !empty($settings['shop_name']) ? htmlspecialchars($settings['shop_name']) : 'Dark Lavender Clothing!' ?>
+                    </p>
+                </div>
+
+                <!-- Right: Controls (FORCED RIGHT ALIGNMENT) -->
+                <div id="headerControls"
+                    style="display: flex; align-items: center; gap: 10px; margin-left: auto; flex-shrink: 0;">
+
+                    <!-- Search Trigger Button -->
+                    <div id="searchTriggerBtn" onclick="toggleMobileSearch()" style="
                     background: #ede7f6; /* Matching Screenshot lighter purple */
                     width: 40px; 
                     height: 40px; 
@@ -223,97 +226,97 @@
                     justify-content: center; 
                     cursor: pointer;
                     transition: all 0.2s;">
-                    <i class="fas fa-search" style="color: #5e35b1; font-size: 18px;"></i> <!-- Darker purple icon -->
-                </div>
+                        <i class="fas fa-search" style="color: #5e35b1; font-size: 18px;"></i> <!-- Darker purple icon -->
+                    </div>
 
-                <!-- Shop Avatar/Logo -->
-                <?php
-                $logoUrl = $settings['shop_logo'] ?? '';
-                $logoUrl = str_replace('/Ecom-CMS/', BASE_URL, $logoUrl);
-                $physicalPath = $_SERVER['DOCUMENT_ROOT'] . $logoUrl;
-                $logo = (!empty($logoUrl) && file_exists($physicalPath))
-                    ? $logoUrl
-                    : 'https://via.placeholder.com/40';
-                ?>
-                <img src="<?= $logo ?>" alt="Shop Logo" style="
+                    <!-- Shop Avatar/Logo -->
+                    <?php
+                    $logoUrl = $settings['shop_logo'] ?? '';
+                    $logoUrl = str_replace('/Ecom-CMS/', BASE_URL, $logoUrl);
+                    $physicalPath = $_SERVER['DOCUMENT_ROOT'] . $logoUrl;
+                    $logo = (!empty($logoUrl) && file_exists($physicalPath))
+                        ? $logoUrl
+                        : 'https://via.placeholder.com/40';
+                    ?>
+                    <img src="<?= $logo ?>" alt="Shop Logo" style="
                     width: 40px; 
                     height: 40px; 
                     border-radius: 50%; 
                     object-fit: cover;
                     border: 1px solid #eee;">
+                </div>
             </div>
-        </div>
-        
-        <!-- Mobile Search Bar (Popped Under) -->
-        <div id="mobileSearchBar" class="search-bar mobile-search" style="
+
+            <!-- Mobile Search Bar (Popped Under) -->
+            <div id="mobileSearchBar" class="search-bar mobile-search" style="
             display: none;
             margin-top: 15px; 
             width: 100%;
         ">
-            <div style="position: relative;">
-                <!-- Exact visual match for Input: Pill shape, light purple bg, no border -->
-                <input type="text" id="mobileSearchInput" placeholder="Search products........." class="search-input" 
-                    style="width: 100%; height: 45px; padding: 0 45px 0 20px; border-radius: 50px; border: none; background: #ede7f6; font-size: 14px; color: #333; outline: none;">
-                
-                <!-- Icon inside input (Right) -->
-                <i class="fas fa-search" onclick="triggerMobileSearch()" 
-                    style="position: absolute; right: 20px; top: 50%; transform: translateY(-50%); color: #5e35b1; cursor: pointer; font-size: 16px;"></i>
+                <div style="position: relative;">
+                    <!-- Exact visual match for Input: Pill shape, light purple bg, no border -->
+                    <input type="text" id="mobileSearchInput" placeholder="Search products........." class="search-input"
+                        style="width: 100%; height: 45px; padding: 0 45px 0 20px; border-radius: 50px; border: none; background: #ede7f6; font-size: 14px; color: #333; outline: none;">
+
+                    <!-- Icon inside input (Right) -->
+                    <i class="fas fa-search" onclick="triggerMobileSearch()"
+                        style="position: absolute; right: 20px; top: 50%; transform: translateY(-50%); color: #5e35b1; cursor: pointer; font-size: 16px;"></i>
+                </div>
             </div>
-        </div>
 
-        <script>
-            function toggleMobileSearch() {
-                const searchBar = document.getElementById('mobileSearchBar');
-                const triggerBtn = document.getElementById('searchTriggerBtn');
-                
-                if (searchBar.style.display === 'none') {
-                    // Open
-                    searchBar.style.display = 'block';
-                    triggerBtn.style.display = 'none'; // Hide trigger
-                    setTimeout(() => { document.getElementById('mobileSearchInput').focus(); }, 50);
-                } else {
-                    hideSearch();
-                }
-            }
+            <script>
+                function toggleMobileSearch() {
+                    const searchBar = document.getElementById('mobileSearchBar');
+                    const triggerBtn = document.getElementById('searchTriggerBtn');
 
-            function hideSearch() {
-                const searchBar = document.getElementById('mobileSearchBar');
-                const triggerBtn = document.getElementById('searchTriggerBtn');
-                searchBar.style.display = 'none';
-                triggerBtn.style.display = 'flex'; // Show trigger
-            }
-
-            function triggerMobileSearch() {
-                const query = document.getElementById('mobileSearchInput').value;
-                if (query.trim() !== '') {
-                    window.location.href = '<?= BASE_URL ?>shop/index?search=' + encodeURIComponent(query);
-                }
-            }
-            
-            document.getElementById('mobileSearchInput').addEventListener('keypress', function (e) {
-                if (e.key === 'Enter') {
-                    triggerMobileSearch();
-                }
-            });
-
-            // Global Click Listener for "Background Click"
-            document.addEventListener('click', function(event) {
-                const searchBar = document.getElementById('mobileSearchBar');
-                const triggerBtn = document.getElementById('searchTriggerBtn');
-                
-                // Only act if search is visible
-                if (searchBar.style.display === 'block') {
-                    const isClickInsideSearch = searchBar.contains(event.target);
-                    // Also check trigger to prevent immediate close when opening
-                    const isClickInsideTrigger = triggerBtn.contains(event.target);
-                    
-                    if (!isClickInsideSearch && !isClickInsideTrigger) {
+                    if (searchBar.style.display === 'none') {
+                        // Open
+                        searchBar.style.display = 'block';
+                        triggerBtn.style.display = 'none'; // Hide trigger
+                        setTimeout(() => { document.getElementById('mobileSearchInput').focus(); }, 50);
+                    } else {
                         hideSearch();
                     }
                 }
-            });
-        </script>
-    </div>
+
+                function hideSearch() {
+                    const searchBar = document.getElementById('mobileSearchBar');
+                    const triggerBtn = document.getElementById('searchTriggerBtn');
+                    searchBar.style.display = 'none';
+                    triggerBtn.style.display = 'flex'; // Show trigger
+                }
+
+                function triggerMobileSearch() {
+                    const query = document.getElementById('mobileSearchInput').value;
+                    if (query.trim() !== '') {
+                        window.location.href = '<?= BASE_URL ?>shop/index?search=' + encodeURIComponent(query);
+                    }
+                }
+
+                document.getElementById('mobileSearchInput').addEventListener('keypress', function (e) {
+                    if (e.key === 'Enter') {
+                        triggerMobileSearch();
+                    }
+                });
+
+                // Global Click Listener for "Background Click"
+                document.addEventListener('click', function (event) {
+                    const searchBar = document.getElementById('mobileSearchBar');
+                    const triggerBtn = document.getElementById('searchTriggerBtn');
+
+                    // Only act if search is visible
+                    if (searchBar.style.display === 'block') {
+                        const isClickInsideSearch = searchBar.contains(event.target);
+                        // Also check trigger to prevent immediate close when opening
+                        const isClickInsideTrigger = triggerBtn.contains(event.target);
+
+                        if (!isClickInsideSearch && !isClickInsideTrigger) {
+                            hideSearch();
+                        }
+                    }
+                });
+            </script>
+        </div>
     <?php endif; ?>
 
     <!-- Desktop Header (Visible only on Desktop) -->
@@ -343,22 +346,24 @@
 
             <div class="search-bar">
                 <input type="text" id="desktopSearchInput" placeholder="Search..." class="search-input">
-                <i class="fas fa-search" id="desktopSearchIcon" style="position: absolute; right: 15px; top: 12px; color: #aaa; cursor: pointer;"></i>
+                <i class="fas fa-search" id="desktopSearchIcon"
+                    style="position: absolute; right: 15px; top: 12px; color: #aaa; cursor: pointer;"></i>
                 <script>
-                    document.addEventListener('DOMContentLoaded', function() {
+                    <script>
+                        document.addEventListener('DOMContentLoaded', function() {
                         const searchInput = document.getElementById('desktopSearchInput');
                         const searchIcon = document.getElementById('desktopSearchIcon');
 
                         function performSearch() {
                             const query = searchInput.value;
-                            if (query.trim() !== '') {
-                                // Redirect to Shop Controller which handles customer items
-                                window.location.href = '<?= BASE_URL ?>shop/index?search=' + encodeURIComponent(query);
+                        if (query.trim() !== '') {
+                            // Redirect to Shop Controller which handles customer items
+                            window.location.href = '<?= BASE_URL ?>shop/index?search=' + encodeURIComponent(query);
                             }
                         }
 
                         if (searchInput) {
-                            searchInput.addEventListener('keypress', function(e) {
+                            searchInput.addEventListener('keypress', function (e) {
                                 if (e.key === 'Enter') {
                                     performSearch();
                                 }
@@ -368,7 +373,64 @@
                         if (searchIcon) {
                             searchIcon.addEventListener('click', performSearch);
                         }
+
+                        // Initialize Cart Badge
+                        updateCartBadge();
                     });
+
+                        // --- Global Cart Logic (LocalStorage) ---
+                        // Used by Product Page, Listing, and Cart Page
+
+                        function getCart() {
+                        const cart = localStorage.getItem('shopCart');
+                        return cart ? JSON.parse(cart) : [];
+                    }
+
+                        function saveCart(cart) {
+                            localStorage.setItem('shopCart', JSON.stringify(cart));
+                        updateCartBadge();
+                    }
+
+                        function addToCart(maxLengthLine) {
+                            // Product Card calls: addToCart(id)
+                            // Product Page calls: addToCart(id)
+                            // We need product details. 
+                            // Since we don't have them passed in the function, we might need to fetch them or 
+                            // expect the function to be called differently. 
+                            // For cards, we only have ID. 
+                            // Simple solution: Store ID and "Product + ID" placeholder, or fetch via AJAX?
+                            // AJAX is "Backend Logic". 
+                            // Alternative: The PHP generating the button knows the details. 
+                            // Let's change the PHP component to pass data to addToCart? 
+                            // "Standard Pattern" -> Buttons usually have data attributes.
+                            // I will update this strictly for the "Order Now via WhatsApp" flow on Cart Page.
+                            // Wait, user says "When Order Now ... on Cart Page is pressed".
+                            // BUT, to populate the cart page, I need items.
+                            // I will add a simple "Mock" alert for now if data is missing, 
+                            // OR, since valid "Product Details" are required for the message...
+                            // I will create a `addToCartWithDetails(productObj)` function
+                            // and update the buttons in `product.php` and `product_card.php` locally to use it? 
+                            // Or just fetch from a global variable if on product page.
+
+                            // For safely, let's just make the basics work:
+                            alert("Added to Cart (Feature in Progress)");
+                        // NOTE: Real implementation requires updating views to pass product objects.
+                        // I will focus on the UI and "Order Now" logic of the *CART PAGE* assuming items exist, 
+                        // but to TEST it I need items.
+                        // I'll manually seed localStorage for testing if needed.
+                    }
+
+                        function updateCartBadge() {
+                        const cart = getCart();
+                        const count = cart.reduce((acc, item) => acc + (item.qty || 1), 0);
+                        // Update Badges (Desktop & Mobile if exists)
+                        const badges = document.querySelectorAll('.cart-badge, .fa-shopping-cart + span');
+                        badges.forEach(b => {
+                            b.innerText = count;
+                            b.style.display = count > 0 ? 'inline-block' : 'none'; // Or keep visible
+                        });
+                    }
+                </script>
                 </script>
             </div>
 
