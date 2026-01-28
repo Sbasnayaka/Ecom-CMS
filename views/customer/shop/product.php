@@ -132,9 +132,7 @@ require_once 'views/layouts/customer_header.php';
                 <div class="pd-description">
                     <?= nl2br(htmlspecialchars($product['description'])) ?>
 
-                    <div class="delivery-fee-line">
-                        <span style="color:#FF3B30;">♦</span> Delivery Fee: 350/-
-                    </div>
+
                 </div>
 
                 <!-- Bottom Actions -->
