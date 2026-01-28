@@ -140,27 +140,6 @@ require_once 'views/layouts/customer_header.php';
 </div>
 
 <script>
-    // --- MOCK CART DATA FOR DEMO (If Empty) ---
-    // Remove this in production or once AddToCart is fully wired
-    function seedDemoCart() {
-        if (!localStorage.getItem('shopCart') || JSON.parse(localStorage.getItem('shopCart')).length === 0) {
-            const demoItems = [
-                {
-                    id: 101, title: 'Hellow Kitty Printed Denim', price: 2500, old_price: 2900,
-                    img: 'https://via.placeholder.com/150', variants: 'Colour: Light Blue, Size: 28', qty: 1
-                },
-                {
-                    id: 102, title: 'RIB Crop Top', price: 2900, old_price: 0,
-                    img: 'https://via.placeholder.com/150', variants: 'Colour: Light Blue, Size: 28', qty: 1
-                }
-            ];
-            localStorage.setItem('shopCart', JSON.stringify(demoItems));
-        }
-    }
-    // Uncomment to test: seedDemoCart(); 
-    // I will AUTO-SEED if empty for the User's Review so they see the UI.
-    seedDemoCart();
-
     // --- RENDER CART ---
     function renderCart() {
         const cart = getCart(); // defined in header

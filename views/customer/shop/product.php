@@ -20,7 +20,8 @@ require_once 'views/layouts/customer_header.php';
                 <!-- Back Button Overlay -->
                 <!-- Back Button Overlay (Task 3.2 Fix) -->
                 <a href="javascript:history.back()" class="back-btn-overlay" style="text-decoration: none;">
-                    <img src="<?= BASE_URL ?>assets/icons/back.png" alt="Back" style="width: 24px; height: 24px; filter: invert(1);"> 
+                    <img src="<?= BASE_URL ?>assets/icons/back.png" alt="Back"
+                        style="width: 24px; height: 24px; filter: invert(1);">
                     <!-- Inverted filter to make black icon white inside black circle if icon is black. 
                          Checking icon preview... 'back.png' might be black. 
                          If container is rgba(0,0,0,0.6), we want White icon. 
@@ -119,7 +120,8 @@ require_once 'views/layouts/customer_header.php';
                             </span>
                             <div class="var-pills">
                                 <?php foreach ($values as $val): ?>
-                                    <div class="var-pill" onclick="selectVariation(this, '<?= $varName ?>', '<?= htmlspecialchars($val['value']) ?>')">
+                                    <div class="var-pill"
+                                        onclick="selectVariation(this, '<?= $varName ?>', '<?= htmlspecialchars($val['value']) ?>')">
                                         <?= htmlspecialchars($val['value']) ?>
                                     </div>
                                 <?php endforeach; ?>
@@ -144,7 +146,8 @@ require_once 'views/layouts/customer_header.php';
                     </button>
 
                     <!-- Add to Cart -->
-                    <button class="btn-action btn-cart" onclick="addToCart(<?= $product['id'] ?>)">
+                    <!-- Add to Cart (Real Logic) -->
+                    <button class="btn-action btn-cart" onclick="addToCartFromProductPage()">
                         <i class="fas fa-cart-plus"></i> Add to cart
                     </button>
                 </div>
@@ -183,60 +186,81 @@ if (!empty($product['size_guide_image']) && file_exists(ROOT_PATH . $sgPath)):
             <img src="<?= $sgImg ?>" style="width:100%; border-radius:10px; display: block;">
         </div>
     </div>
-    <script>     function openSizeGuide() { document.getElementById('sgModal').style.display = 'flex'; }     function closeSizeGuide() { document.getElementById('sgModal').style.display = 'none'; }
+    <script>     function openSizeGuide() { document.getElementById('sgModal').style.display = 'flex'; } function closeSizeGuide() { document.getElementById('sgModal').style.display = 'none'; }
     </script>
 <?php endif; ?>
 
 <!-- Order Form Modal (Task 4.1) -->
 <div id="orderModal" class="modal-overlay" style="display: none;">
-    <div class="modal-content" style="max-width: 500px; width: 90%; max-height: 90vh; overflow-y: auto; padding: 25px; border-radius: 15px;">
-        <h3 style="margin-top: 0; font-size: 20px; font-weight: 800; text-align: center; margin-bottom: 20px;">Complete Your Order</h3>
-        
+    <div class="modal-content"
+        style="max-width: 500px; width: 90%; max-height: 90vh; overflow-y: auto; padding: 25px; border-radius: 15px;">
+        <h3 style="margin-top: 0; font-size: 20px; font-weight: 800; text-align: center; margin-bottom: 20px;">Complete
+            Your Order</h3>
+
         <form onsubmit="event.preventDefault(); submitOrderToWhatsApp();">
             <div class="form-group" style="margin-bottom: 15px;">
-                <label style="display: block; font-size: 13px; font-weight: 600; margin-bottom: 5px;">Full Name <span style="color:red">*</span></label>
-                <input type="text" id="ordName" class="form-control" required style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px;">
+                <label style="display: block; font-size: 13px; font-weight: 600; margin-bottom: 5px;">Full Name <span
+                        style="color:red">*</span></label>
+                <input type="text" id="ordName" class="form-control" required
+                    style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px;">
             </div>
 
             <div class="form-group" style="margin-bottom: 15px;">
-                <label style="display: block; font-size: 13px; font-weight: 600; margin-bottom: 5px;">Address <span style="color:red">*</span></label>
-                <textarea id="ordAddress" class="form-control" required style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px; height: 60px;"></textarea>
+                <label style="display: block; font-size: 13px; font-weight: 600; margin-bottom: 5px;">Address <span
+                        style="color:red">*</span></label>
+                <textarea id="ordAddress" class="form-control" required
+                    style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px; height: 60px;"></textarea>
             </div>
 
             <div style="display: flex; gap: 10px;">
                 <div class="form-group" style="margin-bottom: 15px; flex: 1;">
-                    <label style="display: block; font-size: 13px; font-weight: 600; margin-bottom: 5px;">City <span style="color:red">*</span></label>
-                    <input type="text" id="ordCity" class="form-control" required style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px;">
+                    <label style="display: block; font-size: 13px; font-weight: 600; margin-bottom: 5px;">City <span
+                            style="color:red">*</span></label>
+                    <input type="text" id="ordCity" class="form-control" required
+                        style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px;">
                 </div>
                 <div class="form-group" style="margin-bottom: 15px; flex: 1;">
-                    <label style="display: block; font-size: 13px; font-weight: 600; margin-bottom: 5px;">District</label>
-                    <input type="text" id="ordDistrict" class="form-control" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px;">
+                    <label
+                        style="display: block; font-size: 13px; font-weight: 600; margin-bottom: 5px;">District</label>
+                    <input type="text" id="ordDistrict" class="form-control"
+                        style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px;">
                 </div>
             </div>
 
             <div class="form-group" style="margin-bottom: 15px;">
-                <label style="display: block; font-size: 13px; font-weight: 600; margin-bottom: 5px;">Postal Code</label>
-                <input type="text" id="ordPostal" class="form-control" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px;">
+                <label style="display: block; font-size: 13px; font-weight: 600; margin-bottom: 5px;">Postal
+                    Code</label>
+                <input type="text" id="ordPostal" class="form-control"
+                    style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px;">
             </div>
 
             <div class="form-group" style="margin-bottom: 15px;">
-                <label style="display: block; font-size: 13px; font-weight: 600; margin-bottom: 5px;">Phone Number 01 <span style="color:red">*</span></label>
-                <input type="tel" id="ordPhone1" class="form-control" required style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px;">
+                <label style="display: block; font-size: 13px; font-weight: 600; margin-bottom: 5px;">Phone Number 01
+                    <span style="color:red">*</span></label>
+                <input type="tel" id="ordPhone1" class="form-control" required
+                    style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px;">
             </div>
 
             <div class="form-group" style="margin-bottom: 15px;">
-                <label style="display: block; font-size: 13px; font-weight: 600; margin-bottom: 5px;">Phone Number 02</label>
-                <input type="tel" id="ordPhone2" class="form-control" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px;">
+                <label style="display: block; font-size: 13px; font-weight: 600; margin-bottom: 5px;">Phone Number
+                    02</label>
+                <input type="tel" id="ordPhone2" class="form-control"
+                    style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px;">
             </div>
 
             <div class="form-group" style="margin-bottom: 20px;">
-                <label style="display: block; font-size: 13px; font-weight: 600; margin-bottom: 5px;">Special Note</label>
-                <textarea id="ordNote" class="form-control" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px; height: 60px;"></textarea>
+                <label style="display: block; font-size: 13px; font-weight: 600; margin-bottom: 5px;">Special
+                    Note</label>
+                <textarea id="ordNote" class="form-control"
+                    style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px; height: 60px;"></textarea>
             </div>
 
             <div style="display: flex; gap: 10px;">
-                <button type="button" onclick="closeOrderModal()" style="flex: 1; padding: 12px; border: 1px solid #ddd; background: #f5f5f5; border-radius: 8px; font-weight: 600; cursor: pointer;">Cancel</button>
-                <button type="submit" style="flex: 2; padding: 12px; border: none; background: #6AD07F; color: white; border-radius: 8px; font-weight: 600; cursor: pointer;">Send via WhatsApp</button>
+                <button type="button" onclick="closeOrderModal()"
+                    style="flex: 1; padding: 12px; border: 1px solid #ddd; background: #f5f5f5; border-radius: 8px; font-weight: 600; cursor: pointer;">Cancel</button>
+                <button type="submit"
+                    style="flex: 2; padding: 12px; border: none; background: #6AD07F; color: white; border-radius: 8px; font-weight: 600; cursor: pointer;">Send
+                    via WhatsApp</button>
             </div>
         </form>
     </div>
@@ -251,7 +275,7 @@ if (!empty($product['size_guide_image']) && file_exists(ROOT_PATH . $sgPath)):
         let siblings = el.parentElement.querySelectorAll('.var-pill');
         siblings.forEach(s => s.classList.remove('active'));
         el.classList.add('active');
-        
+
         // Store selection
         selectedVariations[name] = value;
         console.log("Selected:", selectedVariations);
@@ -288,13 +312,13 @@ if (!empty($product['size_guide_image']) && file_exists(ROOT_PATH . $sgPath)):
 
         // 3. Construct Message
         let msg = "*NEW ORDER REQUEST* 🛍️\n\n";
-        
+
         // Product Details
         msg += "*Product Details:*\n";
         msg += "Name: <?= addslashes($product['title']) ?>\n";
         msg += "Price: <?= $product['sale_price'] ? 'LKR ' . number_format($product['sale_price']) : 'LKR ' . number_format($product['price']) ?>\n";
         msg += "Link: " + window.location.href + "\n";
-        
+
         // Add Selected Variations
         if (Object.keys(selectedVariations).length > 0) {
             msg += "Variations: ";
@@ -311,7 +335,7 @@ if (!empty($product['size_guide_image']) && file_exists(ROOT_PATH . $sgPath)):
             msg = msg.slice(0, -2); // remove last comma
             msg += "\n";
         }
-        
+
         msg += "\n*Customer Details:*\n";
         msg += "Name: " + name + "\n";
         msg += "Address: " + address + "\n";
