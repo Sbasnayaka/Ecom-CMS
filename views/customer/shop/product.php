@@ -1,4 +1,8 @@
-<?php require_once 'views/layouts/customer_header.php'; ?>
+<?php
+// Hide Default Mobile Header for Single Product Page (Task 3.1)
+$hide_mobile_welcome = true;
+require_once 'views/layouts/customer_header.php';
+?>
 
 <!-- Wrappers for Sidebar Layout -->
 <div class="home-layout">
@@ -150,9 +154,9 @@
             <div style="margin-top: 50px; border-top: 1px solid #eee; padding-top: 30px;">
                 <h3 style="margin-bottom: 20px;">You May Also Like...</h3>
                 <div class="products-scroll" style="display:flex; overflow-x:auto; gap:15px; padding-bottom:10px;">
-                        <?php foreach ($relatedProducts as $prod): ?>
-                                <?php include 'views/customer/partials/product_card.php'; ?>
-                  <?php endforeach; ?>
+                    <?php foreach ($relatedProducts as $prod): ?>
+                        <?php include 'views/customer/partials/product_card.php'; ?>
+                    <?php endforeach; ?>
                 </div>
             </div>
         <?php endif; ?>
@@ -176,9 +180,7 @@ if (!empty($product['size_guide_image']) && file_exists(ROOT_PATH . $sgPath)):
             <img src="<?= $sgImg ?>" style="width:100%; border-radius:10px; display: block;">
         </div>
     </div>
-    <script>
-        function openSizeGuide() { document.getElementById('sgModal').style.display = 'flex'; }
-        function closeSizeGuide() { document.getElementById('sgModal').style.display = 'none'; }
+    <script>     function openSizeGuide() { document.getElementById('sgModal').style.display = 'flex'; }     function closeSizeGuide() { document.getElementById('sgModal').style.display = 'none'; }
     </script>
 <?php endif; ?>
 
