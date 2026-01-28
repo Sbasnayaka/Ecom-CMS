@@ -1,5 +1,6 @@
 <?php
-$hide_mobile_header = true; // Hides the global 'Welcome' header
+// Suppress default Welcome Header
+$hide_mobile_welcome = true;
 require_once 'views/layouts/customer_header.php';
 ?>
 
@@ -10,41 +11,75 @@ require_once 'views/layouts/customer_header.php';
 
     <main class="main-content">
 
-        <!-- Figma Header: Back | Categories | Search+Avatar -->
-        <div class="mobile-header d-lg-none"
-            style="display: flex; align-items: center; justify-content: space-between; padding: 20px 0; margin-bottom: 10px;">
+        <!-- CUSTOM HEADER (Figma Exact) -->
+        <div class="mobile-header-custom d-lg-none" style="padding: 20px 20px 0 20px; margin-bottom: 20px;">
 
-            <!-- Left: Back Button & Title Group -->
-            <div style="display: flex; align-items: center; gap: 15px;">
-                <a href="<?= BASE_URL ?>" class="back-btn"
-                    style="width: 35px; height: 35px; background: #000; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white;">
-                    <i class="fas fa-chevron-left" style="font-size: 14px;"></i>
-                </a>
-                <div>
-                    <h1 style="font-size: 24px; font-weight: 800; line-height: 1.2; margin: 0;">Categories</h1>
-                    <p style="font-size: 13px; color: #666; margin: 0;">Our Product Range</p>
+            <!-- Breadcrumb -->
+            <div style="font-size: 11px; color: #888; margin-bottom: 15px;">Home > Categories</div>
+
+            <!-- Title Row with Actions -->
+            <div style="display: flex; align-items: center; justify-content: space-between;">
+
+                <!-- Left: Back Btn + Title -->
+                <div style="display: flex; align-items: center; gap: 15px;">
+                    <!-- Back Button (Black Circle with Chevron) -->
+                    <a href="<?= BASE_URL ?>" style="
+                        width: 35px; 
+                        height: 35px; 
+                        background: #000; 
+                        border-radius: 50%; 
+                        display: flex; 
+                        align-items: center; 
+                        justify-content: center; 
+                        color: white;
+                        text-decoration: none;
+                        flex-shrink: 0;
+                    ">
+                        <i class="fas fa-chevron-left" style="font-size: 14px;"></i>
+                    </a>
+
+                    <!-- Title Block -->
+                    <div>
+                        <h1 style="font-size: 24px; font-weight: 800; line-height: 1.1; margin: 0; color: #000;">
+                            Categories</h1>
+                        <p style="font-size: 13px; color: #666; margin: 0;">Our Product Range</p>
+                    </div>
                 </div>
+
+                <!-- Right: Search + Avatar -->
+                <div style="display: flex; align-items: center; gap: 10px;">
+                    <!-- Search Trigger (Light Purple Square) -->
+                    <div style="
+                        background: #ede7f6; 
+                        width: 40px; 
+                        height: 40px; 
+                        border-radius: 12px; 
+                        display: flex; 
+                        align-items: center; 
+                        justify-content: center; 
+                    ">
+                        <i class="fas fa-search" style="color: #5e35b1; font-size: 18px;"></i>
+                    </div>
+
+                    <!-- Shop Avatar -->
+                    <?php
+                    $logoUrl = $settings['shop_logo'] ?? '';
+                    $logoUrl = str_replace('/Ecom-CMS/', BASE_URL, $logoUrl);
+                    $physicalPath = $_SERVER['DOCUMENT_ROOT'] . $logoUrl;
+                    $logo = (!empty($logoUrl) && file_exists($physicalPath))
+                        ? $logoUrl
+                        : 'https://via.placeholder.com/40';
+                    ?>
+                    <img src="<?= $logo ?>" alt="Shop" style="
+                        width: 40px; 
+                        height: 40px; 
+                        border-radius: 50%; 
+                        object-fit: cover;
+                        border: 1px solid #eee;
+                    ">
+                </div>
+
             </div>
-
-            <!-- Right: Search & Avatar -->
-            <div style="display: flex; align-items: center; gap: 10px;">
-                <!-- Search Button (Light Purple Square) -->
-                <a href="<?= BASE_URL ?>shop/index"
-                    style="width: 40px; height: 40px; background: #ede7f6; border-radius: 12px; display: flex; align-items: center; justify-content: center; color: #5e35b1;">
-                    <i class="fas fa-search" style="font-size: 18px;"></i>
-                </a>
-
-                <!-- Shop Avatar -->
-                <?php
-                // Reusing logo logic from header
-                $logoUrl = $settings['shop_logo'] ?? '';
-                $logoUrl = str_replace('/Ecom-CMS/', BASE_URL, $logoUrl);
-                $logo = (!empty($logoUrl)) ? $logoUrl : 'https://via.placeholder.com/40';
-                ?>
-                <img src="<?= $logo ?>" alt="Logo"
-                    style="width: 40px; height: 40px; border-radius: 50%; object-fit: cover;">
-            </div>
-
         </div>
 
         <!-- Categories Grid -->
@@ -52,7 +87,7 @@ require_once 'views/layouts/customer_header.php';
             style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; padding: 0 0 40px 0;">
             <?php foreach ($categories as $cat): ?>
                 <a href="<?= BASE_URL ?>shop/category/<?= $cat['id'] ?>" class="cat-grid-item"
-                    style="display: block; text-align: center;">
+                    style="display: block; text-align: center; text-decoration: none;">
                     <?php
                     $catPath = 'assets/uploads/' . $cat['image'];
                     $img = (!empty($cat['image']) && file_exists(ROOT_PATH . $catPath))

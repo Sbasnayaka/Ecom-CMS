@@ -195,7 +195,7 @@
 <body>
 
     <!-- Mobile Header (Visible only on Mobile) -->
-    <?php if (!isset($hide_mobile_header) || !$hide_mobile_header): ?>
+    <?php if (empty($hide_mobile_welcome)): ?>
     <div class="mobile-header d-lg-none" style="padding-bottom: 10px; width: 100%;">
         
         <!-- Top Row: Flex Container -->
