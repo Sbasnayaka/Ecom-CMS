@@ -187,6 +187,61 @@ if (!empty($product['size_guide_image']) && file_exists(ROOT_PATH . $sgPath)):
     </script>
 <?php endif; ?>
 
+<!-- Order Form Modal (Task 4.1) -->
+<div id="orderModal" class="modal-overlay" style="display: none;">
+    <div class="modal-content" style="max-width: 500px; width: 90%; max-height: 90vh; overflow-y: auto; padding: 25px; border-radius: 15px;">
+        <h3 style="margin-top: 0; font-size: 20px; font-weight: 800; text-align: center; margin-bottom: 20px;">Complete Your Order</h3>
+        
+        <form onsubmit="event.preventDefault(); submitOrderToWhatsApp();">
+            <div class="form-group" style="margin-bottom: 15px;">
+                <label style="display: block; font-size: 13px; font-weight: 600; margin-bottom: 5px;">Full Name <span style="color:red">*</span></label>
+                <input type="text" id="ordName" class="form-control" required style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px;">
+            </div>
+
+            <div class="form-group" style="margin-bottom: 15px;">
+                <label style="display: block; font-size: 13px; font-weight: 600; margin-bottom: 5px;">Address <span style="color:red">*</span></label>
+                <textarea id="ordAddress" class="form-control" required style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px; height: 60px;"></textarea>
+            </div>
+
+            <div style="display: flex; gap: 10px;">
+                <div class="form-group" style="margin-bottom: 15px; flex: 1;">
+                    <label style="display: block; font-size: 13px; font-weight: 600; margin-bottom: 5px;">City <span style="color:red">*</span></label>
+                    <input type="text" id="ordCity" class="form-control" required style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px;">
+                </div>
+                <div class="form-group" style="margin-bottom: 15px; flex: 1;">
+                    <label style="display: block; font-size: 13px; font-weight: 600; margin-bottom: 5px;">District</label>
+                    <input type="text" id="ordDistrict" class="form-control" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px;">
+                </div>
+            </div>
+
+            <div class="form-group" style="margin-bottom: 15px;">
+                <label style="display: block; font-size: 13px; font-weight: 600; margin-bottom: 5px;">Postal Code</label>
+                <input type="text" id="ordPostal" class="form-control" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px;">
+            </div>
+
+            <div class="form-group" style="margin-bottom: 15px;">
+                <label style="display: block; font-size: 13px; font-weight: 600; margin-bottom: 5px;">Phone Number 01 <span style="color:red">*</span></label>
+                <input type="tel" id="ordPhone1" class="form-control" required style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px;">
+            </div>
+
+            <div class="form-group" style="margin-bottom: 15px;">
+                <label style="display: block; font-size: 13px; font-weight: 600; margin-bottom: 5px;">Phone Number 02</label>
+                <input type="tel" id="ordPhone2" class="form-control" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px;">
+            </div>
+
+            <div class="form-group" style="margin-bottom: 20px;">
+                <label style="display: block; font-size: 13px; font-weight: 600; margin-bottom: 5px;">Special Note</label>
+                <textarea id="ordNote" class="form-control" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px; height: 60px;"></textarea>
+            </div>
+
+            <div style="display: flex; gap: 10px;">
+                <button type="button" onclick="closeOrderModal()" style="flex: 1; padding: 12px; border: 1px solid #ddd; background: #f5f5f5; border-radius: 8px; font-weight: 600; cursor: pointer;">Cancel</button>
+                <button type="submit" style="flex: 2; padding: 12px; border: none; background: #6AD07F; color: white; border-radius: 8px; font-weight: 600; cursor: pointer;">Send via WhatsApp</button>
+            </div>
+        </form>
+    </div>
+</div>
+
 <script>
     // Variation Selection Logic
     let selectedVariations = {}; // Store selected variations: { 'Color': 'Red', 'Size': 'M' }
