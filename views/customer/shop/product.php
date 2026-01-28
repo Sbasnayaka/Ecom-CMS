@@ -18,15 +18,8 @@ require_once 'views/layouts/customer_header.php';
             <!-- Image Gallery Section -->
             <div class="product-gallery">
                 <!-- Back Button Overlay -->
-                <!-- Desktop: Close Button (Keep Existing) -->
-                <a href="<?= BASE_URL ?>" class="back-btn-overlay display-desktop-only">
+                <a href="<?= BASE_URL ?>" class="back-btn-overlay">
                     <img src="<?= BASE_URL ?>assets/icons/delete.png" alt="Back" style="width: 18px; height: 18px;">
-                </a>
-
-                <!-- Mobile: Back Button (Task 3.2 - UI Exact) -->
-                <a href="javascript:history.back()" class="back-btn-overlay display-mobile-only" 
-                   style="background: #000 !important; width: 35px; height: 35px; opacity: 1;">
-                    <img src="<?= BASE_URL ?>assets/icons/back.png" alt="Back" style="width: 14px; height: 14px;">
                 </a>
 
                 <div class="gallery-slider">
