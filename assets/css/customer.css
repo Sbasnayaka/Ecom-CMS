@@ -226,11 +226,10 @@ p {
 }
 
 .products-scroll .product-card {
-    width: 160px;
-    /* Fixed width */
-    min-width: 160px;
-    flex: 0 0 160px;
-    /* Prevent shrinking/growing */
+    width: 135px;
+    /* Optimised for "2.5 items" on mobile (375px) */
+    min-width: 135px;
+    flex: 0 0 135px;
     margin-bottom: 0;
 }
 
@@ -972,11 +971,10 @@ p {
     }
 
     .products-scroll .product-card {
-        /* Show 3 items: (100% - (2 * 20px gap)) / 3 = calc((100% - 40px) / 3) */
-        /* Actually simpler: flex-basis */
-        min-width: calc((100% - 40px) / 3);
-        width: calc((100% - 40px) / 3);
-        flex: 0 0 calc((100% - 40px) / 3);
+        /* Desktop: Fixed width to ensure peeking/scroll behavior (approx 4.5 items) */
+        min-width: 240px;
+        width: 240px;
+        flex: 0 0 240px;
         margin-bottom: 10px;
         scroll-snap-align: start;
     }
