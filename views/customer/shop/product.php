@@ -18,8 +18,13 @@ require_once 'views/layouts/customer_header.php';
             <!-- Image Gallery Section -->
             <div class="product-gallery">
                 <!-- Back Button Overlay -->
-                <a href="<?= BASE_URL ?>" class="back-btn-overlay">
-                    <img src="<?= BASE_URL ?>assets/icons/delete.png" alt="Back" style="width: 18px; height: 18px;">
+                <!-- Back Button Overlay (Task 3.2 Fix) -->
+                <a href="javascript:history.back()" class="back-btn-overlay" style="text-decoration: none;">
+                    <img src="<?= BASE_URL ?>assets/icons/back.png" alt="Back" style="width: 24px; height: 24px; filter: invert(1);"> 
+                    <!-- Inverted filter to make black icon white inside black circle if icon is black. 
+                         Checking icon preview... 'back.png' might be black. 
+                         If container is rgba(0,0,0,0.6), we want White icon. 
+                         Assuming png is black based on previous behavior. -->
                 </a>
 
                 <div class="gallery-slider">
