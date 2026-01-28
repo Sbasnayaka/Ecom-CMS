@@ -531,9 +531,12 @@ p {
     /* Cyan */
     color: white;
     border: none;
-    padding: 7px 12px;
-    border-radius: 6px;
-    font-size: 12px;
+    padding: 10px 24px;
+    /* Increased padding for larger visual size */
+    border-radius: 8px;
+    /* Softer rounded corners */
+    font-size: 14px;
+    /* Larger text */
     font-weight: 600;
     cursor: pointer;
 }
