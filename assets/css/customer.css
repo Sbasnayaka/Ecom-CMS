@@ -268,33 +268,51 @@ p {
     top: 10px;
     right: 10px;
     background: #000;
-    width: 30px;
-    height: 30px;
+    /* Black */
+    width: 35px;
+    /* Same size as Sale */
+    height: 35px;
     border-radius: 50%;
+    /* Perfect Circle */
     display: flex;
     align-items: center;
     justify-content: center;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     color: #fff;
+    z-index: 5;
+    transition: top 0.2s;
+    /* Smooth movement if state changes */
 }
 
 .sale-badge {
     position: absolute;
     top: 10px;
-    left: 10px;
+    right: 10px;
+    /* Moved to Right */
+    left: auto;
+    /* Override default if any */
     background: var(--accent-red);
     color: white;
     font-size: 10px;
-    padding: 4px 8px;
+    padding: 0;
     border-radius: 50%;
-    /* Circle badge for 'SALE' text? Or pill? Design shows Circle 'SALE' */
-    width: 30px;
-    height: 30px;
+    /* Perfect Circle */
+    width: 35px;
+    height: 35px;
     display: flex;
     align-items: center;
     justify-content: center;
     font-weight: 700;
     font-size: 9px;
+    z-index: 6;
+    /* Clickable or visual preference? Sale usually just visual. */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Logic: If Sale exists, push Cart Down */
+.sale-badge~.cart-btn-overlay {
+    top: 55px;
+    /* 10px (top) + 35px (badge) + 10px (gap) */
 }
 
 .product-name {
@@ -998,32 +1016,21 @@ p {
     /* Desktop Product Card Overrides */
 
     /* Sale Badge: Top Right */
+    /* Sale Badge: Top Right - Already handled by mobile first, but let's confirm sizes or just override defaults if needed */
     .products-scroll .sale-badge {
-        left: auto;
+        /* Keep consistent with mobile */
         right: 15px;
         top: 15px;
-        width: 35px;
-        height: 35px;
-        font-size: 10px;
     }
 
-    /* Cart Button: Top Right (Below Sale if present, or just top right) */
-    /* Default position */
     .products-scroll .cart-btn-overlay {
-        top: 15px;
         right: 15px;
-        background: #000;
-        color: #fff;
-        width: 35px;
-        height: 35px;
-        opacity: 1;
-        /* Always visible on desktop? or absolute? */
+        top: 15px;
     }
 
-    /* If Sale Badge exists, push Cart Button down */
     .products-scroll .sale-badge~.cart-btn-overlay {
         top: 60px;
-        /* 15px top + 35px badge + 10px gap */
+        /* 15px + 35px + 10px */
     }
 
     /* Typography Overrides */
