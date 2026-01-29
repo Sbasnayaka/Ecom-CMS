@@ -38,7 +38,8 @@ require_once 'views/layouts/customer_header.php';
                         $mainImg = BASE_URL . $mainImg;
                     }
                     ?>
-                    <img src="<?= $mainImg ?>" class="gallery-img current" alt="Main Image">
+                    <img src="<?= $mainImg ?>" class="gallery-img current" alt="Main Image"
+                        onclick="openImageModal(this.src)">
 
                     <!-- Gallery Images -->
                     <?php if (!empty($gallery)): ?>
@@ -47,7 +48,7 @@ require_once 'views/layouts/customer_header.php';
                             $gUrl = (file_exists(ROOT_PATH . $gPath)) ? BASE_URL . $gPath : '';
                             if ($gUrl):
                                 ?>
-                                <img src="<?= $gUrl ?>" class="gallery-img" alt="Gallery Image">
+                                <img src="<?= $gUrl ?>" class="gallery-img" alt="Gallery Image" onclick="openImageModal(this.src)">
                             <?php endif; endforeach; ?>
                     <?php endif; ?>
                 </div>
@@ -204,9 +205,54 @@ if (!empty($product['size_guide_image']) && file_exists(ROOT_PATH . $sgPath)):
             <img src="<?= $sgImg ?>" style="width:100%; border-radius:10px; display: block;">
         </div>
     </div>
-    <script>     function openSizeGuide() { document.getElementById('sgModal').style.display = 'flex'; } function closeSizeGuide() { document.getElementById('sgModal').style.display = 'none'; }
     </script>
 <?php endif; ?>
+
+<!-- Image Lightbox Modal (Task - Requirement 2) -->
+<div id="imgModal" class="modal-overlay" onclick="closeImageModal()" style="display: none;">
+    <div class="modal-content" onclick="event.stopPropagation()" style="position: relative; padding: 0; background: transparent; box-shadow: none;">
+         <!-- Close Button -->
+        <div onclick="closeImageModal()"
+            style="position: absolute; top: -15px; right: -15px; cursor: pointer; z-index: 201; background: white; border-radius: 50%; padding: 5px; width: 35px; height: 35px; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 10px rgba(0,0,0,0.2);">
+            <i class="fas fa-times" style="color: black; font-size: 18px;"></i>
+        </div>
+        <img id="imgModalSrc" src="" style="width:100%; height: auto; max-height: 80vh; object-fit: contain; border-radius: 8px; display: block;">
+    </div>
+</div>
+<script>
+    function openImageModal(src) {
+        document.getElementById('imgModalSrc').src = src;
+        document.getElementById('imgModal').style.display = 'flex';
+    }
+    function closeImageModal() {
+        document.getElementById('imgModal').style.display = 'none';
+    }
+
+    // Carousel Pagination Logic (Requirement 3)
+    document.addEventListener('DOMContentLoaded', () => {
+        const slider = document.querySelector('.gallery-slider');
+        const dots = document.querySelectorAll('.gallery-dots .dot');
+
+        if (slider && dots.length > 0) {
+            slider.addEventListener('scroll', () => {
+                const scrollLeft = slider.scrollLeft;
+                const width = slider.offsetWidth;
+                // Calculate index: round(scroll / width)
+                const index = Math.round(scrollLeft / width);
+
+                // Update active class
+                dots.forEach((dot, i) => {
+                    if (i === index) dot.classList.add('active');
+                    else dot.classList.remove('active');
+                });
+            });
+        }
+    });
+
+    // Also update updateQty function name to be unique if needed? 
+    // No, it's global scope, but check for conflicts. 'updateQty' is standard.
+</script>
+
 
 <!-- Order Form Modal (Task 4.1) -->
 <div id="orderModal" class="modal-overlay" style="display: none;">
