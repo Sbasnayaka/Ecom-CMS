@@ -25,7 +25,13 @@ $isOnSale = !empty($prod['sale_price']) && $prod['sale_price'] < $prod['price'];
         <?php endif; ?>
 
         <!-- Cart Icon (Top Right, Black Circle) -->
-        <div class="cart-btn-overlay" onclick="addToCart(<?= $prod['id'] ?>)">
+        <?php
+        $jsTitle = addslashes($prod['title']);
+        $jsPrice = (!empty($prod['sale_price']) && $prod['sale_price'] < $prod['price']) ? $prod['sale_price'] : $prod['price'];
+        $jsImg = $imagePath;
+        ?>
+        <div class="cart-btn-overlay"
+            onclick="addToCart(<?= $prod['id'] ?>, '<?= $jsTitle ?>', <?= $jsPrice ?>, '<?= $jsImg ?>')">
             <i class="fas fa-shopping-cart" style="font-size: 12px;"></i>
         </div>
     </div>

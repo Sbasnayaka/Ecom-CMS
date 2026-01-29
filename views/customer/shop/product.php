@@ -432,10 +432,30 @@ if (!empty($product['size_guide_image']) && file_exists(ROOT_PATH . $sgPath)):
             .then(response => response.json())
             .then(data => {
                 if (data.success) {
-                    // Redirect to Cart Page
-                    window.location.href = '<?= BASE_URL ?>cart';
+                    // Show Toast instead of Redirect
+                    if (typeof showCartToast === 'function') {
+                        showCartToast();
+                    }
+                    // Optionally update global cart count badge if generic logic exists?
+                    // We can reload or just let the user navigate.
+                    // Ideally we should update the floating bubble count visually.
+                    const bubbleCount = document.querySelector('.floating-cart-count');
+                    const headerCount = document.querySelector('.cart-badge-count');
+
+                    if (data.count) {
+                        if (bubbleCount) bubbleCount.innerText = data.count;
+                        if (headerCount) {
+                            headerCount.innerText = data.count;
+                            headerCount.style.display = 'inline-block';
+                        }
+                        // Also ensure floating cart is visible if it was hidden
+                        const floatingCart = document.querySelector('.floating-cart');
+                        if (floatingCart) floatingCart.style.display = 'flex';
+                    }
+
+                    // window.location.href = '<?= BASE_URL ?>cart'; // Removed
                 } else {
-                    alert(data.message || 'Error adding to cart');
+                    alert('Failed to add to cart');
                 }
             })
             .catch(error => {

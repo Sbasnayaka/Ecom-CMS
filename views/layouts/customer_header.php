@@ -391,34 +391,54 @@
                         updateCartBadge();
                     }
 
-                        function addToCart(maxLengthLine) {
-                            // Product Card calls: addToCart(id)
-                            // Product Page calls: addToCart(id)
-                            // We need product details. 
-                            // Since we don't have them passed in the function, we might need to fetch them or 
-                            // expect the function to be called differently. 
-                            // For cards, we only have ID. 
-                            // Simple solution: Store ID and "Product + ID" placeholder, or fetch via AJAX?
-                            // AJAX is "Backend Logic". 
-                            // Alternative: The PHP generating the button knows the details. 
-                            // Let's change the PHP component to pass data to addToCart? 
-                            // "Standard Pattern" -> Buttons usually have data attributes.
-                            // I will update this strictly for the "Order Now via WhatsApp" flow on Cart Page.
-                            // Wait, user says "When Order Now ... on Cart Page is pressed".
-                            // BUT, to populate the cart page, I need items.
-                            // I will add a simple "Mock" alert for now if data is missing, 
-                            // OR, since valid "Product Details" are required for the message...
-                            // I will create a `addToCartWithDetails(productObj)` function
-                            // and update the buttons in `product.php` and `product_card.php` locally to use it? 
-                            // Or just fetch from a global variable if on product page.
+                        function addToCart(id, title, price, img) {
+                            // Prepare Data
+                            const payload = {
+                            id: id,
+                        title: title,
+                        price: price,
+                        quantity: 1, // Default to 1 from cards
+                        img: img || '',
+                        variants: '' // No variants from cards yet
+                            };
 
-                            // For safely, let's just make the basics work:
-                            alert("Added to Cart (Feature in Progress)");
-                        // NOTE: Real implementation requires updating views to pass product objects.
-                        // I will focus on the UI and "Order Now" logic of the *CART PAGE* assuming items exist, 
-                        // but to TEST it I need items.
-                        // I'll manually seed localStorage for testing if needed.
-                    }
+                        // Send AJAX Request
+                        fetch('<?= BASE_URL ?>cart/add', {
+                            method: 'POST',
+                        headers: {'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                            })
+                            .then(response => response.json())
+                            .then(data => {
+                                if (data.success) {
+                                    // Trigger Visual Toast (defined in footer)
+                                    if (typeof showCartToast === 'function') {
+                            showCartToast();
+                                    }
+
+                        // Update Badge Counts
+                        const bubbleCount = document.querySelector('.floating-cart-count');
+                        const headerCount = document.querySelector('.cart-badge-count');
+
+                        if (data.count) {
+                                         if (bubbleCount) bubbleCount.innerText = data.count;
+                        if (headerCount) {
+                            headerCount.innerText = data.count;
+                        headerCount.style.display = 'inline-block';
+                                         }
+                        // Show floating cart if hidden
+                        const floatingCart = document.querySelector('.floating-cart');
+                        if (floatingCart) floatingCart.style.display = 'flex';
+                                    }
+                                } else {
+                            alert('Failed to add to cart');
+                                }
+                            })
+                            .catch(error => {
+                            console.error('Error:', error);
+                                // Fallback visual for demo? No, stay strict.
+                            });
+                        }
 
                         function updateCartBadge() {
                         const cart = getCart();

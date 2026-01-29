@@ -80,6 +80,46 @@ if ($cartCount > 0 && ($current_page ?? '') !== 'cart'):
     </a>
 <?php endif; ?>
 
+<!-- Cart Toast Overlay -->
+<div id="cartToast">
+    <div class="ct-content">
+        <div class="ct-emoji">😍</div>
+        <div class="ct-message-pill">
+            Great Choice!<br>
+            The Product added to the Cart!
+        </div>
+        <div class="ct-view-cart" onclick="window.location.href='<?= BASE_URL ?>cart'">View Cart</div>
+        <div class="ct-close" onclick="hideCartToast()">
+            <i class="fas fa-times"></i>
+        </div>
+    </div>
+</div>
+
+<script>
+    let toastTimeout;
+
+    function showCartToast() {
+        const toast = document.getElementById('cartToast');
+        toast.style.display = 'flex';
+
+        // Auto Hide after 3.5 seconds
+        clearTimeout(toastTimeout);
+        toastTimeout = setTimeout(() => {
+            hideCartToast();
+        }, 3500);
+
+        // Also update Floating Cart Count if it exists (for immediate feedback)
+        // Note: Real count update requires AJAX response or reload, 
+        // but we can increment purely visually for UX?
+        // Let's rely on the PHP reload or AJAX success logic calling this.
+    }
+
+    function hideCartToast() {
+        document.getElementById('cartToast').style.display = 'none';
+        clearTimeout(toastTimeout);
+    }
+</script>
+
 <!-- Responsive Display Helpers (Inlined for simplicity, or move to CSS) -->
 </body>
 
