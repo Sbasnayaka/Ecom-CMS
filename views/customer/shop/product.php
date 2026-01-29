@@ -130,14 +130,8 @@ require_once 'views/layouts/customer_header.php';
                     <?php endforeach; ?>
                 <?php endif; ?>
 
-                <!-- Description -->
-                <div class="pd-description">
-                    <?= nl2br(htmlspecialchars($product['description'])) ?>
 
-
-                </div>
-
-                <!-- Quantity Selector -->
+                <!-- Quantity Selector (Moved) -->
                 <div class="pd-quantity"
                     style="margin-top: 20px; margin-bottom: 20px; display: flex; align-items: center; gap: 20px;">
                     <span style="font-weight: 600; font-size: 15px; color: #000;">Quantity :</span>
@@ -151,6 +145,15 @@ require_once 'views/layouts/customer_header.php';
                             style="border:none; border-left: 1px solid #000; background:transparent; width: 35px; height: 100%; font-size: 16px; cursor: pointer; color: #000; display: flex; align-items: center; justify-content: center;">+</button>
                     </div>
                 </div>
+
+                <!-- Description -->
+                <div class="pd-description">
+                    <?= nl2br(htmlspecialchars($product['description'])) ?>
+
+
+                </div>
+
+
 
                 <!-- Bottom Actions -->
                 <div class="pd-bottom-actions">
