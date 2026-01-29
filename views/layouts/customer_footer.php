@@ -10,7 +10,8 @@
         <img src="<?= BASE_URL ?>assets/icons/discount.png" class="nav-icon-img" alt="Discounts">
         <span>Discounts</span>
     </a>
-    <a href="<?= BASE_URL ?>shop" class="nav-item <?= ($current_page ?? '') == 'shop' ? 'active' : '' ?>">
+    <a href="<?= BASE_URL ?>shop/categories"
+        class="nav-item <?= ($current_page ?? '') == 'categories' ? 'active' : '' ?>">
         <img src="<?= BASE_URL ?>assets/icons/category.png" class="nav-icon-img" alt="Categories">
         <span>Categories</span>
     </a>
