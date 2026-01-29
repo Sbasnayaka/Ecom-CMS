@@ -68,6 +68,18 @@
     </a>
 <?php endif; ?>
 
+<!-- Floating Cart Bubble (Mobile Only) -->
+<?php
+$cartCount = isset($_SESSION['cart']) ? array_sum(array_column($_SESSION['cart'], 'qty')) : 0;
+// Show only if items exist and NOT on Cart Page
+if ($cartCount > 0 && ($current_page ?? '') !== 'cart'):
+    ?>
+    <a href="<?= BASE_URL ?>cart" class="floating-cart d-lg-none">
+        <i class="fas fa-shopping-cart"></i>
+        <span class="floating-cart-count"><?= $cartCount ?></span>
+    </a>
+<?php endif; ?>
+
 <!-- Responsive Display Helpers (Inlined for simplicity, or move to CSS) -->
 </body>
 
