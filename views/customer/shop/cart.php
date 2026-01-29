@@ -36,18 +36,63 @@ require_once 'views/layouts/customer_header.php';
 
         <!-- --- CART ITEMS LIST --- -->
         <div id="cartItemsContainer" style="padding: 10px 20px; min-height: 300px;">
-            <!-- Items injected via JS -->
-            <p style="text-align: center; color: #999; margin-top: 50px;">Your cart is empty.</p>
+            <?php if (empty($cart)): ?>
+                <p style="text-align: center; color: #999; margin-top: 50px;">Your cart is empty.</p>
+            <?php else: ?>
+                <?php
+                $total = 0;
+                foreach ($cart as $index => $item):
+                    $itemTotal = $item['price'] * $item['qty'];
+                    $total += $itemTotal;
+                    ?>
+                    <div class="cart-item" style="
+                    display: flex; align-items: center; gap: 15px; 
+                    background: #fff; padding: 15px; border-radius: 20px; 
+                    margin-bottom: 15px; box-shadow: 0 2px 10px rgba(0,0,0,0.03);">
+
+                        <!-- Image -->
+                        <img src="<?= htmlspecialchars($item['img']) ?>" style="
+                        width: 70px; height: 70px; border-radius: 12px; object-fit: cover; background: #f0f0f0;">
+
+                        <!-- Info -->
+                        <div style="flex: 1;">
+                            <h4 style="font-size: 14px; font-weight: 700; margin: 0 0 5px 0;">
+                                <?= htmlspecialchars($item['title']) ?>
+                            </h4>
+                            <div style="font-size: 13px; font-weight: 700; color: #E4405F; margin-bottom: 3px;">
+                                LKR <?= number_format($item['price'], 0) ?>
+                            </div>
+                            <div style="font-size: 11px; color: #666; font-weight: 500;">
+                                <?= htmlspecialchars($item['variants']) ?>
+                            </div>
+                            <div style="font-size: 11px; color: #444; font-weight: 600; margin-top: 2px;">
+                                Qty: <?= $item['qty'] ?>
+                            </div>
+                        </div>
+
+                        <!-- Remove (Red X Circle) -->
+                        <button onclick="removeFromCart(<?= $index ?>)"
+                            style="
+                        width: 25px; height: 25px; border-radius: 50%; border: 1px solid #FF3B30; 
+                        background: none; color: #FF3B30; display: flex; align-items: center; justify-content: center; cursor: pointer;">
+                            <i class="fas fa-times" style="font-size: 12px;"></i>
+                        </button>
+                    </div>
+                <?php endforeach; ?>
+            <?php endif; ?>
         </div>
 
         <!-- --- CART TOTAL & ORDER BUTTON --- -->
-        <div id="cartFooter" style="padding: 20px; border-top: 1px solid #f9f9f9;">
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
-                <span style="font-size: 16px; font-weight: 700; color: #888;">Cart Total</span>
-                <span style="font-size: 20px; font-weight: 800; color: #444;" id="cartTotalDisplay">LKR 0</span>
-            </div>
+        <?php if (!empty($cart)): ?>
+            <div id="cartFooter" style="padding: 20px; border-top: 1px solid #f9f9f9;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                    <span style="font-size: 16px; font-weight: 700; color: #888;">Cart Total</span>
+                    <span style="font-size: 20px; font-weight: 800; color: #444;" id="cartTotalDisplay">
+                        LKR <?= number_format($total ?? 0, 0) ?>
+                    </span>
+                </div>
 
-            <button onclick="openOrderModal()" style="
+                <button onclick="openOrderModal()" style="
                 width: 100%; 
                 background: #25d366; /* WhatsApp Green */
                 color: white; 
@@ -62,10 +107,11 @@ require_once 'views/layouts/customer_header.php';
                 gap: 10px;
                 cursor: pointer;
                 box-shadow: 0 4px 10px rgba(37, 211, 102, 0.3);">
-                <i class="fab fa-whatsapp" style="font-size: 18px;"></i>
-                Order Now via Whatsapp
-            </button>
-        </div>
+                    <i class="fab fa-whatsapp" style="font-size: 18px;"></i>
+                    Order Now via Whatsapp
+                </button>
+            </div>
+        <?php endif; ?>
 
     </main>
 </div>
@@ -140,83 +186,42 @@ require_once 'views/layouts/customer_header.php';
 </div>
 
 <script>
-    // --- RENDER CART ---
-    function renderCart() {
-        const cart = getCart(); // defined in header
-        const container = document.getElementById('cartItemsContainer');
-        const footer = document.getElementById('cartFooter');
-        const totalDisplay = document.getElementById('cartTotalDisplay');
+    // --- Safe Data Handoff (Step 3 Requirement) ---
+    const cartData = <?= json_encode($cart ?? []) ?>;
 
-        if (cart.length === 0) {
-            container.innerHTML = '<p style="text-align: center; color: #999; margin-top: 50px;">Your cart is empty.</p>';
-            totalDisplay.innerText = 'LKR 0';
-            // Disable button or hide footer? UI shows it present usually.
-            return;
-        }
-
-        let html = '';
-        let total = 0;
-
-        cart.forEach((item, index) => {
-            const itemTotal = item.price * item.qty;
-            total += itemTotal;
-
-            html += `
-                <div class="cart-item" style="
-                    display: flex; align-items: center; gap: 15px; 
-                    background: #fff; padding: 15px; border-radius: 20px; 
-                    margin-bottom: 15px; box-shadow: 0 2px 10px rgba(0,0,0,0.03);">
-                    
-                    <!-- Image -->
-                    <img src="${item.img}" style="
-                        width: 70px; height: 70px; border-radius: 12px; object-fit: cover; background: #f0f0f0;">
-                    
-                    <!-- Info -->
-                    <div style="flex: 1;">
-                        <h4 style="font-size: 14px; font-weight: 700; margin: 0 0 5px 0;">${item.title}</h4>
-                        <div style="font-size: 13px; font-weight: 700; color: #E4405F; margin-bottom: 3px;">
-                            ${item.old_price > 0 ? `<span style="text-decoration: line-through; color: #999; font-weight: 400; font-size: 11px; margin-right: 5px;">LKR ${item.old_price}</span>` : ''}
-                            LKR ${item.price}
-                        </div>
-                        <div style="font-size: 11px; color: #666; font-weight: 500;">
-                            ${item.variants}
-                        </div>
-                    </div>
-
-                    <!-- Remove (Red X Circle) -->
-                    <button onclick="removeFromCart(${index})" style="
-                        width: 25px; height: 25px; border-radius: 50%; border: 1px solid #FF3B30; 
-                        background: none; color: #FF3B30; display: flex; align-items: center; justify-content: center; cursor: pointer;">
-                        <i class="fas fa-times" style="font-size: 12px;"></i>
-                    </button>
-                    <!-- Figma shows no Qty controls, just Remove. Keeping it simple. -->
-                </div>
-            `;
-        });
-
-        container.innerHTML = html;
-        totalDisplay.innerText = 'LKR ' + total.toLocaleString();
-    }
-
-    // --- ACTIONS ---
+    // --- ACTIONS (AJAX + Reload) ---
     function removeFromCart(index) {
-        let cart = getCart();
-        cart.splice(index, 1);
-        saveCart(cart);
-        renderCart();
+        fetch('<?= BASE_URL ?>cart/remove', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ index: index })
+        })
+            .then(r => r.json())
+            .then(data => {
+                if (data.success) {
+                    window.location.reload();
+                }
+            });
     }
 
     function clearCart() {
         if (confirm('Clear all items?')) {
-            saveCart([]);
-            renderCart();
+            fetch('<?= BASE_URL ?>cart/clear', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' }
+            })
+                .then(r => r.json())
+                .then(data => {
+                    if (data.success) {
+                        window.location.reload();
+                    }
+                });
         }
     }
 
     // --- ORDER FUNCTION ---
     function openOrderModal() {
-        const cart = getCart();
-        if (cart.length === 0) {
+        if (cartData.length === 0) {
             alert("Your cart is empty!");
             return;
         }
@@ -242,13 +247,12 @@ require_once 'views/layouts/customer_header.php';
             return;
         }
 
-        const cart = getCart();
         let total = 0;
         let msg = "*NEW CART ORDER* 🛒\n\n";
 
-        // Cart Items
+        // Cart Items from PHP Session Data
         msg += "*Items:*\n";
-        cart.forEach((item, i) => {
+        cartData.forEach((item, i) => {
             msg += `${i + 1}. ${item.title}\n`;
             msg += `   ${item.variants}\n`;
             msg += `   Price: LKR ${item.price}\n`;
@@ -274,13 +278,7 @@ require_once 'views/layouts/customer_header.php';
         const url = "https://wa.me/" + shopPhone + "?text=" + encodeURIComponent(msg);
         window.open(url, '_blank');
         closeOrderModal();
-
-        // Optional: Clear cart after order?
-        // saveCart([]); // Let user clear it manually or keep clear
     }
-
-    // Initialize
-    document.addEventListener('DOMContentLoaded', renderCart);
 </script>
 
 <?php require_once 'views/layouts/customer_footer.php'; ?>
