@@ -76,27 +76,27 @@ require_once 'views/layouts/customer_header.php';
                 </div>
 
                 <!-- Title -->
-                <h1 class="pd-title">
+                <h1 class="pd-title" style="text-align: left;">
                     <?= htmlspecialchars($product['title']) ?>
                 </h1>
 
                 <!-- Price & Guide Row -->
-                <div class="pd-price-row">
-                    <div class="pd-prices">
+                <div class="pd-price-row" style="justify-content: flex-start; gap: 20px;">
+                    <div class="pd-prices" style="font-weight: 700;">
                         <?php
                         $currency = $settings['currency_symbol'] ?? 'LKR';
                         if (!empty($product['sale_price']) && $product['sale_price'] < $product['price']):
                             ?>
-                            <span class="pd-old-price">
+                            <span class="pd-old-price" style="font-weight: 400;">
                                 <?= $currency ?>
                                 <?= number_format($product['price'], 0) ?>
                             </span>
-                            <span class="pd-sale-price">
+                            <span class="pd-sale-price" style="font-weight: 800; color: #000;">
                                 <?= $currency ?>
                                 <?= number_format($product['sale_price'], 0) ?>
                             </span>
                         <?php else: ?>
-                            <span class="pd-sale-price">
+                            <span class="pd-sale-price" style="font-weight: 800; color: #000;">
                                 <?= $currency ?>
                                 <?= number_format($product['price'], 0) ?>
                             </span>
@@ -135,6 +135,21 @@ require_once 'views/layouts/customer_header.php';
                     <?= nl2br(htmlspecialchars($product['description'])) ?>
 
 
+                </div>
+
+                <!-- Quantity Selector -->
+                <div class="pd-quantity"
+                    style="margin-top: 20px; margin-bottom: 20px; display: flex; align-items: center; gap: 20px;">
+                    <span style="font-weight: 600; font-size: 15px; color: #000;">Quantity :</span>
+                    <div
+                        style="display: flex; align-items: center; border: 1px solid #000; border-radius: 5px; background: #fff; height: 35px;">
+                        <button type="button" onclick="updateQty(-1)"
+                            style="border:none; border-right: 1px solid #000; background:transparent; width: 35px; height: 100%; font-size: 16px; cursor: pointer; color: #000; display: flex; align-items: center; justify-content: center;">-</button>
+                        <input type="number" id="qtyInput" value="1" min="1" readonly
+                            style="width: 40px; height: 100%; text-align: center; border: none; font-weight: 700; font-size: 14px; outline: none; color: #000; padding: 0;">
+                        <button type="button" onclick="updateQty(1)"
+                            style="border:none; border-left: 1px solid #000; background:transparent; width: 35px; height: 100%; font-size: 16px; cursor: pointer; color: #000; display: flex; align-items: center; justify-content: center;">+</button>
+                    </div>
                 </div>
 
                 <!-- Bottom Actions -->
@@ -267,6 +282,15 @@ if (!empty($product['size_guide_image']) && file_exists(ROOT_PATH . $sgPath)):
 </div>
 
 <script>
+    // Quantity Logic
+    function updateQty(change) {
+        const input = document.getElementById('qtyInput');
+        let val = parseInt(input.value);
+        val += change;
+        if (val < 1) val = 1;
+        input.value = val;
+    }
+
     // Variation Selection Logic
     let selectedVariations = {}; // Store selected variations: { 'Color': 'Red', 'Size': 'M' }
 
@@ -359,6 +383,7 @@ if (!empty($product['size_guide_image']) && file_exists(ROOT_PATH . $sgPath)):
         const id = <?= $product['id'] ?>;
         const title = "<?= addslashes($product['title']) ?>";
         const price = <?= $product['sale_price'] ?: $product['price'] ?>;
+        const qty = parseInt(document.getElementById('qtyInput').value) || 1;
 
         <?php
         // Get Image URL safely
@@ -385,6 +410,7 @@ if (!empty($product['size_guide_image']) && file_exists(ROOT_PATH . $sgPath)):
             id: id,
             title: title,
             price: price,
+            quantity: qty,
             img: img,
             variants: variantStr
         };
