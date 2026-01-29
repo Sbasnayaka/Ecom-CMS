@@ -1,7 +1,7 @@
-<?php 
+<?php
 // Hide default mobile header to use our custom one
 $hide_mobile_welcome = true;
-require_once 'views/layouts/customer_header.php'; 
+require_once 'views/layouts/customer_header.php';
 ?>
 
 <div class="home-layout">
@@ -12,18 +12,37 @@ require_once 'views/layouts/customer_header.php';
     <main class="main-content">
 
         <!-- Custom Header for Mobile Discount Page -->
-        <div class="mobile-header-custom d-lg-none" style="padding: 20px 20px 0 20px; margin-bottom: 20px;">
+        <div class="mobile-header-custom d-lg-none" style="padding: 20px 20px 0 20px; margin-bottom: 30px;">
             <div style="display: flex; align-items: center; justify-content: space-between;">
-                <!-- Left: Title -->
-                <div>
-                    <h1 style="font-size: 24px; font-weight: 800; line-height: 1.1; margin: 0; color: #000;">
-                        Wait for<br>Discount
-                    </h1>
+                <!-- Left: Title Group -->
+                <div style="display: flex; align-items: center; gap: 15px;">
+
+                    <!-- Back Button -->
+                    <a href="javascript:history.back()" style="
+                        width: 35px; 
+                        height: 35px; 
+                        background: #000; 
+                        border-radius: 50%; 
+                        display: flex; 
+                        align-items: center; 
+                        justify-content: center; 
+                        color: white; 
+                        text-decoration: none;
+                    ">
+                        <i class="fas fa-chevron-left" style="font-size: 14px;"></i>
+                    </a>
+
+                    <div>
+                        <h1 style="font-size: 24px; font-weight: 800; line-height: 1.1; margin: 0; color: #000;">
+                            Discounts
+                        </h1>
+                        <p style="margin: 0; font-size: 12px; color: #666;">Limited Time Offers</p>
+                    </div>
                 </div>
 
-                 <!-- Right: Search + Avatar -->
-                 <div style="display: flex; align-items: center; gap: 10px;">
-                    <!-- Search Trigger (Light Purple Square) -->
+                <!-- Right: Actions -->
+                <div style="display: flex; align-items: center; gap: 10px;">
+                    <!-- Search Trigger -->
                     <div id="searchTriggerBtn" onclick="toggleMobileSearch()" style="
                         background: #ede7f6; 
                         width: 40px; 
@@ -56,16 +75,17 @@ require_once 'views/layouts/customer_header.php';
                 </div>
             </div>
 
-            <!-- Mobile Search Bar (Local Copy since Global is Hidden) -->
+            <!-- Mobile Search Bar -->
             <div id="mobileSearchBar" class="search-bar mobile-search" style="
                 display: none;
                 margin-top: 15px; 
                 width: 100%;
             ">
                 <div style="position: relative;">
-                    <input type="text" id="mobileSearchInput" placeholder="Search products........." class="search-input"
+                    <input type="text" id="mobileSearchInput" placeholder="Search products........."
+                        class="search-input"
                         style="width: 100%; height: 45px; padding: 0 45px 0 20px; border-radius: 50px; border: none; background: #ede7f6; font-size: 14px; color: #333; outline: none;">
-                    
+
                     <i class="fas fa-search" onclick="triggerMobileSearch()"
                         style="position: absolute; right: 20px; top: 50%; transform: translateY(-50%); color: #5e35b1; cursor: pointer; font-size: 16px;"></i>
                 </div>
@@ -122,15 +142,15 @@ require_once 'views/layouts/customer_header.php';
             </script>
         </div>
 
-        <!-- Section Title (Desktop Only or Fallback) -->
+        <!-- Section Title (Desktop Only) -->
         <div class="section-header d-none d-lg-flex">
             <h2 class="section-title">Discounts & Offers</h2>
         </div>
 
         <!-- Product Grid -->
-        <div id="product-grid-container" class="shop-grid"
+        <div id="product-grid-container" class="shop-grid discount-grid-custom"
             style="display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 20px;">
-            
+
             <?php if (empty($products)): ?>
                 <div style="grid-column: 1 / -1; padding: 40px; text-align: center; color: #777;">
                     <h3>No discounts at the moment.</h3>
@@ -148,22 +168,62 @@ require_once 'views/layouts/customer_header.php';
         <!-- Related Products Section -->
         <?php if (!empty($relatedProducts)): ?>
             <div style="margin-top: 50px; border-top: 1px solid #eee; padding-top: 30px; margin-bottom: 20px;">
-                <div class="section-header">
-                     <h2 class="section-title">Related Products</h2> 
+                <div class="section-header" style="display: flex; align-items: center; justify-content: space-between;">
+                    <h2 class="section-title" style="margin: 0;">Related Products</h2>
+                    <span class="d-lg-none" style="
+                        background: linear-gradient(90deg, #00d2ff 0%, #3a7bd5 100%); 
+                        color: white; 
+                        font-size: 10px; 
+                        padding: 5px 10px; 
+                        border-radius: 20px;
+                        font-weight: 600;
+                     ">You may also like...</span>
                 </div>
-                <div class="products-scroll" style="display:flex; overflow-x:auto; gap:15px; padding-bottom:10px;">
+                <div class="products-scroll"
+                    style="display:flex; overflow-x:auto; gap:15px; padding-bottom:10px; margin-top: 15px;">
                     <?php foreach ($relatedProducts as $prod): ?>
-                        <?php include 'views/customer/partials/product_card.php'; ?>
+                        <div style="min-width: 160px; max-width: 160px;"> <!-- Fixed Width for Scroll Item -->
+                            <?php include 'views/customer/partials/product_card.php'; ?>
+                        </div>
                     <?php endforeach; ?>
                 </div>
             </div>
         <?php endif; ?>
 
         <style>
-            @media (max-width: 768px) {
+            /* Discount Page Specific Overrides (Mobile Only mostly) */
+            @media (max-width: 1023px) {
                 #product-grid-container {
                     grid-template-columns: repeat(2, 1fr) !important;
                     gap: 15px !important;
+                }
+
+                /* Red Pill Price Style Override for this page */
+                .discount-grid-custom .product-card .price {
+                    display: inline-flex;
+                    align-items: center;
+                    gap: 5px;
+                    flex-wrap: wrap;
+                }
+
+                .discount-grid-custom .product-card .price del {
+                    color: #999;
+                    font-size: 12px;
+                }
+
+                .discount-grid-custom .product-card .price strong {
+                    background: #FF3B30;
+                    /* Red Pill Background */
+                    color: white !important;
+                    padding: 2px 8px;
+                    border-radius: 50px;
+                    font-size: 12px;
+                }
+
+                /* Adjust Product Card Padding/Title for cleaner Mobile View */
+                .discount-grid-custom .product-card {
+                    border: none !important;
+                    /* Remove borders for valid "Clean" look */
                 }
             }
         </style>
