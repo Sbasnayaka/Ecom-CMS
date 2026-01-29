@@ -503,8 +503,11 @@ p {
 
 .pd-price-row {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start;
+    /* Changed from space-between for Left Align */
     align-items: center;
+    gap: 20px;
+    /* Added gap */
     margin-bottom: 25px;
 }
 
@@ -1186,6 +1189,121 @@ p {
     }
 
     /* Ensure WhatsApp uses Flex not Block */
+}
+
+/* --- Floating Cart Icon (New) --- */
+.floating-cart-icon {
+    position: fixed;
+    bottom: 90px;
+    /* Above Bottom Nav + Space */
+    right: 20px;
+    width: 60px;
+    height: 60px;
+    background: #000;
+    color: #fff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 999;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+    cursor: pointer;
+    transition: transform 0.2s, bottom 0.3s;
+}
+
+.floating-cart-icon:active {
+    transform: scale(0.95);
+}
+
+.cart-icon-badge {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background: var(--accent-red);
+    color: white;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 2px 6px;
+    border-radius: 10px;
+    min-width: 20px;
+    text-align: center;
+    border: 2px solid #fff;
+}
+
+/* --- Cart Toast Notification --- */
+.cart-toast {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%) translateY(-150%);
+    /* Start hidden above */
+    background: rgba(0, 0, 0, 0.9);
+    color: white;
+    padding: 12px 24px;
+    border-radius: 50px;
+    z-index: 2000;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 13px;
+    font-weight: 600;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.3s;
+    opacity: 0;
+    pointer-events: none;
+    min-width: 200px;
+    justify-content: center;
+}
+
+.cart-toast.show {
+    transform: translateX(-50%) translateY(0);
+    opacity: 1;
+}
+
+.cart-toast i {
+    color: var(--accent-green);
+    font-size: 16px;
+}
+
+/* --- Quantity Selector Support --- */
+.quantity-selector {
+    display: flex;
+    align-items: center;
+    border: 1px solid #000;
+    border-radius: 8px;
+    height: 40px;
+    background: #fff;
+    overflow: hidden;
+    width: fit-content;
+}
+
+.qty-btn {
+    width: 40px;
+    height: 100%;
+    background: transparent;
+    border: none;
+    font-size: 18px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #000;
+}
+
+.qty-input {
+    width: 40px;
+    height: 100%;
+    text-align: center;
+    border: none;
+    border-left: 1px solid #eee;
+    border-right: 1px solid #eee;
+    font-weight: 700;
+    font-size: 14px;
+    color: #000;
+    outline: none;
+}
+
+@media (min-width: 1024px) {
     .floating-whatsapp.display-desktop-only {
         display: flex !important;
     }
