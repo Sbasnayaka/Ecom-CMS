@@ -3,20 +3,95 @@ class CartController extends BaseController
 {
     public function index()
     {
-        // 1. Fetch Settings (for Logo, WhatsApp, Currency)
-        // We need to instantiate Setting model
-        // BaseController does not instantiate models automatically usually, relying on Child.
-        // Let's rely on standard pattern.
+        // 1. Fetch Settings
         require_once 'models/Setting.php';
         $settingModel = new Setting();
         $settings = $settingModel->getAllPairs();
 
-        // 2. Load View
-        // Logic will be handled on Client Side via LocalStorage for WhatsApp Order Flow
+        // 2. Get Cart from Session
+        $cart = isset($_SESSION['cart']) ? $_SESSION['cart'] : [];
+
+        // 3. Load View
         $this->view('customer/shop/cart', [
             'title' => 'My Cart',
-            'settings' => $settings
+            'settings' => $settings,
+            'cart' => $cart // Pass cart data to view
         ]);
+    }
+
+    // Add Item to Cart (AJAX)
+    public function add()
+    {
+        // Accept JSON Input
+        $input = json_decode(file_get_contents('php://input'), true);
+
+        if (!$input || empty($input['id'])) {
+            echo json_encode(['success' => false, 'message' => 'Invalid data']);
+            exit;
+        }
+
+        if (!isset($_SESSION['cart'])) {
+            $_SESSION['cart'] = [];
+        }
+
+        // Check for existing item (Same ID + Same Variations)
+        $found = false;
+        foreach ($_SESSION['cart'] as &$item) {
+            if ($item['id'] == $input['id'] && $item['variants'] == $input['variants']) {
+                $item['qty'] += 1;
+                $found = true;
+                break;
+            }
+        }
+
+        // Add new if not found
+        if (!$found) {
+            $_SESSION['cart'][] = [
+                'id' => $input['id'],
+                'title' => $input['title'],
+                'price' => $input['price'],
+                'img' => $input['img'], // URL passed from frontend (simpler for now)
+                'variants' => $input['variants'],
+                'qty' => 1
+            ];
+        }
+
+        // Return Success
+        header('Content-Type: application/json');
+        echo json_encode([
+            'success' => true,
+            'count' => array_sum(array_column($_SESSION['cart'], 'qty'))
+        ]);
+        exit;
+    }
+
+    // Remove Item (AJAX)
+    public function remove()
+    {
+        $input = json_decode(file_get_contents('php://input'), true);
+        $index = $input['index'] ?? null;
+
+        if ($index !== null && isset($_SESSION['cart'][$index])) {
+            array_splice($_SESSION['cart'], $index, 1);
+        }
+
+        header('Content-Type: application/json');
+        echo json_encode([
+            'success' => true,
+            'cart' => array_values($_SESSION['cart']), // Return new array
+            'count' => isset($_SESSION['cart']) ? array_sum(array_column($_SESSION['cart'], 'qty')) : 0
+        ]);
+        exit;
+    }
+
+    // Clear Cart (AJAX)
+    public function clear()
+    {
+        $_SESSION['cart'] = [];
+
+        header('Content-Type: application/json');
+        echo json_encode(['success' => true, 'count' => 0]);
+        exit;
     }
 }
 ?>
