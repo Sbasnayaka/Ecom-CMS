@@ -37,7 +37,8 @@ require_once 'views/layouts/customer_header.php';
                 </a>
 
                 <!-- Shop Logo Container (Centered & Overlapping) -->
-                <div style="text-align: center; position: relative; z-index: 10;">
+                <div
+                    style="display: flex; justify-content: center; align-items: center; position: relative; z-index: 10;">
                     <?php
                     $logoUrl = $settings['shop_logo'] ?? '';
                     $logoUrl = str_replace('/Ecom-CMS/', BASE_URL, $logoUrl);
@@ -53,6 +54,7 @@ require_once 'views/layouts/customer_header.php';
                         object-fit: cover;
                         border: 3px solid #eee; /* Light border */
                         background: #fff;
+                        display: block; /* Ensure block behavior */
                     ">
                 </div>
 
@@ -89,7 +91,8 @@ require_once 'views/layouts/customer_header.php';
                 <?php
                 $shopPhone = isset($settings['shop_whatsapp']) ? str_replace(['+', ' '], '', $settings['shop_whatsapp']) : '';
                 ?>
-                <a href="https://wa.me/<?= $shopPhone ?>?text=I%20would%20like%20to%20leave%20a%20review!" target="_blank" style="
+                <a href="https://wa.me/<?= $shopPhone ?>?text=I%20would%20like%20to%20leave%20a%20review!"
+                    target="_blank" style="
                     display: block;
                     width: 100%;
                     background: #50d176; /* Accurate Green */
@@ -132,10 +135,12 @@ require_once 'views/layouts/customer_header.php';
 
             <!-- 4. Customer Feedbacks -->
 
-                                <div style="padding: 0 20px;">
+            <div style="padding: 0 20px;">
 
-                                   <h2 style="font-size: 20px; font-weight: 800; margin: 0 0 5px 0; text-align: center; color: #000;">Customer Feedbacks</h2>
-                <p style="font-size: 13px; color: #888; margin: 0 0 25px 0; text-align: center;">We are always try to make to fully satisfied!</p>
+                <h2 style="font-size: 20px; font-weight: 800; margin: 0 0 5px 0; text-align: center; color: #000;">
+                    Customer Feedbacks</h2>
+                <p style="font-size: 13px; color: #888; margin: 0 0 25px 0; text-align: center;">We are always try to
+                    make to fully satisfied!</p>
 
                 <!-- Feedback Images Scroll -->
                 <div class="feedback-scroll" style="
@@ -146,16 +151,17 @@ require_once 'views/layouts/customer_header.php';
                     scroll-snap-type: x mandatory;
                 ">
 
-                                        <?php if (empty($feedbacks)): ?>
-                        <div style="width:100%; text-align:center; padding: 20px; color:#aaa;">No feedback available yet.</div>
+                    <?php if (empty($feedbacks)): ?>
+                        <div style="width:100%; text-align:center; padding: 20px; color:#aaa;">No feedback available yet.
+                        </div>
                     <?php else: ?>
-                            <?php foreach ($feedbacks as $fb):
-                                $fbPath = 'assets/uploads/' . $fb['image_path'];
-                                $fbImg = (file_exists(ROOT_PATH . $fbPath)) ? BASE_URL . $fbPath : '';
+                        <?php foreach ($feedbacks as $fb):
+                            $fbPath = 'assets/uploads/' . $fb['image_path'];
+                            $fbImg = (file_exists(ROOT_PATH . $fbPath)) ? BASE_URL . $fbPath : '';
 
-                                if ($fbImg):
-                                    ?>
-                                        <div style="
+                            if ($fbImg):
+                                ?>
+                                <div style="
                                 flex: 0 0 85%; /* Slightly wider card */
                                 scroll-snap-align: center;
                                 border-radius: 15px;
@@ -163,9 +169,9 @@ require_once 'views/layouts/customer_header.php';
                                 box-shadow: 0 5px 15px rgba(0,0,0,0.1);
                         border: 1px solid #f0f0f0;
                     ">
-                                        <img src="<?= $fbImg ?>" alt="Feedback" style="width: 100%; display: block;">
-                                        </div>
-                                <?php endif; endforeach; ?>
+                                    <img src="<?= $fbImg ?>" alt="Feedback" style="width: 100%; display: block;">
+                                </div>
+                            <?php endif; endforeach; ?>
                     <?php endif; ?>
                 </div>
             </div>
@@ -184,9 +190,9 @@ require_once 'views/layouts/customer_header.php';
                         if (file_exists(ROOT_PATH . $fbPath)):
                             ?>
                             <div style="border-radius: 10px; overflow: hidden; border: 1px solid #eee;">
-                                    <img src="<?= BASE_URL . $fbPath ?>" style="width: 100%;">
-                                        </div>
-                                <?php endif; endforeach; endif; ?>
+                                <img src="<?= BASE_URL . $fbPath ?>" style="width: 100%;">
+                            </div>
+                        <?php endif; endforeach; endif; ?>
             </div>
         </div>
 
