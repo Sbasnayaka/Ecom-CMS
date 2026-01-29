@@ -307,6 +307,22 @@ class Product extends BaseModel
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+
+    /**
+     * Get All On Sale Products (For Discounts Page)
+     */
+    public function getAllOnSale()
+    {
+        $sql = "SELECT p.*, c.name as category_name, pc.name as parent_category_name
+                FROM products p 
+                LEFT JOIN categories c ON p.category_id = c.id 
+                LEFT JOIN categories pc ON c.parent_id = pc.id
+                WHERE p.sale_price IS NOT NULL AND p.sale_price < p.price AND p.is_active = 1
+                ORDER BY p.created_at DESC";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
     /**
      * Get Single Product by ID
      */
