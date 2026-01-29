@@ -281,63 +281,17 @@ if (!empty($product['size_guide_image']) && file_exists(ROOT_PATH . $sgPath)):
         console.log("Selected:", selectedVariations);
     }
 
-    // --- Add to Cart Logic (Local Storage) ---
-    function addToCartFromProductPage() {
-        // 1. Gather Details
-        const id = <?= $product['id'] ?>;
-        const title = "<?= addslashes($product['title']) ?>";
-        const price = <?= $product['sale_price'] ?: $product['price'] ?>;
-        const old_price = <?= $product['sale_price'] ? $product['price'] : 0 ?>;
+    // --- Order Modal Logic (Task 4.1) ---
 
-        <?php
-        // Get Image URL safely
-        $img = $product['main_image'] ? 'assets/uploads/' . $product['main_image'] : '';
-        if (empty($img) || !file_exists(ROOT_PATH . $img)) {
-            $imgUrl = 'https://via.placeholder.com/150';
-        } else {
-            $imgUrl = BASE_URL . $img;
-        }
-        ?>
-        const img = "<?= $imgUrl ?>";
-
-        // Format Variations String
-        let variantStr = "";
-        if (Object.keys(selectedVariations).length > 0) {
-            for (const [key, val] of Object.entries(selectedVariations)) {
-                variantStr += key + ": " + val + ", ";
-            }
-            variantStr = variantStr.slice(0, -2);
-        }
-
-        // 2. Create Object
-        const item = {
-            id: id,
-            title: title,
-            price: price,
-            old_price: old_price,
-            img: img,
-            variants: variantStr,
-            qty: 1
-        };
-
-        // 3. Save to LocalStorage (Global Helper 'getCart' 'saveCart' exists in Header)
-        let cart = getCart(); // defined in header
-
-        // Check for duplicate (same ID + same variants)
-        const existingIdx = cart.findIndex(i => i.id === id && i.variants === variantStr);
-        if (existingIdx > -1) {
-            cart[existingIdx].qty += 1;
-        } else {
-            cart.push(item);
-        }
-
-        saveCart(cart); // defined in header, updates badge
-
-        // 4. Feedback
-        alert('Product added to cart!');
+    function openOrderModal() {
+        // Check if all variations are selected (Optional safety check, or let them order anyway)
+        // For now, allow opening.
+        document.getElementById('orderModal').style.display = 'flex';
     }
-    document.getElementById('orderModal').style.display = 'none';
-}
+
+    function closeOrderModal() {
+        document.getElementById('orderModal').style.display = 'none';
+    }
 
     function submitOrderToWhatsApp() {
         // 1. Get Form Values
@@ -362,8 +316,7 @@ if (!empty($product['size_guide_image']) && file_exists(ROOT_PATH . $sgPath)):
         // Product Details
         msg += "*Product Details:*\n";
         msg += "Name: <?= addslashes($product['title']) ?>\n";
-        msg += "Price:
-        <?= $product['sale_price'] ? 'LKR ' . number_format($product['sale_price']) : 'LKR ' . number_format($product['price']) ?>\n";
+        msg += "Price: <?= $product['sale_price'] ? 'LKR ' . number_format($product['sale_price']) : 'LKR ' . number_format($product['price']) ?>\n";
         msg += "Link: " + window.location.href + "\n";
 
         // Add Selected Variations
@@ -372,10 +325,10 @@ if (!empty($product['size_guide_image']) && file_exists(ROOT_PATH . $sgPath)):
             for (const [key, val] of Object.entries(selectedVariations)) {
                 // We stored ID or Value? The logic above passed ID in PHP loop: selectVariation(this, 'Color', '12').
                 // Wait, the PHP loop passed ID? Let's check PHP above.
-                // PHP: selectVariation(this, '$varName', '$val['id']')
+                // PHP: selectVariation(this, '$varName', '$val['id']') 
                 // Ah, we need the TEXT value for the message, not the ID.
                 // Re-checking PHP loop: $val['value'] is the text.
-                // I will adjust selectVariation to take the text value instead of ID for the message construction,
+                // I will adjust selectVariation to take the text value instead of ID for the message construction, 
                 // OR getting the text content from the element.
                 msg += key + ": " + val + ", ";
             }
