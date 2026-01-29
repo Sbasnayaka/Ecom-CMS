@@ -349,16 +349,15 @@
                 <i class="fas fa-search" id="desktopSearchIcon"
                     style="position: absolute; right: 15px; top: 12px; color: #aaa; cursor: pointer;"></i>
                 <script>
-                    <script>
-                        document.addEventListener('DOMContentLoaded', function() {
+                    document.addEventListener('DOMContentLoaded', function () {
                         const searchInput = document.getElementById('desktopSearchInput');
                         const searchIcon = document.getElementById('desktopSearchIcon');
 
                         function performSearch() {
                             const query = searchInput.value;
-                        if (query.trim() !== '') {
-                            // Redirect to Shop Controller which handles customer items
-                            window.location.href = '<?= BASE_URL ?>shop/index?search=' + encodeURIComponent(query);
+                            if (query.trim() !== '') {
+                                // Redirect to Shop Controller which handles customer items
+                                window.location.href = '<?= BASE_URL ?>shop/index?search=' + encodeURIComponent(query);
                             }
                         }
 
@@ -378,49 +377,27 @@
                         updateCartBadge();
                     });
 
-                        // --- Global Cart Logic (LocalStorage) ---
-                        // Used by Product Page, Listing, and Cart Page
+                    // --- Global Cart Logic (LocalStorage) ---
+                    // Used by Product Page, Listing, and Cart Page
 
-                        function getCart() {
+                    function getCart() {
                         const cart = localStorage.getItem('shopCart');
                         return cart ? JSON.parse(cart) : [];
                     }
 
-                        function saveCart(cart) {
-                            localStorage.setItem('shopCart', JSON.stringify(cart));
+                    function saveCart(cart) {
+                        localStorage.setItem('shopCart', JSON.stringify(cart));
                         updateCartBadge();
                     }
 
-                        function addToCart(maxLengthLine) {
-                            // Product Card calls: addToCart(id)
-                            // Product Page calls: addToCart(id)
-                            // We need product details. 
-                            // Since we don't have them passed in the function, we might need to fetch them or 
-                            // expect the function to be called differently. 
-                            // For cards, we only have ID. 
-                            // Simple solution: Store ID and "Product + ID" placeholder, or fetch via AJAX?
-                            // AJAX is "Backend Logic". 
-                            // Alternative: The PHP generating the button knows the details. 
-                            // Let's change the PHP component to pass data to addToCart? 
-                            // "Standard Pattern" -> Buttons usually have data attributes.
-                            // I will update this strictly for the "Order Now via WhatsApp" flow on Cart Page.
-                            // Wait, user says "When Order Now ... on Cart Page is pressed".
-                            // BUT, to populate the cart page, I need items.
-                            // I will add a simple "Mock" alert for now if data is missing, 
-                            // OR, since valid "Product Details" are required for the message...
-                            // I will create a `addToCartWithDetails(productObj)` function
-                            // and update the buttons in `product.php` and `product_card.php` locally to use it? 
-                            // Or just fetch from a global variable if on product page.
-
-                            // For safely, let's just make the basics work:
-                            alert("Added to Cart (Feature in Progress)");
-                        // NOTE: Real implementation requires updating views to pass product objects.
-                        // I will focus on the UI and "Order Now" logic of the *CART PAGE* assuming items exist, 
-                        // but to TEST it I need items.
-                        // I'll manually seed localStorage for testing if needed.
+                    function addToCart(id) {
+                        // Placeholder for other pages.
+                        // Real logic is in product.php for detailed add.
+                        alert("Please visit the product page to add to cart with options.");
+                        // Or implement a simple fetch if needed for cards.
                     }
 
-                        function updateCartBadge() {
+                    function updateCartBadge() {
                         const cart = getCart();
                         const count = cart.reduce((acc, item) => acc + (item.qty || 1), 0);
                         // Update Badges (Desktop & Mobile if exists)
@@ -430,7 +407,6 @@
                             b.style.display = count > 0 ? 'inline-block' : 'none'; // Or keep visible
                         });
                     }
-                </script>
                 </script>
             </div>
 
