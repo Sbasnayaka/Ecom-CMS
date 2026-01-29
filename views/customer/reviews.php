@@ -15,7 +15,8 @@ require_once 'views/layouts/customer_header.php';
         <div class="reviews-page-mobile d-lg-none">
 
             <!-- 1. Header Area with Back Button & Logo -->
-            <div style="position: relative; margin-bottom: 20px; text-align: center; padding-top: 10px;">
+            <div
+                style="position: relative; margin-bottom: 20px; text-align: center; align-items: center; padding-top: 10px;">
                 <!-- Back Button -->
                 <a href="javascript:history.back()" style="
                     position: absolute; 
