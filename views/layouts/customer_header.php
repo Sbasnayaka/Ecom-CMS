@@ -375,7 +375,7 @@
                         }
 
                         // Initialize Cart Badge
-                        updateCartBadge();
+                        // updateCartBadge(); // Disabled: Using PHP Session Count now
                     });
 
                         // --- Global Cart Logic (LocalStorage) ---
@@ -438,8 +438,13 @@
                 <button class="cat-btn"><i class="fas fa-bars"></i> Categories</button>
                 <div style="position: relative; cursor: pointer;">
                     <i class="fas fa-shopping-cart" style="font-size: 20px;"></i>
-                    <span
-                        style="position: absolute; top: -5px; right: -10px; background: red; color: white; border-radius: 50%; padding: 2px 5px; font-size: 10px;">3</span>
+                    <?php
+                    $cartCount = isset($_SESSION['cart']) ? array_sum(array_column($_SESSION['cart'], 'qty')) : 0;
+                    ?>
+                    <span class="cart-badge-count"
+                        style="position: absolute; top: -5px; right: -10px; background: red; color: white; border-radius: 50%; padding: 2px 5px; font-size: 10px; display: <?= $cartCount > 0 ? 'inline-block' : 'none' ?>;">
+                        <?= $cartCount ?>
+                    </span>
                     <span style="font-size: 14px; margin-left: 5px;">Cart</span>
                 </div>
                 <button class="btn-red">Sale Items</button>

@@ -338,9 +338,15 @@ if (!empty($product['size_guide_image']) && file_exists(ROOT_PATH . $sgPath)):
         let msg = "*NEW ORDER REQUEST* 🛍️\n\n";
 
         // Product Details
+        const qty = parseInt(document.getElementById('qtyInput').value) || 1;
+        const unitPrice = <?= $product['sale_price'] ?: $product['price'] ?>;
+        const total = unitPrice * qty;
+
         msg += "*Product Details:*\n";
         msg += "Name: <?= addslashes($product['title']) ?>\n";
-        msg += "Price: <?= $product['sale_price'] ? 'LKR ' . number_format($product['sale_price']) : 'LKR ' . number_format($product['price']) ?>\n";
+        msg += "Price: LKR " + unitPrice.toLocaleString('en-US') + "\n";
+        msg += "Quantity: " + qty + "\n";
+        msg += "Total: LKR " + total.toLocaleString('en-US') + "\n";
         msg += "Link: " + window.location.href + "\n";
 
         // Add Selected Variations

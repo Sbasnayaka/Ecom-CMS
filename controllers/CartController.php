@@ -36,9 +36,13 @@ class CartController extends BaseController
 
         // Check for existing item (Same ID + Same Variations)
         $found = false;
+        $qtyToAdd = isset($input['quantity']) ? (int) $input['quantity'] : 1;
+        if ($qtyToAdd < 1)
+            $qtyToAdd = 1;
+
         foreach ($_SESSION['cart'] as &$item) {
             if ($item['id'] == $input['id'] && $item['variants'] == $input['variants']) {
-                $item['qty'] += 1;
+                $item['qty'] += $qtyToAdd;
                 $found = true;
                 break;
             }
@@ -52,7 +56,7 @@ class CartController extends BaseController
                 'price' => $input['price'],
                 'img' => $input['img'], // URL passed from frontend (simpler for now)
                 'variants' => $input['variants'],
-                'qty' => 1
+                'qty' => $qtyToAdd
             ];
         }
 
