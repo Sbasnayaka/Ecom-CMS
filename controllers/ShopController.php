@@ -205,5 +205,22 @@ class ShopController extends BaseController
             'settings' => $settings
         ]);
     }
+
+    // List "Featured" Products (Task 6.1.3)
+    public function featured()
+    {
+        // 1. Fetch Featured Products (Limit 20)
+        $products = $this->productModel->getFeatured(20);
+
+        // 2. Fetch Settings
+        $settings = $this->settingModel->getAllPairs();
+
+        // 3. Render View
+        $this->view('customer/shop/list', [
+            'title' => 'Featured Products',
+            'products' => $products,
+            'settings' => $settings
+        ]);
+    }
 }
 ?>
