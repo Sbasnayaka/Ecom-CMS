@@ -188,56 +188,5 @@ class ShopController extends BaseController
             'settings' => $settings
         ]);
     }
-
-    // List All Sale Products (Task 6.1.2)
-    public function sales()
-    {
-        // 1. Fetch All Sale Products
-        $products = $this->productModel->getAllOnSale();
-
-        // 2. Fetch Settings
-        $settings = $this->settingModel->getAllPairs();
-
-        // 3. Render View (Reusable List View)
-        $this->view('customer/shop/list', [
-            'title' => 'Sale! Sale! (Discounts)',
-            'products' => $products,
-            'settings' => $settings
-        ]);
-    }
-
-    // List "Featured" Products (Task 6.1.3)
-    public function featured()
-    {
-        // 1. Fetch Featured Products (Limit 20)
-        $products = $this->productModel->getFeatured(20);
-
-        // 2. Fetch Settings
-        $settings = $this->settingModel->getAllPairs();
-
-        // 3. Render View
-        $this->view('customer/shop/list', [
-            'title' => 'Featured Products',
-            'products' => $products,
-            'settings' => $settings
-        ]);
-    }
-
-    // List "New Arrivals" Products (Task 6.1.4)
-    public function new_arrivals()
-    {
-        // 1. Fetch Latest Products (Limit 20)
-        $products = $this->productModel->getLatest(20);
-
-        // 2. Fetch Settings
-        $settings = $this->settingModel->getAllPairs();
-
-        // 3. Render View
-        $this->view('customer/shop/list', [
-            'title' => 'Newly Released Products',
-            'products' => $products,
-            'settings' => $settings
-        ]);
-    }
 }
 ?>
