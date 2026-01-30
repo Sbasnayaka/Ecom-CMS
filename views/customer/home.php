@@ -53,39 +53,90 @@
             <?php endforeach; ?>
         </div>
 
-        <!-- Featured Products -->
-        <?php if (!empty($featuredProducts)): ?>
+        <!-- --- MOBILE SECTIONS (Vertical Scroll) --- -->
+        <div class="d-lg-none">
+            <!-- Featured Products -->
+            <?php if (!empty($featuredProducts)): ?>
+                <div class="section-header">
+                    <h2 class="section-title">Featured Products <span class="tag special">SPECIAL</span></h2>
+                </div>
+                <div class="products-scroll">
+                    <?php foreach ($featuredProducts as $prod): ?>
+                        <?php include 'views/customer/partials/product_card.php'; ?>
+                    <?php endforeach; ?>
+                </div>
+            <?php endif; ?>
+
+            <!-- Latest Products -->
             <div class="section-header">
-                <h2 class="section-title">Featured Products <span class="tag special">SPECIAL</span></h2>
+                <h2 class="section-title">Latest Products <span class="tag new">NEW</span></h2>
             </div>
             <div class="products-scroll">
-                <?php foreach ($featuredProducts as $prod): ?>
+                <?php foreach ($latestProducts as $prod): ?>
                     <?php include 'views/customer/partials/product_card.php'; ?>
                 <?php endforeach; ?>
             </div>
-        <?php endif; ?>
 
-        <!-- Latest Products -->
-        <div class="section-header">
-            <h2 class="section-title">Latest Products <span class="tag new">NEW</span></h2>
-        </div>
-        <div class="products-scroll">
-            <?php foreach ($latestProducts as $prod): ?>
-                <?php include 'views/customer/partials/product_card.php'; ?>
-            <?php endforeach; ?>
+            <!-- Sale Products -->
+            <?php if (!empty($saleProducts)): ?>
+                <div class="section-header">
+                    <h2 class="section-title">Sale Products <span class="tag sale">Sale..!</span></h2>
+                </div>
+                <div class="products-scroll">
+                    <?php foreach ($saleProducts as $prod): ?>
+                        <?php include 'views/customer/partials/product_card.php'; ?>
+                    <?php endforeach; ?>
+                </div>
+            <?php endif; ?>
         </div>
 
-        <!-- Sale Products -->
-        <?php if (!empty($saleProducts)): ?>
-            <div class="section-header">
-                <h2 class="section-title">Sale Products <span class="tag sale">Sale..!</span></h2>
+        <!-- --- DESKTOP TABS (Horizontal Grid) --- -->
+        <div class="d-none d-lg-block desktop-tabs-container" style="margin-top: 40px;">
+
+            <!-- Tab Navigation -->
+            <div class="tabs-nav" style="display: flex; gap: 20px; border-bottom: 2px solid #eee; margin-bottom: 30px;">
+                <button class="tab-btn active" onclick="switchTab('tab-new')"
+                    style="padding: 10px 20px; background: none; border: none; font-size: 18px; font-weight: 700; cursor: pointer; border-bottom: 3px solid transparent;">
+                    Newly Released products
+                </button>
+                <button class="tab-btn" onclick="switchTab('tab-featured')"
+                    style="padding: 10px 20px; background: none; border: none; font-size: 18px; font-weight: 700; cursor: pointer; border-bottom: 3px solid transparent; color: #aaa;">
+                    Featured Products
+                </button>
+                <button class="tab-btn" onclick="switchTab('tab-sale')"
+                    style="padding: 10px 20px; background: none; border: none; font-size: 18px; font-weight: 700; cursor: pointer; border-bottom: 3px solid transparent; color: #aaa;">
+                    Sale! Sale! (Discounts)
+                </button>
             </div>
-            <div class="products-scroll">
-                <?php foreach ($saleProducts as $prod): ?>
-                    <?php include 'views/customer/partials/product_card.php'; ?>
-                <?php endforeach; ?>
+
+            <!-- Tab Content: New Arrivals -->
+            <div id="tab-new" class="tab-content" style="display: block;">
+                <div class="product-grid" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px;">
+                    <?php foreach ($latestProducts as $prod): ?>
+                        <?php include 'views/customer/partials/product_card.php'; ?>
+                    <?php endforeach; ?>
+                </div>
             </div>
-        <?php endif; ?>
+
+            <!-- Tab Content: Featured -->
+            <div id="tab-featured" class="tab-content" style="display: none;">
+                <div class="product-grid" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px;">
+                    <?php foreach ($featuredProducts as $prod): ?>
+                        <?php include 'views/customer/partials/product_card.php'; ?>
+                    <?php endforeach; ?>
+                </div>
+            </div>
+
+            <!-- Tab Content: Sale -->
+            <div id="tab-sale" class="tab-content" style="display: none;">
+                <div class="product-grid" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px;">
+                    <?php foreach ($saleProducts as $prod): ?>
+                        <?php include 'views/customer/partials/product_card.php'; ?>
+                    <?php endforeach; ?>
+                </div>
+            </div>
+
+        </div>
 
     </main>
 
