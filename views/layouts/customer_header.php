@@ -455,7 +455,9 @@
             </div>
 
             <div class="header-actions">
-                <button class="cat-btn"><i class="fas fa-bars"></i> Categories</button>
+                <a href="<?= BASE_URL ?>shop/categories" class="cat-btn"
+                    style="text-decoration: none; display: inline-flex; align-items: center; justify-content: center;"><i
+                        class="fas fa-bars" style="margin-right: 8px;"></i> Categories</a>
                 <div style="position: relative; cursor: pointer;">
                     <i class="fas fa-shopping-cart" style="font-size: 20px;"></i>
                     <?php
@@ -474,9 +476,9 @@
         <!-- Secondary Nav Links -->
         <div class="desktop-nav-links">
             <a href="<?= BASE_URL ?>">Home Page</a>
-            <a href="<?= BASE_URL ?>latest">Newly Released Products</a>
-            <a href="<?= BASE_URL ?>featured">Featured Products</a>
-            <a href="<?= BASE_URL ?>sale">Sale! Sale! (Discounts)</a>
+            <a href="<?= BASE_URL ?>shop/new_arrivals">Newly Released Products</a>
+            <a href="<?= BASE_URL ?>shop/featured">Featured Products</a>
+            <a href="<?= BASE_URL ?>shop/sales">Sale! Sale! (Discounts)</a>
         </div>
     </header>
 
