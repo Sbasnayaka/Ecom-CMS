@@ -55,7 +55,8 @@ require_once 'views/layouts/customer_header.php';
                         <!-- Title Block -->
                         <div>
                             <h1 style="font-size: 20px; font-weight: 800; line-height: 1.1; margin: 0; color: #000;">
-                                <?= htmlspecialchars($currentCategory['name']) ?></h1>
+                                <?= htmlspecialchars($currentCategory['name']) ?>
+                            </h1>
                             <p style="font-size: 11px; color: #666; margin: 0;">
                                 <?= !empty($currentCategory['parent_name']) ? htmlspecialchars($currentCategory['parent_name']) . " Collection" : "Product Category" ?>
                             </p>
@@ -103,6 +104,15 @@ require_once 'views/layouts/customer_header.php';
                 <h2 class="section-title"><?= htmlspecialchars($currentCategory['name']) ?> Collection</h2>
             </div>
 
+        <?php elseif (!empty($isSpecialPage)): ?>
+            <!-- Special Pages (Sales, Featured, Recent) -->
+            <div class="section-header">
+                <!-- Use $title passed from Controller (Discounts!, Featured Products, Recent Items) -->
+                <h2 class="section-title" style="<?= ($title === 'Discounts!') ? 'color: red;' : '' ?>">
+                    <?= htmlspecialchars($title) ?>
+                </h2>
+            </div>
+
         <?php elseif (!empty($search_query)): ?>
             <!-- Search Results Header -->
             <div class="section-header">
@@ -111,7 +121,7 @@ require_once 'views/layouts/customer_header.php';
         <?php else: ?>
             <!-- Default Shop Header (If visited directly without cat) -->
             <div class="section-header">
-                <h2 class="section-title">All Products</h2>
+                <h2 class="section-title"><?= htmlspecialchars($title ?? 'All Products') ?></h2>
             </div>
         <?php endif; ?>
 

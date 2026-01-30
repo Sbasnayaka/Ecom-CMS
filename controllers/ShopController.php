@@ -142,6 +142,64 @@ class ShopController extends BaseController
             include 'views/customer/partials/product_card.php';
         }
     }
+        foreach ($products as $prod) {
+            include 'views/customer/partials/product_card.php';
+        }
+    }
+
+    // --- New Desktop Pages (Task 6.3 Reuse Strategy) ---
+
+    // 1. Sales Page (UI: "Discounts!")
+    public function sales()
+    {
+        // Fetch On Sale Items using existing Model logic
+        $products = $this->productModel->getAllOnSale();
+        $categories = $this->categoryModel->getAll();
+        $settings = $this->settingModel->getAllPairs();
+
+        $this->view('customer/shop/index', [
+            'title' => 'Discounts!', /* EXACT UI MATCH */
+            'products' => $products,
+            'categories' => $categories,
+            'settings' => $settings,
+            'isSpecialPage' => true // Flag to trigger custom header in view
+        ]);
+    }
+
+    // 2. Featured Page (UI: "Featured Products")
+    public function featured()
+    {
+        // Fetch Featured
+        $products = $this->productModel->getFeatured(20); // Limit 20 for now
+        $categories = $this->categoryModel->getAll();
+        $settings = $this->settingModel->getAllPairs();
+
+        $this->view('customer/shop/index', [
+            'title' => 'Featured Products', /* EXACT UI MATCH */
+            'products' => $products,
+            'categories' => $categories,
+            'settings' => $settings,
+            'isSpecialPage' => true
+        ]);
+    }
+
+    // 3. New Arrivals (UI: "Recent Items")
+    public function new_arrivals()
+    {
+        // Fetch Latest
+        $products = $this->productModel->getLatest(20);
+        $categories = $this->categoryModel->getAll();
+        $settings = $this->settingModel->getAllPairs();
+
+        $this->view('customer/shop/index', [
+            'title' => 'Recent Items', /* EXACT UI MATCH */
+            'products' => $products,
+            'categories' => $categories,
+            'settings' => $settings,
+            'isSpecialPage' => true
+        ]);
+    }
+
     // List All Categories Page (Task 2.1)
     public function categories()
     {
