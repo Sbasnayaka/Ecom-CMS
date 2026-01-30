@@ -53,8 +53,8 @@
             <?php endforeach; ?>
         </div>
 
-        <!-- --- MOBILE SECTIONS (Vertical Scroll) --- -->
-        <div class="d-lg-none">
+        <!-- Mobile Layout: Vertical Scroll (Hidden on Desktop) -->
+        <div class="display-mobile-only d-lg-none">
             <!-- Featured Products -->
             <?php if (!empty($featuredProducts)): ?>
                 <div class="section-header">
@@ -90,50 +90,52 @@
             <?php endif; ?>
         </div>
 
-        <!-- --- DESKTOP TABS (Horizontal Grid) --- -->
-        <div class="d-none d-lg-block desktop-tabs-container" style="margin-top: 40px;">
+        <!-- Desktop Layout: Tabs (Visible only on Desktop) -->
+        <div class="display-desktop-only d-none d-lg-block desktop-tabs-container" style="margin-top: 30px;">
 
             <!-- Tab Navigation -->
-            <div class="tabs-nav" style="display: flex; gap: 20px; border-bottom: 2px solid #eee; margin-bottom: 30px;">
-                <button class="tab-btn active" onclick="switchTab('tab-new')"
-                    style="padding: 10px 20px; background: none; border: none; font-size: 18px; font-weight: 700; cursor: pointer; border-bottom: 3px solid transparent;">
-                    Newly Released products
-                </button>
-                <button class="tab-btn" onclick="switchTab('tab-featured')"
-                    style="padding: 10px 20px; background: none; border: none; font-size: 18px; font-weight: 700; cursor: pointer; border-bottom: 3px solid transparent; color: #aaa;">
-                    Featured Products
-                </button>
-                <button class="tab-btn" onclick="switchTab('tab-sale')"
-                    style="padding: 10px 20px; background: none; border: none; font-size: 18px; font-weight: 700; cursor: pointer; border-bottom: 3px solid transparent; color: #aaa;">
-                    Sale! Sale! (Discounts)
-                </button>
+            <div class="desktop-tabs-nav"
+                style="display: flex; gap: 20px; border-bottom: 2px solid #eee; margin-bottom: 20px;">
+                <button class="tab-btn active" onclick="switchDesktopTab(event, 'tab-new')"
+                    style="padding: 10px 20px; border: none; background: none; font-size: 16px; font-weight: 700; cursor: pointer; border-bottom: 3px solid transparent;">Newly
+                    Released</button>
+                <button class="tab-btn" onclick="switchDesktopTab(event, 'tab-featured')"
+                    style="padding: 10px 20px; border: none; background: none; font-size: 16px; font-weight: 700; cursor: pointer; border-bottom: 3px solid transparent;">Featured</button>
+                <button class="tab-btn" onclick="switchDesktopTab(event, 'tab-sale')"
+                    style="padding: 10px 20px; border: none; background: none; font-size: 16px; font-weight: 700; cursor: pointer; border-bottom: 3px solid transparent;">Sale
+                    / Discounts</button>
             </div>
 
             <!-- Tab Content: New Arrivals -->
-            <div id="tab-new" class="tab-content" style="display: block;">
-                <div class="product-grid" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px;">
-                    <?php foreach ($latestProducts as $prod): ?>
-                        <?php include 'views/customer/partials/product_card.php'; ?>
-                    <?php endforeach; ?>
-                </div>
+            <div id="tab-new" class="tab-content active"
+                style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 20px;">
+                <?php foreach ($latestProducts as $prod): ?>
+                    <?php include 'views/customer/partials/product_card.php'; ?>
+                <?php endforeach; ?>
             </div>
 
             <!-- Tab Content: Featured -->
-            <div id="tab-featured" class="tab-content" style="display: none;">
-                <div class="product-grid" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px;">
+            <div id="tab-featured" class="tab-content"
+                style="display: none; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 20px;">
+                <?php if (!empty($featuredProducts)): ?>
                     <?php foreach ($featuredProducts as $prod): ?>
                         <?php include 'views/customer/partials/product_card.php'; ?>
                     <?php endforeach; ?>
-                </div>
+                <?php else: ?>
+                    <p>No featured products found.</p>
+                <?php endif; ?>
             </div>
 
             <!-- Tab Content: Sale -->
-            <div id="tab-sale" class="tab-content" style="display: none;">
-                <div class="product-grid" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px;">
+            <div id="tab-sale" class="tab-content"
+                style="display: none; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 20px;">
+                <?php if (!empty($saleProducts)): ?>
                     <?php foreach ($saleProducts as $prod): ?>
                         <?php include 'views/customer/partials/product_card.php'; ?>
                     <?php endforeach; ?>
-                </div>
+                <?php else: ?>
+                    <p>No sale products found.</p>
+                <?php endif; ?>
             </div>
 
         </div>
