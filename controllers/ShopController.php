@@ -242,5 +242,28 @@ class ShopController extends BaseController
             'settings' => $settings
         ]);
     }
+    // --- Desktop Home Tabs AJAX Handler (Task 6.3) ---
+    public function tab_content()
+    {
+        $type = $_GET['type'] ?? 'new';
+        $products = [];
+
+        if ($type === 'new') {
+            $products = $this->productModel->getLatest(12); // Grid of 12
+        } elseif ($type === 'featured') {
+            $products = $this->productModel->getFeatured(12);
+        } elseif ($type === 'sale') {
+            $products = $this->productModel->getOnSale(12); // Use getOnSale (limit 12) not All
+        }
+
+        if (empty($products)) {
+            echo '<p style="text-align:center; padding:20px; color:#777;">No products found.</p>';
+            return;
+        }
+
+        foreach ($products as $prod) {
+            include 'views/customer/partials/product_card.php';
+        }
+    }
 }
 ?>
