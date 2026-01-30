@@ -474,9 +474,9 @@
         <!-- Secondary Nav Links -->
         <div class="desktop-nav-links">
             <a href="<?= BASE_URL ?>">Home Page</a>
-            <a href="<?= BASE_URL ?>shop/new_arrivals">Newly Released Products</a>
+            <a href="<?= BASE_URL ?>shop/new_arrivals">Recent Items</a>
             <a href="<?= BASE_URL ?>shop/featured">Featured Products</a>
-            <a href="<?= BASE_URL ?>shop/sales">Sale! Sale! (Discounts)</a>
+            <a href="<?= BASE_URL ?>shop/sales">Discounts!</a>
         </div>
     </header>
 
