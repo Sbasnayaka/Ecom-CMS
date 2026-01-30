@@ -142,10 +142,6 @@ class ShopController extends BaseController
             include 'views/customer/partials/product_card.php';
         }
     }
-        foreach ($products as $prod) {
-            include 'views/customer/partials/product_card.php';
-        }
-    }
 
     // --- New Desktop Pages (Task 6.3 Reuse Strategy) ---
 
