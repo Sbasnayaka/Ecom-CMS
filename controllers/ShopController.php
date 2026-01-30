@@ -222,5 +222,22 @@ class ShopController extends BaseController
             'settings' => $settings
         ]);
     }
+
+    // List "New Arrivals" Products (Task 6.1.4)
+    public function new_arrivals()
+    {
+        // 1. Fetch Latest Products (Limit 20)
+        $products = $this->productModel->getLatest(20);
+
+        // 2. Fetch Settings
+        $settings = $this->settingModel->getAllPairs();
+
+        // 3. Render View
+        $this->view('customer/shop/list', [
+            'title' => 'Newly Released Products',
+            'products' => $products,
+            'settings' => $settings
+        ]);
+    }
 }
 ?>
