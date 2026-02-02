@@ -13,6 +13,8 @@ require_once 'views/layouts/customer_header.php';
 
         <!-- Mobile-Only Layout Wrapper -->
         <div class="reviews-page-mobile d-lg-none">
+            <!-- Breadcrumb -->
+            <div style="font-size: 11px; color: #888; margin-bottom: 15px;">Home > Reviews</div>
 
             <!-- 1. Header Area with Back Button & Logo -->
             <div style="position: relative; margin-bottom: 20px; align-items: center; padding-top: 10px;">
