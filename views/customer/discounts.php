@@ -13,6 +13,9 @@ require_once 'views/layouts/customer_header.php';
 
         <!-- Custom Header for Mobile Discount Page -->
         <div class="mobile-header-custom d-lg-none" style="padding: 20px 20px 0 20px; margin-bottom: 30px;">
+            <!-- Breadcrumb -->
+            <div style="font-size: 11px; color: #888; margin-bottom: 15px;">Home > Discount</div>
+            
             <div style="display: flex; align-items: center; justify-content: space-between;">
                 <!-- Left: Title Group -->
                 <div style="display: flex; align-items: center; gap: 15px;">
