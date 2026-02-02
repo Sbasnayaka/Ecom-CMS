@@ -10,30 +10,34 @@ require_once 'views/layouts/customer_header.php';
 
     <main class="main-content" style="padding-bottom: 20px;">
 
-        <!-- --- MOBILE HEADER (Custom) --- -->
-        <div class="d-lg-none"
-            style="display: flex; align-items: center; justify-content: space-between; padding: 20px 20px 10px 20px;">
-            <!-- Breadcrumb -->
+        <!-- --- MOBILE HEADER (Custom - Structurally Matched to Categories) --- -->
+        <div class="mobile-header-custom d-lg-none" style="padding: 20px 20px 0 20px; margin-bottom: 20px;">
+            <!-- Breadcrumb (Row 1) -->
             <div style="font-size: 11px; color: #888; margin-bottom: 15px;">Home > Cart</div>
-            <!-- Back & Title -->
-            <div style="display: flex; align-items: center; gap: 15px;">
-                <a href="javascript:history.back()" style="
-                    width: 35px; height: 35px; background: #000; border-radius: 50%; 
-                    display: flex; align-items: center; justify-content: center; 
-                    text-decoration: none; color: white;">
-                    <i class="fas fa-chevron-left" style="font-size: 14px;"></i>
-                </a>
-                <div>
-                    <h1 style="font-size: 20px; font-weight: 800; margin: 0; line-height: 1;">YOUR CART</h1>
-                    <p style="font-size: 12px; color: #888; margin: 0;">Your Selections are amazing..!</p>
+            <!-- Title Row (Row 2 - Flex) -->
+            <div style="display: flex; align-items: center; justify-content: space-between;">
+                <!-- Left: Back Btn + Title -->
+                <div style="display: flex; align-items: center; gap: 15px;">
+                    <!-- Back Button -->
+                    <a href="javascript:history.back()" style="
+                        width: 35px; height: 35px; background: #000; border-radius: 50%; 
+                        display: flex; align-items: center; justify-content: center; 
+                        text-decoration: none; color: white;">
+                        <i class="fas fa-chevron-left" style="font-size: 14px;"></i>
+                    </a>
+                    <!-- Title Block -->
+                    <div>
+                        <h1 style="font-size: 20px; font-weight: 800; margin: 0; line-height: 1;">YOUR CART</h1>
+                        <p style="font-size: 12px; color: #888; margin: 0;">Your Selections are amazing..!</p>
+                    </div>
                 </div>
+                <!-- Right: Clear All Action (Replaces Search/Avatar) -->
+                <button onclick="clearCart()" style="
+                    background: none; border: none; color: #FF3B30; 
+                    font-weight: 600; font-size: 13px; cursor: pointer;">
+                    Clear All
+                </button>
             </div>
-            <!-- Clear All -->
-            <button onclick="clearCart()" style="
-                background: none; border: none; color: #FF3B30; 
-                font-weight: 600; font-size: 13px; cursor: pointer;">
-                Clear All
-            </button>
         </div>
 
 </div>
@@ -42,9 +46,6 @@ require_once 'views/layouts/customer_header.php';
 <div class="d-none d-lg-flex"
     style="align-items: center; justify-content: space-between; margin-bottom: 30px; border-bottom: 0px solid #eee; padding-bottom: 10px;">
     <h1 style="font-size: 24px; font-weight: 800; color: #000; margin: 0;">My Cart</h1>
-    <button onclick="clearCart()"
-        style="background:none; border:none; text-decoration: underline; color: #FF3B30; font-weight: 600; cursor: pointer;">Clear
-        All</button>
 </div>
 
 <!-- --- CART CONTENT WRAPPER (Grid on Desktop) --- -->
