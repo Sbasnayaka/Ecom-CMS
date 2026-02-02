@@ -13,6 +13,8 @@ require_once 'views/layouts/customer_header.php';
         <!-- --- MOBILE HEADER (Custom) --- -->
         <div class="d-lg-none"
             style="display: flex; align-items: center; justify-content: space-between; padding: 20px 20px 10px 20px;">
+            <!-- Breadcrumb -->
+            <div style="font-size: 11px; color: #888; margin-bottom: 15px;">Home > Cart</div>
             <!-- Back & Title -->
             <div style="display: flex; align-items: center; gap: 15px;">
                 <a href="javascript:history.back()" style="
