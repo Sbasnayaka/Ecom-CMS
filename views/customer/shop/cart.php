@@ -34,65 +34,79 @@ require_once 'views/layouts/customer_header.php';
             </button>
         </div>
 
-        <!-- --- CART ITEMS LIST --- -->
-        <div id="cartItemsContainer" style="padding: 10px 20px; min-height: 300px;">
-            <?php if (empty($cart)): ?>
-                <p style="text-align: center; color: #999; margin-top: 50px;">Your cart is empty.</p>
-            <?php else: ?>
-                <?php
-                $total = 0;
-                foreach ($cart as $index => $item):
-                    $itemTotal = $item['price'] * $item['qty'];
-                    $total += $itemTotal;
-                    ?>
-                    <div class="cart-item" style="
+</div>
+
+<!-- --- DESKTOP HEADER (My Cart) --- -->
+<div class="d-none d-lg-flex"
+    style="align-items: center; justify-content: space-between; margin-bottom: 30px; border-bottom: 0px solid #eee; padding-bottom: 10px;">
+    <h1 style="font-size: 24px; font-weight: 800; color: #000; margin: 0;">My Cart</h1>
+    <button onclick="clearCart()"
+        style="background:none; border:none; text-decoration: underline; color: #FF3B30; font-weight: 600; cursor: pointer;">Clear
+        All</button>
+</div>
+
+<!-- --- CART CONTENT WRAPPER (Grid on Desktop) --- -->
+<div class="cart-desktop-grid">
+
+    <!-- --- CART ITEMS LIST --- -->
+    <div id="cartItemsContainer" style="padding: 10px 20px; min-height: 300px;">
+        <?php if (empty($cart)): ?>
+            <p style="text-align: center; color: #999; margin-top: 50px;">Your cart is empty.</p>
+        <?php else: ?>
+            <?php
+            $total = 0;
+            foreach ($cart as $index => $item):
+                $itemTotal = $item['price'] * $item['qty'];
+                $total += $itemTotal;
+                ?>
+                <div class="cart-item" style="
                     display: flex; align-items: center; gap: 15px; 
                     background: #fff; padding: 15px; border-radius: 20px; 
                     margin-bottom: 15px; box-shadow: 0 2px 10px rgba(0,0,0,0.03);">
 
-                        <!-- Image -->
-                        <img src="<?= htmlspecialchars($item['img']) ?>" style="
+                    <!-- Image -->
+                    <img src="<?= htmlspecialchars($item['img']) ?>" style="
                         width: 70px; height: 70px; border-radius: 12px; object-fit: cover; background: #f0f0f0;">
 
-                        <!-- Info -->
-                        <div style="flex: 1;">
-                            <h4 style="font-size: 14px; font-weight: 700; margin: 0 0 5px 0;">
-                                <?= htmlspecialchars($item['title']) ?>
-                            </h4>
-                            <div style="font-size: 13px; font-weight: 700; color: #E4405F; margin-bottom: 3px;">
-                                LKR <?= number_format($item['price'], 0) ?>
-                            </div>
-                            <div style="font-size: 11px; color: #666; font-weight: 500;">
-                                <?= htmlspecialchars($item['variants']) ?>
-                            </div>
-                            <div style="font-size: 11px; color: #444; font-weight: 600; margin-top: 2px;">
-                                Qty: <?= $item['qty'] ?>
-                            </div>
+                    <!-- Info -->
+                    <div style="flex: 1;">
+                        <h4 style="font-size: 14px; font-weight: 700; margin: 0 0 5px 0;">
+                            <?= htmlspecialchars($item['title']) ?>
+                        </h4>
+                        <div style="font-size: 13px; font-weight: 700; color: #E4405F; margin-bottom: 3px;">
+                            LKR <?= number_format($item['price'], 0) ?>
                         </div>
+                        <div style="font-size: 11px; color: #666; font-weight: 500;">
+                            <?= htmlspecialchars($item['variants']) ?>
+                        </div>
+                        <div style="font-size: 11px; color: #444; font-weight: 600; margin-top: 2px;">
+                            Qty: <?= $item['qty'] ?>
+                        </div>
+                    </div>
 
-                        <!-- Remove (Red X Circle) -->
-                        <button onclick="removeFromCart(<?= $index ?>)"
-                            style="
+                    <!-- Remove (Red X Circle) -->
+                    <button onclick="removeFromCart(<?= $index ?>)"
+                        style="
                         width: 25px; height: 25px; border-radius: 50%; border: 1px solid #FF3B30; 
                         background: none; color: #FF3B30; display: flex; align-items: center; justify-content: center; cursor: pointer;">
-                            <i class="fas fa-times" style="font-size: 12px;"></i>
-                        </button>
-                    </div>
-                <?php endforeach; ?>
-            <?php endif; ?>
-        </div>
-
-        <!-- --- CART TOTAL & ORDER BUTTON --- -->
-        <?php if (!empty($cart)): ?>
-            <div id="cartFooter" style="padding: 20px; border-top: 1px solid #f9f9f9;">
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
-                    <span style="font-size: 16px; font-weight: 700; color: #888;">Cart Total</span>
-                    <span style="font-size: 20px; font-weight: 800; color: #444;" id="cartTotalDisplay">
-                        LKR <?= number_format($total ?? 0, 0) ?>
-                    </span>
+                        <i class="fas fa-times" style="font-size: 12px;"></i>
+                    </button>
                 </div>
+            <?php endforeach; ?>
+        <?php endif; ?>
+    </div>
 
-                <button onclick="openOrderModal()" style="
+    <!-- --- CART TOTAL & ORDER BUTTON --- -->
+    <?php if (!empty($cart)): ?>
+        <div id="cartFooter" style="padding: 20px; border-top: 1px solid #f9f9f9;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                <span style="font-size: 16px; font-weight: 700; color: #888;">Cart Total</span>
+                <span style="font-size: 20px; font-weight: 800; color: #444;" id="cartTotalDisplay">
+                    LKR <?= number_format($total ?? 0, 0) ?>
+                </span>
+            </div>
+
+            <button onclick="openOrderModal()" style="
                 width: 100%; 
                 background: #25d366; /* WhatsApp Green */
                 color: white; 
@@ -107,13 +121,15 @@ require_once 'views/layouts/customer_header.php';
                 gap: 10px;
                 cursor: pointer;
                 box-shadow: 0 4px 10px rgba(37, 211, 102, 0.3);">
-                    <i class="fab fa-whatsapp" style="font-size: 18px;"></i>
-                    Order Now via Whatsapp
-                </button>
-            </div>
-        <?php endif; ?>
+                <i class="fab fa-whatsapp" style="font-size: 18px;"></i>
+                Order Now via Whatsapp
+            </button>
+        </div>
+    <?php endif; ?>
 
-    </main>
+</div> <!-- End .cart-desktop-grid -->
+
+</main>
 </div>
 
 <!-- --- ORDER MODAL (Same as Product Page) --- -->
