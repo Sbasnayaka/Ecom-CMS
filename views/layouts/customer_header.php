@@ -456,7 +456,8 @@
 
             <div class="header-actions">
                 <button class="cat-btn"><i class="fas fa-bars"></i> Categories</button>
-                <div style="position: relative; cursor: pointer;">
+                <a href="<?= BASE_URL ?>cart"
+                    style="text-decoration: none; color: inherit; display: flex; align-items: center; position: relative;">
                     <i class="fas fa-shopping-cart" style="font-size: 20px;"></i>
                     <?php
                     $cartCount = isset($_SESSION['cart']) ? array_sum(array_column($_SESSION['cart'], 'qty')) : 0;
@@ -466,7 +467,7 @@
                         <?= $cartCount ?>
                     </span>
                     <span style="font-size: 14px; margin-left: 5px;">Cart</span>
-                </div>
+                </a>
                 <button class="btn-red">Sale Items</button>
             </div>
         </div>
