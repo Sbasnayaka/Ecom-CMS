@@ -227,7 +227,13 @@ if (!empty($product['size_guide_image']) && file_exists(ROOT_PATH . $sgPath)):
     function closeImageModal() {
         document.getElementById('imgModal').style.display = 'none';
     }
-
+// Size Guide Modal Logic (Fix Task 2)
+    function openSizeGuide() {
+        document.getElementById('sgModal').style.display = 'flex';
+    }
+    function closeSizeGuide() {
+        document.getElementById('sgModal').style.display = 'none';
+    }
     // Carousel Pagination Logic (Requirement 3)
     document.addEventListener('DOMContentLoaded', () => {
         const slider = document.querySelector('.gallery-slider');
