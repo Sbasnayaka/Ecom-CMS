@@ -32,9 +32,9 @@ class HomeController extends BaseController
         // Filter for valid images if needed, or just take first 8
 
         // 3. Fetch Products
-        $featuredProducts = $this->productModel->getFeatured(4);
-        $latestProducts = $this->productModel->getLatest(8); // Infinite scroll placeholder
-        $saleProducts = $this->productModel->getOnSale(4);
+        $featuredProducts = $this->productModel->getAllOnFeatured();
+        $latestProducts = $this->productModel->getAllOnLatest();
+        $saleProducts = $this->productModel->getAllOnSale();
 
         $this->view('customer/home', [
             'title' => $settings['shop_name'] ?? 'Home',
