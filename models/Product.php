@@ -324,6 +324,21 @@ class Product extends BaseModel
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
     /**
+     * Get All Featured Products (No Limit)
+     */
+    public function getAllFeatured()
+    {
+        $sql = "SELECT p.*, c.name as category_name, pc.name as parent_category_name
+                FROM products p 
+                LEFT JOIN categories c ON p.category_id = c.id 
+                LEFT JOIN categories pc ON c.parent_id = pc.id
+                WHERE p.is_featured = 1 AND p.is_active = 1
+                ORDER BY p.created_at DESC";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+    /**
      * Get Single Product by ID
      */
     public function getById($id)
