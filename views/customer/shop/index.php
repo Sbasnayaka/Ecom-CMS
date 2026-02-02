@@ -105,11 +105,12 @@ require_once 'views/layouts/customer_header.php';
             </div>
 
         <?php elseif (!empty($isSpecialPage)): ?>
-            <!-- Fix Task 3: Mobile Breadcrumb (Placed OUTSIDE flex header) -->
-            <div class="d-lg-none" style="padding: 0 20px; font-size: 11px; color: #888; margin-top: 20px; margin-bottom: -20px;">
+            <!-- Fix Task 3: Mobile Breadcrumb Added -->
+            <div class="d-lg-none" style="padding: 20px 20px 0 20px; font-size: 11px; color: #888; margin-bottom: 10px;">
                 Home > <?= htmlspecialchars($title) ?>
             </div>
-                <!-- Use $title passed from Controller (Discounts!, Featured Products, Recent Items) -->
+            <!-- Use $title passed from Controller (Discounts!, Featured Products, Recent Items) -->
+            <div class="section-header" style="margin-top: 0;">
                 <h2 class="section-title" style="<?= ($title === 'Discounts!') ? 'color: red;' : '' ?>">
                     <?= htmlspecialchars($title) ?>
                 </h2>
