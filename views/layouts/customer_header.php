@@ -467,7 +467,7 @@
                     </span>
                     <span style="font-size: 14px; margin-left: 5px;">Cart</span>
                 </a>
-                <button class="btn-red">Sale Items</button>
+                <a href="<?= BASE_URL ?>shop/sales" class="btn-red" style="text-decoration:none;">Sale Items</a>
             </div>
         </div>
 
