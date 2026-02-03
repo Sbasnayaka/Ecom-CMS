@@ -1377,3 +1377,9 @@ p {
     margin-top: 10px;
     background: white;
 }
+/* --- Desktop Responsive Utilities --- */
+@media (min-width: 1024px) {
+    .d-lg-none {
+        display: none !important;
+    }
+}
