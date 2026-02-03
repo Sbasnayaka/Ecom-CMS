@@ -467,7 +467,7 @@ class Product extends BaseModel
             }
 
             if (!empty($inQuery)) {
-                $sql .= " AND p.category_id IN ($inQuery)";
+                $sql .= " AND (p.category_id IN ($inQuery) OR c.parent_id IN ($inQuery))";
             }
         }
 
