@@ -1382,4 +1382,15 @@ p {
     .d-lg-none {
         display: none !important;
     }
+
+    .display-desktop-only {
+        display: block !important;
+    }
+    
+    .d-lg-flex {
+        display: flex !important;
+    }
+    .d-lg-block {
+        display: block !important;
+    }
 }
