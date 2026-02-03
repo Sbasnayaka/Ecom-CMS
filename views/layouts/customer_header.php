@@ -454,7 +454,7 @@
             </div>
 
             <div class="header-actions">
-                <button class="cat-btn"><i class="fas fa-bars"></i> Categories</button>
+                <a href="<?= BASE_URL ?>shop/categories" class="cat-btn" style="text-decoration:none;"><i class="fas fa-bars"></i> Categories</a>
                 <a href="<?= BASE_URL ?>cart"
                     style="text-decoration: none; color: inherit; display: flex; align-items: center; position: relative;">
                     <i class="fas fa-shopping-cart" style="font-size: 20px;"></i>
