@@ -349,7 +349,6 @@
                 <i class="fas fa-search" id="desktopSearchIcon"
                     style="position: absolute; right: 15px; top: 12px; color: #aaa; cursor: pointer;"></i>
                 <script>
-                    <script>
                         document.addEventListener('DOMContentLoaded', function() {
                         const searchInput = document.getElementById('desktopSearchInput');
                         const searchIcon = document.getElementById('desktopSearchIcon');
