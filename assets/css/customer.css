@@ -1532,6 +1532,23 @@ p {
         border-radius: 12px !important;
         box-shadow: 0 5px 15px rgba(37, 211, 102, 0.4) !important;
     }
+/* --- FIX: Responsive Utilities --- */
+    /* Ensure elements meant to be hidden on desktop ARE hidden */
+    .d-lg-none {
+        display: none !important;
+    }
+    /* Ensure elements meant to be visible on desktop ARE visible */
+    .d-lg-flex {
+        display: flex !important;
+    }
+    
+    .d-lg-block {
+        display: block !important;
+    }
+    /* Additional safety for d-none if used */
+    .d-none {
+        display: none !important;
+    }
 
 }
 /* --- FIX: Force Cart Page Top Alignment --- */
@@ -1543,3 +1560,5 @@ p {
         justify-content: flex-start !important;
         margin-top: 0 !important;
     }
+
+    
