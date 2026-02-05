@@ -1458,46 +1458,72 @@ p {
         overflow: visible !important;
     }
 
+}
+/* --- FINAL DESKTOP OVERRIDES (Unified Block) --- */
+@media (min-width: 1024px) {
+    /* 1. VISIBILITY UTILITIES (Critical for hiding Mobile Header) */
+    .d-lg-none { display: none !important; }
+    .d-lg-flex { display: flex !important; }
+    .d-lg-block { display: block !important; }
+    /* 2. LAYOUT RESET (Fixes the Huge White Space) */
+    .container.main-wrapper, 
+    .main-wrapper {
+        width: 100% !important;
+        max-width: none !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        display: block !important;
+        min-height: auto !important;
+    }
+    /* Force Top Alignment for Sidebar + Content */
+    .home-layout {
+        display: flex !important;
+        align-items: flex-start !important; /* Top align */
+        justify-content: flex-start !important;
+        gap: 40px;
+        padding-top: 40px !important;
+        min-height: 600px;
+    }
+    .main-content {
+        margin-top: 0 !important;
+        padding-top: 0 !important;
+        flex: 1;
+    }
     
-    /* 2-Column Grid Wrapper */
+    /* 3. CART GRID SYSTEM */
     .cart-desktop-grid {
         display: grid;
-        grid-template-columns: 1fr 350px; /* Items | Summary */
+        grid-template-columns: 1fr 380px; /* Items | Summary */
         gap: 30px;
         align-items: start;
         padding-bottom: 80px;
     }
-    /* Cart Item Card - Desktop Specifics */
+    /* Cart Item Card */
     .cart-desktop-grid .cart-item {
         background: #fff;
         border: 1px solid #f0f0f0 !important;
         border-radius: 16px !important;
         padding: 20px !important;
         margin-bottom: 20px !important;
-        box-shadow: 0 4px 20px rgba(0,0,0,0.02) !important; /* Very subtle shadow */
+        box-shadow: 0 4px 20px rgba(0,0,0,0.02) !important;
         display: flex;
         align-items: center;
         gap: 20px;
-        transition: transform 0.2s ease;
+        position: relative;
     }
-    
-    .cart-desktop-grid .cart-item:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 8px 25px rgba(0,0,0,0.05) !important;
-    }
-    /* Image in Card */
     .cart-desktop-grid img {
-        width: 100px !important; /* Larger on Desktop */
-        height: 100px !important;
+        width: 90px !important; 
+        height: 90px !important;
         border-radius: 12px !important;
+        object-fit: cover;
     }
-    /* Red X Button - Clean & Visible */
+    /* Remove Button (Red X) */
     .btn-remove-item {
         background: #fff !important;
         border: 1px solid #eee !important;
-        color: #999 !important; /* Grey default */
-        width: 36px !important;
-        height: 36px !important;
+        color: #999 !important;
+        width: 32px !important;
+        height: 32px !important;
         transition: all 0.2s;
     }
     .btn-remove-item:hover {
@@ -1506,72 +1532,25 @@ p {
         color: white !important;
         transform: rotate(90deg);
     }
-    /* Summary Box (Right Column) */
+    /* 4. SUMMARY BOX (Sticky Right) */
     #cartFooter {
         position: sticky;
-        top: 100px; /* Offset from header */
-        background: #F9F9F9 !important; /* Light Grey Bg like Figma */
+        top: 120px; /* Below header */
+        background: #F9F9F9 !important;
         padding: 30px !important;
         border-radius: 20px;
-        box-shadow: none !important;
         border: none !important;
     }
-    /* Total Price Display */
     #cartTotalDisplay {
         font-size: 28px !important;
-        font-weight: 900 !important;
+        font-weight: 800 !important;
         color: #000 !important;
     }
     
-    /* Order Button */
     #cartFooter button {
-        width: 100%;
         margin-top: 20px;
+        border-radius: 12px !important;
         height: 55px;
         font-size: 16px;
-        border-radius: 12px !important;
-        box-shadow: 0 5px 15px rgba(37, 211, 102, 0.4) !important;
-    }
-
-}
-
-    /* --- CRITICAL LAYOUT FIXES (DESKTOP) --- */
-@media (min-width: 1024px) {
-    
-    /* 1. Reset Global Wrapper to prevent vertical centering or weird margins */
-    .container.main-wrapper, 
-    .main-wrapper {
-        width: 100% !important;
-        max-width: none !important;
-        margin: 0 !important;
-        padding: 0 !important;
-        display: block !important; /* Prevent Flex/Grid centering */
-        min-height: 0 !important; /* Stop 100vh forcing */
-    }
-    /* 2. Strict Visibility Utilities */
-    .d-lg-none {
-        display: none !important;
-    }
-    .d-lg-flex {
-        display: flex !important;
-    }
-    /* 3. Force Layout Container to align Top */
-    .home-layout {
-        display: flex !important;
-        align-items: flex-start !important; /* items sit at top */
-        min-height: 600px; /* Ensure logical height */
-        padding-top: 40px !important; /* Consistent top spacing */
-    }
-    /* 4. Force Main Content to align Top */
-    .main-content {
-        margin-top: 0 !important;
-        padding-top: 0 !important;
-        justify-content: flex-start !important;
-        flex: 1;
-    }
-    /* 5. Fix Cart Page Header Spacing */
-    /* Select specific desktop header in cart.php */
-    .d-lg-flex h1 {
-        margin-top: 0 !important;
     }
 }
