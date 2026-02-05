@@ -1197,7 +1197,44 @@ p {
     .floating-whatsapp.display-desktop-only {
         display: flex !important;
     }
-/* --- ccvxxxxxxxxxxxcxc xc --- */
+
+    /* 2-Column Grid */
+    .cart-desktop-grid {
+        display: grid;
+        grid-template-columns: 1fr 380px;
+        /* Items | Summary */
+        gap: 40px;
+        align-items: start;
+        padding-bottom: 50px;
+    }
+
+    /* Cart Item Card overrides for Desktop */
+    .cart-desktop-grid .cart-item {
+        padding: 20px !important;
+        /* More breathing room */
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05) !important;
+        /* Softer shadow */
+        border: 1px solid #f5f5f5;
+    }
+
+    /* Red X Button Hover */
+    .btn-remove-item:hover {
+        background: #FF3B30 !important;
+        color: white !important;
+        transition: all 0.2s ease;
+    }
+
+    /* Summary Box Sticky */
+    #cartFooter {
+        position: sticky;
+        top: 120px;
+        /* Below header */
+        background: #fff;
+        border: 1px solid #eee;
+        border-radius: 20px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    }
+
 }
 
 /* --- Floating Cart Bubble (Mobile) --- */
@@ -1350,103 +1387,102 @@ p {
     .d-lg-block {
         display: block !important;
     }
-.product-gallery {
-        position: relative; 
-        width: 100%; /* Fill the grid column */
-        overflow: hidden; /* Hide scrollbars if we want clean look, but 'gallery-slider' handles scroll */
+
+    .product-gallery {
+        position: relative;
+        width: 100%;
+        /* Fill the grid column */
+        overflow: hidden;
+        /* Hide scrollbars if we want clean look, but 'gallery-slider' handles scroll */
     }
+
     /* Force the slider to be a horizontal scroll container */
     .gallery-slider {
-        display: flex; /* Horizontal alignment */
-        overflow-x: auto; /* Enable scroll */
-        scroll-snap-type: x mandatory; /* Snap behavior */
+        display: flex;
+        /* Horizontal alignment */
+        overflow-x: auto;
+        /* Enable scroll */
+        scroll-snap-type: x mandatory;
+        /* Snap behavior */
         scroll-behavior: smooth;
         -webkit-overflow-scrolling: touch;
         width: 100%;
-        gap: 0; /* No gap for seamless slide */
-        border-radius: 20px; /* Rounded container */
+        gap: 0;
+        /* No gap for seamless slide */
+        border-radius: 20px;
+        /* Rounded container */
     }
+
     /* Force images to take full width of the slider */
     .gallery-slider .gallery-img {
         min-width: 100%;
-        width: 100%; /* Occupy full container width */
-        height: auto; /* Maintain aspect ratio */
-        object-fit: cover; /* Cover */
-        aspect-ratio: 1 / 1.2; /* Enforce consistent height ratio similar to mobile */
-        scroll-snap-align: center; /* Snap to center */
-        border-radius: 0; /* Let container handle radius or keep 0 */
+        width: 100%;
+        /* Occupy full container width */
+        height: auto;
+        /* Maintain aspect ratio */
+        object-fit: cover;
+        /* Cover */
+        aspect-ratio: 1 / 1.2;
+        /* Enforce consistent height ratio similar to mobile */
+        scroll-snap-align: center;
+        /* Snap to center */
+        border-radius: 0;
+        /* Let container handle radius or keep 0 */
         margin: 0;
     }
-    
+
     /* Hide scrollbar for clean UI */
     .gallery-slider::-webkit-scrollbar {
         display: none;
     }
-    
+
     /* Center the dots on Desktop */
     .gallery-dots {
         justify-content: center;
         margin-top: 15px;
     }
-/* Fix Desktop Dots: Robust Reset */
+
+    /* Fix Desktop Dots: Robust Reset */
     .gallery-dots {
-        position: relative !important; /* Force reset */
-        inset: auto !important; /* Reset top/left/right/bottom */
+        position: relative !important;
+        /* Force reset */
+        inset: auto !important;
+        /* Reset top/left/right/bottom */
         width: 100%;
         display: flex !important;
         justify-content: center;
         gap: 10px;
         margin-top: 20px;
-        margin-bottom: 25px; /* Ensure gap before description */
+        margin-bottom: 25px;
+        /* Ensure gap before description */
         z-index: 20;
     }
+
     .gallery-dots .dot {
-        width: 10px; /* Slightly larger for desktop */
+        width: 10px;
+        /* Slightly larger for desktop */
         height: 10px;
         border-radius: 50%;
-        background: #ddd; /* Visible grey */
+        background: #ddd;
+        /* Visible grey */
         border: 1px solid #bbb;
-        cursor: pointer; /* Suggest interaction */
+        cursor: pointer;
+        /* Suggest interaction */
         flex-shrink: 0;
     }
+
     .gallery-dots .dot.active {
-        background: #000; /* Deep black active */
+        background: #000;
+        /* Deep black active */
         border-color: #000;
-        transform: scale(1.2); /* Highlight active */
+        transform: scale(1.2);
+        /* Highlight active */
     }
-    
+
     /* Ensure Container allows dots to be shown */
     .product-gallery {
         overflow: visible !important;
     }
 
-       /* 2-Column Grid */
-    .cart-desktop-grid {
-        display: grid;
-        grid-template-columns: 1fr 380px; /* Items | Summary */
-        gap: 40px;
-        align-items: start;
-        padding-bottom: 50px;
-    }
-    /* Cart Item Card overrides for Desktop */
-    .cart-desktop-grid .cart-item {
-        padding: 20px !important; /* More breathing room */
-        box-shadow: 0 5px 20px rgba(0,0,0,0.05) !important; /* Softer shadow */
-        border: 1px solid #f5f5f5;
-    }
-    /* Red X Button Hover */
-    .btn-remove-item:hover {
-        background: #FF3B30 !important;
-        color: white !important;
-        transition: all 0.2s ease;
-    }
-    /* Summary Box Sticky */
-    #cartFooter {
-        position: sticky;
-        top: 120px; /* Below header */
-        background: #fff;
-        border: 1px solid #eee;
-        border-radius: 20px;
-        box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-    }
+
 }
