@@ -1197,52 +1197,7 @@ p {
     .floating-whatsapp.display-desktop-only {
         display: flex !important;
     }
-
-    /* --- Desktop Cart Page Layout --- */
-    .cart-desktop-grid {
-        display: grid;
-        grid-template-columns: 1fr 380px;
-        /* List takes space, Summary fixed width */
-        gap: 40px;
-        align-items: start;
-    }
-
-    /* Override Cart Footer for Desktop to be a Summary Box */
-    .cart-desktop-grid #cartFooter {
-        border-top: none !important;
-        padding: 30px !important;
-        background: #f4f4f4;
-        /* Light Grey BG */
-        border-radius: 20px;
-        position: sticky;
-        top: 100px;
-        /* Layout Inside Box */
-        display: flex;
-        flex-direction: column;
-        gap: 20px;
-    }
-
-    /* Adjust the Flex row inside footer to be column-like or cleaner */
-    .cart-desktop-grid #cartFooter>div {
-        margin-bottom: 0 !important;
-        /* We can separate Total Label and Value */
-        display: flex;
-        justify-content: space-between;
-        width: 100%;
-    }
-
-    /* Larger Total Text */
-    .cart-desktop-grid #cartTotalDisplay {
-        font-size: 24px !important;
-        color: #333 !important;
-    }
-
-    /* Button Full Width */
-    .cart-desktop-grid #cartFooter button {
-        width: 100% !important;
-        height: 55px !important;
-        font-size: 16px !important;
-    }
+/* --- ccvxxxxxxxxxxxcxc xc --- */
 }
 
 /* --- Floating Cart Bubble (Mobile) --- */
