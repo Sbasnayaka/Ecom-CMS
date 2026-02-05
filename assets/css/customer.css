@@ -1425,6 +1425,48 @@ p {
         font-size: 32px; /* Differentiate from Mobile */
         margin-bottom: 20px;
     }
+
+    /* --- Fix Desktop Image Slider (Micro-Task 5.1.2) --- */
+    
+    /* Ensure the gallery column is relative for absolute positioning of dots if needed */
+    .product-gallery {
+        position: relative; 
+        width: 100%; /* Fill the grid column */
+        overflow: hidden; /* Hide scrollbars if we want clean look, but 'gallery-slider' handles scroll */
+    }
+    /* Force the slider to be a horizontal scroll container */
+    .gallery-slider {
+        display: flex; /* Horizontal alignment */
+        overflow-x: auto; /* Enable scroll */
+        scroll-snap-type: x mandatory; /* Snap behavior */
+        scroll-behavior: smooth;
+        -webkit-overflow-scrolling: touch;
+        width: 100%;
+        gap: 0; /* No gap for seamless slide */
+        border-radius: 20px; /* Rounded container */
+    }
+    /* Force images to take full width of the slider */
+    .gallery-slider .gallery-img {
+        min-width: 100%;
+        width: 100%; /* Occupy full container width */
+        height: auto; /* Maintain aspect ratio */
+        object-fit: cover; /* Cover */
+        aspect-ratio: 1 / 1.2; /* Enforce consistent height ratio similar to mobile */
+        scroll-snap-align: center; /* Snap to center */
+        border-radius: 0; /* Let container handle radius or keep 0 */
+        margin: 0;
+    }
+    
+    /* Hide scrollbar for clean UI */
+    .gallery-slider::-webkit-scrollbar {
+        display: none;
+    }
+    
+    /* Center the dots on Desktop */
+    .gallery-dots {
+        justify-content: center;
+        margin-top: 15px;
+    }
     /* Hide Mobile Description implementation if you duplicated it (We moved it, so no need to hide old) */
 }
 }
