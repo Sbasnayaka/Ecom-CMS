@@ -857,9 +857,10 @@ p {
         display: none !important;
     }
 
-        .home-layout {
-        display: flex;
-        align-items: flex-start; /* FIX: Force top alignment */
+    /* Layout Container */
+    .home-layout {
+        display: flex !important;
+        align-items: flex-start !important; /* Force items to start at top */
         gap: 30px;
         padding-top: 20px;
         max-width: 1200px;
@@ -867,7 +868,18 @@ p {
         padding-left: 20px;
         padding-right: 20px;
         overflow-x: hidden;
-        /* Prevent horizontal scroll */
+    }
+    /* Ensure Main Content isn't pushed down */
+    .home-layout .main-content {
+        margin-top: 0 !important;
+        padding-top: 0 !important;
+        flex: 1; /* Ensure it takes width */
+    }
+    
+    /* Ensure Sidebar isn't pushed down */
+    .home-layout .sidebar {
+        margin-top: 0 !important;
+        padding-top: 0 !important;
     }
 
     /* Sidebar */
