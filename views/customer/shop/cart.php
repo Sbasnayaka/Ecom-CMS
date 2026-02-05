@@ -65,17 +65,26 @@ require_once 'views/layouts/customer_header.php';
                 <div class="cart-item" style="
                     display: flex; align-items: center; gap: 15px; 
                     background: #fff; padding: 15px; border-radius: 20px; 
+                    position: relative; /* For absolute positioning desktop link if needed */
                     margin-bottom: 15px; box-shadow: 0 2px 10px rgba(0,0,0,0.03);">
-
                     <!-- Image -->
                     <img src="<?= htmlspecialchars($item['img']) ?>" style="
                         width: 70px; height: 70px; border-radius: 12px; object-fit: cover; background: #f0f0f0;">
-
                     <!-- Info -->
                     <div style="flex: 1;">
-                        <h4 style="font-size: 14px; font-weight: 700; margin: 0 0 5px 0;">
-                            <?= htmlspecialchars($item['title']) ?>
-                        </h4>
+                        <!-- Title + Desktop Remove Link Row -->
+                        <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+                            <h4 style="font-size: 14px; font-weight: 700; margin: 0 0 5px 0;">
+                                <?= htmlspecialchars($item['title']) ?>
+                            </h4>
+                            
+                            <!-- DESKTOP REMOVE LINK (Text) -->
+                            <a href="javascript:void(0)" onclick="removeFromCart(<?= $index ?>)" 
+                               class="d-none d-lg-block"
+                               style="font-size: 12px; color: #FF3B30; text-decoration: underline; cursor: pointer; font-weight: 500;">
+                               Remove
+                            </a>
+                        </div>
                         <div style="font-size: 13px; font-weight: 700; color: #E4405F; margin-bottom: 3px;">
                             LKR <?= number_format($item['price'], 0) ?>
                         </div>
@@ -86,9 +95,9 @@ require_once 'views/layouts/customer_header.php';
                             Qty: <?= $item['qty'] ?>
                         </div>
                     </div>
-
-                    <!-- Remove (Red X Circle) -->
+                    <!-- MOBILE REMOVE BUTTON (Red X Circle) -->
                     <button onclick="removeFromCart(<?= $index ?>)"
+                        class="d-lg-none"
                         style="
                         width: 25px; height: 25px; border-radius: 50%; border: 1px solid #FF3B30; 
                         background: none; color: #FF3B30; display: flex; align-items: center; justify-content: center; cursor: pointer;">
