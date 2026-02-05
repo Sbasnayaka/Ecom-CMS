@@ -81,16 +81,24 @@
         <button class="btn-review">Give us a Review!</button>
 
         <div class="social-icons">
-            <a href="<?= !empty($settings['shop_facebook']) ? htmlspecialchars($settings['shop_facebook']) : '' ?>" target="_blank">
+            <?php
+            // Helper to ensure links have http/https prefix
+            function ensureUrl($url) {
+                if (empty($url)) return '#';
+                if (strpos($url, 'http') !== 0) return 'https://' . $url;
+                return $url;
+            }
+            ?>
+            <a href="<?= ensureUrl($settings['social_fb'] ?? '') ?>" target="_blank">
                 <img src="<?= BASE_URL ?>assets/icons/facebook.png" alt="FB" class="social-icon-img">
             </a>
-            <a href="<?= !empty($settings['shop_tiktok']) ? htmlspecialchars($settings['shop_tiktok']) : '' ?>" target="_blank">
+            <a href="<?= ensureUrl($settings['social_tiktok'] ?? '') ?>" target="_blank">
                 <img src="<?= BASE_URL ?>assets/icons/tiktok.png" alt="TikTok" class="social-icon-img">
             </a>
-            <a href="<?= !empty($settings['shop_instagram']) ? htmlspecialchars($settings['shop_instagram']) : '' ?>" target="_blank">
+            <a href="<?= ensureUrl($settings['social_insta'] ?? '') ?>" target="_blank">
                 <img src="<?= BASE_URL ?>assets/icons/instagram.png" alt="IG" class="social-icon-img">
             </a>
-            <a href="<?= !empty($settings['shop_youtube']) ? htmlspecialchars($settings['shop_youtube']) : '' ?>" target="_blank">
+            <a href="<?= ensureUrl($settings['social_youtube'] ?? '') ?>" target="_blank">
                 <img src="<?= BASE_URL ?>assets/icons/youtube.png" alt="YT" class="social-icon-img">
             </a>
         </div>
