@@ -1463,9 +1463,22 @@ p {
     }
     
     /* Center the dots on Desktop */
+    /* Fix Desktop Dots: Reset positioning and ensure contrast */
     .gallery-dots {
+        position: relative; /* Stop floating absolute at bottom */
+        bottom: auto;
+        left: auto;
         justify-content: center;
         margin-top: 15px;
+        margin-bottom: 20px; /* Space before description */
+    }
+    .gallery-dots .dot {
+        border-color: #ccc; /* Make border visible on white */
+        background: #e0e0e0;
+    }
+    .gallery-dots .dot.active {
+        background: #000;
+        border-color: #000;
     }
     /* Hide Mobile Description implementation if you duplicated it (We moved it, so no need to hide old) */
 }
