@@ -1521,5 +1521,19 @@ p {
         box-shadow: 0 5px 15px rgba(37, 211, 102, 0.4) !important;
     }
 
+    /* Fix Layout Wrapping for Cart Page */
+    .home-layout {
+        display: flex;
+        align-items: flex-start; /* Ensure top alignment */
+        flex-wrap: nowrap !important; /* Prevent wrapping */
+    }
+    
+    .main-content {
+        flex: 1;
+        width: 0; /* Standard flex fix to allow shrinking/growing properly */
+        min-width: 0; /* Allow grid inside to shrink */
+        padding-top: 0; /* Align with sidebar top */
+    }
+
 
 }
