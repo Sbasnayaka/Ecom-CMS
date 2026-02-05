@@ -19,13 +19,10 @@ require_once 'views/layouts/customer_header.php';
             <div class="product-gallery">
                 <!-- Back Button Overlay -->
                 <!-- Back Button Overlay (Task 3.2 Fix) -->
-                <a href="javascript:history.back()" class="back-btn-overlay" style="text-decoration: none;">
-                    <img src="<?= BASE_URL ?>assets/icons/back.png" alt="Back"
-                        style="width: 24px; height: 24px; filter: invert(1);">
-                    <!-- Inverted filter to make black icon white inside black circle if icon is black. 
-                         Checking icon preview... 'back.png' might be black. 
-                         If container is rgba(0,0,0,0.6), we want White icon. 
-                         Assuming png is black based on previous behavior. -->
+                <!-- Back Button Overlay -->
+                <!-- Added background rgba(0,0,0,0.1) to ensure visibility on all backgrounds -->
+                <a href="javascript:history.back()" class="back-btn-overlay" style="text-decoration: none; position: absolute; top: 10px; left: 10px; z-index: 10; width: 35px; height: 35px; background: rgba(0,0,0,0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+                     <i class="fas fa-arrow-left" style="color: black; font-size: 16px;"></i>
                 </a>
 
                 <div class="gallery-slider">
@@ -61,6 +58,12 @@ require_once 'views/layouts/customer_header.php';
                             <span class="dot"></span>
                         <?php endforeach; ?>
                     <?php endif; ?>
+                </div>
+                <!-- Description -->
+                <div class="pd-description">
+                    <?= nl2br(htmlspecialchars($product['description'])) ?>
+
+
                 </div>
             </div>
 
@@ -147,12 +150,7 @@ require_once 'views/layouts/customer_header.php';
                     </div>
                 </div>
 
-                <!-- Description -->
-                <div class="pd-description">
-                    <?= nl2br(htmlspecialchars($product['description'])) ?>
-
-
-                </div>
+                
 
 
 

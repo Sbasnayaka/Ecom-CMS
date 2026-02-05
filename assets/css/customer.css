@@ -1395,4 +1395,36 @@ p {
     .d-lg-block {
         display: block !important;
     }
+
+    @media (min-width: 1024px) {
+    /* Product Page Layout */
+    .product-detail-page {
+        display: grid;
+        grid-template-columns: 1.2fr 1fr; /* Image wider, Info smaller */
+        gap: 60px;
+        align-items: start;
+        margin-top: 20px;
+    }
+    /* Left Column: Gallery + Description */
+    .product-gallery {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+    }
+    /* Image Sizing */
+    .gallery-img.current {
+        border-radius: 20px; /* Match Figma rounded corners */
+        box-shadow: none; /* Clean look */
+    }
+    /* Right Column: Info */
+    .product-info-container {
+        padding: 0;
+    }
+    /* Title Sizing */
+    .pd-title {
+        font-size: 32px; /* Differentiate from Mobile */
+        margin-bottom: 20px;
+    }
+    /* Hide Mobile Description implementation if you duplicated it (We moved it, so no need to hide old) */
+}
 }
