@@ -77,13 +77,18 @@
             echo nl2br(htmlspecialchars($about));
             ?>
         </div>
-<!---give us a review button logic---->
+
         <?php
-        $revLink = $settings['review_link'] ?? '';
-        // Basic URL check: Default to # if empty. Add https if missing http
-        $revHref = empty($revLink) ? '#' : ((strpos($revLink, 'http') === 0) ? $revLink : 'https://' . $revLink);
+        $reviewUrl = '#'; // Default
+        if (!empty($settings['review_link'])) {
+            $reviewUrl = $settings['review_link'];
+            if (strpos($reviewUrl, 'http') !== 0) $reviewUrl = 'https://' . $reviewUrl;
+        } elseif (!empty($settings['shop_whatsapp'])) {
+            $wa = preg_replace('/[^0-9]/', '', $settings['shop_whatsapp']);
+            $reviewUrl = "https://wa.me/$wa?text=I%20would%20like%20to%20leave%20a%20review!";
+        }
         ?>
-        <a href="<?= $revHref ?>" target="_blank" class="btn-review" style="text-decoration:none; display:block; text-align:center;">Give us a Review!</a>
+        <a href="<?= $reviewUrl ?>" class="btn-review" target="_blank" style="text-decoration: none; display: block; text-align: center;">Give us a Review!</a>
 
         <div class="social-icons">
             <?php
