@@ -857,9 +857,9 @@ p {
         display: none !important;
     }
 
-    /* Layout Container */
-    .home-layout {
+        .home-layout {
         display: flex;
+        align-items: flex-start; /* FIX: Force top alignment */
         gap: 30px;
         padding-top: 20px;
         max-width: 1200px;
