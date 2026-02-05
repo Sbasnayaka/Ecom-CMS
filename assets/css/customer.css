@@ -1427,4 +1427,35 @@ p {
     }
     /* Hide Mobile Description implementation if you duplicated it (We moved it, so no need to hide old) */
 }
+/* Fix Desktop Dots: Robust Reset */
+    .gallery-dots {
+        position: relative !important; /* Force reset */
+        inset: auto !important; /* Reset top/left/right/bottom */
+        width: 100%;
+        display: flex !important;
+        justify-content: center;
+        gap: 10px;
+        margin-top: 20px;
+        margin-bottom: 25px; /* Ensure gap before description */
+        z-index: 20;
+    }
+    .gallery-dots .dot {
+        width: 10px; /* Slightly larger for desktop */
+        height: 10px;
+        border-radius: 50%;
+        background: #ddd; /* Visible grey */
+        border: 1px solid #bbb;
+        cursor: pointer; /* Suggest interaction */
+        flex-shrink: 0;
+    }
+    .gallery-dots .dot.active {
+        background: #000; /* Deep black active */
+        border-color: #000;
+        transform: scale(1.2); /* Highlight active */
+    }
+    
+    /* Ensure Container allows dots to be shown */
+    .product-gallery {
+        overflow: visible !important;
+    }
 }
