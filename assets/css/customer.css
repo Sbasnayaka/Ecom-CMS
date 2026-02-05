@@ -860,7 +860,8 @@ p {
     /* Layout Container */
     .home-layout {
         display: flex !important;
-        align-items: flex-start !important; /* Force items to start at top */
+        align-items: flex-start !important;
+        /* Force items to start at top */
         gap: 30px;
         padding-top: 20px;
         max-width: 1200px;
@@ -869,13 +870,15 @@ p {
         padding-right: 20px;
         overflow-x: hidden;
     }
+
     /* Ensure Main Content isn't pushed down */
     .home-layout .main-content {
         margin-top: 0 !important;
         padding-top: 0 !important;
-        flex: 1; /* Ensure it takes width */
+        flex: 1;
+        /* Ensure it takes width */
     }
-    
+
     /* Ensure Sidebar isn't pushed down */
     .home-layout .sidebar {
         margin-top: 0 !important;
@@ -1345,15 +1348,34 @@ p {
 }
 
 @media (min-width: 1024px) {
+
     /* 1. VISIBILITY & UTILITIES */
-    .d-lg-none { display: none !important; }
-    .d-lg-flex { display: flex !important; }
-    .d-lg-block { display: block !important; }
-    .display-desktop-only { display: block !important; }
-    .bottom-nav { display: none !important; }
-    body { padding-bottom: 20px; }
+    .d-lg-none {
+        display: none !important;
+    }
+
+    .d-lg-flex {
+        display: flex !important;
+    }
+
+    .d-lg-block {
+        display: block !important;
+    }
+
+    .display-desktop-only {
+        display: block !important;
+    }
+
+    .bottom-nav {
+        display: none !important;
+    }
+
+    body {
+        padding-bottom: 20px;
+    }
+
     /* 2. LAYOUT RESET (Fixes White Space) */
-    .container.main-wrapper, 
+    .container.main-wrapper,
     .main-wrapper {
         width: 100% !important;
         max-width: none !important;
@@ -1362,10 +1384,12 @@ p {
         display: block !important;
         min-height: auto !important;
     }
+
     /* 3. HOME LAYOUT (Sidebar + Content) */
     .home-layout {
         display: flex !important;
-        align-items: flex-start !important; /* Forces Top Alignment */
+        align-items: flex-start !important;
+        /* Forces Top Alignment */
         justify-content: flex-start !important;
         gap: 40px;
         padding-top: 40px !important;
@@ -1375,29 +1399,35 @@ p {
         padding-right: 20px;
         min-height: 600px;
     }
+
     .sidebar {
         width: 260px;
         flex-shrink: 0;
         background: transparent;
         display: flex;
         flex-direction: column;
-        border-right: 1px solid #eee; /* Clean divider */
+        border-right: 1px solid #eee;
+        /* Clean divider */
         padding-right: 20px;
     }
+
     .main-content {
         margin-top: 0 !important;
         padding-top: 0 !important;
         flex: 1;
         min-width: 0;
     }
+
     /* 4. CART PAGE SPECIFICS */
     .cart-desktop-grid {
         display: grid;
-        grid-template-columns: 1fr 380px; /* Items | Summary */
+        grid-template-columns: 1fr 380px;
+        /* Items | Summary */
         gap: 30px;
         align-items: start;
         padding-bottom: 80px;
     }
+
     /* Cart Item Card */
     .cart-desktop-grid .cart-item {
         background: #fff;
@@ -1405,18 +1435,20 @@ p {
         border-radius: 16px !important;
         padding: 20px !important;
         margin-bottom: 20px !important;
-        box-shadow: 0 4px 20px rgba(0,0,0,0.02) !important;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02) !important;
         display: flex;
         align-items: center;
         gap: 20px;
         position: relative;
     }
+
     .cart-desktop-grid img {
-        width: 90px !important; 
+        width: 90px !important;
         height: 90px !important;
         border-radius: 12px !important;
         object-fit: cover;
     }
+
     /* Remove Button (Red X) */
     .btn-remove-item {
         background: #fff !important;
@@ -1426,12 +1458,14 @@ p {
         height: 32px !important;
         transition: all 0.2s;
     }
+
     .btn-remove-item:hover {
         background: #FF3B30 !important;
         border-color: #FF3B30 !important;
         color: white !important;
         transform: rotate(90deg);
     }
+
     /* Summary Box (Sticky Right) */
     #cartFooter {
         position: sticky;
@@ -1441,21 +1475,25 @@ p {
         border-radius: 20px;
         border: none !important;
     }
+
     #cartTotalDisplay {
         font-size: 28px !important;
         font-weight: 800 !important;
         color: #000 !important;
     }
+
     #cartFooter button {
         margin-top: 20px;
         border-radius: 12px !important;
         height: 55px;
         font-size: 16px;
     }
+
     /* 5. PRODUCT GALLERY (Dots Fix) */
     .product-gallery {
         overflow: visible !important;
     }
+
     .gallery-slider {
         display: flex;
         overflow-x: auto;
@@ -1463,11 +1501,13 @@ p {
         width: 100%;
         border-radius: 20px;
     }
+
     .gallery-slider .gallery-img {
         min-width: 100%;
         width: 100%;
         scroll-snap-align: center;
     }
+
     /* Dots */
     .gallery-dots {
         position: relative !important;
@@ -1479,6 +1519,7 @@ p {
         margin-bottom: 25px;
         z-index: 20;
     }
+
     .gallery-dots .dot {
         width: 10px;
         height: 10px;
@@ -1486,11 +1527,35 @@ p {
         border-radius: 50%;
         cursor: pointer;
     }
+
     .gallery-dots .dot.active {
         background: #000;
         transform: scale(1.2);
     }
+
     .back-btn-overlay {
-        display: none !important; /* Hide back button on desktop if preferred, or keep */
+        display: none !important;
+        /* Hide back button on desktop if preferred, or keep */
+    }
+
+    /* NUCLEAR FIX FOR WHITE SPACE */
+    html body .container.main-wrapper,
+    html body .main-wrapper {
+        min-height: 0 !important;
+        height: auto !important;
+        padding-top: 0 !important;
+        margin-top: 0 !important;
+        display: block !important;
+    }
+
+    html body .home-layout {
+        align-items: flex-start !important;
+        padding-top: 20px !important;
+        /* Adjusted from 40px */
+    }
+
+    html body .main-content {
+        margin-top: 0 !important;
+        padding-top: 0 !important;
     }
 }
