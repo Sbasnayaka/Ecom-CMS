@@ -40,8 +40,6 @@ require_once 'views/layouts/customer_header.php';
             </div>
         </div>
 
-</div>
-
 <!-- --- DESKTOP HEADER (My Cart) --- -->
 <div class="d-none d-lg-flex"
     style="align-items: center; justify-content: space-between; margin-bottom: 30px; padding-bottom: 10px;">
