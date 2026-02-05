@@ -44,8 +44,14 @@ require_once 'views/layouts/customer_header.php';
 
 <!-- --- DESKTOP HEADER (My Cart) --- -->
 <div class="d-none d-lg-flex"
-    style="align-items: center; justify-content: space-between; margin-bottom: 30px; border-bottom: 0px solid #eee; padding-bottom: 10px;">
-    <h1 style="font-size: 24px; font-weight: 800; color: #000; margin: 0;">My Cart</h1>
+    style="align-items: center; justify-content: space-between; margin-bottom: 30px; padding-bottom: 10px;">
+    <div style="display: flex; align-items: baseline; gap: 15px;">
+        <h1 style="font-size: 28px; font-weight: 800; color: #000; margin: 0;">My Cart</h1>
+        <a href="javascript:void(0)" onclick="clearCart()" 
+           style="font-size: 13px; text-decoration: underline; color: #FF3B30; font-weight: 600;">
+           Clear All
+        </a>
+    </div>
 </div>
 
 <!-- --- CART CONTENT WRAPPER (Grid on Desktop) --- -->
