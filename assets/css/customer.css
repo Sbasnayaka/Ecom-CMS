@@ -1425,61 +1425,37 @@ p {
         font-size: 32px; /* Differentiate from Mobile */
         margin-bottom: 20px;
     }
-
-    /* --- Fix Desktop Image Slider (Micro-Task 5.1.2) --- */
-    
-    /* Ensure the gallery column is relative for absolute positioning of dots if needed */
-    .product-gallery {
-        position: relative; 
-        width: 100%; /* Fill the grid column */
-        overflow: hidden; /* Hide scrollbars if we want clean look, but 'gallery-slider' handles scroll */
-    }
-    /* Force the slider to be a horizontal scroll container */
-    .gallery-slider {
-        display: flex; /* Horizontal alignment */
-        overflow-x: auto; /* Enable scroll */
-        scroll-snap-type: x mandatory; /* Snap behavior */
-        scroll-behavior: smooth;
-        -webkit-overflow-scrolling: touch;
-        width: 100%;
-        gap: 0; /* No gap for seamless slide */
-        border-radius: 20px; /* Rounded container */
-    }
-    /* Force images to take full width of the slider */
-    .gallery-slider .gallery-img {
-        min-width: 100%;
-        width: 100%; /* Occupy full container width */
-        height: auto; /* Maintain aspect ratio */
-        object-fit: cover; /* Cover */
-        aspect-ratio: 1 / 1.2; /* Enforce consistent height ratio similar to mobile */
-        scroll-snap-align: center; /* Snap to center */
-        border-radius: 0; /* Let container handle radius or keep 0 */
-        margin: 0;
-    }
-    
-    /* Hide scrollbar for clean UI */
-    .gallery-slider::-webkit-scrollbar {
-        display: none;
-    }
-    
-    /* Center the dots on Desktop */
-    /* Fix Desktop Dots: Reset positioning and ensure contrast */
-    .gallery-dots {
-        position: relative; /* Stop floating absolute at bottom */
-        bottom: auto;
-        left: auto;
-        justify-content: center;
-        margin-top: 15px;
-        margin-bottom: 20px; /* Space before description */
-    }
-    .gallery-dots .dot {
-        border-color: #ccc; /* Make border visible on white */
-        background: #e0e0e0;
-    }
-    .gallery-dots .dot.active {
-        background: #000;
-        border-color: #000;
-    }
     /* Hide Mobile Description implementation if you duplicated it (We moved it, so no need to hide old) */
 }
+/* Fix Desktop Dots: Robust Reset */
+    .gallery-dots {
+        position: relative !important; /* Force reset */
+        inset: auto !important; /* Reset top/left/right/bottom */
+        width: 100%;
+        display: flex !important;
+        justify-content: center;
+        gap: 10px;
+        margin-top: 20px;
+        margin-bottom: 25px; /* Ensure gap before description */
+        z-index: 20;
+    }
+    .gallery-dots .dot {
+        width: 10px; /* Slightly larger for desktop */
+        height: 10px;
+        border-radius: 50%;
+        background: #ddd; /* Visible grey */
+        border: 1px solid #bbb;
+        cursor: pointer; /* Suggest interaction */
+        flex-shrink: 0;
+    }
+    .gallery-dots .dot.active {
+        background: #000; /* Deep black active */
+        border-color: #000;
+        transform: scale(1.2); /* Highlight active */
+    }
+    
+    /* Ensure Container allows dots to be shown */
+    .product-gallery {
+        overflow: visible !important;
+    }
 }
