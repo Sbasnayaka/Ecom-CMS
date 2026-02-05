@@ -1,35 +1,8 @@
+<?php
 // Hide Default Mobile Header (We implement custom "YOUR CART" header)
 $hide_mobile_welcome = true;
 require_once 'views/layouts/customer_header.php';
 ?>
-
-<!-- FORCE DESKTOP LAYOUT OVERRIDE -->
-<style>
-    @media (min-width: 1024px) {
-        .main-wrapper {
-            width: 100% !important;
-            max-width: none !important;
-            margin: 0 !important;
-            padding: 0 !important;
-            display: block !important;
-        }
-
-        .home-layout {
-            display: flex !important;
-            align-items: flex-start !important;
-            padding-top: 20px !important;
-        }
-
-        .main-content {
-            margin-top: 0 !important;
-            padding-top: 0 !important;
-        }
-
-        .d-lg-none {
-            display: none !important;
-        }
-    }
-</style>
 
 <div class="home-layout">
     <!-- Sidebar (Desktop) -->
@@ -74,9 +47,9 @@ require_once 'views/layouts/customer_header.php';
     style="align-items: center; justify-content: space-between; margin-bottom: 30px; padding-bottom: 10px;">
     <div style="display: flex; align-items: baseline; gap: 15px;">
         <h1 style="font-size: 28px; font-weight: 800; color: #000; margin: 0;">My Cart</h1>
-        <a href="javascript:void(0)" onclick="clearCart()"
-            style="font-size: 13px; text-decoration: underline; color: #FF3B30; font-weight: 600;">
-            Clear All
+        <a href="javascript:void(0)" onclick="clearCart()" 
+           style="font-size: 13px; text-decoration: underline; color: #FF3B30; font-weight: 600;">
+           Clear All
         </a>
     </div>
 </div>
@@ -118,8 +91,9 @@ require_once 'views/layouts/customer_header.php';
                             Qty: <?= $item['qty'] ?>
                         </div>
                     </div>
-
-                    <button onclick="removeFromCart(<?= $index ?>)" class="btn-remove-item"
+                    
+                    <button onclick="removeFromCart(<?= $index ?>)"
+                        class="btn-remove-item"
                         style="
                         width: 30px; height: 30px; border-radius: 50%; border: 1px solid #FF3B30; 
                         background: none; color: #FF3B30; display: flex; align-items: center; justify-content: center; cursor: pointer; flex-shrink: 0;">
