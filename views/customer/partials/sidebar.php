@@ -77,8 +77,13 @@
             echo nl2br(htmlspecialchars($about));
             ?>
         </div>
-
-        <button class="btn-review">Give us a Review!</button>
+<!---give us a review button logic---->
+        <?php
+        $revLink = $settings['review_link'] ?? '';
+        // Basic URL check: Default to # if empty. Add https if missing http
+        $revHref = empty($revLink) ? '#' : ((strpos($revLink, 'http') === 0) ? $revLink : 'https://' . $revLink);
+        ?>
+        <a href="<?= $revHref ?>" target="_blank" class="btn-review" style="text-decoration:none; display:block; text-align:center;">Give us a Review!</a>
 
         <div class="social-icons">
             <?php
