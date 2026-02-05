@@ -1534,3 +1534,12 @@ p {
     }
 
 }
+/* --- FIX: Force Cart Page Top Alignment --- */
+    .home-layout {
+        align-items: flex-start !important; /* Override any center/stretch behavior */
+    }
+    
+    .main-content {
+        justify-content: flex-start !important;
+        margin-top: 0 !important;
+    }

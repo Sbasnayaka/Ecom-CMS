@@ -8,7 +8,7 @@ require_once 'views/layouts/customer_header.php';
     <!-- Sidebar (Desktop) -->
     <?php include 'views/customer/partials/sidebar.php'; ?>
 
-    <main class="main-content" style="padding-bottom: 20px;">
+    <main class="main-content" style="padding-bottom: 20px; align-self: flex-start; margin-top: 0;">
 
         <!-- --- MOBILE HEADER (Custom - Structurally Matched to Categories) --- -->
         <div class="mobile-header-custom d-lg-none" style="padding: 20px 20px 0 20px; margin-bottom: 20px;">
