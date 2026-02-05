@@ -1344,128 +1344,15 @@ p {
     background: white;
 }
 
-/* --- Desktop Responsive Utilities --- */
 @media (min-width: 1024px) {
-    .d-lg-none {
-        display: none !important;
-    }
-
-    .display-desktop-only {
-        display: block !important;
-    }
-
-    .d-lg-flex {
-        display: flex !important;
-    }
-
-    .d-lg-block {
-        display: block !important;
-    }
-
-    .product-gallery {
-        position: relative;
-        width: 100%;
-        /* Fill the grid column */
-        overflow: hidden;
-        /* Hide scrollbars if we want clean look, but 'gallery-slider' handles scroll */
-    }
-
-    /* Force the slider to be a horizontal scroll container */
-    .gallery-slider {
-        display: flex;
-        /* Horizontal alignment */
-        overflow-x: auto;
-        /* Enable scroll */
-        scroll-snap-type: x mandatory;
-        /* Snap behavior */
-        scroll-behavior: smooth;
-        -webkit-overflow-scrolling: touch;
-        width: 100%;
-        gap: 0;
-        /* No gap for seamless slide */
-        border-radius: 20px;
-        /* Rounded container */
-    }
-
-    /* Force images to take full width of the slider */
-    .gallery-slider .gallery-img {
-        min-width: 100%;
-        width: 100%;
-        /* Occupy full container width */
-        height: auto;
-        /* Maintain aspect ratio */
-        object-fit: cover;
-        /* Cover */
-        aspect-ratio: 1 / 1.2;
-        /* Enforce consistent height ratio similar to mobile */
-        scroll-snap-align: center;
-        /* Snap to center */
-        border-radius: 0;
-        /* Let container handle radius or keep 0 */
-        margin: 0;
-    }
-
-    /* Hide scrollbar for clean UI */
-    .gallery-slider::-webkit-scrollbar {
-        display: none;
-    }
-
-    /* Center the dots on Desktop */
-    .gallery-dots {
-        justify-content: center;
-        margin-top: 15px;
-    }
-
-    /* Fix Desktop Dots: Robust Reset */
-    .gallery-dots {
-        position: relative !important;
-        /* Force reset */
-        inset: auto !important;
-        /* Reset top/left/right/bottom */
-        width: 100%;
-        display: flex !important;
-        justify-content: center;
-        gap: 10px;
-        margin-top: 20px;
-        margin-bottom: 25px;
-        /* Ensure gap before description */
-        z-index: 20;
-    }
-
-    .gallery-dots .dot {
-        width: 10px;
-        /* Slightly larger for desktop */
-        height: 10px;
-        border-radius: 50%;
-        background: #ddd;
-        /* Visible grey */
-        border: 1px solid #bbb;
-        cursor: pointer;
-        /* Suggest interaction */
-        flex-shrink: 0;
-    }
-
-    .gallery-dots .dot.active {
-        background: #000;
-        /* Deep black active */
-        border-color: #000;
-        transform: scale(1.2);
-        /* Highlight active */
-    }
-
-    /* Ensure Container allows dots to be shown */
-    .product-gallery {
-        overflow: visible !important;
-    }
-
-}
-/* --- FINAL DESKTOP OVERRIDES (Unified Block) --- */
-@media (min-width: 1024px) {
-    /* 1. VISIBILITY UTILITIES (Critical for hiding Mobile Header) */
+    /* 1. VISIBILITY & UTILITIES */
     .d-lg-none { display: none !important; }
     .d-lg-flex { display: flex !important; }
     .d-lg-block { display: block !important; }
-    /* 2. LAYOUT RESET (Fixes the Huge White Space) */
+    .display-desktop-only { display: block !important; }
+    .bottom-nav { display: none !important; }
+    body { padding-bottom: 20px; }
+    /* 2. LAYOUT RESET (Fixes White Space) */
     .container.main-wrapper, 
     .main-wrapper {
         width: 100% !important;
@@ -1475,22 +1362,35 @@ p {
         display: block !important;
         min-height: auto !important;
     }
-    /* Force Top Alignment for Sidebar + Content */
+    /* 3. HOME LAYOUT (Sidebar + Content) */
     .home-layout {
         display: flex !important;
-        align-items: flex-start !important; /* Top align */
+        align-items: flex-start !important; /* Forces Top Alignment */
         justify-content: flex-start !important;
         gap: 40px;
         padding-top: 40px !important;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding-left: 20px;
+        padding-right: 20px;
         min-height: 600px;
+    }
+    .sidebar {
+        width: 260px;
+        flex-shrink: 0;
+        background: transparent;
+        display: flex;
+        flex-direction: column;
+        border-right: 1px solid #eee; /* Clean divider */
+        padding-right: 20px;
     }
     .main-content {
         margin-top: 0 !important;
         padding-top: 0 !important;
         flex: 1;
+        min-width: 0;
     }
-    
-    /* 3. CART GRID SYSTEM */
+    /* 4. CART PAGE SPECIFICS */
     .cart-desktop-grid {
         display: grid;
         grid-template-columns: 1fr 380px; /* Items | Summary */
@@ -1532,10 +1432,10 @@ p {
         color: white !important;
         transform: rotate(90deg);
     }
-    /* 4. SUMMARY BOX (Sticky Right) */
+    /* Summary Box (Sticky Right) */
     #cartFooter {
         position: sticky;
-        top: 120px; /* Below header */
+        top: 120px;
         background: #F9F9F9 !important;
         padding: 30px !important;
         border-radius: 20px;
@@ -1546,11 +1446,51 @@ p {
         font-weight: 800 !important;
         color: #000 !important;
     }
-    
     #cartFooter button {
         margin-top: 20px;
         border-radius: 12px !important;
         height: 55px;
         font-size: 16px;
+    }
+    /* 5. PRODUCT GALLERY (Dots Fix) */
+    .product-gallery {
+        overflow: visible !important;
+    }
+    .gallery-slider {
+        display: flex;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        width: 100%;
+        border-radius: 20px;
+    }
+    .gallery-slider .gallery-img {
+        min-width: 100%;
+        width: 100%;
+        scroll-snap-align: center;
+    }
+    /* Dots */
+    .gallery-dots {
+        position: relative !important;
+        inset: auto !important;
+        display: flex !important;
+        justify-content: center;
+        gap: 10px;
+        margin-top: 20px;
+        margin-bottom: 25px;
+        z-index: 20;
+    }
+    .gallery-dots .dot {
+        width: 10px;
+        height: 10px;
+        background: #ddd;
+        border-radius: 50%;
+        cursor: pointer;
+    }
+    .gallery-dots .dot.active {
+        background: #000;
+        transform: scale(1.2);
+    }
+    .back-btn-overlay {
+        display: none !important; /* Hide back button on desktop if preferred, or keep */
     }
 }
