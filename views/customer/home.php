@@ -38,7 +38,7 @@
 
         <div class="categories-scroll">
             <?php foreach ($categories as $cat): ?>
-                <div class="cat-item">
+                <a href="<?= BASE_URL ?>shop/category/<?= $cat['id'] ?>" class="cat-item" style="text-decoration: none; color: inherit; display: block;">
                     <?php
                     $catPath = 'assets/uploads/' . $cat['image'];
                     $img = (!empty($cat['image']) && file_exists(ROOT_PATH . $catPath))
@@ -49,7 +49,7 @@
                     <div class="cat-name">
                         <?= htmlspecialchars($cat['name']) ?>
                     </div>
-                </div>
+                </a>
             <?php endforeach; ?>
         </div>
 
