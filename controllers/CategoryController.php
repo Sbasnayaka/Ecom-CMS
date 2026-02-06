@@ -182,5 +182,18 @@ class CategoryController extends BaseController
         $store = $this->categoryModel->delete($id);
         $this->redirect('category/index');
     }
+
+     /**
+     * API: Get Categories as JSON
+     */
+    public function get_json()
+    {
+        header('Content-Type: application/json');
+        $categories = $this->categoryModel->getAll();
+        echo json_encode($categories);
+        exit;
+    }
+
 }
+
 ?>

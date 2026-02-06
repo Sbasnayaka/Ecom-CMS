@@ -86,5 +86,16 @@ class VariationController extends BaseController
         $this->model->delete($id);
         $this->redirect('variation/index');
     }
+    /**
+     * API: Get Variations as JSON
+     */
+    public function get_json()
+    {
+        header('Content-Type: application/json');
+        $variations = $this->model->getAll();
+        echo json_encode($variations);
+        exit;
+    }
+
 }
 ?>

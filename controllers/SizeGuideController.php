@@ -70,5 +70,16 @@ class SizeGuideController extends BaseController
         $this->model->delete($id);
         $this->redirect('sizeGuide/index');
     }
+    /**
+     * API: Get Size Guides as JSON
+     */
+    public function get_json()
+    {
+        header('Content-Type: application/json');
+        $guides = $this->model->getAll();
+        echo json_encode($guides);
+        exit;
+    }
+
 }
 ?>
