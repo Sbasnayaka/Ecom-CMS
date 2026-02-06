@@ -474,6 +474,79 @@
     </form>
 
     <script>
+                // Auto-Refresh Logic (Added for Shop Owner Auto Updates)
+        window.refreshCategories = function() {
+            fetch('<?= BASE_URL ?>category/get_json')
+                .then(response => response.json())
+                .then(data => {
+                    const select = document.querySelector('select[name="category_id"]');
+                    const currentValue = select.value;
+                    let html = '<option value="">+ Click here to select Categories</option>';
+                    
+                    // Simple rebuild logic - matches original PHP loop structure
+                    // 1. Main Categories
+                    data.filter(c => !c.parent_id).forEach(main => {
+                        html += `<option value="${main.id}" style="font-weight:bold;">${main.name}</option>`;
+                        // 2. Sub Categories
+                        data.filter(sub => sub.parent_id == main.id).forEach(child => {
+                            html += `<option value="${child.id}">&nbsp;&nbsp;&nbsp;&nbsp;-- ${child.name}</option>`;
+                        });
+                    });
+                    
+                    select.innerHTML = html;
+                    select.value = currentValue; // Try to keep selection if possible
+                });
+        };
+
+        window.refreshSizeGuides = function() {
+            fetch('<?= BASE_URL ?>sizeGuide/get_json')
+                .then(response => response.json())
+                .then(data => {
+                    const select = document.querySelector('select[name="size_guide_id"]');
+                    const currentValue = select.value;
+                    let html = '<option value="">+ Click here to select Size Guides</option>';
+                    
+                    data.forEach(sg => {
+                        html += `<option value="${sg.id}">${sg.name}</option>`;
+                    });
+                    
+                    select.innerHTML = html;
+                    select.value = currentValue;
+                });
+        };
+
+        window.refreshVariations = function() {
+             fetch('<?= BASE_URL ?>variation/get_json')
+                .then(response => response.json())
+                .then(data => {
+                    const container = document.getElementById('variationListContainer');
+                    let html = '';
+                    
+                    data.forEach(varItem => {
+                        html += `
+                        <div class="var-group">
+                            <div class="var-title">${varItem.name}</div>
+                            <div>`;
+                            
+                        if(varItem.values) {
+                            varItem.values.forEach(val => {
+                                // Note: We lose 'selected' state on refresh for new items, 
+                                // but existing selection logic handled via hidden inputs won't be visually broken
+                                // until re-opened. Major goal is to see NEW items.
+                                html += `<div class="var-opt" data-id="${varItem.id}_${val.id}" onclick="toggleVar(this)">${val.value}</div>`;
+                            });
+                        }
+                        
+                        html += `</div></div>`;
+                    });
+                    
+                    container.innerHTML = html;
+                    
+                    // Re-apply selections if needed (optional advanced step), 
+                    // for now we just want to see the new options.
+                });
+        };
+
         // Image Preview Logic
         document.getElementById('mainImgInput').addEventListener('change', function (e) {
             if (e.target.files && e.target.files[0]) {
