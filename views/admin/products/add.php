@@ -593,10 +593,9 @@
 
         function closeIframeModal() {
             document.getElementById('universalModal').style.display = 'none';
-            if (confirm("If you made changes, please refresh this page to see updates (Save your form data first!).")) {
-                // No action
-            }
+            // Auto-refresh triggers are handled by the child windows now.
         }
+
 
         // Convert selections to hidden inputs for form submission
         function populateHiddenVars() {
