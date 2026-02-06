@@ -139,6 +139,56 @@
 
         <?php endif; ?>
 
+                /* Granular Button Overrides (Safe List) */
+        /* 1. Add to Cart */
+        <?php if (!empty($settings['btn_addcart_bg'])): ?>
+            .btn-cart.custom-btn { background-color: <?= $settings['btn_addcart_bg'] ?> !important; }
+        <?php endif; ?>
+        <?php if (!empty($settings['btn_addcart_text'])): ?>
+            .btn-cart.custom-btn { color: <?= $settings['btn_addcart_text'] ?> !important; }
+        <?php endif; ?>
+
+        /* 2. Apply Filter */
+        <?php if (!empty($settings['btn_apply_bg'])): ?>
+            .btn-apply-filter { background-color: <?= $settings['btn_apply_bg'] ?> !important; }
+        <?php endif; ?>
+        <?php if (!empty($settings['btn_apply_text'])): ?>
+            .btn-apply-filter { color: <?= $settings['btn_apply_text'] ?> !important; }
+        <?php endif; ?>
+
+        /* 3. Category/Nav */
+        <?php if (!empty($settings['btn_category_bg'])): ?>
+            .cat-btn { background-color: <?= $settings['btn_category_bg'] ?> !important; }
+        <?php endif; ?>
+        <?php if (!empty($settings['btn_category_text'])): ?>
+            .cat-btn { color: <?= $settings['btn_category_text'] ?> !important; }
+        <?php endif; ?>
+
+        /* 4. Sale/Red */
+        <?php if (!empty($settings['btn_sale_bg'])): ?>
+            .btn-red { background-color: <?= $settings['btn_sale_bg'] ?> !important; }
+        <?php endif; ?>
+        <?php if (!empty($settings['btn_sale_text'])): ?>
+            .btn-red { color: <?= $settings['btn_sale_text'] ?> !important; }
+        <?php endif; ?>
+
+        /* 5. Review Link */
+        <?php if (!empty($settings['btn_review_bg'])): ?>
+            .btn-review { background-color: <?= $settings['btn_review_bg'] ?> !important; }
+        <?php endif; ?>
+        <?php if (!empty($settings['btn_review_text'])): ?>
+            .btn-review { color: <?= $settings['btn_review_text'] ?> !important; }
+        <?php endif; ?>
+
+        /* 6. Size Guide */
+        <?php if (!empty($settings['btn_sizeguide_bg'])): ?>
+            .btn-sizeguide { background-color: <?= $settings['btn_sizeguide_bg'] ?> !important; }
+        <?php endif; ?>
+        <?php if (!empty($settings['btn_sizeguide_text'])): ?>
+            .btn-sizeguide { color: <?= $settings['btn_sizeguide_text'] ?> !important; }
+        <?php endif; ?>
+
+
         /* Navigation Styling Overrides */
         <?php if (!empty($settings['nav_mobile_bg'])): ?>
             .bottom-nav {
