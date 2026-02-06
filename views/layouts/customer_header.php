@@ -188,6 +188,13 @@
             .btn-sizeguide { color: <?= $settings['btn_sizeguide_text'] ?> !important; }
         <?php endif; ?>
 
+                /* Floating Elements */
+        <?php if (!empty($settings['floating_cart_bg'])): ?>
+            .floating-cart { background-color: <?= $settings['floating_cart_bg'] ?> !important; }
+        <?php endif; ?>
+        <?php if (!empty($settings['floating_cart_text'])): ?>
+            .floating-cart i { color: <?= $settings['floating_cart_text'] ?> !important; }
+        <?php endif; ?>
 
         /* Navigation Styling Overrides */
         <?php if (!empty($settings['nav_mobile_bg'])): ?>
