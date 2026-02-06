@@ -170,6 +170,13 @@ class SettingsController extends BaseController
             'btn_radius',
             'btn_text_color',
             'btn_bg_color',
+            // New Granular Button Controls (btn list)
+            'btn_addcart_bg', 'btn_addcart_text',
+            'btn_apply_bg', 'btn_apply_text',
+            'btn_category_bg', 'btn_category_text',
+            'btn_sale_bg', 'btn_sale_text',
+            'btn_review_bg', 'btn_review_text',
+            'btn_sizeguide_bg', 'btn_sizeguide_text',
             // Layout
             'bp_mobile',
             'bp_tablet',
