@@ -103,6 +103,18 @@
             padding: 5px;
             font-size: 12px;
         }
+                .section-header-block {
+            width: 100%;
+            font-size: 18px;
+            font-weight: 800;
+            color: #333;
+            border-bottom: 3px solid #007aff;
+            padding-bottom: 8px;
+            margin: 40px 0 20px 0;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
 
         .btn-save {
             background: #007aff;
@@ -124,12 +136,17 @@
     <form action="<?= BASE_URL ?>settings/updateStyles" method="POST">
         <div class="container">
 
+                        <!-- Header -->
             <div class="page-header">
                 <a href="<?= BASE_URL ?>settings/edit" style="text-decoration:none; color:black; font-size:24px;">❮</a>
                 <div class="header-title">Global Styles</div>
             </div>
 
-            <!-- Typography & Colors Row -->
+            <!-- =========================== -->
+            <!-- SECTION 1: COMMON STYLES    -->
+            <!-- =========================== -->
+            <div class="section-header-block">1. Common Styles (All Devices)</div>
+            
             <div style="display:flex; flex-wrap:wrap; gap:20px;">
                 <!-- Typography -->
                 <div class="style-card" style="flex:1; min-width:280px;">
@@ -137,208 +154,224 @@
                     <div class="control-group">
                         <label class="control-label">Font Family</label>
                         <select name="font_family" class="select-input">
-                            <option value="Roboto" <?= ($styles['font_family'] ?? '') == 'Roboto' ? 'selected' : '' ?>>
-                                Roboto</option>
+                            <option value="Roboto" <?= ($styles['font_family'] ?? '') == 'Roboto' ? 'selected' : '' ?>>Roboto</option>
                             <option value="Open Sans" <?= ($styles['font_family'] ?? '') == 'Open Sans' ? 'selected' : '' ?>>Open Sans</option>
                             <option value="Montserrat" <?= ($styles['font_family'] ?? '') == 'Montserrat' ? 'selected' : '' ?>>Montserrat</option>
-                            <option value="Inter" <?= ($styles['font_family'] ?? '') == 'Inter' ? 'selected' : '' ?>>Inter
-                            </option>
-                            <option value="Lato" <?= ($styles['font_family'] ?? '') == 'Lato' ? 'selected' : '' ?>>Lato
-                            </option>
-                            <option value="Poppins" <?= ($styles['font_family'] ?? '') == 'Poppins' ? 'selected' : '' ?>>
-                                Poppins</option>
-                            <option value="Playfair Display" <?= ($styles['font_family'] ?? '') == 'Playfair Display' ? 'selected' : '' ?>>Playfair Display</option>
-                            <option value="Nunito" <?= ($styles['font_family'] ?? '') == 'Nunito' ? 'selected' : '' ?>>
-                                Nunito</option>
-                            <option value="Nunito Sans" <?= ($styles['font_family'] ?? '') == 'Nunito Sans' ? 'selected' : '' ?>>Nunito Sans</option>
+                            <option value="Inter" <?= ($styles['font_family'] ?? '') == 'Inter' ? 'selected' : '' ?>>Inter</option>
+                            <option value="Lato" <?= ($styles['font_family'] ?? '') == 'Lato' ? 'selected' : '' ?>>Lato</option>
+                            <option value="Poppins" <?= ($styles['font_family'] ?? '') == 'Poppins' ? 'selected' : '' ?>>Poppins</option>
                         </select>
                     </div>
                     <div class="control-group">
-                        <label class="control-label">Heading Color</label>
-                        <div class="color-picker-row">
-                            <input type="color" name="h1_color" class="color-input"
-                                value="<?= $styles['h1_color'] ?? '#000000' ?>">
-                            <input type="text" class="color-text" value="<?= $styles['h1_color'] ?? '#000000' ?>"
-                                readonly>
-                        </div>
-                    </div>
-                    <div class="control-group">
-                        <label class="control-label">Body Text Size (px)</label>
+                        <label class="control-label">Body Size (px)</label>
                         <div class="range-row">
-                            <input type="range" min="10" max="24" class="range-slider"
-                                value="<?= $styles['body_size'] ?? 14 ?>"
-                                oninput="this.nextElementSibling.value = this.value">
-                            <input type="text" name="body_size" class="range-val"
-                                value="<?= $styles['body_size'] ?? 14 ?>">
+                            <input type="range" min="10" max="24" class="range-slider" value="<?= $styles['body_size'] ?? 14 ?>" oninput="this.nextElementSibling.value = this.value">
+                            <input type="text" name="body_size" class="range-val" value="<?= $styles['body_size'] ?? 14 ?>">
                         </div>
                     </div>
                 </div>
 
-                <!-- Colors -->
+                <!-- Theme Colors -->
                 <div class="style-card" style="flex:1; min-width:280px;">
                     <div class="card-header">Theme Colors</div>
                     <div class="control-group">
                         <label class="control-label">Primary Color</label>
                         <div class="color-picker-row">
-                            <input type="color" name="primary_color" class="color-input"
-                                value="<?= $styles['primary_color'] ?? '#007aff' ?>">
-                            <input type="text" class="color-text" value="<?= $styles['primary_color'] ?? '#007aff' ?>"
-                                readonly>
-                        </div>
-                    </div>
-                    <div class="control-group">
-                        <label class="control-label">Secondary Color</label>
-                        <div class="color-picker-row">
-                            <input type="color" name="secondary_color" class="color-input"
-                                value="<?= $styles['secondary_color'] ?? '#5ac8fa' ?>">
-                            <input type="text" class="color-text" value="<?= $styles['secondary_color'] ?? '#5ac8fa' ?>"
-                                readonly>
+                            <input type="color" name="primary_color" class="color-input" value="<?= $styles['primary_color'] ?? '#007aff' ?>">
+                            <input type="text" class="color-text" value="<?= $styles['primary_color'] ?? '#007aff' ?>" readonly>
                         </div>
                     </div>
                     <div class="control-group">
                         <label class="control-label">Background Color</label>
                         <div class="color-picker-row">
-                            <input type="color" name="bg_color" class="color-input"
-                                value="<?= $styles['bg_color'] ?? '#ffffff' ?>">
-                            <input type="text" class="color-text" value="<?= $styles['bg_color'] ?? '#ffffff' ?>"
-                                readonly>
+                            <input type="color" name="bg_color" class="color-input" value="<?= $styles['bg_color'] ?? '#ffffff' ?>">
+                            <input type="text" class="color-text" value="<?= $styles['bg_color'] ?? '#ffffff' ?>" readonly>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Layout & Grid -->
+            <!-- Granular Button Controls (SAFE LIST ONLY) -->
             <div class="style-card">
-                <div class="card-header">Layout & Grid System</div>
+                <div class="card-header">Button Styles (Granular Control)</div>
                 <div style="display:flex; flex-wrap:wrap; gap:20px;">
-                    <div style="flex:1;">
+                    
+                    <!-- 1. Add to Cart -->
+                    <div style="flex:1; min-width:200px;">
+                        <h4 style="font-size:12px; color:#555; margin-bottom:5px;">Add to Cart Button</h4>
                         <div class="control-group">
-                            <label class="control-label">Mobile Breakpoint (px)</label>
-                            <input type="number" name="bp_mobile" class="text-input"
-                                value="<?= $styles['bp_mobile'] ?? 480 ?>">
+                            <div class="color-picker-row">
+                                <span style="font-size:10px; width:30px;">BG:</span>
+                                <input type="color" name="btn_addcart_bg" class="color-input" value="<?= $styles['btn_addcart_bg'] ?? '#007aff' ?>">
+                            </div>
                         </div>
                         <div class="control-group">
-                            <label class="control-label">Tablet Breakpoint (px)</label>
-                            <input type="number" name="bp_tablet" class="text-input"
-                                value="<?= $styles['bp_tablet'] ?? 768 ?>">
-                        </div>
-                    </div>
-                    <div style="flex:1;">
-                        <div class="control-group">
-                            <label class="control-label">Desktop Breakpoint (px)</label>
-                            <input type="number" name="bp_desktop" class="text-input"
-                                value="<?= $styles['bp_desktop'] ?? 1024 ?>">
-                        </div>
-                        <div class="control-group">
-                            <label class="control-label">Wide Breakpoint (px)</label>
-                            <input type="number" name="bp_wide" class="text-input"
-                                value="<?= $styles['bp_wide'] ?? 1280 ?>">
-                        </div>
-                    </div>
-                </div>
-                <hr style="border:0; border-top:1px solid #eee; margin:15px 0;">
-                <div style="display:flex; flex-wrap:wrap; gap:20px;">
-                    <div style="flex:1;">
-                        <label class="control-label">Grid Columns</label>
-                        <select name="grid_cols" class="select-input">
-                            <option value="12" <?= ($styles['grid_cols'] ?? '') == '12' ? 'selected' : '' ?>>12 Columns
-                            </option>
-                            <option value="16" <?= ($styles['grid_cols'] ?? '') == '16' ? 'selected' : '' ?>>16 Columns
-                            </option>
-                        </select>
-                    </div>
-                    <div style="flex:1;">
-                        <label class="control-label">Gutter Spacing (px)</label>
-                        <input type="number" name="grid_gutter" class="text-input"
-                            value="<?= $styles['grid_gutter'] ?? 20 ?>">
-                    </div>
-                </div>
-            </div>
-
-            <!-- Media & Images -->
-            <div class="style-card">
-                <div class="card-header">Media & Images</div>
-                <div style="display:flex; flex-wrap:wrap; gap:20px;">
-                    <div style="flex:1;">
-                        <div class="control-group">
-                            <label class="control-label">Product Aspect Ratio</label>
-                            <select name="aspect_product" class="select-input">
-                                <option value="1:1" <?= ($styles['aspect_product'] ?? '') == '1:1' ? 'selected' : '' ?>>1:1
-                                    (Square)</option>
-                                <option value="4:5" <?= ($styles['aspect_product'] ?? '') == '4:5' ? 'selected' : '' ?>>4:5
-                                    (Portrait)</option>
-                                <option value="16:9" <?= ($styles['aspect_product'] ?? '') == '16:9' ? 'selected' : '' ?>>
-                                    16:9 (Landscape)</option>
-                            </select>
-                        </div>
-                        <div class="control-group">
-                            <label class="control-label">Global Image Radius (px)</label>
-                            <div class="range-row">
-                                <input type="range" min="0" max="50" class="range-slider"
-                                    value="<?= $styles['global_img_radius'] ?? 8 ?>"
-                                    oninput="this.nextElementSibling.value = this.value">
-                                <input type="text" name="global_img_radius" class="range-val"
-                                    value="<?= $styles['global_img_radius'] ?? 8 ?>">
+                            <div class="color-picker-row">
+                                <span style="font-size:10px; width:30px;">Txt:</span>
+                                <input type="color" name="btn_addcart_text" class="color-input" value="<?= $styles['btn_addcart_text'] ?? '#ffffff' ?>">
                             </div>
                         </div>
                     </div>
-                    <div style="flex:1;">
+
+                    <!-- 2. Apply Filter -->
+                    <div style="flex:1; min-width:200px;">
+                        <h4 style="font-size:12px; color:#555; margin-bottom:5px;">Sidebar 'Apply'</h4>
                         <div class="control-group">
-                            <label class="control-label">Banner Aspect Ratio</label>
-                            <select name="aspect_banner" class="select-input">
-                                <option value="16:9" <?= ($styles['aspect_banner'] ?? '') == '16:9' ? 'selected' : '' ?>>
-                                    16:9</option>
-                                <option value="21:9" <?= ($styles['aspect_banner'] ?? '') == '21:9' ? 'selected' : '' ?>>
-                                    21:9 (Ultrawide)</option>
-                                <option value="3:1" <?= ($styles['aspect_banner'] ?? '') == '3:1' ? 'selected' : '' ?>>3:1
-                                    (Slim)</option>
-                            </select>
+                            <div class="color-picker-row">
+                                <span style="font-size:10px; width:30px;">BG:</span>
+                                <input type="color" name="btn_apply_bg" class="color-input" value="<?= $styles['btn_apply_bg'] ?? '#4a148c' ?>">
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <div class="color-picker-row">
+                                <span style="font-size:10px; width:30px;">Txt:</span>
+                                <input type="color" name="btn_apply_text" class="color-input" value="<?= $styles['btn_apply_text'] ?? '#ffffff' ?>">
+                            </div>
                         </div>
                     </div>
+
+                    <!-- 3. Category/Nav -->
+                    <div style="flex:1; min-width:200px;">
+                        <h4 style="font-size:12px; color:#555; margin-bottom:5px;">Category Buttons</h4>
+                        <div class="control-group">
+                            <div class="color-picker-row">
+                                <span style="font-size:10px; width:30px;">BG:</span>
+                                <input type="color" name="btn_category_bg" class="color-input" value="<?= $styles['btn_category_bg'] ?? '#eeeeee' ?>">
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <div class="color-picker-row">
+                                <span style="font-size:10px; width:30px;">Txt:</span>
+                                <input type="color" name="btn_category_text" class="color-input" value="<?= $styles['btn_category_text'] ?? '#333333' ?>">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 4. Sale/Red -->
+                    <div style="flex:1; min-width:200px;">
+                        <h4 style="font-size:12px; color:#555; margin-bottom:5px;">Sale / Alert Buttons</h4>
+                        <div class="control-group">
+                            <div class="color-picker-row">
+                                <span style="font-size:10px; width:30px;">BG:</span>
+                                <input type="color" name="btn_sale_bg" class="color-input" value="<?= $styles['btn_sale_bg'] ?? '#ff0000' ?>">
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <div class="color-picker-row">
+                                <span style="font-size:10px; width:30px;">Txt:</span>
+                                <input type="color" name="btn_sale_text" class="color-input" value="<?= $styles['btn_sale_text'] ?? '#ffffff' ?>">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 5. Review Link -->
+                     <div style="flex:1; min-width:200px;">
+                        <h4 style="font-size:12px; color:#555; margin-bottom:5px;">Review Link</h4>
+                        <div class="control-group">
+                            <div class="color-picker-row">
+                                <span style="font-size:10px; width:30px;">BG:</span>
+                                <input type="color" name="btn_review_bg" class="color-input" value="<?= $styles['btn_review_bg'] ?? '#ffffff' ?>">
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <div class="color-picker-row">
+                                <span style="font-size:10px; width:30px;">Txt:</span>
+                                <input type="color" name="btn_review_text" class="color-input" value="<?= $styles['btn_review_text'] ?? '#000000' ?>">
+                            </div>
+                        </div>
+                    </div>
+
+                     <!-- 6. Size Guide -->
+                     <div style="flex:1; min-width:200px;">
+                        <h4 style="font-size:12px; color:#555; margin-bottom:5px;">Size Guide Btn</h4>
+                        <div class="control-group">
+                            <div class="color-picker-row">
+                                <span style="font-size:10px; width:30px;">BG:</span>
+                                <input type="color" name="btn_sizeguide_bg" class="color-input" value="<?= $styles['btn_sizeguide_bg'] ?? '#dddddd' ?>">
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <div class="color-picker-row">
+                                <span style="font-size:10px; width:30px;">Txt:</span>
+                                <input type="color" name="btn_sizeguide_text" class="color-input" value="<?= $styles['btn_sizeguide_text'] ?? '#000000' ?>">
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div style="margin-top:15px; font-size:11px; color:#777; font-style:italic;">
+                    * 'Order Now' buttons are brand-locked and cannot be edited.
                 </div>
             </div>
 
-            <!-- Navigation Styling -->
+            <!-- =========================== -->
+            <!-- SECTION 2: MOBILE STYLES    -->
+            <!-- =========================== -->
+            <div class="section-header-block">2. Mobile Styles</div>
+            
             <div class="style-card">
-                <div class="card-header">Navigation Styling</div>
+                <div class="card-header">Mobile Navigation & Layout</div>
                 <div style="display:flex; flex-wrap:wrap; gap:20px;">
-                    <!-- Mobile Nav -->
                     <div style="flex:1;">
-                        <h4 style="margin:0 0 10px 0; font-size:14px; color:#333;">Mobile Bottom Bar</h4>
                         <div class="control-group">
-                            <label class="control-label">Background Color</label>
+                            <label class="control-label">Mobile Breakpoint (Max Width)</label>
+                            <input type="number" name="bp_mobile" class="text-input" value="<?= $styles['bp_mobile'] ?? 480 ?>">
+                        </div>
+                         <div class="control-group">
+                            <label class="control-label">Nav Background</label>
                             <div class="color-picker-row">
                                 <input type="color" name="nav_mobile_bg" class="color-input" value="<?= $styles['nav_mobile_bg'] ?? '#ffffff' ?>">
                                 <input type="text" class="color-text" value="<?= $styles['nav_mobile_bg'] ?? '#ffffff' ?>" readonly>
                             </div>
                         </div>
+                    </div>
+                    <div style="flex:1;">
                         <div class="control-group">
-                            <label class="control-label">Icon/Text Color</label>
-                            <div class="color-picker-row">
+                            <label class="control-label">Nav Icon Color</label>
+                             <div class="color-picker-row">
                                 <input type="color" name="nav_mobile_icon_color" class="color-input" value="<?= $styles['nav_mobile_icon_color'] ?? '#999999' ?>">
                                 <input type="text" class="color-text" value="<?= $styles['nav_mobile_icon_color'] ?? '#999999' ?>" readonly>
                             </div>
                         </div>
                         <div class="control-group">
-                            <label class="control-label">Active Item Color</label>
-                            <div class="color-picker-row">
+                            <label class="control-label">Nav Active Color</label>
+                             <div class="color-picker-row">
                                 <input type="color" name="nav_mobile_active_color" class="color-input" value="<?= $styles['nav_mobile_active_color'] ?? '#555555' ?>">
                                 <input type="text" class="color-text" value="<?= $styles['nav_mobile_active_color'] ?? '#555555' ?>" readonly>
                             </div>
                         </div>
                     </div>
-                    <!-- Desktop Nav -->
-                    <div style="flex:1;">
-                        <h4 style="margin:0 0 10px 0; font-size:14px; color:#333;">Desktop Top Bar</h4>
+                </div>
+            </div>
+
+            <!-- =========================== -->
+            <!-- SECTION 3: DESKTOP STYLES   -->
+            <!-- =========================== -->
+            <div class="section-header-block">3. Desktop Styles</div>
+
+            <div class="style-card">
+                <div class="card-header">Desktop Navigation & Grid</div>
+                <div style="display:flex; flex-wrap:wrap; gap:20px;">
+                     <div style="flex:1;">
                         <div class="control-group">
-                            <label class="control-label">Background Color</label>
+                            <label class="control-label">Desktop Breakpoint (Min Width)</label>
+                            <input type="number" name="bp_desktop" class="text-input" value="<?= $styles['bp_desktop'] ?? 1024 ?>">
+                        </div>
+                         <div class="control-group">
+                            <label class="control-label">Wrap Container Width (px)</label>
+                            <input type="number" name="container_desktop" class="text-input" value="<?= $styles['container_desktop'] ?? 1200 ?>">
+                        </div>
+                    </div>
+                     <div style="flex:1;">
+                        <div class="control-group">
+                            <label class="control-label">Nav Background</label>
                             <div class="color-picker-row">
                                 <input type="color" name="nav_desktop_bg" class="color-input" value="<?= $styles['nav_desktop_bg'] ?? '#ffffff' ?>">
                                 <input type="text" class="color-text" value="<?= $styles['nav_desktop_bg'] ?? '#ffffff' ?>" readonly>
                             </div>
                         </div>
                         <div class="control-group">
-                            <label class="control-label">Link Text Color</label>
+                             <label class="control-label">Nav Link Color</label>
                             <div class="color-picker-row">
                                 <input type="color" name="nav_desktop_link_color" class="color-input" value="<?= $styles['nav_desktop_link_color'] ?? '#666666' ?>">
                                 <input type="text" class="color-text" value="<?= $styles['nav_desktop_link_color'] ?? '#666666' ?>" readonly>
@@ -348,98 +381,9 @@
                 </div>
             </div>
 
-            <!-- Behavior & Interactions -->
-            <div class="style-card">
-                <div class="card-header">Behavior & Interactions</div>
-                <div style="display:flex; flex-wrap:wrap; gap:20px;">
-                    <div style="flex:1;">
-                        <div class="control-group">
-                            <label class="control-label">Sticky Elements</label>
-                            <div style="display:flex; gap:15px; margin-top:5px;">
-                                <label><input type="checkbox" name="sticky_header" value="1"
-                                        <?= !empty($styles['sticky_header']) ? 'checked' : '' ?>> Header</label>
-                                <label><input type="checkbox" name="sticky_filters" value="1"
-                                        <?= !empty($styles['sticky_filters']) ? 'checked' : '' ?>> Filters</label>
-                                <label><input type="checkbox" name="sticky_cart" value="1"
-                                        <?= !empty($styles['sticky_cart']) ? 'checked' : '' ?>> Cart Bar</label>
-                            </div>
-                        </div>
-                        <div class="control-group">
-                            <label class="control-label">Scroll Behavior</label>
-                            <select name="scroll_smooth" class="select-input">
-                                <option value="1" <?= ($styles['scroll_smooth'] ?? '') == '1' ? 'selected' : '' ?>>Smooth
-                                </option>
-                                <option value="0" <?= ($styles['scroll_smooth'] ?? '') == '0' ? 'selected' : '' ?>>Instant
-                                </option>
-                            </select>
-                        </div>
-                    </div>
-                    <div style="flex:1;">
-                        <div class="control-group">
-                            <label class="control-label">Hover vs Tap</label>
-                            <select name="hover_interaction" class="select-input">
-                                <option value="standard" <?= ($styles['hover_interaction'] ?? '') == 'standard' ? 'selected' : '' ?>>Standard (Hover on Desktop)</option>
-                                <option value="touch_first" <?= ($styles['hover_interaction'] ?? '') == 'touch_first' ? 'selected' : '' ?>>Touch Optimized (Click only)</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <!-- Global Action -->
+            <button type="submit" class="btn-save">Save All Global Styles</button>
 
-            <!-- System (Buttons & Loading) -->
-            <div class="style-card">
-                <div class="card-header">Buttons & System</div>
-                <div style="display:flex; flex-wrap:wrap; gap:20px;">
-                    <div style="flex:1;">
-                        <div class="control-group">
-                            <label class="control-label">Btn Corner Radius</label>
-                            <div class="range-row">
-                                <input type="range" min="0" max="30" class="range-slider"
-                                    value="<?= $styles['btn_radius'] ?? 8 ?>"
-                                    oninput="this.nextElementSibling.value = this.value">
-                                <input type="text" name="btn_radius" class="range-val"
-                                    value="<?= $styles['btn_radius'] ?? 8 ?>">
-                            </div>
-                        </div>
-                        <div class="control-group">
-                            <label class="control-label">Skeleton Loader</label>
-                            <select name="skeleton_type" class="select-input">
-                                <option value="pulse" <?= ($styles['skeleton_type'] ?? '') == 'pulse' ? 'selected' : '' ?>>
-                                    Pulse Animation</option>
-                                <option value="shimmer" <?= ($styles['skeleton_type'] ?? '') == 'shimmer' ? 'selected' : '' ?>>Shimmer Wave</option>
-                                <option value="static" <?= ($styles['skeleton_type'] ?? '') == 'static' ? 'selected' : '' ?>>Static Gray</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div style="flex:1;">
-                        <div class="control-group">
-                            <label class="control-label">Button Background</label>
-                            <div class="color-picker-row">
-                                <input type="color" name="btn_bg_color" class="color-input"
-                                    value="<?= $styles['btn_bg_color'] ?? '#007aff' ?>">
-                                <input type="text" class="color-text"
-                                    value="<?= $styles['btn_bg_color'] ?? '#007aff' ?>" readonly>
-                            </div>
-                        </div>
-                        <div class="control-group">
-                            <label class="control-label">Button Text</label>
-                            <div class="color-picker-row">
-                                <input type="color" name="btn_text_color" class="color-input"
-                                    value="<?= $styles['btn_text_color'] ?? '#ffffff' ?>">
-                                <input type="text" class="color-text"
-                                    value="<?= $styles['btn_text_color'] ?? '#ffffff' ?>" readonly>
-                            </div>
-                        </div>
-                        <div class="control-group">
-                            <label class="control-label">Z-Index Header</label>
-                            <input type="number" name="z_header" class="text-input"
-                                value="<?= $styles['z_header'] ?? 1000 ?>">
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <button type="submit" class="btn-save">Save Styles</button>
 
         </div>
     </form>
