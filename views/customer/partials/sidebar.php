@@ -52,7 +52,7 @@
                 </div>
             <?php endif; ?>
         <?php endforeach; ?>
-        <button id="applyPriceFilter" style="
+        <button id="applyPriceFilter" class="btn-apply-filter" style="
             width: 100%; 
             padding: 6px; 
             background: #4a148c; 
