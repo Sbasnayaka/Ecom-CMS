@@ -213,7 +213,12 @@ class SettingsController extends BaseController
             'nav_mobile_icon_color',
             'nav_mobile_active_color',
             'nav_desktop_bg',
-            'nav_desktop_link_color'
+            'nav_desktop_link_color',
+            // Floating Cart
+            'floating_cart_bg',
+            'floating_cart_text'
+
+            
         ];
         $styles = $this->settingModel->getMultiple($styleKeys);
 
