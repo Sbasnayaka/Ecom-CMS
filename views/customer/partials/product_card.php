@@ -21,7 +21,7 @@ $isOnSale = !empty($prod['sale_price']) && $prod['sale_price'] < $prod['price'];
         </a>
 
         <?php if ($isOnSale): ?>
-            <div class="sale-badge btn-red">SALE</div>
+            <div class="sale-badge">SALE</div>
         <?php endif; ?>
 
         <!-- Cart Icon (Top Right, Black Circle) -->
