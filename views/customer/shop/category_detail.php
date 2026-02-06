@@ -11,7 +11,7 @@ require_once 'views/layouts/customer_header.php';
 
     <main class="main-content">
 
-        <!-- CUSTOM HEADER (Figma Exact - Category Detail) -->
+        <!-- CUSTOM HEADER -->
         <div class="mobile-header-custom d-lg-none" style="padding: 20px 20px 0 20px; margin-bottom: 20px;">
 
             <!-- Breadcrumb -->

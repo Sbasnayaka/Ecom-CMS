@@ -208,7 +208,7 @@ require_once 'views/layouts/customer_header.php';
 </div>
 
 <script>
-    // --- Safe Data Handoff (Step 3 Requirement) ---
+    // --- Safe Data Handoff  ---
     const cartData = <?= json_encode($cart ?? []) ?>;
 
     // --- ACTIONS (AJAX + Reload) ---

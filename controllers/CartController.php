@@ -15,7 +15,7 @@ class CartController extends BaseController
         $this->view('customer/shop/cart', [
             'title' => 'My Cart',
             'settings' => $settings,
-            'cart' => $cart // Pass cart data to view
+            'cart' => $cart 
         ]);
     }
 
@@ -54,7 +54,7 @@ class CartController extends BaseController
                 'id' => $input['id'],
                 'title' => $input['title'],
                 'price' => $input['price'],
-                'img' => $input['img'], // URL passed from frontend (simpler for now)
+                'img' => $input['img'], // URL passed from frontend 
                 'variants' => $input['variants'],
                 'qty' => $qtyToAdd
             ];

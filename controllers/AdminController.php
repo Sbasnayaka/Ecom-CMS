@@ -22,7 +22,6 @@ class AdminController extends BaseController
         $db = (new Database())->getConnection();
 
         // 1. Get Counts
-        // FIX: size_guides count is now fetched from the database
         $stats = [
             'products' => $db->query("SELECT COUNT(*) FROM products")->fetchColumn(),
             'categories' => $db->query("SELECT COUNT(*) FROM categories")->fetchColumn(),

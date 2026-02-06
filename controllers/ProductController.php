@@ -53,7 +53,7 @@ class ProductController extends BaseController
         // but raw list with parent check in View is fine for now
 
         $sizeGuides = $this->sizeGuideModel->getAll();
-        $variations = $this->variationModel->getAll(); // includes values
+        $variations = $this->variationModel->getAll();
 
         $this->view('admin/products/add', [
             'title' => 'Add Product',

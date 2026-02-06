@@ -1,18 +1,5 @@
 <?php
-/**
- * Configuration File
- * 
- * Handles environment detection (Local vs Production) and sets:
- * 1. Database Credentials
- * 2. Base URL (Path)
- */
 
-/*
- * Detect Environment
- * 
- * If the server name is 'localhost' or '127.0.0.1', we are local.
- * Otherwise, we assume production (StackCP / cPanel).
- */
 $is_local = ($_SERVER['SERVER_NAME'] === 'localhost' || $_SERVER['SERVER_NAME'] === '127.0.0.1');
 
 if ($is_local) {
@@ -27,7 +14,7 @@ if ($is_local) {
     define('BASE_URL', '/Ecom-CMS/');
 
 } else {
-    // === PRODUCTION SETTINGS (JERZY.LK) ===
+    // === PRODUCTION SETTINGS (domain) ===
     define('DB_HOST', 'sdb-85.hosting.stackcp.net');
     define('DB_PORT', '3306'); // Standard MySQL Port for Hosting
     define('DB_NAME', 'ecom-cms-35303938abe5');

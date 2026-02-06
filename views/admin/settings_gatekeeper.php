@@ -9,7 +9,6 @@
     <style>
         .gatekeeper-container {
             background-color: #f5f5f5;
-            /* Light gray box from screenshot */
             border-radius: 20px;
             padding: 30px 20px;
             text-align: center;
@@ -32,7 +31,6 @@
 
         .warning-text {
             color: #ff3b30;
-            /* Red warning text */
             font-weight: 600;
             font-size: 16px;
             margin-bottom: 15px;
@@ -41,7 +39,6 @@
 
         .info-text {
             color: #007aff;
-            /* Blue text */
             font-size: 14px;
             margin-bottom: 25px;
             line-height: 1.4;
@@ -65,7 +62,6 @@
 
         .btn-dashboard {
             background-color: #ff9500;
-            /* Orange */
             color: black;
             padding: 12px 20px;
             border-radius: 8px;
@@ -105,7 +101,6 @@
 
         .btn-login-admin {
             background-color: #ff3b69;
-            /* Pink/Red */
             color: white;
             padding: 12px 30px;
             border-radius: 8px;

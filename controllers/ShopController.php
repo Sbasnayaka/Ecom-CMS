@@ -48,7 +48,7 @@ class ShopController extends BaseController
             $title = 'Search Results for "' . htmlspecialchars($search) . '"';
         }
 
-        // Fetch Specific Category Details if Filtered (Task 2.3 Part 3)
+        // Fetch Specific Category Details if Filtered
         $currentCategory = null;
         if (!empty($categoryIds) && count($categoryIds) === 1) {
             // Only strictly needed when ONE category is selected (Sub-Category View)
@@ -154,7 +154,7 @@ class ShopController extends BaseController
         $settings = $this->settingModel->getAllPairs();
 
         $this->view('customer/shop/index', [
-            'title' => 'Discounts!', /* EXACT UI MATCH */
+            'title' => 'Discounts!',
             'products' => $products,
             'categories' => $categories,
             'settings' => $settings,
@@ -171,7 +171,7 @@ class ShopController extends BaseController
         $settings = $this->settingModel->getAllPairs();
 
         $this->view('customer/shop/index', [
-            'title' => 'Featured Products', /* EXACT UI MATCH */
+            'title' => 'Featured Products',
             'products' => $products,
             'categories' => $categories,
             'settings' => $settings,
@@ -188,7 +188,7 @@ class ShopController extends BaseController
         $settings = $this->settingModel->getAllPairs();
 
         $this->view('customer/shop/index', [
-            'title' => 'Recent Items', /* EXACT UI MATCH */
+            'title' => 'Recent Items',
             'products' => $products,
             'categories' => $categories,
             'settings' => $settings,
@@ -196,7 +196,7 @@ class ShopController extends BaseController
         ]);
     }
 
-    // List All Categories Page (Task 2.1)
+    // List All Categories Page
     public function categories()
     {
         $categories = $this->categoryModel->getAll();
@@ -208,7 +208,7 @@ class ShopController extends BaseController
             'settings' => $settings
         ]);
     }
-    // Single Category Detail Page (Task 2.2)
+    // Single Category Detail Page
     public function category($id)
     {
         // 1. Get Main Category
@@ -242,7 +242,7 @@ class ShopController extends BaseController
             'settings' => $settings
         ]);
     }
-    // --- Desktop Home Tabs AJAX Handler (Task 6.3) ---
+    // --- Desktop Home Tabs AJAX Handler ---
     public function tab_content()
     {
         $type = $_GET['type'] ?? 'new';

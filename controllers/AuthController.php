@@ -22,7 +22,7 @@ class AuthController extends BaseController
     {
         // If already logged in, go to dashboard
         if (isset($_SESSION['user_id'])) {
-            $this->redirect('admin/dashboard'); // We will create this later
+            $this->redirect('admin/dashboard');
             return;
         }
 

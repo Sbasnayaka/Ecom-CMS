@@ -26,14 +26,11 @@ class HomeController extends BaseController
         $settings = $this->settingsModel->getAll();
 
         // 2. Fetch Categories (Top level)
-        // If we want all, we use getAll, but for home maybe limit or parent only?
-        // User design shows "Top Categories" with images.
         $categories = $this->categoryModel->getAll();
-        // Filter for valid images if needed, or just take first 8
 
         // 3. Fetch Products
         $featuredProducts = $this->productModel->getAllFeatured();
-        $latestProducts = $this->productModel->getLatest(8); // Infinite scroll placeholder
+        $latestProducts = $this->productModel->getLatest(8);
         $saleProducts = $this->productModel->getAllOnSale();
 
         $this->view('customer/home', [

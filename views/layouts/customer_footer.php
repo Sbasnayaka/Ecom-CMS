@@ -108,10 +108,6 @@ if ($cartCount > 0 && ($current_page ?? '') !== 'cart'):
             hideCartToast();
         }, 3500);
 
-        // Also update Floating Cart Count if it exists (for immediate feedback)
-        // Note: Real count update requires AJAX response or reload, 
-        // but we can increment purely visually for UX?
-        // Let's rely on the PHP reload or AJAX success logic calling this.
     }
 
     function hideCartToast() {

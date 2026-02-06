@@ -99,7 +99,6 @@
         /* Gray Form Area */
         .gray-form-card {
             background-color: #e0e0e0;
-            /* Gray background from screenshot */
             border-radius: 15px;
             padding: 20px;
             margin-bottom: 80px;

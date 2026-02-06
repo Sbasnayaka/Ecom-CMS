@@ -12,15 +12,11 @@ require_once 'views/layouts/customer_header.php';
 
     <main class="main-content">
 
-        <!-- Single Product View Styles (All handled in customer.css now) -->
+        <!-- Single Product View Styles  -->
         <div class="product-detail-page">
 
             <!-- Image Gallery Section -->
             <div class="product-gallery">
-                <!-- Back Button Overlay -->
-                <!-- Back Button Overlay (Task 3.2 Fix) -->
-                <!-- Back Button Overlay -->
-                <!-- Added background rgba(0,0,0,0.1) to ensure visibility on all backgrounds -->
                 <a href="javascript:history.back()" class="back-btn-overlay" style="text-decoration: none; position: absolute; top: 10px; left: 10px; z-index: 10; width: 35px; height: 35px; background: rgba(0,0,0,0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center;">
                      <i class="fas fa-arrow-left" style="color: black; font-size: 16px;"></i>
                 </a>
@@ -50,7 +46,7 @@ require_once 'views/layouts/customer_header.php';
                     <?php endif; ?>
                 </div>
 
-                <!-- Pagination Dots (Visual Only for now, or simple JS) -->
+                <!-- Pagination Dots  -->
                 <div class="gallery-dots">
                     <span class="dot active"></span>
                     <?php if (!empty($gallery)): ?>
@@ -135,7 +131,7 @@ require_once 'views/layouts/customer_header.php';
                 <?php endif; ?>
 
 
-                <!-- Quantity Selector (Moved) -->
+                <!-- Quantity Selector  -->
                 <div class="pd-quantity"
                     style="margin-top: 20px; margin-bottom: 20px; display: flex; align-items: center; gap: 20px;">
                     <span style="font-weight: 600; font-size: 15px; color: #000;">Quantity :</span>
@@ -156,14 +152,12 @@ require_once 'views/layouts/customer_header.php';
 
                 <!-- Bottom Actions -->
                 <div class="pd-bottom-actions">
-                    <!-- WhatsApp Order -->
                     <!-- Order Now Button (Triggers Modal) -->
                     <button class="btn-action btn-whatsapp" onclick="openOrderModal()">
                         <i class="fab fa-whatsapp"></i> Order Now
                     </button>
 
                     <!-- Add to Cart -->
-                    <!-- Add to Cart (Real Logic) -->
                     <button class="btn-action btn-cart" onclick="addToCartFromProductPage()">
                         <i class="fas fa-cart-plus"></i> Add to cart
                     </button>
@@ -206,7 +200,7 @@ if (!empty($product['size_guide_image']) && file_exists(ROOT_PATH . $sgPath)):
     </script>
 <?php endif; ?>
 
-<!-- Image Lightbox Modal (Task - Requirement 2) -->
+<!-- Image Lightbox Modal -->
 <div id="imgModal" class="modal-overlay" onclick="closeImageModal()" style="display: none;">
     <div class="modal-content" onclick="event.stopPropagation()" style="position: relative; padding: 0; background: transparent; box-shadow: none;">
          <!-- Close Button -->
@@ -232,7 +226,7 @@ if (!empty($product['size_guide_image']) && file_exists(ROOT_PATH . $sgPath)):
     function closeSizeGuide() {
         document.getElementById('sgModal').style.display = 'none';
     }
-    // Carousel Pagination Logic (Requirement 3)
+    // Carousel Pagination Logic 
     document.addEventListener('DOMContentLoaded', () => {
         const slider = document.querySelector('.gallery-slider');
         const dots = document.querySelectorAll('.gallery-dots .dot');
@@ -253,12 +247,10 @@ if (!empty($product['size_guide_image']) && file_exists(ROOT_PATH . $sgPath)):
         }
     });
 
-    // Also update updateQty function name to be unique if needed? 
-    // No, it's global scope, but check for conflicts. 'updateQty' is standard.
 </script>
 
 
-<!-- Order Form Modal (Task 4.1) -->
+<!-- Order Form Modal -->
 <div id="orderModal" class="modal-overlay" style="display: none;">
     <div class="modal-content"
         style="max-width: 500px; width: 90%; max-height: 90vh; overflow-y: auto; padding: 25px; border-radius: 15px;">
@@ -358,7 +350,7 @@ if (!empty($product['size_guide_image']) && file_exists(ROOT_PATH . $sgPath)):
         console.log("Selected:", selectedVariations);
     }
 
-    // --- Order Modal Logic (Task 4.1) ---
+    // --- Order Modal Logic ---
 
     function openOrderModal() {
         // Check if all variations are selected (Optional safety check, or let them order anyway)

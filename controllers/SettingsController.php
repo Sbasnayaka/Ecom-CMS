@@ -118,7 +118,6 @@ class SettingsController extends BaseController
             }
 
             // Owner Credentials Update / Create
-            // Owner Credentials Update / Create
             $ownerId = $_POST['owner_id'] ?? '';
             $newUsername = $_POST['owner_username'] ?? '';
             $newPass = $_POST['owner_password'] ?? '';

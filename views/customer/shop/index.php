@@ -18,7 +18,7 @@ require_once 'views/layouts/customer_header.php';
     <!-- MAIN CONTENT AREA -->
     <main class="main-content">
 
-        <!-- CUSTOM HEADER (Figma Exact - Sub Category) -->
+        <!-- CUSTOM HEADER  -->
         <?php if ($isSubCategoryView): ?>
             <div class="mobile-header-custom d-lg-none" style="padding: 20px 20px 0 20px; margin-bottom: 20px;">
 
@@ -146,7 +146,6 @@ require_once 'views/layouts/customer_header.php';
                 #product-grid-container {
                     grid-template-columns: repeat(2, 1fr) !important;
                     gap: 15px !important;
-                    /* Adjusted gap to match Figma */
                 }
 
                 .mobile-header-custom {

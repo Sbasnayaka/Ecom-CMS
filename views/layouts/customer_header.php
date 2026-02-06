@@ -311,7 +311,6 @@
             width: 100%;
         ">
                 <div style="position: relative;">
-                    <!-- Exact visual match for Input: Pill shape, light purple bg, no border -->
                     <input type="text" id="mobileSearchInput" placeholder="Search products........." class="search-input"
                         style="width: 100%; height: 45px; padding: 0 45px 0 20px; border-radius: 50px; border: none; background: #ede7f6; font-size: 14px; color: #333; outline: none;">
 

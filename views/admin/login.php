@@ -7,7 +7,6 @@
     <title>
         <?= $title ?? 'Login' ?>
     </title>
-    <!-- Simple Inline CSS for now to make it look decent -->
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -53,7 +52,6 @@
 
         .login-heading {
             color: #f39c12;
-            /* Orange from design typically */
             font-weight: bold;
             text-transform: uppercase;
             font-size: 16px;
@@ -79,13 +77,11 @@
             border-radius: 5px;
             box-sizing: border-box;
             background-color: #f2f2f2;
-            /* Light grey input bg */
             border: none;
         }
 
         .btn {
             background-color: #ff2b55;
-            /* Pink/Red from screenshot */
             color: white;
             padding: 12px 15px;
             border: none;
@@ -182,7 +178,6 @@
             password.setAttribute('type', type);
 
             // Toggle the eye icon
-            // Assuming eye-close.png represents 'Hidden' state and eye-open.png represents 'Visible' state
             if (type === 'password') {
                 this.src = '<?= BASE_URL ?>assets/icons/eye-close.png';
             } else {

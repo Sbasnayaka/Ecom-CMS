@@ -216,7 +216,6 @@ require_once 'views/layouts/customer_header.php';
 
                 .discount-grid-custom .product-card .price strong {
                     background: #FF3B30;
-                    /* Red Pill Background */
                     color: white !important;
                     padding: 2px 8px;
                     border-radius: 50px;
@@ -226,7 +225,6 @@ require_once 'views/layouts/customer_header.php';
                 /* Adjust Product Card Padding/Title for cleaner Mobile View */
                 .discount-grid-custom .product-card {
                     border: none !important;
-                    /* Remove borders for valid "Clean" look */
                 }
             }
         </style>

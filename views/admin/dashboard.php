@@ -90,7 +90,7 @@
         <h3 class="section-title">Products in your Store</h3>
 
         <div class="product-list-container">
-            <!-- Header Row (Optional background gray bar from screenshot) -->
+            <!-- Header Row  -->
             <div
                 style="background:#eee; padding: 10px; border-radius: 6px; font-size:12px; color:#666; margin-bottom:10px;">
                 Products

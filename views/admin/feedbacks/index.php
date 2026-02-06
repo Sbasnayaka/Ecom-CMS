@@ -29,7 +29,6 @@
         .feedback-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            /* 2 columns like screenshot */
             gap: 15px;
             padding-bottom: 80px;
         }

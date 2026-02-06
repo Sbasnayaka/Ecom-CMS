@@ -61,7 +61,6 @@ class FeedbackController extends BaseController
 
     public function delete($id)
     {
-        // Optional: Delete physical file if needed, but for now just DB record
         $this->model->delete($id);
         $this->redirect('feedback/index');
     }

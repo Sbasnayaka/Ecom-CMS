@@ -146,7 +146,7 @@ document.addEventListener('DOMContentLoaded', function() {
             if (max) urlParams.set('max', max); else urlParams.delete('max');
             if (catIds) urlParams.set('cat', catIds); else urlParams.delete('cat');
             
-            // Scenario A: We are on the Shop Page -> Use AJAX
+            // We are on the Shop Page -> Use AJAX
             if (shopGrid) {
                 const search = urlParams.get('search') || '';
                 const apiUrl = '<?= BASE_URL ?>shop/filter?min=' + encodeURIComponent(min) + '&max=' + encodeURIComponent(max) + '&cat=' + encodeURIComponent(catIds) + '&search=' + encodeURIComponent(search);
@@ -170,7 +170,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         shopGrid.style.opacity = '1';
                     });
             } 
-            // Scenario B: We are elsewhere (Home, Product Detail) -> Redirect
+            //We are elsewhere (Home, Product Detail) -> Redirect
             else {
                 // Redirect to Shop Index with params
                 window.location.href = '<?= BASE_URL ?>shop?' + urlParams.toString();
