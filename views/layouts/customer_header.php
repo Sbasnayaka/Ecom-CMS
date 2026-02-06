@@ -517,7 +517,7 @@
                     </span>
                     <span style="font-size: 14px; margin-left: 5px;">Cart</span>
                 </a>
-                <a href="<?= BASE_URL ?>shop/sales" class="btn-red" style="text-decoration:none;">Sale Items</a>
+                <a href="<?= BASE_URL ?>shop/sales" class="sale-badge btn-red" style="text-decoration:none;">Sale Items</a>
             </div>
         </div>
 
