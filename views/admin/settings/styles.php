@@ -303,7 +303,27 @@
                     * 'Order Now' buttons are brand-locked and cannot be edited.
                 </div>
             </div>
-
+<!-- Floating Elements -->
+            <div class="style-card">
+                <div class="card-header">Floating Elements</div>
+                <div style="display:flex; flex-wrap:wrap; gap:20px;">
+                    <div style="flex:1; min-width:200px;">
+                        <h4 style="font-size:12px; color:#555; margin-bottom:5px;">Floating Cart Icon</h4>
+                        <div class="control-group">
+                            <div class="color-picker-row">
+                                <span style="font-size:10px; width:30px;">BG:</span>
+                                <input type="color" name="floating_cart_bg" class="color-input" value="<?= $styles['floating_cart_bg'] ?? '#7c4af0' ?>">
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <div class="color-picker-row">
+                                <span style="font-size:10px; width:30px;">Icon:</span>
+                                <input type="color" name="floating_cart_text" class="color-input" value="<?= $styles['floating_cart_text'] ?? '#ffffff' ?>">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <!-- =========================== -->
             <!-- SECTION 2: MOBILE STYLES    -->
             <!-- =========================== -->
