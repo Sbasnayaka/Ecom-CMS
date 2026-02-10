@@ -56,8 +56,8 @@ require_once 'views/layouts/customer_header.php';
                         <?php endforeach; ?>
                     <?php endif; ?>
                 </div>
-                <!-- Description (Desktop Only) -->
-                <div class="pd-description d-none d-lg-block">
+                <!-- Description -->
+                <div class="pd-description">
                     <?= nl2br(htmlspecialchars($product['description'])) ?>
 
 
@@ -145,10 +145,6 @@ require_once 'views/layouts/customer_header.php';
                         <button type="button" onclick="updateQty(1)"
                             style="border:none; border-left: 1px solid #000; background:transparent; width: 35px; height: 100%; font-size: 16px; cursor: pointer; color: #000; display: flex; align-items: center; justify-content: center;">+</button>
                     </div>
-                <!-- Mobile Only Description (Moved Here) -->
-                <div class="pd-description d-lg-none" style="margin-top: 20px; margin-bottom: 20px;">
-                    <?= nl2br(htmlspecialchars($product['description'])) ?>
-                </div>
                 </div>
 
 
