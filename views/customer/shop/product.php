@@ -59,6 +59,8 @@ require_once 'views/layouts/customer_header.php';
                 <!-- Description -->
                 <div class="pd-description d-none d-lg-block">
                     <?= nl2br(htmlspecialchars($product['description'])) ?>
+
+
                 </div>
             </div>
 
