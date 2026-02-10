@@ -57,7 +57,7 @@ require_once 'views/layouts/customer_header.php';
                     <?php endif; ?>
                 </div>
                 <!-- Description -->
-                <div class="pd-description">
+                <div class="pd-description d-none d-lg-block">
                     <?= nl2br(htmlspecialchars($product['description'])) ?>
 
 
@@ -146,6 +146,11 @@ require_once 'views/layouts/customer_header.php';
                             style="border:none; border-left: 1px solid #000; background:transparent; width: 35px; height: 100%; font-size: 16px; cursor: pointer; color: #000; display: flex; align-items: center; justify-content: center;">+</button>
                     </div>
                 </div>
+                <!-- Mobile Only Description (Moved Here) -->
+                <div class="pd-description d-lg-none" style="margin-top: 20px; margin-bottom: 20px;">
+                    <?= nl2br(htmlspecialchars($product['description'])) ?>
+                </div>
+
 
 
 
