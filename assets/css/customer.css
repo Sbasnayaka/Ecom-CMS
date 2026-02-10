@@ -1628,29 +1628,39 @@ p {
     }
 }
 
-/* 2. Fix Gallery Dots (Outside Image) */
+/* 2. Fix Gallery Dots (Identical to Image) */
 @media (max-width: 1023px) {
     .gallery-dots {
-        position: relative !important;
+        position: relative !important; /* Move OUTSIDE image */
         bottom: auto !important;
+        width: 100% !important;
         margin-top: 15px !important;
-        margin-bottom: 20px !important;
-        justify-content: center;
+        margin-bottom: 25px !important;
+        justify-content: center !important;
         background: transparent !important;
+        display: flex !important;
+        gap: 8px !important;
+        padding: 0 !important;
     }
     
     .gallery-dots .dot {
-        background: #ccc; /* Grey */
-        width: 8px;
-        height: 8px;
+        background: #d9d9d9 !important; /* Light Grey Inactive */
+        width: 8px !important;
+        height: 8px !important;
+        border-radius: 50% !important;
+        opacity: 1 !important;
+        border: none !important;
+        margin: 0 !important;
     }
     
     .gallery-dots .dot.active {
-        background: #000; /* Black */
+        background: #000000 !important; /* Black Active */
+        width: 8px !important;
+        height: 8px !important;
     }
 }
 
-/* 3. Fix Price Line */
+/* 3. Fix Price Line (Row Layout + Figma Style) */
 @media (max-width: 1023px) {
     .pd-price-row {
         align-items: center; /* Vertically center with Size Guide */
@@ -1658,23 +1668,25 @@ p {
 
     .pd-prices {
         display: flex !important;
-        flex-direction: row !important; /* Force Row */
+        flex-direction: row !important; /* Force Side-by-Side Row */
         align-items: baseline !important; /* Align text bottom */
-        gap: 10px !important;
+        gap: 12px !important;
         width: auto !important;
     }
 
     .pd-old-price {
-        font-size: 14px !important;
+        font-size: 13px !important;
         color: #999 !important;
         margin: 0 !important;
         text-decoration: line-through;
+        font-weight: 400 !important;
     }
 
     .pd-sale-price {
-        font-size: 18px !important; /* Slightly larger than old */
+        font-size: 16px !important;
         color: #FF3B30 !important; /* Red */
         font-weight: 700 !important;
         margin: 0 !important;
     }
 }
+
