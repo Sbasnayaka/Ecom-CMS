@@ -470,22 +470,22 @@ p {
 }
 
 .gallery-dots {
-    position: absolute;
-    bottom: 15px;
-    left: 0;
-    right: 0;
+    /* Removed absolute positioning */
     display: flex;
     justify-content: center;
     gap: 8px;
+    margin-top: 15px; /* Space below image */
+    padding-bottom: 5px;
 }
 
 .gallery-dots .dot {
-    width: 8px;
-    height: 8px;
+    width: 7px;     /* Slightly smaller & cleaner */
+    height: 7px;
     border-radius: 50%;
-    background: rgba(0, 0, 0, 0.2);
-    border: 1px solid #fff;
+    background: #d9d9d9; /* Grey Inactive */
+    transition: background 0.2s;
 }
+
 
 .gallery-dots .dot.active {
     background: #000;
