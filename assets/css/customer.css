@@ -27,18 +27,10 @@ body {
 
 /* Global Mobile Padding */
 @media (max-width: 1023px) {
-    html, body {
+    body {
         padding-left: 20px;
         padding-right: 20px;
-        overflow-x: hidden; /* Fix gap/scroll issue */
-        width: 100%;
-        box-sizing: border-box;
     }
-    
-    *, *:before, *:after {
-        box-sizing: inherit;
-    }
-
 
     /* Reset padding for full-width elements if any */
     .mobile-header,
