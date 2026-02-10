@@ -1,5 +1,9 @@
 /* Customer Experience Styles (Mobile First) - Revised */
 
+* {
+    box-sizing: border-box;
+}
+
 :root {
     --primary-color: #9747FF;
     /* Lavender/Purple from design */
