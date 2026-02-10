@@ -73,6 +73,64 @@ body {
         font-size: 14px;
         /* Emphasize sale price */
     }
+
+        /* --- Task 4: Single Product Page (Figma Matches) --- */
+    
+    /* 1. Full Bleed Gallery (Edge-to-Edge) */
+    .product-gallery {
+        margin-left: -20px; /* Pull to edge */
+        margin-right: -20px; /* Pull to edge */
+        width: calc(100% + 40px); /* Fill space */
+        margin-bottom: 10px;
+        border-radius: 0;
+    }
+    
+    .gallery-slider img {
+        border-radius: 0 !important; /* Square corners for full bleed */
+    }
+
+    /* 2. Dots BELOW the image */
+    .gallery-dots {
+        position: relative !important;
+        bottom: auto !important;
+        left: auto !important;
+        transform: none !important;
+        margin-top: 15px;
+        justify-content: center;
+        width: 100%;
+        padding-bottom: 10px;
+    }
+    
+    .dot {
+        background-color: #d1d1d1 !important; /* Grey inactive */
+        opacity: 1; 
+        width: 7px; height: 7px;
+    }
+    .dot.active {
+        background-color: #000 !important; /* Black active */
+        transform: scale(1.2);
+    }
+
+    /* 3. Price Styling (Red Sale, Side-by-Side) */
+    .pd-prices {
+        display: flex;
+        align-items: baseline;
+        gap: 10px;
+    }
+    
+    .pd-sale-price {
+        color: #FF3B30 !important; /* Figma Red */
+        font-size: 18px !important;
+        font-weight: 700 !important;
+    }
+    
+    .pd-old-price {
+        color: #999 !important; /* Grey */
+        font-size: 14px !important;
+        text-decoration: line-through;
+        font-weight: 400 !important;
+    }
+
 }
 
 /* Helper Classes */
