@@ -1596,3 +1596,23 @@ p {
         padding-top: 0 !important;
     }
 }
+
+/* --- Responsive Utilities (Fixes Description Duplication) --- */
+
+/* Hide by default (Mobile) */
+.d-none {
+    display: none !important;
+}
+
+/* Desktop Logic (Screens larger than 1024px) */
+@media (min-width: 1024px) {
+    /* Show element on Desktop */
+    .d-lg-block {
+        display: block !important;
+    }
+    
+    /* Hide element on Desktop */
+    .d-lg-none {
+        display: none !important;
+    }
+}
