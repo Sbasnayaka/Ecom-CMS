@@ -17,8 +17,9 @@ require_once 'views/layouts/customer_header.php';
 
             <!-- Image Gallery Section -->
             <div class="product-gallery">
-                <a href="javascript:history.back()" class="back-btn-overlay" style="text-decoration: none; position: absolute; top: 10px; left: 10px; z-index: 10; width: 35px; height: 35px; background: rgba(0,0,0,0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center;">
-                     <i class="fas fa-arrow-left" style="color: black; font-size: 16px;"></i>
+                <a href="javascript:history.back()" class="back-btn-overlay"
+                    style="text-decoration: none; position: absolute; top: 10px; left: 10px; z-index: 10; width: 35px; height: 35px; background: rgba(0,0,0,0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+                    <i class="fas fa-arrow-left" style="color: black; font-size: 16px;"></i>
                 </a>
 
                 <div class="gallery-slider">
@@ -56,10 +57,8 @@ require_once 'views/layouts/customer_header.php';
                     <?php endif; ?>
                 </div>
                 <!-- Description -->
-                <div class="pd-description">
+                <div class="pd-description d-none d-lg-block">
                     <?= nl2br(htmlspecialchars($product['description'])) ?>
-
-
                 </div>
             </div>
 
@@ -146,7 +145,12 @@ require_once 'views/layouts/customer_header.php';
                     </div>
                 </div>
 
-                
+                <!-- Mobile Only Description (Moved Here) -->
+                <div class="pd-description d-lg-none" style="margin-top: 20px; margin-bottom: 20px;">
+                    <?= nl2br(htmlspecialchars($product['description'])) ?>
+                </div>
+
+
 
 
 
@@ -202,13 +206,15 @@ if (!empty($product['size_guide_image']) && file_exists(ROOT_PATH . $sgPath)):
 
 <!-- Image Lightbox Modal -->
 <div id="imgModal" class="modal-overlay" onclick="closeImageModal()" style="display: none;">
-    <div class="modal-content" onclick="event.stopPropagation()" style="position: relative; padding: 0; background: transparent; box-shadow: none;">
-         <!-- Close Button -->
+    <div class="modal-content" onclick="event.stopPropagation()"
+        style="position: relative; padding: 0; background: transparent; box-shadow: none;">
+        <!-- Close Button -->
         <div onclick="closeImageModal()"
             style="position: absolute; top: -15px; right: -15px; cursor: pointer; z-index: 201; background: white; border-radius: 50%; padding: 5px; width: 35px; height: 35px; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 10px rgba(0,0,0,0.2);">
             <i class="fas fa-times" style="color: black; font-size: 18px;"></i>
         </div>
-        <img id="imgModalSrc" src="" style="width:100%; height: auto; max-height: 80vh; object-fit: contain; border-radius: 8px; display: block;">
+        <img id="imgModalSrc" src=""
+            style="width:100%; height: auto; max-height: 80vh; object-fit: contain; border-radius: 8px; display: block;">
     </div>
 </div>
 <script>
@@ -219,7 +225,7 @@ if (!empty($product['size_guide_image']) && file_exists(ROOT_PATH . $sgPath)):
     function closeImageModal() {
         document.getElementById('imgModal').style.display = 'none';
     }
-// Size Guide Modal Logic (Fix Task 2)
+    // Size Guide Modal Logic (Fix Task 2)
     function openSizeGuide() {
         document.getElementById('sgModal').style.display = 'flex';
     }
