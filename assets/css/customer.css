@@ -30,6 +30,8 @@ body {
     body {
         padding-left: 20px;
         padding-right: 20px;
+        overflow-x: hidden;
+        /* Fix Right Side Gap */
     }
 
     /* Reset padding for full-width elements if any */
@@ -73,10 +75,8 @@ p {
 .mobile-header {
     padding: 20px 0 0 0;
     /* Top padding only, sides handled by body */
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    /* Center align items vertically */
+    display: block;
+    /* Fix: Changed from Flex to Block so Search Bar falls BELOW */
     margin-bottom: 20px;
 }
 
@@ -443,12 +443,16 @@ p {
 
 .gallery-slider img {
     width: 100%;
-    aspect-ratio: 1 / 1.2; /* Force Portrait Frame */
-    height: auto;          /* Let aspect ratio decide height */
-    object-fit: cover;     /* Zoom to fill */
+    aspect-ratio: 1 / 1.2;
+    /* Force Portrait Frame */
+    height: auto;
+    /* Let aspect ratio decide height */
+    object-fit: cover;
+    /* Zoom to fill */
     flex-shrink: 0;
     scroll-snap-align: center;
-    border-radius: 0;      /* Ensure clean edges */
+    border-radius: 0;
+    /* Ensure clean edges */
 }
 
 
@@ -474,15 +478,18 @@ p {
     display: flex;
     justify-content: center;
     gap: 8px;
-    margin-top: 15px; /* Space below image */
+    margin-top: 15px;
+    /* Space below image */
     padding-bottom: 5px;
 }
 
 .gallery-dots .dot {
-    width: 7px;     /* Slightly smaller & cleaner */
+    width: 7px;
+    /* Slightly smaller & cleaner */
     height: 7px;
     border-radius: 50%;
-    background: #d9d9d9; /* Grey Inactive */
+    background: #d9d9d9;
+    /* Grey Inactive */
     transition: background 0.2s;
 }
 
