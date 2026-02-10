@@ -74,63 +74,7 @@ body {
         /* Emphasize sale price */
     }
 
-        /* --- Task 4: Single Product Page (Figma Matches) --- */
     
-    /* 1. Full Bleed Gallery (Edge-to-Edge) */
-    .product-gallery {
-        margin-left: -20px; /* Pull to edge */
-        margin-right: -20px; /* Pull to edge */
-        width: calc(100% + 40px); /* Fill space */
-        margin-bottom: 10px;
-        border-radius: 0;
-    }
-    
-    .gallery-slider img {
-        border-radius: 0 !important; /* Square corners for full bleed */
-    }
-
-    /* 2. Dots BELOW the image */
-    .gallery-dots {
-        position: relative !important;
-        bottom: auto !important;
-        left: auto !important;
-        transform: none !important;
-        margin-top: 15px;
-        justify-content: center;
-        width: 100%;
-        padding-bottom: 10px;
-    }
-    
-    .dot {
-        background-color: #d1d1d1 !important; /* Grey inactive */
-        opacity: 1; 
-        width: 7px; height: 7px;
-    }
-    .dot.active {
-        background-color: #000 !important; /* Black active */
-        transform: scale(1.2);
-    }
-
-    /* 3. Price Styling (Red Sale, Side-by-Side) */
-    .pd-prices {
-        display: flex;
-        align-items: baseline;
-        gap: 10px;
-    }
-    
-    .pd-sale-price {
-        color: #FF3B30 !important; /* Figma Red */
-        font-size: 18px !important;
-        font-weight: 700 !important;
-    }
-    
-    .pd-old-price {
-        color: #999 !important; /* Grey */
-        font-size: 14px !important;
-        text-decoration: line-through;
-        font-weight: 400 !important;
-    }
-
 }
 
 /* Helper Classes */
@@ -1672,5 +1616,65 @@ p {
     /* Hide element on Desktop */
     .d-lg-none {
         display: none !important;
+    }
+}
+
+/* --- FINAL MOBILE FIXES (Single Product Page) --- */
+
+/* 1. Ensure Top Description is HIDDEN on Mobile */
+@media (max-width: 1023px) {
+    .pd-description.d-none {
+        display: none !important;
+    }
+}
+
+/* 2. Fix Gallery Dots (Outside Image) */
+@media (max-width: 1023px) {
+    .gallery-dots {
+        position: relative !important;
+        bottom: auto !important;
+        margin-top: 15px !important;
+        margin-bottom: 20px !important;
+        justify-content: center;
+        background: transparent !important;
+    }
+    
+    .gallery-dots .dot {
+        background: #ccc; /* Grey */
+        width: 8px;
+        height: 8px;
+    }
+    
+    .gallery-dots .dot.active {
+        background: #000; /* Black */
+    }
+}
+
+/* 3. Fix Price Line */
+@media (max-width: 1023px) {
+    .pd-price-row {
+        align-items: center; /* Vertically center with Size Guide */
+    }
+
+    .pd-prices {
+        display: flex !important;
+        flex-direction: row !important; /* Force Row */
+        align-items: baseline !important; /* Align text bottom */
+        gap: 10px !important;
+        width: auto !important;
+    }
+
+    .pd-old-price {
+        font-size: 14px !important;
+        color: #999 !important;
+        margin: 0 !important;
+        text-decoration: line-through;
+    }
+
+    .pd-sale-price {
+        font-size: 18px !important; /* Slightly larger than old */
+        color: #FF3B30 !important; /* Red */
+        font-weight: 700 !important;
+        margin: 0 !important;
     }
 }
