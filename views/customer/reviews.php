@@ -125,14 +125,25 @@ require_once 'views/layouts/customer_header.php';
                 </div>
             </div>
 
-            <!-- 4. Review Button -->
+                        <!-- 4. Review Button (Dynamic Smart Link) -->
             <div style="padding: 0 20px; margin-bottom: 30px;">
-                <?php $shopPhone = isset($settings['shop_whatsapp']) ? str_replace(['+', ' '], '', $settings['shop_whatsapp']) : ''; ?>
-                <a href="https://wa.me/<?= $shopPhone ?>?text=I%20would%20like%20to%20leave%20a%20review!"
+                <?php 
+                    // 1. Get the specific 'review_link' setting
+                    $reviewUrl = isset($settings['review_link']) ? $settings['review_link'] : '#';
+                    
+                    // 2. Smart Check: Is it a URL or a Number?
+                    if ($reviewUrl !== '#' && strpos($reviewUrl, 'http') !== 0) {
+                        // It's a Number -> Convert to WhatsApp Link
+                        $reviewUrl = 'https://wa.me/' . str_replace(['+', ' '], '', $reviewUrl) . '?text=I%20would%20like%20to%20leave%20a%20review!';
+                    }
+                    // Else: It operates as a normal link (e.g. Google Reviews)
+                ?>
+                <a href="<?= $reviewUrl ?>"
                     target="_blank" style="display: block; width: 100%; background: #50d176; color: white; text-align: center; padding: 18px; border-radius: 15px; font-weight: 700; text-decoration: none; box-shadow: 0 4px 15px rgba(80, 209, 118, 0.3); font-size: 16px;">
                     Give us a Review!
                 </a>
             </div>
+
 
                         <!-- 5. Social Icons (Dynamic) -->
             <div style="display: flex; justify-content: center; gap: 20px; margin-bottom: 50px;">
