@@ -161,8 +161,9 @@ require_once 'views/layouts/customer_header.php';
                     }
                 ?>
                 <a href="<?= $waLink ?>" target="_blank">
-                    <img src="<?= BASE_URL ?>assets\icons\whatsapp.png" style="width: 45px;"> 
+                    <img src="<?= BASE_URL ?>assets/icons/whatsapp.png" style="width: 45px;"> 
                 </a>
+                
 
 
             </div>
