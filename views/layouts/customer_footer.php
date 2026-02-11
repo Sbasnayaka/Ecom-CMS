@@ -71,14 +71,16 @@
 <!-- Floating Cart Bubble (Mobile Only) -->
 <?php
 $cartCount = isset($_SESSION['cart']) ? array_sum(array_column($_SESSION['cart'], 'qty')) : 0;
-// Show only if items exist and NOT on Cart Page
-if ($cartCount > 0 && ($current_page ?? '') !== 'cart'):
+// Render IF not on cart page (Hidden by default if count is 0)
+if (($current_page ?? '') !== 'cart'):
     ?>
-    <a href="<?= BASE_URL ?>cart" class="floating-cart d-lg-none">
+    <a href="<?= BASE_URL ?>cart" class="floating-cart d-lg-none" 
+       style="display: <?= $cartCount > 0 ? 'flex' : 'none' ?>;">
         <i class="fas fa-shopping-cart"></i>
         <span class="floating-cart-count"><?= $cartCount ?></span>
     </a>
 <?php endif; ?>
+
 
 <!-- Cart Toast Overlay -->
 <div id="cartToast">
