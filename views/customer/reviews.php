@@ -154,15 +154,18 @@ require_once 'views/layouts/customer_header.php';
                 </a>
                 <!-- WhatsApp -->
                 <?php 
-                    $waLink = $settings['social_whatsapp'] ?? '#';
-                    // If it's not empty and doesn't start with http, assume it's a number and add wa.me
-                    if ($waLink !== '#' && !str_starts_with($waLink, 'http')) {
+                    $waLink = isset($settings['social_whatsapp']) ? $settings['social_whatsapp'] : '#';
+                    
+                    // Safe Check: If not empty, not '#', and does NOT start with http
+                    if ($waLink !== '#' && strpos($waLink, 'http') !== 0) {
+                        // It's a number, so add wa.me prefix
                         $waLink = 'https://wa.me/' . str_replace(['+', ' '], '', $waLink);
                     }
                 ?>
                 <a href="<?= $waLink ?>" target="_blank">
                     <img src="<?= BASE_URL ?>assets/icons/whatsapp.png" style="width: 45px;"> 
                 </a>
+
                 
 
 
