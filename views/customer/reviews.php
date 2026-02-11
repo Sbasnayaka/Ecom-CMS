@@ -153,8 +153,9 @@ require_once 'views/layouts/customer_header.php';
                     <img src="<?= BASE_URL ?>assets/icons/youtube.png" style="width: 45px;">
                 </a>
                 <!-- WhatsApp -->
-                <a href="<?= !empty($settings['social_whatsapp']) ? $settings['social_whatsapp'] : '#' ?>" target="_blank">
+                <a href="https://wa.me/<?= !empty($settings['social_whatsapp']) ? $settings['social_whatsapp'] : '#' ?>" target="_blank">
                     <img src="<?= BASE_URL ?>assets/icons/whatsapp.png" style="width: 45px;">
+                    Hello 
                 </a>
             </div>
 
