@@ -125,7 +125,7 @@ require_once 'views/layouts/customer_header.php';
                 </div>
             </div>
 
-            <!-- 4. Review Button -->
+            <!-- Review Button -->
             <div style="padding: 0 20px; margin-bottom: 30px;">
                 <?php $shopPhone = isset($settings['shop_whatsapp']) ? str_replace(['+', ' '], '', $settings['shop_whatsapp']) : ''; ?>
                 <a href="https://wa.me/<?= $shopPhone ?>?text=I%20would%20like%20to%20leave%20a%20review!"
@@ -134,14 +134,43 @@ require_once 'views/layouts/customer_header.php';
                 </a>
             </div>
 
-            <!-- 5. Social Icons -->
+            <!-- Social Icons -->
             <div style="display: flex; justify-content: center; gap: 20px; margin-bottom: 50px;">
-                <a href="#"><img src="<?= BASE_URL ?>assets/icons/facebook.png" style="width: 45px;"></a>
-                <a href="#"><img src="<?= BASE_URL ?>assets/icons/tiktok.png" style="width: 45px;"></a>
-                <a href="#"><img src="<?= BASE_URL ?>assets/icons/instagram.png" style="width: 45px;"></a>
-                <a href="#"><img src="<?= BASE_URL ?>assets/icons/youtube.png" style="width: 45px;"></a>
-                <a href="#"><img src="<?= BASE_URL ?>assets/icons/whatsapp.png" style="width: 45px;"></a>
+                
+                <?php if (!empty($settings['shop_facebook'])): ?>
+                    <a href="<?= htmlspecialchars($settings['shop_facebook']) ?>" target="_blank">
+                        <img src="<?= BASE_URL ?>assets/icons/facebook.png" style="width: 45px;">
+                    </a>
+                <?php endif; ?>
+
+                <?php if (!empty($settings['shop_tiktok'])): ?>
+                    <a href="<?= htmlspecialchars($settings['shop_tiktok']) ?>" target="_blank">
+                        <img src="<?= BASE_URL ?>assets/icons/tiktok.png" style="width: 45px;">
+                    </a>
+                <?php endif; ?>
+
+                <?php if (!empty($settings['shop_instagram'])): ?>
+                    <a href="<?= htmlspecialchars($settings['shop_instagram']) ?>" target="_blank">
+                        <img src="<?= BASE_URL ?>assets/icons/instagram.png" style="width: 45px;">
+                    </a>
+                <?php endif; ?>
+
+                <?php if (!empty($settings['shop_youtube'])): ?>
+                    <a href="<?= htmlspecialchars($settings['shop_youtube']) ?>" target="_blank">
+                        <img src="<?= BASE_URL ?>assets/icons/youtube.png" style="width: 45px;">
+                    </a>
+                <?php endif; ?>
+
+                <?php if (!empty($settings['shop_whatsapp'])): 
+                    $waLink = 'https://wa.me/' . str_replace(['+', ' '], '', $settings['shop_whatsapp']);
+                ?>
+                    <a href="<?= $waLink ?>" target="_blank">
+                        <img src="<?= BASE_URL ?>assets/icons/whatsapp.png" style="width: 45px;">
+                    </a>
+                <?php endif; ?>
+
             </div>
+
 
         </div>
 
