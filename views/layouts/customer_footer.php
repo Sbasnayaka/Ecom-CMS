@@ -116,6 +116,28 @@ if (($current_page ?? '') !== 'cart'):
         document.getElementById('cartToast').style.display = 'none';
         clearTimeout(toastTimeout);
     }
+
+    
+    // --- Global Loader Controller---
+    let globalLoaderTimeout;
+
+    function showGlobalLoader() {
+        // Clear any existing timer to avoid double triggers
+        clearTimeout(globalLoaderTimeout);
+        
+        // Set a delay of 300ms before showing
+        globalLoaderTimeout = setTimeout(() => {
+            document.getElementById('globalLoader').style.display = 'flex';
+        }, 300);
+    }
+
+    function hideGlobalLoader() {
+        // Cancel the show timer immediately
+        clearTimeout(globalLoaderTimeout);
+        // Hide the loader immediately
+        document.getElementById('globalLoader').style.display = 'none';
+    }
+
 </script>
 
 <!-- Global Loading Overlay -->
