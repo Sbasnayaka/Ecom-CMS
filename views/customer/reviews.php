@@ -154,7 +154,7 @@ require_once 'views/layouts/customer_header.php';
                 </a>
                 <!-- WhatsApp -->
                 <?php 
-                    $waLink = isset($settings['social_whatsapp']) ? $settings['social_whatsapp'] : '#';
+                    $waLink = isset($settings['shop_whatsapp']) ? $settings['shop_whatsapp'] : '#';
                     
                     // Safe Check: If not empty, not '#', and does NOT start with http
                     if ($waLink !== '#' && strpos($waLink, 'http') !== 0) {
