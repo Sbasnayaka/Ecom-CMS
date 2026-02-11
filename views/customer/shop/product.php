@@ -429,12 +429,20 @@ if (!empty($product['size_guide_image']) && file_exists(ROOT_PATH . $sgPath)):
         msg += "Phone 02: " + phone2 + "\n";
         if (note) msg += "Note: " + note + "\n";
 
-        // 4. Redirect
+               // 4. Redirect
         const shopPhone = "<?= str_replace(['+', ' '], '', $settings['shop_whatsapp'] ?? '') ?>";
         const url = "https://wa.me/" + shopPhone + "?text=" + encodeURIComponent(msg);
-        window.open(url, '_blank');
-        closeOrderModal();
+        
+        // Show Loader & Delay
+        if (typeof showGlobalLoader === 'function') showGlobalLoader();
+
+        setTimeout(() => {
+            window.open(url, '_blank');
+            if (typeof hideGlobalLoader === 'function') hideGlobalLoader();
+            closeOrderModal();
+        }, 1000); // 1s delay to prevent double-clicks
     }
+
 
         // --- Add to Cart Logic (AJAX) ---
     function addToCartFromProductPage() {

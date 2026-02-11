@@ -296,11 +296,21 @@ require_once 'views/layouts/customer_header.php';
         msg += "Phone 02: " + phone2 + "\n";
         if (note) msg += "Note: " + note + "\n";
 
+                // 4. Redirect
         const shopPhone = "<?= str_replace(['+', ' '], '', $settings['shop_whatsapp'] ?? '') ?>";
         const url = "https://wa.me/" + shopPhone + "?text=" + encodeURIComponent(msg);
-        window.open(url, '_blank');
-        closeOrderModal();
+        
+        // [Phase 3.3] Show Loader & Delay
+        if (typeof showGlobalLoader === 'function') showGlobalLoader();
+
+        setTimeout(() => {
+            window.open(url, '_blank');
+            if (typeof hideGlobalLoader === 'function') hideGlobalLoader();
+            closeOrderModal();
+        }, 1000); // 1s delay to prevent double-clicks
     }
+
+
 </script>
 
 <?php require_once 'views/layouts/customer_footer.php'; ?>
