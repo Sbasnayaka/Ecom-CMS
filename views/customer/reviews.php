@@ -64,16 +64,25 @@ require_once 'views/layouts/customer_header.php';
 
                             if ($fbImg):
                                 ?>
-                                <div style="
+                                                                <div style="
                                 flex: 0 0 85%; 
                                 scroll-snap-align: center;
                                 border-radius: 15px;
                                 overflow: hidden;
                                 box-shadow: 0 5px 15px rgba(0,0,0,0.1);
                                 border: 1px solid #f0f0f0;
+                                height: 450px; /* FIXED HEIGHT */
+                                position: relative;
                             ">
-                                    <img src="<?= $fbImg ?>" alt="Feedback" style="width: 100%; display: block;">
+                                    <img src="<?= $fbImg ?>" alt="Feedback" style="
+                                    width: 100%; 
+                                    height: 100%; 
+                                    object-fit: cover; /* Zoom/Crop to fill */
+                                    object-position: top; /* Standardize alignment */
+                                    display: block;
+                                ">
                                 </div>
+
                             <?php endif; endforeach; ?>
                     <?php endif; ?>
                 </div>
