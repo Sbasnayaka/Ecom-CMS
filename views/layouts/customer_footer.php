@@ -138,6 +138,35 @@ if (($current_page ?? '') !== 'cart'):
         document.getElementById('globalLoader').style.display = 'none';
     }
 
+    
+    // --- Navigation Interceptor  ---
+    document.addEventListener('click', function(e) {
+        // Find closest anchor tag
+        const link = e.target.closest('a');
+        
+        // Safety checks
+        if (!link) return;
+        if (link.target === '_blank') return; // Ignore new tabs
+        if (link.getAttribute('href').startsWith('#')) return; // Ignore hash links
+        if (link.getAttribute('href').startsWith('javascript')) return; // Ignore JS links
+        if (link.classList.contains('no-loader')) return; // Allow manual opt-out
+        
+        // Check if internal link
+        const href = link.href;
+        if (href && href.startsWith('<?= BASE_URL ?>')) {
+            // It is an internal navigation -> Show Loader
+            showGlobalLoader();
+        }
+    });
+
+    // --- Safety Valve  ---
+    // If user clicks "Back" button, the page might be loaded from cache with loader still visible.
+    // This forces it to hide.
+    window.addEventListener('pageshow', function(event) {
+        hideGlobalLoader();
+    });
+
+
 </script>
 
 <!-- Global Loading Overlay -->
