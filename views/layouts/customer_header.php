@@ -446,54 +446,57 @@
                         updateCartBadge();
                     }
 
-                        function addToCart(id, title, price, img) {
+                                                function addToCart(id, title, price, img) {
+                            // Show Loader
+                            if (typeof showGlobalLoader === 'function') showGlobalLoader();
+
                             // Prepare Data
                             const payload = {
-                            id: id,
-                        title: title,
-                        price: price,
-                        quantity: 1, // Default to 1 from cards
-                        img: img || '',
-                        variants: '' // No variants from cards yet
+                                id: id,
+                                title: title,
+                                price: price,
+                                quantity: 1, 
+                                img: img || '',
+                                variants: ''
                             };
 
-                        // Send AJAX Request
-                        fetch('<?= BASE_URL ?>cart/add', {
-                            method: 'POST',
-                        headers: {'Content-Type': 'application/json' },
-                        body: JSON.stringify(payload)
+                            // Send AJAX Request
+                            fetch('<?= BASE_URL ?>cart/add', {
+                                method: 'POST',
+                                headers: {'Content-Type': 'application/json' },
+                                body: JSON.stringify(payload)
                             })
                             .then(response => response.json())
                             .then(data => {
                                 if (data.success) {
-                                    // Trigger Visual Toast (defined in footer)
-                                    if (typeof showCartToast === 'function') {
-                            showCartToast();
-                                    }
+                                    if (typeof showCartToast === 'function') showCartToast();
 
-                        // Update Badge Counts
-                        const bubbleCount = document.querySelector('.floating-cart-count');
-                        const headerCount = document.querySelector('.cart-badge-count');
+                                    // Update Badge Counts
+                                    const bubbleCount = document.querySelector('.floating-cart-count');
+                                    const headerCount = document.querySelector('.cart-badge-count');
 
-                        if (data.count) {
-                                         if (bubbleCount) bubbleCount.innerText = data.count;
-                        if (headerCount) {
-                            headerCount.innerText = data.count;
-                        headerCount.style.display = 'inline-block';
-                                         }
-                        // Show floating cart if hidden
-                        const floatingCart = document.querySelector('.floating-cart');
-                        if (floatingCart) floatingCart.style.display = 'flex';
+                                    if (data.count) {
+                                        if (bubbleCount) bubbleCount.innerText = data.count;
+                                        if (headerCount) {
+                                            headerCount.innerText = data.count;
+                                            headerCount.style.display = 'inline-block';
+                                        }
+                                        const floatingCart = document.querySelector('.floating-cart');
+                                        if (floatingCart) floatingCart.style.display = 'flex';
                                     }
                                 } else {
-                            alert('Failed to add to cart');
+                                    alert('Failed to add to cart');
                                 }
                             })
                             .catch(error => {
-                            console.error('Error:', error);
-                                // Fallback visual for demo? No, stay strict.
+                                console.error('Error:', error);
+                            })
+                            .finally(() => {
+                                //  Hide Loader Always
+                                if (typeof hideGlobalLoader === 'function') hideGlobalLoader();
                             });
                         }
+
 
                         function updateCartBadge() {
                         const cart = getCart();
