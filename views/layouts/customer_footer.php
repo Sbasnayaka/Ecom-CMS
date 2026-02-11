@@ -139,25 +139,24 @@ if (($current_page ?? '') !== 'cart'):
     }
 
     
-    // --- Navigation Interceptor  ---
+        // --- Navigation Interceptor (Fixed) ---
     document.addEventListener('click', function(e) {
-        // Find closest anchor tag
         const link = e.target.closest('a');
-        
-        // Safety checks
         if (!link) return;
-        if (link.target === '_blank') return; // Ignore new tabs
-        if (link.getAttribute('href').startsWith('#')) return; // Ignore hash links
-        if (link.getAttribute('href').startsWith('javascript')) return; // Ignore JS links
-        if (link.classList.contains('no-loader')) return; // Allow manual opt-out
         
-        // Check if internal link
-        const href = link.href;
-        if (href && href.startsWith('<?= BASE_URL ?>')) {
-            // It is an internal navigation -> Show Loader
+        // 1. Basic Safety
+        if (link.target === '_blank') return; 
+        const hrefAttr = link.getAttribute('href');
+        if (!hrefAttr || hrefAttr.startsWith('#') || hrefAttr.startsWith('javascript:') || hrefAttr.startsWith('mailto:') || hrefAttr.startsWith('tel:')) return;
+        if (link.classList.contains('no-loader')) return;
+
+        // 2. Internal Link Check (Hostname Matching)
+        // This works for both relative (/shop) and absolute (http://site.com/shop) links
+        if (link.hostname === window.location.hostname) {
             showGlobalLoader();
         }
     });
+
 
     // --- Safety Valve  ---
     // If user clicks "Back" button, the page might be loaded from cache with loader still visible.
