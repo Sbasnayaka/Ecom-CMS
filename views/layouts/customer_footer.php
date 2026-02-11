@@ -118,7 +118,12 @@ if (($current_page ?? '') !== 'cart'):
     }
 </script>
 
-<!-- Responsive Display Helpers (Inlined for simplicity, or move to CSS) -->
+<!-- Global Loading Overlay -->
+<div id="globalLoader" class="global-loader-overlay">
+    <div class="global-loader-spinner"></div>
+    <div class="global-loader-text">Loading...</div>
+</div>
+
 </body>
 
 </html>
