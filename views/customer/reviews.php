@@ -139,7 +139,7 @@ require_once 'views/layouts/customer_header.php';
                 
                 <?php if (!empty($settings['shop_facebook'])): ?>
                     <a href="<?= htmlspecialchars($settings['shop_facebook']) ?>" target="_blank">
-                        <img src="<?= BASE_URL ?>assets/icons/facebook.png" style="width: 45px;">
+                        <img src="<?= BASE_URL ?>'assets/icons/facebook.png' style="width: 45px;">
                     </a>
                 <?php endif; ?>
 
