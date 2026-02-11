@@ -436,16 +436,18 @@ if (!empty($product['size_guide_image']) && file_exists(ROOT_PATH . $sgPath)):
         closeOrderModal();
     }
 
-    // --- Add to Cart Logic (AJAX) ---
+        // --- Add to Cart Logic (AJAX) ---
     function addToCartFromProductPage() {
-        // 1. Gather Details
+        // Show Loader
+        if (typeof showGlobalLoader === 'function') showGlobalLoader();
+
+        //  Gather Details
         const id = <?= $product['id'] ?>;
         const title = "<?= addslashes($product['title']) ?>";
         const price = <?= $product['sale_price'] ?: $product['price'] ?>;
         const qty = parseInt(document.getElementById('qtyInput').value) || 1;
 
         <?php
-        // Get Image URL safely
         $img = 'assets/uploads/' . $product['main_image'];
         if (empty($product['main_image']) || !file_exists(ROOT_PATH . $img)) {
             $imgUrl = 'https://via.placeholder.com/150';
@@ -464,7 +466,7 @@ if (!empty($product['size_guide_image']) && file_exists(ROOT_PATH . $sgPath)):
             variantStr = variantStr.slice(0, -2);
         }
 
-        // 2. Prepare Data
+        //  Prepare Data
         const payload = {
             id: id,
             title: title,
@@ -474,7 +476,7 @@ if (!empty($product['size_guide_image']) && file_exists(ROOT_PATH . $sgPath)):
             variants: variantStr
         };
 
-        // 3. Send AJAX Request
+        // Send AJAX Request
         fetch('<?= BASE_URL ?>cart/add', {
             method: 'POST',
             headers: {
@@ -482,40 +484,37 @@ if (!empty($product['size_guide_image']) && file_exists(ROOT_PATH . $sgPath)):
             },
             body: JSON.stringify(payload)
         })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    // Show Toast instead of Redirect
-                    if (typeof showCartToast === 'function') {
-                        showCartToast();
-                    }
-                    // Optionally update global cart count badge if generic logic exists?
-                    // We can reload or just let the user navigate.
-                    // Ideally we should update the floating bubble count visually.
-                    const bubbleCount = document.querySelector('.floating-cart-count');
-                    const headerCount = document.querySelector('.cart-badge-count');
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                if (typeof showCartToast === 'function') showCartToast();
+                
+                const bubbleCount = document.querySelector('.floating-cart-count');
+                const headerCount = document.querySelector('.cart-badge-count');
 
-                    if (data.count) {
-                        if (bubbleCount) bubbleCount.innerText = data.count;
-                        if (headerCount) {
-                            headerCount.innerText = data.count;
-                            headerCount.style.display = 'inline-block';
-                        }
-                        // Also ensure floating cart is visible if it was hidden
-                        const floatingCart = document.querySelector('.floating-cart');
-                        if (floatingCart) floatingCart.style.display = 'flex';
+                if (data.count) {
+                    if (bubbleCount) bubbleCount.innerText = data.count;
+                    if (headerCount) {
+                        headerCount.innerText = data.count;
+                        headerCount.style.display = 'inline-block';
                     }
-
-                    // window.location.href = '<?= BASE_URL ?>cart'; // Removed
-                } else {
-                    alert('Failed to add to cart');
+                    const floatingCart = document.querySelector('.floating-cart');
+                    if (floatingCart) floatingCart.style.display = 'flex';
                 }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                alert('Something went wrong. Please try again.');
-            });
+            } else {
+                alert('Failed to add to cart');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('Something went wrong. Please try again.');
+        })
+        .finally(() => {
+            //  Hide Loader Always
+            if (typeof hideGlobalLoader === 'function') hideGlobalLoader();
+        });
     }
+
 
     // Adjust selectVariation to store text value
     // In PHP: selectVariation(this, 'Color', 'Red') -> I need to make sure PHP passes the VALUE not ID.
