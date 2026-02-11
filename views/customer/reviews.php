@@ -153,9 +153,17 @@ require_once 'views/layouts/customer_header.php';
                     <img src="<?= BASE_URL ?>assets/icons/youtube.png" style="width: 45px;">
                 </a>
                 <!-- WhatsApp -->
-                <a href="<?= !empty($settings['social_whatsapp']) ? $settings['social_whatsapp'] : '#' ?>" target="_blank">
+                <?php 
+                    $waLink = $settings['social_whatsapp'] ?? '#';
+                    // If it's not empty and doesn't start with http, assume it's a number and add wa.me
+                    if ($waLink !== '#' && !str_starts_with($waLink, 'http')) {
+                        $waLink = 'https://wa.me/' . str_replace(['+', ' '], '', $waLink);
+                    }
+                ?>
+                <a href="<?= $waLink ?>" target="_blank">
                     <img src="<?= BASE_URL ?>assets/icons/whatsapp.png" style="width: 45px;"> 
                 </a>
+
 
             </div>
 
