@@ -64,6 +64,7 @@ class SettingsController extends BaseController
             'shop_name',
             'shop_url',
             'shop_logo',
+            'shop_favicon',
             'shop_qr',
             'shop_about',
             'currency_symbol',
@@ -106,6 +107,14 @@ class SettingsController extends BaseController
                 $fileName = time() . '_qr_' . basename($_FILES['shop_qr']['name']);
                 if (move_uploaded_file($_FILES['shop_qr']['tmp_name'], $uploadDir . $fileName)) {
                     $this->settingModel->set('shop_qr', BASE_URL . "assets/uploads/" . $fileName);
+                }
+            }
+
+            // Handle Favicon
+            if (isset($_FILES['shop_favicon']) && $_FILES['shop_favicon']['error'] == 0) {
+                $fileName = time() . '_fav_' . basename($_FILES['shop_favicon']['name']);
+                if (move_uploaded_file($_FILES['shop_favicon']['tmp_name'], $uploadDir . $fileName)) {
+                    $this->settingModel->set('shop_favicon', BASE_URL . "assets/uploads/" . $fileName);
                 }
             }
 
@@ -170,12 +179,18 @@ class SettingsController extends BaseController
             'btn_text_color',
             'btn_bg_color',
             // New Granular Button Controls (btn list)
-            'btn_addcart_bg', 'btn_addcart_text',
-            'btn_apply_bg', 'btn_apply_text',
-            'btn_category_bg', 'btn_category_text',
-            'btn_sale_bg', 'btn_sale_text',
-            'btn_review_bg', 'btn_review_text',
-            'btn_sizeguide_bg', 'btn_sizeguide_text',
+            'btn_addcart_bg',
+            'btn_addcart_text',
+            'btn_apply_bg',
+            'btn_apply_text',
+            'btn_category_bg',
+            'btn_category_text',
+            'btn_sale_bg',
+            'btn_sale_text',
+            'btn_review_bg',
+            'btn_review_text',
+            'btn_sizeguide_bg',
+            'btn_sizeguide_text',
             // Layout
             'bp_mobile',
             'bp_tablet',
@@ -217,7 +232,7 @@ class SettingsController extends BaseController
             'floating_cart_bg',
             'floating_cart_text'
 
-            
+
         ];
         $styles = $this->settingModel->getMultiple($styleKeys);
 
