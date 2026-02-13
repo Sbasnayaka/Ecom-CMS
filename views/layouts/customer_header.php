@@ -8,6 +8,9 @@
         <?= isset($title) ? $title : 'Ecom Shop' ?>
     </title>
     <!-- Use the new Customer CSS -->
+    <?php if (!empty($settings['shop_favicon'])): ?>
+        <link rel="icon" type="image/x-icon" href="<?= str_replace('/Ecom-CMS/', BASE_URL, $settings['shop_favicon']) ?>">
+    <?php endif; ?>
     <link rel="stylesheet" href="<?= BASE_URL ?>assets/css/customer.css?v=<?= time() ?>">
     <!-- Font Awesome for Icons (Optional, or use images) -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
@@ -139,61 +142,131 @@
 
         <?php endif; ?>
 
-                /* Granular Button Overrides (Safe List) */
+        /* Granular Button Overrides (Safe List) */
         /* 1. Add to Cart */
         <?php if (!empty($settings['btn_addcart_bg'])): ?>
-            .btn-cart.custom-btn { background-color: <?= $settings['btn_addcart_bg'] ?> !important; }
+            .btn-cart.custom-btn {
+                background-color:
+                    <?= $settings['btn_addcart_bg'] ?>
+                    !important;
+            }
+
         <?php endif; ?>
         <?php if (!empty($settings['btn_addcart_text'])): ?>
-            .btn-cart.custom-btn { color: <?= $settings['btn_addcart_text'] ?> !important; }
+            .btn-cart.custom-btn {
+                color:
+                    <?= $settings['btn_addcart_text'] ?>
+                    !important;
+            }
+
         <?php endif; ?>
 
         /* 2. Apply Filter */
         <?php if (!empty($settings['btn_apply_bg'])): ?>
-            .btn-apply-filter { background-color: <?= $settings['btn_apply_bg'] ?> !important; }
+            .btn-apply-filter {
+                background-color:
+                    <?= $settings['btn_apply_bg'] ?>
+                    !important;
+            }
+
         <?php endif; ?>
         <?php if (!empty($settings['btn_apply_text'])): ?>
-            .btn-apply-filter { color: <?= $settings['btn_apply_text'] ?> !important; }
+            .btn-apply-filter {
+                color:
+                    <?= $settings['btn_apply_text'] ?>
+                    !important;
+            }
+
         <?php endif; ?>
 
         /* 3. Category/Nav */
         <?php if (!empty($settings['btn_category_bg'])): ?>
-            .cat-btn { background-color: <?= $settings['btn_category_bg'] ?> !important; }
+            .cat-btn {
+                background-color:
+                    <?= $settings['btn_category_bg'] ?>
+                    !important;
+            }
+
         <?php endif; ?>
         <?php if (!empty($settings['btn_category_text'])): ?>
-            .cat-btn { color: <?= $settings['btn_category_text'] ?> !important; }
+            .cat-btn {
+                color:
+                    <?= $settings['btn_category_text'] ?>
+                    !important;
+            }
+
         <?php endif; ?>
 
         /* 4. Sale/Red */
         <?php if (!empty($settings['btn_sale_bg'])): ?>
-            .btn-red { background-color: <?= $settings['btn_sale_bg'] ?> !important; }
+            .btn-red {
+                background-color:
+                    <?= $settings['btn_sale_bg'] ?>
+                    !important;
+            }
+
         <?php endif; ?>
         <?php if (!empty($settings['btn_sale_text'])): ?>
-            .btn-red { color: <?= $settings['btn_sale_text'] ?> !important; }
+            .btn-red {
+                color:
+                    <?= $settings['btn_sale_text'] ?>
+                    !important;
+            }
+
         <?php endif; ?>
 
         /* 5. Review Link */
         <?php if (!empty($settings['btn_review_bg'])): ?>
-            .btn-review { background-color: <?= $settings['btn_review_bg'] ?> !important; }
+            .btn-review {
+                background-color:
+                    <?= $settings['btn_review_bg'] ?>
+                    !important;
+            }
+
         <?php endif; ?>
         <?php if (!empty($settings['btn_review_text'])): ?>
-            .btn-review { color: <?= $settings['btn_review_text'] ?> !important; }
+            .btn-review {
+                color:
+                    <?= $settings['btn_review_text'] ?>
+                    !important;
+            }
+
         <?php endif; ?>
 
         /* 6. Size Guide */
         <?php if (!empty($settings['btn_sizeguide_bg'])): ?>
-            .btn-sizeguide { background-color: <?= $settings['btn_sizeguide_bg'] ?> !important; }
+            .btn-sizeguide {
+                background-color:
+                    <?= $settings['btn_sizeguide_bg'] ?>
+                    !important;
+            }
+
         <?php endif; ?>
         <?php if (!empty($settings['btn_sizeguide_text'])): ?>
-            .btn-sizeguide { color: <?= $settings['btn_sizeguide_text'] ?> !important; }
+            .btn-sizeguide {
+                color:
+                    <?= $settings['btn_sizeguide_text'] ?>
+                    !important;
+            }
+
         <?php endif; ?>
 
-                /* Floating Elements */
+        /* Floating Elements */
         <?php if (!empty($settings['floating_cart_bg'])): ?>
-            .floating-cart { background-color: <?= $settings['floating_cart_bg'] ?> !important; }
+            .floating-cart {
+                background-color:
+                    <?= $settings['floating_cart_bg'] ?>
+                    !important;
+            }
+
         <?php endif; ?>
         <?php if (!empty($settings['floating_cart_text'])): ?>
-            .floating-cart i { color: <?= $settings['floating_cart_text'] ?> !important; }
+            .floating-cart i {
+                color:
+                    <?= $settings['floating_cart_text'] ?>
+                    !important;
+            }
+
         <?php endif; ?>
 
         /* Navigation Styling Overrides */
@@ -405,15 +478,15 @@
                 <i class="fas fa-search" id="desktopSearchIcon"
                     style="position: absolute; right: 15px; top: 12px; color: #aaa; cursor: pointer;"></i>
                 <script>
-                        document.addEventListener('DOMContentLoaded', function() {
+                    document.addEventListener('DOMContentLoaded', function () {
                         const searchInput = document.getElementById('desktopSearchInput');
                         const searchIcon = document.getElementById('desktopSearchIcon');
 
                         function performSearch() {
                             const query = searchInput.value;
-                        if (query.trim() !== '') {
-                            // Redirect to Shop Controller which handles customer items
-                            window.location.href = '<?= BASE_URL ?>shop/index?search=' + encodeURIComponent(query);
+                            if (query.trim() !== '') {
+                                // Redirect to Shop Controller which handles customer items
+                                window.location.href = '<?= BASE_URL ?>shop/index?search=' + encodeURIComponent(query);
                             }
                         }
 
@@ -433,39 +506,39 @@
                         // updateCartBadge(); // Disabled: Using PHP Session Count now
                     });
 
-                        // --- Global Cart Logic (LocalStorage) ---
-                        // Used by Product Page, Listing, and Cart Page
+                    // --- Global Cart Logic (LocalStorage) ---
+                    // Used by Product Page, Listing, and Cart Page
 
-                        function getCart() {
+                    function getCart() {
                         const cart = localStorage.getItem('shopCart');
                         return cart ? JSON.parse(cart) : [];
                     }
 
-                        function saveCart(cart) {
-                            localStorage.setItem('shopCart', JSON.stringify(cart));
+                    function saveCart(cart) {
+                        localStorage.setItem('shopCart', JSON.stringify(cart));
                         updateCartBadge();
                     }
 
-                                                function addToCart(id, title, price, img) {
-                            // Show Loader
-                            if (typeof showGlobalLoader === 'function') showGlobalLoader();
+                    function addToCart(id, title, price, img) {
+                        // Show Loader
+                        if (typeof showGlobalLoader === 'function') showGlobalLoader();
 
-                            // Prepare Data
-                            const payload = {
-                                id: id,
-                                title: title,
-                                price: price,
-                                quantity: 1, 
-                                img: img || '',
-                                variants: ''
-                            };
+                        // Prepare Data
+                        const payload = {
+                            id: id,
+                            title: title,
+                            price: price,
+                            quantity: 1,
+                            img: img || '',
+                            variants: ''
+                        };
 
-                            // Send AJAX Request
-                            fetch('<?= BASE_URL ?>cart/add', {
-                                method: 'POST',
-                                headers: {'Content-Type': 'application/json' },
-                                body: JSON.stringify(payload)
-                            })
+                        // Send AJAX Request
+                        fetch('<?= BASE_URL ?>cart/add', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify(payload)
+                        })
                             .then(response => response.json())
                             .then(data => {
                                 if (data.success) {
@@ -495,10 +568,10 @@
                                 //  Hide Loader Always
                                 if (typeof hideGlobalLoader === 'function') hideGlobalLoader();
                             });
-                        }
+                    }
 
 
-                        function updateCartBadge() {
+                    function updateCartBadge() {
                         const cart = getCart();
                         const count = cart.reduce((acc, item) => acc + (item.qty || 1), 0);
                         // Update Badges (Desktop & Mobile if exists)
@@ -513,7 +586,8 @@
             </div>
 
             <div class="header-actions">
-                <a href="<?= BASE_URL ?>shop/categories" class="cat-btn" style="text-decoration:none;"><i class="fas fa-bars"></i> Categories</a>
+                <a href="<?= BASE_URL ?>shop/categories" class="cat-btn" style="text-decoration:none;"><i
+                        class="fas fa-bars"></i> Categories</a>
                 <a href="<?= BASE_URL ?>cart"
                     style="text-decoration: none; color: inherit; display: flex; align-items: center; position: relative;">
                     <i class="fas fa-shopping-cart" style="font-size: 20px;"></i>
