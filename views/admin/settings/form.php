@@ -253,6 +253,23 @@
                 </div>
             </div>
 
+            <!-- New Row for Favicon -->
+            <div class="img-row">
+                <div class="img-card">
+                    <span class="label">Shop Favicon</span>
+                    <div class="img-upload-box" onclick="document.getElementById('favInput').click()">
+                        <?php if (!empty($settings['shop_favicon'])): ?>
+                            <img src="<?= $settings['shop_favicon'] ?>" class="preview-thumb">
+                        <?php endif; ?>
+                        <div style="font-size:20px;">📷</div>
+                        <p style="font-size:10px; color:#999;">Tap here to<br>upload a photo</p>
+                        <input type="file" name="shop_favicon" id="favInput" style="display:none;">
+                    </div>
+                </div>
+                <!-- Empty spacer to keep alignment if needed, or just let it be left aligned -->
+                <div class="img-card" style="visibility: hidden;"></div>
+            </div>
+
             <label class="label">Shop About</label>
             <textarea name="shop_about" class="input-box" rows="4"
                 placeholder="Insert Shop Slogan, Address, Email..."><?= htmlspecialchars($settings['shop_about'] ?? '') ?></textarea>
