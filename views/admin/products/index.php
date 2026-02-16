@@ -140,7 +140,11 @@
 
 <body>
 
+    <!-- Global Loader Injection -->
+    <?php include 'views/admin/partials/loader.php'; ?>
+
     <div class="container" style="padding-bottom: 80px;">
+
 
         <div class="page-header">
             <div>
@@ -168,7 +172,7 @@
             <span>Products</span>
             <?php if (!empty($products)): ?>
                 <a href="<?= BASE_URL ?>product/delete_all" class="delete-all-btn"
-                    onclick="return confirm('Delete ALL products? This cannot be undone!')">
+                    onclick="if(confirm('Delete ALL products? This cannot be undone!')){ showGlobalLoader(); return true; } else { return false; }">
                     🗑 Delete All
                 </a>
             <?php endif; ?>
@@ -181,7 +185,7 @@
                     <div class="prod-item">
                         <div style="display:flex; flex-direction:column; gap:5px; margin-right:15px;">
                             <a href="<?= BASE_URL ?>product/edit/<?= $prod['id'] ?>" class="trash-icon"
-                                style="color:#00c4b4; border-color:#00c4b4;">
+                                onclick="if(confirm('Delete this item?')){ showGlobalLoader(); return true; } else { return false; }">
                                 ✏️
                             </a>
                             <a href="<?= BASE_URL ?>product/delete/<?= $prod['id'] ?>" class="trash-icon"
