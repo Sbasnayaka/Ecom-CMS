@@ -35,9 +35,8 @@ class Database
         $this->conn = null;
 
         try {
-            // "DSN" (Data Source Name) is the address string for the database
-            // It tells PHP: "Connect to MySQL on localhost:3307 and select database 'ecom_cms'"
-            $dsn = "mysql:host=" . $this->host . ";port=" . $this->port . ";dbname=" . $this->db_name . ";charset=utf8";
+
+            $dsn = "mysql:host=" . $this->host . ";port=" . $this->port . ";dbname=" . $this->db_name . ";charset=utf8mb4";
 
             // Create the PDO connection
             // PDO (PHP Data Objects) is a secure way to connect to databases
