@@ -184,8 +184,8 @@
                 <?php foreach ($products as $prod): ?>
                     <div class="prod-item">
                         <div style="display:flex; flex-direction:column; gap:5px; margin-right:15px;">
-                                                        <a href="<?= BASE_URL ?>product/edit/<?= $prod['id'] ?>" class="trash-icon"
-                                style="color:#00c4b4; border-color:#00c4b4;">
+                            <a href="<?= BASE_URL ?>product/edit/<?= $prod['id'] ?>" class="trash-icon"
+                                onclick="if(confirm('Edit this item?')){ showGlobalLoader(); return true; } else { return false; }" style="color:#00c4b4; border-color:#00c4b4;">
                                 ✏️
                             </a>
                             <a href="<?= BASE_URL ?>product/delete/<?= $prod['id'] ?>" class="trash-icon"
