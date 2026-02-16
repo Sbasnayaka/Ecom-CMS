@@ -91,7 +91,7 @@
 </head>
 
 <body>
-
+<?php include 'views/admin/partials/loader.php'; ?>
     <div class="container">
         <div class="header-bar">
             <a href="<?= BASE_URL ?>admin/dashboard" class="back-circle">❮</a>
