@@ -6,7 +6,7 @@ try {
     $database = new Database();
     $db = $database->getConnection();
 
-    // SQL to create the pivot table
+    // SQL to create the pivot table (Corrected: Removed markdown artifacts)
     $sql = "CREATE TABLE IF NOT EXISTS `product_categories` (
         `product_id` int(11) NOT NULL,
         `category_id` int(11) NOT NULL,
