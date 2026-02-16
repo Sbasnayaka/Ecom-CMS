@@ -155,6 +155,9 @@
 
 <body>
 
+    <!-- Global Loader Injection -->
+    <?php include 'views/admin/partials/loader.php'; ?>
+
     <div class="container">
         <div class="page-header">
             <h2 style="margin:0;">My Shop 🏁</h2>
@@ -250,7 +253,7 @@
                         placeholder="Enter Link here" value="<?= htmlspecialchars($settings['social_whatsapp']) ?>">
                 </div>
 
-                <button type="submit" class="publish-btn" style="margin-top:20px;">
+                <button type="submit" class="publish-btn" style="margin-top:20px;" onclick="showGlobalLoader()">
                     💾 PUBLISH
                 </button>
             </div>
