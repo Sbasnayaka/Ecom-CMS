@@ -121,6 +121,19 @@
             <?php endif; ?>
         </div>
     </div>
+    <script>
+        // Check if inside Iframe
+        if (window.self !== window.top) {
+            // 1. Hide Back Button
+            const backBtn = document.querySelector('.back-circle');
+            if(backBtn) backBtn.style.display = 'none';
+
+            // 2. Refresh Parent Dropdown (if parent has the function)
+            if(window.parent && window.parent.refreshSizeGuides) {
+                window.parent.refreshSizeGuides();
+            }
+        }
+    </script>
 
 </body>
 
