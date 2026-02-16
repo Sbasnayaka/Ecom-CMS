@@ -12,8 +12,8 @@ try {
         `category_id` int(11) NOT NULL,
         PRIMARY KEY (`product_id`, `category_id`),
         KEY `category_id` (`category_id`),
-        CONSTRAINT `fk_pc_product` FOREIGN KEY (`product_id`) REFERENCES `products` ([id](cci:2://file:///C:/Users/sandu/OneDrive/Desktop/Ecom-CMS/models/SizeGuide.php:6:0-42:1)) ON DELETE CASCADE,
-        CONSTRAINT `fk_pc_category` FOREIGN KEY (`category_id`) REFERENCES `categories` ([id](cci:2://file:///C:/Users/sandu/OneDrive/Desktop/Ecom-CMS/models/SizeGuide.php:6:0-42:1)) ON DELETE CASCADE
+        CONSTRAINT `fk_pc_product` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`) ON DELETE CASCADE,
+        CONSTRAINT `fk_pc_category` FOREIGN KEY (`category_id`) REFERENCES `categories` (`id`) ON DELETE CASCADE
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;";
 
     $db->exec($sql);
