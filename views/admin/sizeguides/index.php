@@ -80,7 +80,8 @@
 </head>
 
 <body>
-
+<!-- Global Loader Injection -->
+    <?php include 'views/admin/partials/loader.php'; ?>
     <div class="container">
         <div class="header-bar">
             <!-- Assuming back goes to Dashboard or previous page. Screenshot shows Back Arrow. -->
@@ -110,7 +111,7 @@
                     </div>
 
                     <a href="<?= BASE_URL ?>sizeGuide/delete/<?= $guide['id'] ?>" class="delete-btn-icon"
-                        onclick="return confirm('Delete this size guide?')">
+                        onclick="if(confirm('Delete this size guide?')){ showGlobalLoader(); return true; } else { return false; }">
                         🗑️
                     </a>
                 </div>

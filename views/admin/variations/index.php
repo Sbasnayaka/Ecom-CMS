@@ -62,7 +62,8 @@
 </head>
 
 <body>
-
+  <!-- Global Loader Injection -->
+    <?php include 'views/admin/partials/loader.php'; ?>
     <div class="container">
         <div class="header-bar">
             <div style="display:flex; align-items:center;">
@@ -85,7 +86,7 @@
                         <!-- Delete (Optional, not in screenshot but needed for CRUD) -->
                         <a href="<?= BASE_URL ?>variation/delete/<?= $var['id'] ?>"
                             style="float:right; text-decoration:none; font-size:14px;"
-                            onclick="return confirm('Delete?')">🗑️</a>
+                            onclick="if(confirm('Delete?')){ showGlobalLoader(); return true; } else { return false; }">🗑️</a>
                         <a href="<?= BASE_URL ?>variation/edit/<?= $var['id'] ?>" style="float:right; margin-right:10px;">
                             <img src="<?= BASE_URL ?>assets/icons/edit.png" alt="Edit"
                                 style="width:18px; height:18px; display:block;">

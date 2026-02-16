@@ -119,7 +119,8 @@
 </head>
 
 <body>
-
+ <!-- Global Loader Injection -->
+    <?php include 'views/admin/partials/loader.php'; ?>
     <div class="container">
         <div class="page-header">
             <div>
@@ -166,6 +167,7 @@
             const modal = document.getElementById('confirmModal');
             const link = document.getElementById('deleteLink');
             link.href = '<?= BASE_URL ?>feedback/delete/' + id;
+            link.onclick = function() { showGlobalLoader(); }; // Add loader trigger
             modal.style.display = 'flex';
         }
 
