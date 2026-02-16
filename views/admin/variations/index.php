@@ -103,6 +103,19 @@
             <?php endforeach; ?>
         </div>
     </div>
+    <script>
+        // Check if inside Iframe
+        if (window.self !== window.top) {
+            
+            const backBtn = document.querySelector('.back-circle');
+            if(backBtn) backBtn.style.display = 'none';
+
+            if(window.parent && window.parent.refreshVariations) {
+                window.parent.refreshVariations();
+            }
+        }
+    </script>
+
 
 </body>
 
