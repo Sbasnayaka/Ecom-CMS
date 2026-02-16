@@ -139,10 +139,8 @@
 </head>
 
 <body>
-
-    <!-- Global Loader Injection -->
+ <!-- Global Loader Injection -->
     <?php include 'views/admin/partials/loader.php'; ?>
-
     <div class="container" style="padding-bottom: 80px;">
 
 
