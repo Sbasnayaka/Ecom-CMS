@@ -225,7 +225,7 @@
             color: white;
         }
 
-        /* Loading */
+                /* Loading */
         .loading-screen {
             position: fixed;
             top: 0;
@@ -263,11 +263,9 @@
 
 <body>
 
-    <!-- Loading Overlay -->
-    <div class="loading-screen" id="loadingScreen">
-        <div class="spinner"></div>
-        <p style="margin-top:10px; color:#555; font-weight:bold;">Publishing Product...</p>
-    </div>
+    <!-- Global Loader Injection -->
+    <?php include 'views/admin/partials/loader.php'; ?>
+
 
     <!-- Form -->
     <form action="<?= BASE_URL ?>product/<?= isset($mode) && $mode === 'edit' ? 'update' : 'store' ?>" method="POST"
@@ -621,9 +619,21 @@
             }
         }
 
-        // Form Submit Loading
+                // Form Submit Loading (Global)
         document.getElementById('productForm').addEventListener('submit', function () {
-            document.getElementById('loadingScreen').style.display = 'flex';
+            showGlobalLoader();
+        });
+
+        // Trigger Loader on Image Uploads (Visual Feedback)
+        document.getElementById('mainImgInput').addEventListener('change', function() {
+            if(this.files.length > 0) showGlobalLoader();
+            // Loader hides automatically via timeout in preview logic or manually below if instant
+            setTimeout(hideGlobalLoader, 1000); // Simulate network delay for effect
+        });
+
+        document.getElementById('galImgInput').addEventListener('change', function() {
+            if(this.files.length > 0) showGlobalLoader();
+            setTimeout(hideGlobalLoader, 1000);
         });
 
         // Run on load in case we are in edit mode
