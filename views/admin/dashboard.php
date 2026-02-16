@@ -26,7 +26,8 @@
 </head>
 
 <body>
-
+ <!-- Global Loader Injection -->
+    <?php include 'views/admin/partials/loader.php'; ?>
     <div class="container">
         <!-- Header -->
         <div class="page-header"
