@@ -258,6 +258,49 @@
                 transform: rotate(360deg);
             }
         }
+    
+            }
+
+        /* Multi-Category List Styles */
+        .cat-list-box {
+            background: #fdfdfd;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 10px;
+            max-height: 200px;
+            overflow-y: auto;
+            margin-bottom: 20px;
+        }
+
+        .cat-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 6px 0;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .cat-item:last-child {
+            border-bottom: none;
+        }
+
+        .cat-checkbox {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+        }
+
+        .cat-name {
+            font-size: 14px;
+            color: #333;
+            cursor: pointer;
+        }
+
+        .sub-cat-indent {
+            margin-left: 25px;
+            border-left: 2px solid #eee;
+            padding-left: 10px;
+        }
     </style>
 </head>
 
@@ -328,25 +371,76 @@
                         style="font-size:12px; color:#007aff; text-decoration:none; font-weight:600;">+ Add / Manage
                         Categories</a>
                 </div>
-                <select name="category_id" class="input-box" required>
-                    <option value="">+ Click here to select Categories</option>
+                                <!-- Hidden Input for Backward Compatibility (Primary Category) -->
+                <input type="hidden" name="category_id" id="primaryCatInput" required
+                    value="<?= $product['category_id'] ?? '' ?>">
+
+                <!-- Multi-Check List -->
+                <div class="cat-list-box" id="catListContainer">
                     <?php foreach ($categories as $cat): ?>
                         <?php if (!$cat['parent_id']): ?>
-                            <!-- Main Category (Selectable) -->
-                            <option value="<?= $cat['id'] ?>" style="font-weight:bold;" <?= (isset($product['category_id']) && $product['category_id'] == $cat['id']) ? 'selected' : '' ?>>
-                                <?= htmlspecialchars($cat['name']) ?>
-                            </option>
+                            <!-- Main Category -->
+                            <div class="cat-item">
+                                <input type="checkbox" name="categories[]" value="<?= $cat['id'] ?>"
+                                    class="cat-checkbox" onchange="updatePrimaryCat()"
+                                    <?= (isset($product['category_id']) && $product['category_id'] == $cat['id']) ? 'checked' : '' ?>>
+                                <span class="cat-name" onclick="this.previousElementSibling.click()">
+                                    <?= htmlspecialchars($cat['name']) ?>
+                                </span>
+                            </div>
+
                             <!-- Sub Categories -->
                             <?php foreach ($categories as $sub): ?>
                                 <?php if ($sub['parent_id'] == $cat['id']): ?>
-                                    <option value="<?= $sub['id'] ?>" <?= (isset($product['category_id']) && $product['category_id'] == $sub['id']) ? 'selected' : '' ?>>
-                                        &nbsp;&nbsp;&nbsp;&nbsp;-- <?= htmlspecialchars($sub['name']) ?>
-                                    </option>
+                                    <div class="cat-item sub-cat-indent">
+                                        <input type="checkbox" name="categories[]" value="<?= $sub['id'] ?>"
+                                            class="cat-checkbox" onchange="updatePrimaryCat()"
+                                            <?= (isset($product['category_id']) && $product['category_id'] == $sub['id']) ? 'checked' : '' ?>>
+                                        <span class="cat-name" onclick="this.previousElementSibling.click()">
+                                            <?= htmlspecialchars($sub['name']) ?>
+                                        </span>
+                                    </div>
                                 <?php endif; ?>
                             <?php endforeach; ?>
                         <?php endif; ?>
                     <?php endforeach; ?>
-                </select>
+                </div>
+
+                <!-- Hidden Input for Backward Compatibility (Primary Category) -->
+                <input type="hidden" name="category_id" id="primaryCatInput" required
+                    value="<?= $product['category_id'] ?? '' ?>">
+
+                <!-- Multi-Check List -->
+                <div class="cat-list-box" id="catListContainer">
+                    <?php foreach ($categories as $cat): ?>
+                        <?php if (!$cat['parent_id']): ?>
+                            <!-- Main Category -->
+                            <div class="cat-item">
+                                <input type="checkbox" name="categories[]" value="<?= $cat['id'] ?>"
+                                    class="cat-checkbox" onchange="updatePrimaryCat()"
+                                    <?= (isset($product['category_id']) && $product['category_id'] == $cat['id']) ? 'checked' : '' ?>>
+                                <span class="cat-name" onclick="this.previousElementSibling.click()">
+                                    <?= htmlspecialchars($cat['name']) ?>
+                                </span>
+                            </div>
+
+                            <!-- Sub Categories -->
+                            <?php foreach ($categories as $sub): ?>
+                                <?php if ($sub['parent_id'] == $cat['id']): ?>
+                                    <div class="cat-item sub-cat-indent">
+                                        <input type="checkbox" name="categories[]" value="<?= $sub['id'] ?>"
+                                            class="cat-checkbox" onchange="updatePrimaryCat()"
+                                            <?= (isset($product['category_id']) && $product['category_id'] == $sub['id']) ? 'checked' : '' ?>>
+                                        <span class="cat-name" onclick="this.previousElementSibling.click()">
+                                            <?= htmlspecialchars($sub['name']) ?>
+                                        </span>
+                                    </div>
+                                <?php endif; ?>
+                            <?php endforeach; ?>
+                        <?php endif; ?>
+                    <?php endforeach; ?>
+                </div>
+
 
                 <!-- Info -->
                 <span class="section-label">Product Title <span style="color:red">*</span></span>
@@ -473,28 +567,55 @@
 
     <script>
                 // Auto-Refresh Logic (Added for Shop Owner Auto Updates)
-        window.refreshCategories = function() {
+            window.refreshCategories = function() {
             fetch('<?= BASE_URL ?>category/get_json')
                 .then(response => response.json())
                 .then(data => {
-                    const select = document.querySelector('select[name="category_id"]');
-                    const currentValue = select.value;
-                    let html = '<option value="">+ Click here to select Categories</option>';
+                    const container = document.getElementById('catListContainer');
+                    // Get currently checked IDs to preserve selection
+                    const checkedIds = Array.from(document.querySelectorAll('input[name="categories[]"]:checked')).map(cb => cb.value);
                     
-                    // Simple rebuild logic - matches original PHP loop structure
+                    let html = '';
+                    
                     // 1. Main Categories
                     data.filter(c => !c.parent_id).forEach(main => {
-                        html += `<option value="${main.id}" style="font-weight:bold;">${main.name}</option>`;
+                        const isChecked = checkedIds.includes(String(main.id)) ? 'checked' : '';
+                        html += `
+                        <div class="cat-item">
+                            <input type="checkbox" name="categories[]" value="${main.id}" class="cat-checkbox" onchange="updatePrimaryCat()" ${isChecked}>
+                            <span class="cat-name" onclick="this.previousElementSibling.click()">${main.name}</span>
+                        </div>`;
+                        
                         // 2. Sub Categories
                         data.filter(sub => sub.parent_id == main.id).forEach(child => {
-                            html += `<option value="${child.id}">&nbsp;&nbsp;&nbsp;&nbsp;-- ${child.name}</option>`;
+                            const isSubChecked = checkedIds.includes(String(child.id)) ? 'checked' : '';
+                            html += `
+                            <div class="cat-item sub-cat-indent">
+                                <input type="checkbox" name="categories[]" value="${child.id}" class="cat-checkbox" onchange="updatePrimaryCat()" ${isSubChecked}>
+                                <span class="cat-name" onclick="this.previousElementSibling.click()">${child.name}</span>
+                            </div>`;
                         });
                     });
                     
-                    select.innerHTML = html;
-                    select.value = currentValue; // Try to keep selection if possible
+                    container.innerHTML = html;
                 });
         };
+
+        // NEW: Sync Checkboxes with Hidden Primary Input
+        function updatePrimaryCat() {
+            const checkboxes = document.querySelectorAll('input[name="categories[]"]:checked');
+            const primaryInput = document.getElementById('primaryCatInput');
+            
+            if (checkboxes.length > 0) {
+                // For now, simpler logic: The first checked item becomes the "Primary" (category_id)
+                // This ensures backward compatibility with the current Controller/DB schema
+                primaryInput.value = checkboxes[0].value;
+            } else {
+                primaryInput.value = ""; // Empty implies validation error
+            }
+        }
+
+
 
         window.refreshSizeGuides = function() {
             fetch('<?= BASE_URL ?>sizeGuide/get_json')
