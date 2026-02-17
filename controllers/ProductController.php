@@ -65,6 +65,11 @@ class ProductController extends BaseController
 
     public function store()
     {
+        // DEBUG: Check if we reach here
+        echo "<h1>DEBUG: REACHED STORE METHOD</h1>";
+        echo "<pre>"; var_dump($_POST); echo "</pre>";
+        die();
+
         // 1. Check for POST Max Size Limit Exceeded
         // If the user uploads files larger than php.ini 'post_max_size', both $_POST and $_FILES will be empty.
         if ($_SERVER['REQUEST_METHOD'] === 'POST' && empty($_POST) && empty($_FILES) && isset($_SERVER['CONTENT_LENGTH']) && $_SERVER['CONTENT_LENGTH'] > 0) {
