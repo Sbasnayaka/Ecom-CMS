@@ -259,17 +259,28 @@
             }
         }
     
-            }
+            /* Multi-Category List Styles */
+        .dropdown-trigger {
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #f0f0f0; /* Matches input-box */
+            margin-bottom: 0 !important; /* Touch the list below */
+            border-bottom-left-radius: 0;
+            border-bottom-right-radius: 0;
+        }
 
-        /* Multi-Category List Styles */
         .cat-list-box {
-            background: #fdfdfd;
-            border: 1px solid #ddd;
-            border-radius: 8px;
+            background: #fff;
+            border: 1px solid #ccc;
+            border-top: none; /* Merge with trigger */
+            border-radius: 0 0 8px 8px;
             padding: 10px;
             max-height: 200px;
             overflow-y: auto;
             margin-bottom: 20px;
+            display: none; /* Hidden by default */
         }
 
         .cat-item {
@@ -376,6 +387,13 @@
                     value="<?= $product['category_id'] ?? '' ?>">
 
                 <!-- Multi-Check List -->
+                                <!-- Multi-Check Dropdown Trigger -->
+                <div class="input-box dropdown-trigger" onclick="toggleCatDropdown()">
+                    <span id="catTriggerText">Select Categories...</span>
+                    <span id="catArrow" style="font-size:12px; color:#999;">▼</span>
+                </div>
+
+                <!-- Multi-Check List (Hidden) -->
                 <div class="cat-list-box" id="catListContainer">
                     <?php foreach ($categories as $cat): ?>
                         <?php if (!$cat['parent_id']): ?>
@@ -601,19 +619,40 @@
                 });
         };
 
-        // NEW: Sync Checkboxes with Hidden Primary Input
+        // NEW: Sync Checkboxes with Hidden Primary Input AND Update Label
         function updatePrimaryCat() {
             const checkboxes = document.querySelectorAll('input[name="categories[]"]:checked');
             const primaryInput = document.getElementById('primaryCatInput');
+            const label = document.getElementById('catTriggerText');
             
             if (checkboxes.length > 0) {
-                // For now, simpler logic: The first checked item becomes the "Primary" (category_id)
-                // This ensures backward compatibility with the current Controller/DB schema
                 primaryInput.value = checkboxes[0].value;
+                // Update Label
+                label.innerText = checkboxes.length + " Category Selected"; 
+                if(checkboxes.length > 1) label.innerText = checkboxes.length + " Categories Selected";
+                
+                label.style.fontWeight = "bold";
+                label.style.color = "#007aff";
             } else {
-                primaryInput.value = ""; // Empty implies validation error
+                primaryInput.value = "";
+                label.innerText = "Select Categories...";
+                label.style.fontWeight = "normal";
+                label.style.color = "#333";
             }
         }
+
+        function toggleCatDropdown() {
+            const box = document.getElementById('catListContainer');
+            const arrow = document.getElementById('catArrow');
+            if (box.style.display === 'block') {
+                box.style.display = 'none';
+                arrow.innerText = '▼';
+            } else {
+                box.style.display = 'block';
+                arrow.innerText = '▲';
+            }
+        }
+
 
 
 
@@ -757,9 +796,9 @@
             setTimeout(hideGlobalLoader, 1000);
         });
 
-        // Run on load in case we are in edit mode
         window.addEventListener('load', function () {
             populateHiddenVars();
+            updatePrimaryCat(); // Set initial label state
         });
     </script>
 </body>
