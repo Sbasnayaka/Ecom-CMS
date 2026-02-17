@@ -386,8 +386,8 @@
                 <input type="hidden" name="category_id" id="primaryCatInput" required
                     value="<?= $product['category_id'] ?? '' ?>">
 
-                <!-- Multi-Check List -->
-                                <!-- Multi-Check Dropdown Trigger -->
+               
+                    <!-- Multi-Check Dropdown Trigger -->
                 <div class="input-box dropdown-trigger" onclick="toggleCatDropdown()">
                     <span id="catTriggerText">Select Categories...</span>
                     <span id="catArrow" style="font-size:12px; color:#999;">▼</span>
@@ -414,41 +414,6 @@
                                         <input type="checkbox" name="categories[]" value="<?= $sub['id'] ?>"
                                             class="cat-checkbox" onchange="updatePrimaryCat()"
                                             <?= ( (isset($product['category_id']) && $product['category_id'] == $sub['id']) || (isset($product['categories']) && in_array($sub['id'], $product['categories'])) ) ? 'checked' : '' ?>>
-                                        <span class="cat-name" onclick="this.previousElementSibling.click()">
-                                            <?= htmlspecialchars($sub['name']) ?>
-                                        </span>
-                                    </div>
-                                <?php endif; ?>
-                            <?php endforeach; ?>
-                        <?php endif; ?>
-                    <?php endforeach; ?>
-                </div>
-
-                <!-- Hidden Input for Backward Compatibility (Primary Category) -->
-                <input type="hidden" name="category_id" id="primaryCatInput" required
-                    value="<?= $product['category_id'] ?? '' ?>">
-
-                <!-- Multi-Check List -->
-                <div class="cat-list-box" id="catListContainer">
-                    <?php foreach ($categories as $cat): ?>
-                        <?php if (!$cat['parent_id']): ?>
-                            <!-- Main Category -->
-                            <div class="cat-item">
-                                <input type="checkbox" name="categories[]" value="<?= $cat['id'] ?>"
-                                    class="cat-checkbox" onchange="updatePrimaryCat()"
-                                    <?= (isset($product['category_id']) && $product['category_id'] == $cat['id']) ? 'checked' : '' ?>>
-                                <span class="cat-name" onclick="this.previousElementSibling.click()">
-                                    <?= htmlspecialchars($cat['name']) ?>
-                                </span>
-                            </div>
-
-                            <!-- Sub Categories -->
-                            <?php foreach ($categories as $sub): ?>
-                                <?php if ($sub['parent_id'] == $cat['id']): ?>
-                                    <div class="cat-item sub-cat-indent">
-                                        <input type="checkbox" name="categories[]" value="<?= $sub['id'] ?>"
-                                            class="cat-checkbox" onchange="updatePrimaryCat()"
-                                            <?= (isset($product['category_id']) && $product['category_id'] == $sub['id']) ? 'checked' : '' ?>>
                                         <span class="cat-name" onclick="this.previousElementSibling.click()">
                                             <?= htmlspecialchars($sub['name']) ?>
                                         </span>
