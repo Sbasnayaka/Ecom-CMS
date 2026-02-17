@@ -20,8 +20,23 @@
 
         .welcome-sub {
             color: #888;
-            margin: 5px 0 0 0;
+                        margin: 5px 0 0 0;
         }
+        
+        /* Action Buttons (Ported from Products List) */
+        .trash-icon {
+            color: #ff3b30;
+            border: 1px solid #ff3b30;
+            border-radius: 5px;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-decoration: none;
+            font-size: 16px;
+        }
+
     </style>
 </head>
 
@@ -100,9 +115,18 @@
             <?php if (empty($latest_products)): ?>
                 <p style="text-align:center; padding:20px; color:#999;">No products yet.</p>
             <?php else: ?>
-                <?php foreach ($latest_products as $product): ?>
+                                <?php foreach ($latest_products as $product): ?>
                     <div class="product-item">
-                        <div class="delete-icon">🗑️</div>
+                        <div style="display:flex; flex-direction:column; gap:5px; margin-right:15px;">
+                            <a href="<?= BASE_URL ?>product/edit/<?= $product['id'] ?>" class="trash-icon"
+                                style="color:#00c4b4; border-color:#00c4b4;">
+                                ✏️
+                            </a>
+                            <a href="<?= BASE_URL ?>product/delete/<?= $product['id'] ?>" class="trash-icon"
+                                onclick="if(confirm('Delete this item?')){ showGlobalLoader(); return true; } else { return false; }">
+                                🗑
+                            </a>
+                        </div>
                         <img src="<?= BASE_URL ?>assets/uploads/<?= $product['main_image'] ?? 'default.png' ?>"
                             class="product-thumb" alt="Img">
                         <div class="product-info">
