@@ -34,7 +34,7 @@ class AdminController extends BaseController
         $sql = "SELECT p.*, c.name as category_name 
                 FROM products p 
                 LEFT JOIN categories c ON p.category_id = c.id 
-                ORDER BY p.created_at DESC LIMIT 5";
+                ORDER BY p.created_at DESC LIMIT 10";
         $products = $db->query($sql)->fetchAll(PDO::FETCH_ASSOC);
 
         // 3. Get Shop Settings (Logo/Name)
