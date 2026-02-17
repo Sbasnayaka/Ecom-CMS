@@ -401,7 +401,7 @@
                             <div class="cat-item">
                                 <input type="checkbox" name="categories[]" value="<?= $cat['id'] ?>"
                                     class="cat-checkbox" onchange="updatePrimaryCat()"
-                                    <?= (isset($product['category_id']) && $product['category_id'] == $cat['id']) ? 'checked' : '' ?>>
+                                    <?= ( (isset($product['category_id']) && $product['category_id'] == $cat['id']) || (isset($product['categories']) && in_array($cat['id'], $product['categories'])) ) ? 'checked' : '' ?>>
                                 <span class="cat-name" onclick="this.previousElementSibling.click()">
                                     <?= htmlspecialchars($cat['name']) ?>
                                 </span>
@@ -413,7 +413,7 @@
                                     <div class="cat-item sub-cat-indent">
                                         <input type="checkbox" name="categories[]" value="<?= $sub['id'] ?>"
                                             class="cat-checkbox" onchange="updatePrimaryCat()"
-                                            <?= (isset($product['category_id']) && $product['category_id'] == $sub['id']) ? 'checked' : '' ?>>
+                                            <?= ( (isset($product['category_id']) && $product['category_id'] == $sub['id']) || (isset($product['categories']) && in_array($sub['id'], $product['categories'])) ) ? 'checked' : '' ?>>
                                         <span class="cat-name" onclick="this.previousElementSibling.click()">
                                             <?= htmlspecialchars($sub['name']) ?>
                                         </span>

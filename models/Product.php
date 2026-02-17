@@ -98,11 +98,24 @@ class Product extends BaseModel
                     $stmtVar->bindParam(':pid', $productId);
                     $stmtVar->bindParam(':vid', $var['variation_id']);
                     $stmtVar->bindParam(':vvid', $var['variation_value_id']);
-                    $stmtVar->execute();
+                                        $stmtVar->execute();
+                }
+            }
+
+            // 4. Insert Multi-Categories
+            if (!empty($data['categories']) && is_array($data['categories'])) {
+                $sqlCat = "INSERT INTO product_categories (product_id, category_id) VALUES (:pid, :cid)";
+                $stmtCat = $this->conn->prepare($sqlCat);
+
+                foreach ($data['categories'] as $catId) {
+                    $stmtCat->bindParam(':pid', $productId);
+                    $stmtCat->bindParam(':cid', $catId);
+                    $stmtCat->execute();
                 }
             }
 
             $this->conn->commit();
+
             return $productId;
 
         } catch (Exception $e) {
@@ -222,6 +235,32 @@ class Product extends BaseModel
                         $stmtVar->bindParam(':vvid', $var['variation_value_id']);
                         $stmtVar->execute();
                         $mainUpdateSuccess = true; // Consider success if we added vars
+                    }
+                }
+                        }
+
+            // 4. Update Multi-Categories
+            if (isset($data['categories'])) { // Only if sent
+                // Delete existing
+                $sqlDel = "DELETE FROM product_categories WHERE product_id = :pid";
+                $stmtDel = $this->conn->prepare($sqlDel);
+                $stmtDel->bindParam(':pid', $data['id']);
+                $stmtDel->execute();
+                
+                if ($stmtDel->rowCount() > 0) {
+                     $mainUpdateSuccess = true;
+                }
+
+                // Insert new
+                if (!empty($data['categories']) && is_array($data['categories'])) {
+                    $sqlCat = "INSERT INTO product_categories (product_id, category_id) VALUES (:pid, :cid)";
+                    $stmtCat = $this->conn->prepare($sqlCat);
+
+                    foreach ($data['categories'] as $catId) {
+                        $stmtCat->bindParam(':pid', $data['id']);
+                        $stmtCat->bindParam(':cid', $catId);
+                        $stmtCat->execute();
+                        $mainUpdateSuccess = true;
                     }
                 }
             }
@@ -366,6 +405,19 @@ class Product extends BaseModel
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_COLUMN); // Returns array of strings
     }
+
+    /**
+     * Get Product Categories (IDs)
+     */
+    public function getProductCategoryIds($productId)
+    {
+        $sql = "SELECT category_id FROM product_categories WHERE product_id = :pid";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bindParam(':pid', $productId);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_COLUMN);
+    }
+
 
     /**
      * Get Product Variations

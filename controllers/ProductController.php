@@ -168,8 +168,10 @@ class ProductController extends BaseController
                 'is_featured' => isset($_POST['is_featured']), // Checkbox sends 'on' or nothing
                 'main_image' => $mainImagePath,
                 'gallery_images' => $galleryPaths,
-                'variations' => $formattedVars
+                'variations' => $formattedVars,
+                'categories' => $_POST['categories'] ?? [] // Capture array
             ];
+
 
             // 8. Save
             if ($this->productModel->create($data)) {
@@ -202,8 +204,11 @@ class ProductController extends BaseController
         $product['gallery_images'] = $this->productModel->getGalleryImages($id);
         $product['variations'] = $this->productModel->getVariations($id); // This returns grouped vars
         // We might need raw variation lines to pre-select, but let's see how the form expects it.
-        // The form writes to hidden inputs 'selected_variations[]' as 'varId_valId'.
+                // The form writes to hidden inputs 'selected_variations[]' as 'varId_valId'.
         // We need to reconstruct that list.
+
+        // Get multi-categories
+        $product['categories'] = $this->productModel->getProductCategoryIds($id);
 
         $this->view('admin/products/add', [
             'title' => 'Edit Product',
@@ -328,8 +333,10 @@ class ProductController extends BaseController
                 'is_featured' => isset($_POST['is_featured']), // Checkbox sends 'on' if checked
                 'main_image' => $mainImagePath,
                 'new_gallery_images' => $galleryPaths, // array of new paths to ADD
-                'variations' => $formattedVars
+                'variations' => $formattedVars,
+                'categories' => $_POST['categories'] ?? []
             ];
+
 
             // 8. Execute Update
             // DEBUG: Trace Model Result
