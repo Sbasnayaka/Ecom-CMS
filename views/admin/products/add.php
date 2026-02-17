@@ -261,58 +261,27 @@
     
             }
 
-                /* Multi-Select Dropdown Styles */
-        .cat-select-wrapper {
-            position: relative;
-            width: 100%;
-            margin-bottom: 15px;
-        }
-
-        .cat-select-trigger {
-            background: #f0f0f0; /* Match input-box */
-            border-radius: 8px;
-            padding: 12px 15px;
-            font-size: 14px;
-            color: #555;
-            cursor: pointer;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            user-select: none;
-        }
-
+        /* Multi-Category List Styles */
         .cat-list-box {
-            display: none; /* Hidden by default */
-            position: absolute;
-            top: 100%;
-            left: 0;
-            width: 100%;
-            max-height: 250px;
-            overflow-y: auto;
-            background: white;
+            background: #fdfdfd;
             border: 1px solid #ddd;
             border-radius: 8px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
-            z-index: 100;
-            margin-top: 5px;
-            box-sizing: border-box;
             padding: 10px;
-        }
-
-        .cat-list-box.show {
-            display: block;
+            max-height: 200px;
+            overflow-y: auto;
+            margin-bottom: 20px;
         }
 
         .cat-item {
             display: flex;
             align-items: center;
             gap: 10px;
-            padding: 8px 5px;
-            border-bottom: 1px solid #f9f9f9;
+            padding: 6px 0;
+            border-bottom: 1px solid #f0f0f0;
         }
 
-        .cat-item:hover {
-            background-color: #f5faff;
+        .cat-item:last-child {
+            border-bottom: none;
         }
 
         .cat-checkbox {
@@ -325,7 +294,6 @@
             font-size: 14px;
             color: #333;
             cursor: pointer;
-            flex: 1;
         }
 
         .sub-cat-indent {
@@ -333,7 +301,6 @@
             border-left: 2px solid #eee;
             padding-left: 10px;
         }
-
     </style>
 </head>
 
@@ -404,51 +371,40 @@
                         style="font-size:12px; color:#007aff; text-decoration:none; font-weight:600;">+ Add / Manage
                         Categories</a>
                 </div>
-                                <!-- Multi-Select Dropdown Wrapper -->
-                <div class="cat-select-wrapper" id="catSelectWrapper">
-                    
-                    <!-- Trigger Box -->
-                    <div class="cat-select-trigger" onclick="toggleCatDropdown()">
-                        <span id="catSelectedLabel">+ Click here to select Categories</span>
-                        <span>▼</span>
-                    </div>
+                                <!-- Hidden Input for Backward Compatibility (Primary Category) -->
+                <input type="hidden" name="category_id" id="primaryCatInput" required
+                    value="<?= $product['category_id'] ?? '' ?>">
 
-                    <!-- Hidden Input (Keep strict backward comp) -->
-                    <input type="hidden" name="category_id" id="primaryCatInput" required
-                        value="<?= $product['category_id'] ?? '' ?>">
+                <!-- Multi-Check List -->
+                <div class="cat-list-box" id="catListContainer">
+                    <?php foreach ($categories as $cat): ?>
+                        <?php if (!$cat['parent_id']): ?>
+                            <!-- Main Category -->
+                            <div class="cat-item">
+                                <input type="checkbox" name="categories[]" value="<?= $cat['id'] ?>"
+                                    class="cat-checkbox" onchange="updatePrimaryCat()"
+                                    <?= (isset($product['category_id']) && $product['category_id'] == $cat['id']) ? 'checked' : '' ?>>
+                                <span class="cat-name" onclick="this.previousElementSibling.click()">
+                                    <?= htmlspecialchars($cat['name']) ?>
+                                </span>
+                            </div>
 
-                    <!-- Dropdown List -->
-                    <div class="cat-list-box" id="catListContainer">
-                        <?php foreach ($categories as $cat): ?>
-                            <?php if (!$cat['parent_id']): ?>
-                                <!-- Main Category -->
-                                <div class="cat-item">
-                                    <input type="checkbox" name="categories[]" value="<?= $cat['id'] ?>"
-                                        class="cat-checkbox" onchange="updatePrimaryCat()"
-                                        <?= (isset($product['category_id']) && $product['category_id'] == $cat['id']) ? 'checked' : '' ?>>
-                                    <span class="cat-name" onclick="this.previousElementSibling.click()">
-                                        <?= htmlspecialchars($cat['name']) ?>
-                                    </span>
-                                </div>
-
-                                <!-- Sub Categories -->
-                                <?php foreach ($categories as $sub): ?>
-                                    <?php if ($sub['parent_id'] == $cat['id']): ?>
-                                        <div class="cat-item sub-cat-indent">
-                                            <input type="checkbox" name="categories[]" value="<?= $sub['id'] ?>"
-                                                class="cat-checkbox" onchange="updatePrimaryCat()"
-                                                <?= (isset($product['category_id']) && $product['category_id'] == $sub['id']) ? 'checked' : '' ?>>
-                                            <span class="cat-name" onclick="this.previousElementSibling.click()">
-                                                <?= htmlspecialchars($sub['name']) ?>
-                                            </span>
-                                        </div>
-                                    <?php endif; ?>
-                                <?php endforeach; ?>
-                            <?php endif; ?>
-                        <?php endforeach; ?>
-                    </div>
+                            <!-- Sub Categories -->
+                            <?php foreach ($categories as $sub): ?>
+                                <?php if ($sub['parent_id'] == $cat['id']): ?>
+                                    <div class="cat-item sub-cat-indent">
+                                        <input type="checkbox" name="categories[]" value="<?= $sub['id'] ?>"
+                                            class="cat-checkbox" onchange="updatePrimaryCat()"
+                                            <?= (isset($product['category_id']) && $product['category_id'] == $sub['id']) ? 'checked' : '' ?>>
+                                        <span class="cat-name" onclick="this.previousElementSibling.click()">
+                                            <?= htmlspecialchars($sub['name']) ?>
+                                        </span>
+                                    </div>
+                                <?php endif; ?>
+                            <?php endforeach; ?>
+                        <?php endif; ?>
+                    <?php endforeach; ?>
                 </div>
-
 
                 <!-- Hidden Input for Backward Compatibility (Primary Category) -->
                 <input type="hidden" name="category_id" id="primaryCatInput" required
@@ -645,53 +601,19 @@
                 });
         };
 
-                // Dropdown Toggle
-        function toggleCatDropdown() {
-            const list = document.getElementById('catListContainer');
-            list.classList.toggle('show');
-        }
-
-        // Close dropdown when clicking outside
-        window.addEventListener('click', function(e) {
-            const wrapper = document.getElementById('catSelectWrapper');
-            if (wrapper && !wrapper.contains(e.target)) {
-                document.getElementById('catListContainer').classList.remove('show');
-            }
-        });
-
-        // Sync Logic + Label Update
+        // NEW: Sync Checkboxes with Hidden Primary Input
         function updatePrimaryCat() {
             const checkboxes = document.querySelectorAll('input[name="categories[]"]:checked');
             const primaryInput = document.getElementById('primaryCatInput');
-            const label = document.getElementById('catSelectedLabel');
             
             if (checkboxes.length > 0) {
+                // For now, simpler logic: The first checked item becomes the "Primary" (category_id)
+                // This ensures backward compatibility with the current Controller/DB schema
                 primaryInput.value = checkboxes[0].value;
-                
-                // Update Label Text
-                if(checkboxes.length === 1) {
-                    const name = checkboxes[0].nextElementSibling.innerText.trim();
-                    label.innerText = name;
-                    label.style.color = "#333";
-                    label.style.fontWeight = "bold";
-                } else {
-                    label.innerText = checkboxes.length + " Categories Selected";
-                    label.style.color = "#007aff";
-                    label.style.fontWeight = "bold";
-                }
             } else {
-                primaryInput.value = ""; 
-                label.innerText = "+ Click here to select Categories";
-                label.style.color = "#555";
-                label.style.fontWeight = "normal";
+                primaryInput.value = ""; // Empty implies validation error
             }
         }
-        
-        // Initial Run (to set label on edit mode)
-        window.addEventListener('load', function() {
-            updatePrimaryCat();
-        });
-
 
 
 
