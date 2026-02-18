@@ -126,7 +126,7 @@
             <!-- The input to add new values -->
             <div class="input-row">
                 <input type="text" id="newValueInput" class="input-box input-pink-bg" placeholder="Ex: Red">
-                <span class="add-btn-circle" onclick="addValue()"> + </span>
+                <span class="add-btn-circle" onclick="addValue()">⊕</span>
             </div>
 
             <!-- The list of added values -->

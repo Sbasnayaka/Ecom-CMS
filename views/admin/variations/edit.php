@@ -64,13 +64,18 @@
 
         .add-btn-circle {
             position: absolute;
-            right: 15px;
-            top: 50%;
-            transform: translateY(-50%);
-            font-size: 20px;
+            right: 0;
+            top: 0;
+            height: 100%;
+            width: 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 24px;
             cursor: pointer;
             color: #333;
         }
+
 
         /* Value Item Style (Blue Box) */
         .value-item {
