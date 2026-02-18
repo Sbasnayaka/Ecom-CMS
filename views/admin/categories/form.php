@@ -85,9 +85,12 @@
 </head>
 
 <body>
+    <!-- 1. Inject Loader -->
+    <?php include 'views/admin/partials/loader.php'; ?>
 
+    <!-- 2. Trigger on Submit -->
     <form action="<?= BASE_URL ?>category/<?= $mode === 'edit' ? 'update' : 'store' ?>" method="POST"
-        enctype="multipart/form-data">
+        enctype="multipart/form-data" onsubmit="showGlobalLoader()">
         <?php if ($mode === 'edit'): ?>
             <input type="hidden" name="id" value="<?= $category['id'] ?>">
         <?php endif; ?>

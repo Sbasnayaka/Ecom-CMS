@@ -473,7 +473,7 @@
 
                 <div style="margin-top: 30px;">
                     <button type="button" class="btn-yellow" onclick="openVarModal()">Add Variations</button>
-                    <button type="submit" class="btn-blue">Publish</button>
+                    <button type="submit" class="btn-blue" onclick="showGlobalLoader()">Publish</button>
                 </div>
 
             </div>
@@ -706,17 +706,26 @@
             el.classList.toggle('selected');
         }
 
-        // Universal Modal Logic
+                // Universal Modal Logic (Fixed Glitch + Loader)
         function openIframeModal(url, title) {
+            showGlobalLoader(); // Show loader immediately
             document.getElementById('universalModalTitle').innerText = title;
             const frame = document.getElementById('universalFrame');
+            
+            // Clear previous source to prevent "ghost" content
+            frame.src = 'about:blank';
+            
+            frame.onload = function() {
+                hideGlobalLoader(); // Hide when new content is ready
+            };
+            
             frame.src = url;
             document.getElementById('universalModal').style.display = 'flex';
         }
 
         function closeIframeModal() {
             document.getElementById('universalModal').style.display = 'none';
-            // Auto-refresh triggers are handled by the child windows now.
+            document.getElementById('universalFrame').src = 'about:blank'; // Reset to blank
         }
 
 

@@ -50,7 +50,7 @@
 </head>
 
 <body>
-
+<?php include 'views/admin/partials/loader.php'; ?>
     <form action="<?= BASE_URL ?>sizeGuide/store" method="POST" enctype="multipart/form-data">
         <div class="container">
             <div class="header-bar">
@@ -58,7 +58,7 @@
                     <a href="<?= BASE_URL ?>sizeGuide/index" class="back-circle">❮</a>
                     <h2 style="margin:0;">Add Guide</h2>
                 </div>
-                <button type="submit" class="save-txt">SAVE</button>
+                <button type="submit" class="save-txt" onclick="showGlobalLoader()">SAVE</button>
             </div>
 
             <input type="text" name="name" class="form-control" placeholder="Size Guide Name" required>
@@ -78,7 +78,8 @@
     </form>
 
     <script>
-        document.getElementById('guide-img').addEventListener('change', function (e) {
+        document.getElementById('guide-img').addEventListener('change', function (e)  {
+            
             if (e.target.files && e.target.files.length > 0) {
                 document.getElementById('guide-placeholder').style.display = 'none';
                 document.getElementById('guide-feedback').style.display = 'block';
