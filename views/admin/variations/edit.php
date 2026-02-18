@@ -100,6 +100,10 @@
             background-color: #ffeaea;
             /* Light pink for the "New Input" area */
         }
+
+        .input-row .input-box {
+            margin-bottom: 0;
+        }
     </style>
 </head>
 
@@ -128,7 +132,7 @@
             <!-- The input to add new values -->
             <div class="input-row">
                 <input type="text" id="newValueInput" class="input-box input-pink-bg" placeholder="Ex: Red">
-                <span class="add-btn-circle" onclick="addValue()">⊕</span>
+                <span class="add-btn-circle" onclick="addValue()"> + </span>
             </div>
 
             <!-- The list of added values -->
@@ -139,7 +143,7 @@
                             <span>
                                 <?= htmlspecialchars($val['value']) ?>
                             </span>
-                            <span class="remove-icon" onclick="this.parentElement.remove()">⊖</span>
+                            <span class="remove-icon" onclick="this.parentElement.remove()"> - </span>
                             <input type="hidden" name="values[]" value="<?= htmlspecialchars($val['value']) ?>">
                         </div>
                     <?php endforeach; ?>
@@ -162,7 +166,7 @@
                 div.className = 'value-item';
                 div.innerHTML = `
                 <span>${value}</span>
-                <span class="remove-icon" onclick="this.parentElement.remove()">⊖</span>
+                <span class="remove-icon" onclick="this.parentElement.remove()"> - </span>
                 <input type="hidden" name="values[]" value="${value}">
             `;
 
