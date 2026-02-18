@@ -61,8 +61,15 @@ class FeedbackController extends BaseController
 
     public function delete($id)
     {
+        // Image Hygiene
+        $feedback = $this->model->getById($id);
+        if ($feedback && !empty($feedback['image_path'])) {
+            $this->deleteFile($feedback['image_path']);
+        }
+
         $this->model->delete($id);
         $this->redirect('feedback/index');
     }
+
 }
 ?>
