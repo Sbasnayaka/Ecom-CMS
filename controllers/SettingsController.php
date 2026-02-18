@@ -131,6 +131,14 @@ class SettingsController extends BaseController
             if (isset($_FILES['shop_favicon']) && $_FILES['shop_favicon']['error'] == 0) {
                 $fileName = time() . '_fav_' . basename($_FILES['shop_favicon']['name']);
                 if (move_uploaded_file($_FILES['shop_favicon']['tmp_name'], $uploadDir . $fileName)) {
+
+                    // Delete Old Favicon
+                    $oldUrl = $this->settingModel->get('shop_favicon');
+                    if (!empty($oldUrl)) {
+                        $oldFile = basename($oldUrl);
+                        $this->deleteFile($oldFile);
+                    }
+
                     $this->settingModel->set('shop_favicon', BASE_URL . "assets/uploads/" . $fileName);
                 }
             }
