@@ -103,13 +103,13 @@
                         <?= $mode === 'edit' ? 'Edit Category' : 'Add Category' ?>
                     </h2>
                 </div>
-                <button type="submit" class="save-txt">SAVE</button>
+                <button type="submit" class="save-txt" onsubmit="showGlobalLoader()">SAVE</button>
             </div>
 
             <?php if ($mode === 'edit'): ?>
                 <div style="margin-bottom: 20px;">
                     <a href="<?= BASE_URL ?>category/delete/<?= $category['id'] ?>" class="delete-btn-red"
-                        onclick="return confirm('Are you sure?')">
+                        onclick="return confirm('Are you sure?')" onsubmit="showGlobalLoader()">
                         🗑️ DELETE
                     </a>
                 </div>
