@@ -519,7 +519,18 @@ class Product extends BaseModel
             }
 
             if (!empty($inQuery)) {
-                $sql .= " AND (p.category_id IN ($inQuery) OR c.parent_id IN ($inQuery))";
+                // Multi-Category Support
+                // Check Primary Cat OR Primary Parent OR Multi-Cat OR Multi-Cat Parent
+                $sql .= " AND (
+                            p.category_id IN ($inQuery) 
+                            OR c.parent_id IN ($inQuery)
+                            OR EXISTS (
+                                SELECT 1 FROM product_categories pc_multi 
+                                LEFT JOIN categories c_multi ON pc_multi.category_id = c_multi.id
+                                WHERE pc_multi.product_id = p.id 
+                                AND (pc_multi.category_id IN ($inQuery) OR c_multi.parent_id IN ($inQuery))
+                            )
+                        )";
             }
         }
 
