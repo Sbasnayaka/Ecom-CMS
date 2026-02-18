@@ -160,6 +160,12 @@ class CategoryController extends BaseController
 
                 if (move_uploaded_file($_FILES['image']['tmp_name'], $targetFile)) {
                     $imagePath = $fileName;
+
+                    // Safe Delete Old Image
+                    $currentCat = $this->categoryModel->getById($id);
+                    if ($currentCat && !empty($currentCat['image'])) {
+                        $this->deleteFile($currentCat['image']);
+                    }
                 }
             }
 
@@ -179,9 +185,16 @@ class CategoryController extends BaseController
 
     public function delete($id)
     {
+        // Image Hygiene
+        $category = $this->categoryModel->getById($id);
+        if ($category && !empty($category['image'])) {
+            $this->deleteFile($category['image']);
+        }
+
         $store = $this->categoryModel->delete($id);
         $this->redirect('category/index');
     }
+
 
      /**
      * API: Get Categories as JSON
