@@ -67,9 +67,16 @@ class SizeGuideController extends BaseController
 
     public function delete($id)
     {
+        // Image Hygiene
+        $guide = $this->model->getById($id);
+        if ($guide && !empty($guide['image_path'])) {
+            $this->deleteFile($guide['image_path']);
+        }
+
         $this->model->delete($id);
         $this->redirect('sizeGuide/index');
     }
+
     /**
      * API: Get Size Guides as JSON
      */
