@@ -98,6 +98,14 @@ class SettingsController extends BaseController
             if (isset($_FILES['shop_logo']) && $_FILES['shop_logo']['error'] == 0) {
                 $fileName = time() . '_logo_' . basename($_FILES['shop_logo']['name']);
                 if (move_uploaded_file($_FILES['shop_logo']['tmp_name'], $uploadDir . $fileName)) {
+                    
+                    // Delete Old Logo
+                    $oldUrl = $this->settingModel->get('shop_logo');
+                    if (!empty($oldUrl)) {
+                        $oldFile = basename($oldUrl); // Extract filename from URL (e.g. /uploads/123.jpg -> 123.jpg)
+                        $this->deleteFile($oldFile);
+                    }
+
                     $this->settingModel->set('shop_logo', BASE_URL . "assets/uploads/" . $fileName);
                 }
             }
