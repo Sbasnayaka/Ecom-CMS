@@ -35,9 +35,29 @@ class ProductController extends BaseController
 
     public function delete($id)
     {
+        // Delete files before DB record
+        $product = $this->productModel->getById($id);
+        
+        if ($product) {
+            // Delete Main Image
+            if (!empty($product['main_image'])) {
+                $this->deleteFile($product['main_image']);
+            }
+
+            // Delete Gallery Images
+            $galleryImages = $this->productModel->getGalleryImages($id);
+            if (!empty($galleryImages)) {
+                foreach ($galleryImages as $img) {
+                    $this->deleteFile($img);
+                }
+            }
+        }
+
+        // Delete DB Record
         $this->productModel->delete($id);
         $this->redirect('product/index');
     }
+
 
     public function delete_all()
     {
@@ -299,9 +319,15 @@ class ProductController extends BaseController
                         if (in_array($ext, ['jpg', 'jpeg', 'png', 'gif', 'webp'])) {
                             $cleanName = preg_replace('/[^a-zA-Z0-9\._-]/', '', basename($files['name'][$i]));
                             $gFileName = time() . "_gal_{$i}_" . $cleanName;
-                            if (move_uploaded_file($files['tmp_name'][$i], $uploadDir . $gFileName)) {
-                                $galleryPaths[] = $gFileName;
-                            }
+                            if (move_uploaded_file($_FILES['main_image']['tmp_name'], $uploadDir . $fileName)) {
+                        $mainImagePath = $fileName;
+                        
+                        // Safe Delete Old Main Image if replaced
+                        if (!empty($_POST['current_main_image'])) {
+                            $this->deleteFile($_POST['current_main_image']);
+                        }
+                    }
+
                         }
                     }
                 }
