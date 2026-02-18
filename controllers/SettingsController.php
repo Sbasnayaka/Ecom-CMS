@@ -114,9 +114,18 @@ class SettingsController extends BaseController
             if (isset($_FILES['shop_qr']) && $_FILES['shop_qr']['error'] == 0) {
                 $fileName = time() . '_qr_' . basename($_FILES['shop_qr']['name']);
                 if (move_uploaded_file($_FILES['shop_qr']['tmp_name'], $uploadDir . $fileName)) {
+
+                    // Delete Old QR
+                    $oldUrl = $this->settingModel->get('shop_qr');
+                    if (!empty($oldUrl)) {
+                        $oldFile = basename($oldUrl);
+                        $this->deleteFile($oldFile);
+                    }
+
                     $this->settingModel->set('shop_qr', BASE_URL . "assets/uploads/" . $fileName);
                 }
             }
+
 
             // Handle Favicon
             if (isset($_FILES['shop_favicon']) && $_FILES['shop_favicon']['error'] == 0) {
