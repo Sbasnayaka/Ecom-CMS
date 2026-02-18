@@ -113,7 +113,7 @@
                         <p style="margin:0; font-size:11px; color:#888;">Create New Variation</p>
                     </div>
                 </div>
-                <button type="submit" class="save-txt">SAVE</button>
+                <button type="submit" class="save-txt" onclick="showGlobalLoader()">SAVE</button>
             </div>
 
             <label class="label">Attribute</label>
@@ -124,7 +124,7 @@
             <!-- The input to add new values -->
             <div class="input-row">
                 <input type="text" id="newValueInput" class="input-box input-pink-bg" placeholder="Ex: Red">
-                <span class="add-btn-circle" onclick="addValue()">⊕</span>
+                <span class="add-btn-circle" onclick="addValue()"> + </span>
             </div>
 
             <!-- The list of added values -->

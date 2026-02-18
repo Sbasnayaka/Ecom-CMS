@@ -109,7 +109,7 @@
             <?php if ($mode === 'edit'): ?>
                 <div style="margin-bottom: 20px;">
                     <a href="<?= BASE_URL ?>category/delete/<?= $category['id'] ?>" class="delete-btn-red"
-                        onclick="return confirm('Are you sure?'); showGlobalLoader();">
+                        onclick="return confirm('Are you sure?')">
                         🗑️ DELETE
                     </a>
                 </div>
