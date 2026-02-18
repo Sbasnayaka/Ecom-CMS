@@ -138,7 +138,7 @@
                 <div class="fb-item">
                     <img src="<?= BASE_URL ?>assets/uploads/<?= htmlspecialchars($fb['image_path']) ?>" class="fb-img"
                         alt="Feedback">
-                    <div class="delete-btn" onclick="confirmDelete(<?= $fb['id'] ?>); showGlobalLoader();">
+                    <div class="delete-btn" onclick="confirmDelete(<?= $fb['id'] ?>);">
                         🗑
                     </div>
                 </div>
