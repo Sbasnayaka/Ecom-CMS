@@ -95,6 +95,7 @@
 </head>
 
 <body>
+    <?php include 'views/admin/partials/loader.php'; ?>
 
     <div class="container">
         <div class="header-bar">
@@ -201,6 +202,8 @@
                 alert("Please select images first.");
                 return;
             }
+
+            showGlobalLoader();
 
             const formData = new FormData();
             selectedFiles.forEach(file => {
