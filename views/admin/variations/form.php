@@ -99,8 +99,11 @@
 </head>
 
 <body>
+    <!-- Inject Loader -->
+    <?php include 'views/admin/partials/loader.php'; ?>
 
-    <form action="<?= BASE_URL ?>variation/store" method="POST" id="varForm">
+    <!-- Trigger on Submit -->
+    <form action="<?= BASE_URL ?>variation/store" method="POST" id="varForm" onsubmit="showGlobalLoader()">
         <div class="container">
             <div class="header-bar">
                 <div style="display:flex; gap:10px; align-items:center;">
