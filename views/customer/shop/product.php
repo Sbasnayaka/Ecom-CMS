@@ -368,11 +368,16 @@ if (!empty($product['size_guide_image']) && file_exists(ROOT_PATH . $sgPath)):
         console.log("Selected:", selectedVariations);
     }
 
-    // --- Order Modal Logic ---
-
     function openOrderModal() {
-        // Check if all variations are selected (Optional safety check, or let them order anyway)
-        // For now, allow opening.
+        // Load Saved Data
+        if(localStorage.getItem('cus_name')) document.getElementById('ordName').value = localStorage.getItem('cus_name');
+        if(localStorage.getItem('cus_address')) document.getElementById('ordAddress').value = localStorage.getItem('cus_address');
+        if(localStorage.getItem('cus_city')) document.getElementById('ordCity').value = localStorage.getItem('cus_city');
+        if(localStorage.getItem('cus_district')) document.getElementById('ordDistrict').value = localStorage.getItem('cus_district');
+        if(localStorage.getItem('cus_postal')) document.getElementById('ordPostal').value = localStorage.getItem('cus_postal');
+        if(localStorage.getItem('cus_phone1')) document.getElementById('ordPhone1').value = localStorage.getItem('cus_phone1');
+        if(localStorage.getItem('cus_phone2')) document.getElementById('ordPhone2').value = localStorage.getItem('cus_phone2');
+
         document.getElementById('orderModal').style.display = 'flex';
     }
 
@@ -435,9 +440,18 @@ if (!empty($product['size_guide_image']) && file_exists(ROOT_PATH . $sgPath)):
         msg += "Postal: " + postal + "\n";
         msg += "Phone 01: " + phone1 + "\n";
         msg += "Phone 02: " + phone2 + "\n";
-        if (note) msg += "Note: " + note + "\n";
+                if (note) msg += "Note: " + note + "\n";
 
-               // 4. Redirect
+        // --- Save Data for Next Time ---
+        localStorage.setItem('cus_name', name);
+        localStorage.setItem('cus_address', address);
+        localStorage.setItem('cus_city', city);
+        localStorage.setItem('cus_district', district);
+        localStorage.setItem('cus_postal', postal);
+        localStorage.setItem('cus_phone1', phone1);
+        localStorage.setItem('cus_phone2', phone2);
+
+               // Redirect
         const shopPhone = "<?= str_replace(['+', ' '], '', $settings['shop_whatsapp'] ?? '') ?>";
         const url = "https://wa.me/" + shopPhone + "?text=" + encodeURIComponent(msg);
         
