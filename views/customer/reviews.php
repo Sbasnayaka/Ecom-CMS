@@ -64,7 +64,7 @@ require_once 'views/layouts/customer_header.php';
 
                             if ($fbImg):
                                 ?>
-                                                                <div style="
+                                <div style="
                                 flex: 0 0 85%; 
                                 scroll-snap-align: center;
                                 border-radius: 15px;
@@ -74,7 +74,7 @@ require_once 'views/layouts/customer_header.php';
                                 height: 450px; /* FIXED HEIGHT */
                                 position: relative;
                             ">
-                                    <img src="<?= $fbImg ?>" alt="Feedback" style="
+                                    <img src="<?= $fbImg ?>" alt="Feedback" onclick="openImageModal(this.src)" style="
                                     width: 100%; 
                                     height: 100%; 
                                     object-fit: cover; /* Zoom/Crop to fill */
@@ -204,6 +204,38 @@ require_once 'views/layouts/customer_header.php';
         </div>
 
     </main>
+    <!-- Image Lightbox Modal (Same as Product Page) -->
+<div id="imgModal" class="modal-overlay" onclick="closeImageModal()" 
+     style="display: none; align-items: center; justify-content: center; z-index: 3000;">
+    
+    <!-- Image Wrapper (Relative for button positioning) -->
+    <div onclick="event.stopPropagation()"
+        style="position: relative; display: inline-block;">
+        
+        <!-- Close Button (Absolute Top-Right of Image) -->
+        <div onclick="closeImageModal()"
+            style="position: absolute; top: -15px; right: -15px; cursor: pointer; z-index: 3001; 
+                   background: white; border-radius: 50%; width: 35px; height: 35px; 
+                   display: flex; align-items: center; justify-content: center; 
+                   box-shadow: 0 2px 10px rgba(0,0,0,0.2); border: 1px solid #eee;">
+            <i class="fas fa-times" style="color: black; font-size: 16px;"></i>
+        </div>
+
+        <img id="imgModalSrc" src=""
+            style="max-width: 85vw; max-height: 80vh; width: auto; height: auto; 
+                   object-fit: contain; border-radius: 12px; display: block; background: #fff;">
+    </div>
+</div>
+
+<script>
+    function openImageModal(src) {
+        document.getElementById('imgModalSrc').src = src;
+        document.getElementById('imgModal').style.display = 'flex';
+    }
+    function closeImageModal() {
+        document.getElementById('imgModal').style.display = 'none';
+    }
+</script>
 </div>
 
 <?php require_once 'views/layouts/customer_footer.php'; ?>
