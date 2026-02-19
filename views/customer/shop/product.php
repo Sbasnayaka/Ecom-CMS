@@ -207,18 +207,27 @@ if (!empty($product['size_guide_image']) && file_exists(ROOT_PATH . $sgPath)):
 <?php endif; ?>
 
 <!-- Image Lightbox Modal -->
-<div id="imgModal" class="modal-overlay" onclick="closeImageModal()" style="display: none;">
-    <div class="modal-content" onclick="event.stopPropagation()"
-        style="position: relative; padding: 0; background: transparent; box-shadow: none;">
-        <!-- Close Button -->
-        <div onclick="closeImageModal()"
-            style="position: absolute; top: -15px; right: -15px; cursor: pointer; z-index: 201; background: white; border-radius: 50%; padding: 5px; width: 35px; height: 35px; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 10px rgba(0,0,0,0.2);">
-            <i class="fas fa-times" style="color: black; font-size: 18px;"></i>
-        </div>
+<div id="imgModal" class="modal-overlay" onclick="closeImageModal()" 
+     style="display: none; align-items: center; justify-content: center; z-index: 3000;">
+    
+    <!-- Fixed Close Button (Always visible top-right) -->
+    <div onclick="closeImageModal()"
+        style="position: fixed; top: 20px; right: 20px; cursor: pointer; z-index: 3001; 
+               background: white; border-radius: 50%; width: 40px; height: 40px; 
+               display: flex; align-items: center; justify-content: center; 
+               box-shadow: 0 4px 10px rgba(0,0,0,0.3);">
+        <i class="fas fa-times" style="color: black; font-size: 20px;"></i>
+    </div>
+
+    <!-- Image Container (No scrollbars, centered) -->
+    <div onclick="event.stopPropagation()"
+        style="position: relative; background: transparent; box-shadow: none; display: flex; justify-content: center;">
         <img id="imgModalSrc" src=""
-            style="width:100%; height: auto; max-height: 80vh; object-fit: contain; border-radius: 8px; display: block;">
+            style="max-width: 95vw; max-height: 80vh; width: auto; height: auto; 
+                   object-fit: contain; border-radius: 8px; display: block;">
     </div>
 </div>
+
 <script>
     function openImageModal(src) {
         document.getElementById('imgModalSrc').src = src;
