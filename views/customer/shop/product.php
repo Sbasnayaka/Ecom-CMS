@@ -212,7 +212,7 @@ if (!empty($product['size_guide_image']) && file_exists(ROOT_PATH . $sgPath)):
     
     <!-- Fixed Close Button (Always visible top-right) -->
     <div onclick="closeImageModal()"
-        style="position: fixed; top: 20px; right: 20px; cursor: pointer; z-index: 3001; 
+        style="position: fixed; top: 50px; right: 20px; cursor: pointer; z-index: 3001; 
                background: white; border-radius: 50%; width: 40px; height: 40px; 
                display: flex; align-items: center; justify-content: center; 
                box-shadow: 0 4px 10px rgba(0,0,0,0.3);">
