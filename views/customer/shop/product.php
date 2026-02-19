@@ -380,8 +380,8 @@ if (!empty($product['size_guide_image']) && file_exists(ROOT_PATH . $sgPath)):
         document.getElementById('orderModal').style.display = 'none';
     }
 
-    function submitOrderToWhatsApp() {
-        // 1. Get Form Values
+        function submitOrderToWhatsApp() {
+        // Get Form Values
         const name = document.getElementById('ordName').value.trim();
         const address = document.getElementById('ordAddress').value.trim();
         const city = document.getElementById('ordCity').value.trim();
@@ -391,22 +391,26 @@ if (!empty($product['size_guide_image']) && file_exists(ROOT_PATH . $sgPath)):
         const phone2 = document.getElementById('ordPhone2').value.trim();
         const note = document.getElementById('ordNote').value.trim();
 
-        // 2. Validation
+        // Validation
         if (!name || !address || !city || !phone1) {
             alert("Please fill in all required fields (Name, Address, City, Phone 01)");
             return;
         }
 
-        // 3. Construct Message
+        // Construct Message
         let msg = "*NEW ORDER REQUEST* 🛍️\n\n";
 
         // Product Details
         const qty = parseInt(document.getElementById('qtyInput').value) || 1;
         const unitPrice = <?= $product['sale_price'] ?: $product['price'] ?>;
         const total = unitPrice * qty;
+        
+        // SKU Injection
+        const sku = "<?= htmlspecialchars($product['sku'] ?? 'N/A') ?>";
 
         msg += "*Product Details:*\n";
         msg += "Name: <?= addslashes($product['title']) ?>\n";
+        msg += "SKU: " + sku + "\n"; // Added SKU here
         msg += "Price: LKR " + unitPrice.toLocaleString('en-US') + "\n";
         msg += "Quantity: " + qty + "\n";
         msg += "Total: LKR " + total.toLocaleString('en-US') + "\n";
@@ -416,16 +420,10 @@ if (!empty($product['size_guide_image']) && file_exists(ROOT_PATH . $sgPath)):
         if (Object.keys(selectedVariations).length > 0) {
             msg += "Variations: ";
             for (const [key, val] of Object.entries(selectedVariations)) {
-                // We stored ID or Value? The logic above passed ID in PHP loop: selectVariation(this, 'Color', '12').
-                // Wait, the PHP loop passed ID? Let's check PHP above.
-                // PHP: selectVariation(this, '$varName', '$val['id']') 
-                // Ah, we need the TEXT value for the message, not the ID.
-                // Re-checking PHP loop: $val['value'] is the text.
-                // I will adjust selectVariation to take the text value instead of ID for the message construction, 
-                // OR getting the text content from the element.
+                // We use the text value stored in current logic
                 msg += key + ": " + val + ", ";
             }
-            msg = msg.slice(0, -2); // remove last comma
+            msg = msg.slice(0, -2); 
             msg += "\n";
         }
 
