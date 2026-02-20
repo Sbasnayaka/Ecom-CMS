@@ -149,11 +149,82 @@
 </div>
 
 <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const sliders = document.querySelectorAll('.categories-scroll, .products-scroll');
+
+        sliders.forEach(slider => {
+            // --- 1. Smart Buttons Logic ---
+            const parent = slider.parentElement;
+            const btnLeft = parent.querySelector('.scroll-btn.left');
+            const btnRight = parent.querySelector('.scroll-btn.right');
+
+            const updateButtons = () => {
+                if (!btnLeft || !btnRight) return;
+
+                // Show/Hide Left Button
+                if (slider.scrollLeft <= 0) {
+                    btnLeft.style.display = 'none';
+                } else {
+                    btnLeft.style.display = 'flex';
+                }
+
+                // Show/Hide Right Button
+                // tolerance of 1px for high-res screens
+                if (slider.scrollLeft + slider.clientWidth >= slider.scrollWidth - 1) {
+                    btnRight.style.display = 'none';
+                } else {
+                    btnRight.style.display = 'flex';
+                }
+            };
+
+            // Init & Listen
+            slider.addEventListener('scroll', updateButtons);
+            // Initial check (give browser a moment to render layout)
+            setTimeout(updateButtons, 100);
+            updateButtons();
+
+            // --- 2. Drag to Scroll Logic ---
+            let isDown = false;
+            let startX;
+            let scrollLeft;
+
+            slider.addEventListener('mousedown', (e) => {
+                isDown = true;
+                slider.style.cursor = 'grabbing';
+                startX = e.pageX - slider.offsetLeft;
+                scrollLeft = slider.scrollLeft;
+            });
+
+            slider.addEventListener('mouseleave', () => {
+                isDown = false;
+                slider.style.cursor = 'grab'; // Default fallback
+            });
+
+            slider.addEventListener('mouseup', () => {
+                isDown = false;
+                slider.style.cursor = 'grab';
+            });
+
+            slider.addEventListener('mousemove', (e) => {
+                if (!isDown) return;
+                e.preventDefault(); // Prevent text selection
+                const x = e.pageX - slider.offsetLeft;
+                const walk = (x - startX) * 2; // Scroll-fast
+                slider.scrollLeft = scrollLeft - walk;
+            });
+            
+            // Set initial cursor
+            slider.style.cursor = 'grab';
+        });
+    });
+
+    // Button Click Helper
     function scrollSection(btn, direction) {
-        var container = btn.parentElement.querySelector('.categories-scroll, .products-scroll, .gallery-slider');
+        var container = btn.parentElement.querySelector('.categories-scroll, .products-scroll');
         if (container) {
+            const scrollAmount = 300;
             container.scrollBy({
-                left: direction * 300,
+                left: direction * scrollAmount,
                 behavior: 'smooth'
             });
         }
