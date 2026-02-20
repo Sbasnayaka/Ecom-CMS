@@ -41,7 +41,7 @@
                 </strong>
             </label>
             <?php if (!empty($mainCat['children'])): ?>
-                <div style="margin-left: 10px; display: flex; flex-direction: column;">
+                <div style="margin-left: 0; display: flex; flex-direction: column;">
                     <?php foreach ($mainCat['children'] as $childCat): ?>
                         <label class="checkbox-label" style="font-size: 12px; color: #777;">
                             <input type="checkbox" class="category-filter-checkbox" value="<?= $childCat['id'] ?>" <?= (isset($_GET['cat']) && in_array($childCat['id'], explode(',', $_GET['cat']))) ? 'checked' : '' ?>>
