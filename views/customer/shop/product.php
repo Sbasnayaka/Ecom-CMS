@@ -293,6 +293,90 @@ if (!empty($product['size_guide_image']) && file_exists(ROOT_PATH . $sgPath)):
 
 </script>
 <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const sliders = document.querySelectorAll('.gallery-slider, .products-scroll');
+
+        sliders.forEach(slider => {
+            const wrapper = slider.parentElement;
+            const btnLeft = wrapper.querySelector('.scroll-btn.left');
+            const btnRight = wrapper.querySelector('.scroll-btn.right');
+
+            // --- 1. Smart Buttons Visibility (Desktop Only) ---
+            const updateButtons = () => {
+                // Determine if we are on Desktop (approx > 1024px)
+                if (window.innerWidth < 1024) return;
+
+                const tolerance = 5;
+
+                // Left Button
+                if (slider.scrollLeft <= tolerance) {
+                    btnLeft.style.setProperty('display', 'none', 'important');
+                } else {
+                    btnLeft.style.removeProperty('display'); // Revert to CSS (d-lg-flex)
+                }
+
+                // Right Button
+                if (slider.scrollLeft + slider.clientWidth >= slider.scrollWidth - tolerance) {
+                    btnRight.style.setProperty('display', 'none', 'important');
+                } else {
+                    btnRight.style.removeProperty('display');
+                }
+            };
+
+            // Init & Listen
+            updateButtons();
+            slider.addEventListener('scroll', updateButtons);
+            window.addEventListener('resize', updateButtons);
+
+
+            // --- 2. Mouse Wheel Horizontal Scroll ---
+            slider.addEventListener('wheel', (evt) => {
+                if (window.innerWidth >= 1024) {
+                    evt.preventDefault();
+                    slider.scrollLeft += evt.deltaY;
+                }
+            });
+
+
+            // --- 3. Drag to Scroll (Mouse Grab) ---
+            let isDown = false;
+            let startX;
+            let scrollLeft;
+
+            slider.addEventListener('mousedown', (e) => {
+                if (window.innerWidth < 1024) return;
+                isDown = true;
+                slider.style.cursor = 'grabbing';
+                startX = e.pageX - slider.offsetLeft;
+                scrollLeft = slider.scrollLeft;
+            });
+
+            slider.addEventListener('mouseleave', () => {
+                isDown = false;
+                slider.style.cursor = 'grab';
+            });
+
+            slider.addEventListener('mouseup', () => {
+                isDown = false;
+                slider.style.cursor = 'grab';
+            });
+
+            slider.addEventListener('mousemove', (e) => {
+                if (!isDown) return;
+                e.preventDefault();
+                const x = e.pageX - slider.offsetLeft;
+                const walk = (x - startX) * 2;
+                slider.scrollLeft = scrollLeft - walk;
+            });
+
+            // Set initial cursor
+            if (window.innerWidth >= 1024) {
+                slider.style.cursor = 'grab';
+            }
+        });
+    });
+
+    // Button Click Helper
     function scrollSection(btn, direction) {
         var container = btn.parentElement.querySelector('.categories-scroll, .products-scroll, .gallery-slider');
         if (container) {
