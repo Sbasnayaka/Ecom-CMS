@@ -183,38 +183,21 @@
             setTimeout(updateButtons, 100);
             updateButtons();
 
-            // --- 2. Drag to Scroll Logic ---
-            let isDown = false;
-            let startX;
-            let scrollLeft;
+            // --- 2. Mouse Wheel Horizontal Scroll Logic ---
+            slider.addEventListener('wheel', (e) => {
+                // Determine if the element can actually scroll horizontally
+                // (scrollWidth > clientWidth)
+                if (slider.scrollWidth > slider.clientWidth) {
+                    // Prevent default vertical scroll
+                    e.preventDefault();
 
-            slider.addEventListener('mousedown', (e) => {
-                isDown = true;
-                slider.style.cursor = 'grabbing';
-                startX = e.pageX - slider.offsetLeft;
-                scrollLeft = slider.scrollLeft;
-            });
+                    // Specific "Wheel" scrolling logic
+                    slider.scrollLeft += e.deltaY;
+                }
+            }, { passive: false });
 
-            slider.addEventListener('mouseleave', () => {
-                isDown = false;
-                slider.style.cursor = 'grab'; // Default fallback
-            });
-
-            slider.addEventListener('mouseup', () => {
-                isDown = false;
-                slider.style.cursor = 'grab';
-            });
-
-            slider.addEventListener('mousemove', (e) => {
-                if (!isDown) return;
-                e.preventDefault(); // Prevent text selection
-                const x = e.pageX - slider.offsetLeft;
-                const walk = (x - startX) * 2; // Scroll-fast
-                slider.scrollLeft = scrollLeft - walk;
-            });
-            
-            // Set initial cursor
-            slider.style.cursor = 'grab';
+            // Remove Drag Styles
+            slider.style.cursor = 'default';
         });
     });
 
