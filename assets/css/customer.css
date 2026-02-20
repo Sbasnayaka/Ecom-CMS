@@ -49,16 +49,20 @@ body {
     }
 
     /* Fix Price Layout to Columns (Figma Style) */
-        /* Fix Price Layout to Columns (Figma Style) */
+    /* Fix Price Layout to Columns (Figma Style) */
     .product-price-box {
-        display: flex; /* Ensure Flex context */
+        display: flex;
+        /* Ensure Flex context */
         flex-direction: column;
-        align-items: flex-start !important; /* Force Left Align Items */
+        align-items: flex-start !important;
+        /* Force Left Align Items */
         justify-content: flex-start;
-        text-align: left; /* Force Text Left */
+        text-align: left;
+        /* Force Text Left */
         gap: 0;
         margin-top: 5px;
-        width: 100%; /* Ensure full width to allow left align */
+        width: 100%;
+        /* Ensure full width to allow left align */
     }
 
 
@@ -74,7 +78,7 @@ body {
         /* Emphasize sale price */
     }
 
-    
+
 }
 
 /* Helper Classes */
@@ -1608,11 +1612,12 @@ p {
 
 /* Desktop Logic (Screens larger than 1024px) */
 @media (min-width: 1024px) {
+
     /* Show element on Desktop */
     .d-lg-block {
         display: block !important;
     }
-    
+
     /* Hide element on Desktop */
     .d-lg-none {
         display: none !important;
@@ -1632,18 +1637,24 @@ p {
 @media (max-width: 1023px) {
     .product-gallery {
         display: flex;
-        flex-direction: column; /* Force vertical stack */
-        height: auto !important; /* Allow growing */
-        padding-bottom: 30px; /* Add breathing room at bottom */
-        background: transparent !important; /* Remove grey box if present */
+        flex-direction: column;
+        /* Force vertical stack */
+        height: auto !important;
+        /* Allow growing */
+        padding-bottom: 30px;
+        /* Add breathing room at bottom */
+        background: transparent !important;
+        /* Remove grey box if present */
     }
 
     .gallery-slider {
-        order: 1; /* Image First */
+        order: 1;
+        /* Image First */
     }
 
     .gallery-dots {
-        order: 2; /* Dots Second */
+        order: 2;
+        /* Dots Second */
         position: relative !important;
         top: auto !important;
         bottom: auto !important;
@@ -1654,16 +1665,19 @@ p {
         background: transparent !important;
         width: 100% !important;
     }
-    
+
     .gallery-dots .dot {
-        background: #ccc; /* Grey */
+        background: #ccc;
+        /* Grey */
         width: 8px;
         height: 8px;
-        margin: 0 4px; /* Spacing between dots */
+        margin: 0 4px;
+        /* Spacing between dots */
     }
-    
+
     .gallery-dots .dot.active {
-        background: #000; /* Black */
+        background: #000;
+        /* Black */
     }
 }
 
@@ -1678,12 +1692,13 @@ p {
     backdrop-filter: blur(4px);
     -webkit-backdrop-filter: blur(4px);
     z-index: 9999;
-    display: none; /* Hidden by default */
+    display: none;
+    /* Hidden by default */
     align-items: center;
     justify-content: center;
     flex-direction: column;
     /* Blocks all clicks underneath */
-    pointer-events: all; 
+    pointer-events: all;
 }
 
 /* Spinner Animation */
@@ -1697,8 +1712,13 @@ p {
 }
 
 @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
 }
 
 .global-loader-text {

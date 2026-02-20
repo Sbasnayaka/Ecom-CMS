@@ -293,57 +293,6 @@ if (!empty($product['size_guide_image']) && file_exists(ROOT_PATH . $sgPath)):
 
 </script>
 <script>
-    document.addEventListener('DOMContentLoaded', () => {
-        const sliders = document.querySelectorAll('.gallery-slider, .products-scroll');
-
-        sliders.forEach(slider => {
-            // --- 1. Smart Buttons Logic ---
-            const parent = slider.parentElement;
-            const btnLeft = parent.querySelector('.scroll-btn.left');
-            const btnRight = parent.querySelector('.scroll-btn.right');
-
-            const updateButtons = () => {
-                if (!btnLeft || !btnRight) return;
-
-                // Show/Hide Left Button
-                if (slider.scrollLeft <= 0) {
-                    btnLeft.style.display = 'none';
-                } else {
-                    btnLeft.style.display = 'flex';
-                }
-
-                // Show/Hide Right Button
-                // tolerance of 1px
-                if (slider.scrollLeft + slider.clientWidth >= slider.scrollWidth - 1) {
-                    btnRight.style.display = 'none';
-                } else {
-                    btnRight.style.display = 'flex';
-                }
-            };
-
-            // Init & Listen
-            slider.addEventListener('scroll', updateButtons);
-            setTimeout(updateButtons, 100); // Initial check
-            updateButtons();
-
-            // --- 2. Mouse Wheel Horizontal Scroll Logic ---
-            slider.addEventListener('wheel', (e) => {
-                // Determine if the element can actually scroll horizontally
-                // (scrollWidth > clientWidth)
-                if (slider.scrollWidth > slider.clientWidth) {
-                    // Prevent default vertical scroll
-                    e.preventDefault();
-
-                    // Specific "Wheel" scrolling logic
-                    slider.scrollLeft += e.deltaY;
-                }
-            }, { passive: false });
-
-            // Remove Drag Styles
-            slider.style.cursor = 'default';
-        });
-    });
-
     function scrollSection(btn, direction) {
         var container = btn.parentElement.querySelector('.categories-scroll, .products-scroll, .gallery-slider');
         if (container) {
