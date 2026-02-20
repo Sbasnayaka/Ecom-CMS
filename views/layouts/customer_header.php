@@ -233,9 +233,9 @@
 
         <?php endif; ?>
 
-        /* 6. Size Guide */
+        /*Size Guide */
         <?php if (!empty($settings['btn_sizeguide_bg'])): ?>
-            .btn-sizeguide {
+            .btn-size-guide {
                 background-color:
                     <?= $settings['btn_sizeguide_bg'] ?>
                     !important;
@@ -243,7 +243,7 @@
 
         <?php endif; ?>
         <?php if (!empty($settings['btn_sizeguide_text'])): ?>
-            .btn-sizeguide {
+            .btn-size-guide {
                 color:
                     <?= $settings['btn_sizeguide_text'] ?>
                     !important;
