@@ -83,8 +83,7 @@ require_once 'views/layouts/customer_header.php';
         </div>
 
         <!-- Categories Grid -->
-        <div class="product-grid"
-            style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; padding: 0 0 40px 0;">
+        <div class="product-grid" style="display: grid; gap: 15px; padding: 0 0 40px 0;">
             <?php foreach ($categories as $cat): ?>
                 <a href="<?= BASE_URL ?>shop/category/<?= $cat['id'] ?>" class="cat-grid-item"
                     style="display: block; text-align: center; text-decoration: none;">

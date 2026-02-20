@@ -896,6 +896,11 @@ p {
         display: none !important;
     }
 
+    /* Desktop: 3-column category grid */
+    .product-grid {
+        grid-template-columns: repeat(3, 1fr) !important;
+    }
+
     .bottom-nav {
         display: none !important;
     }
