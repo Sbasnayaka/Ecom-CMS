@@ -36,21 +36,36 @@
             <a href="<?= BASE_URL ?>shop/categories" class="view-all">View All</a>
         </div>
 
-        <div class="categories-scroll">
-            <?php foreach ($categories as $cat): ?>
-                <a href="<?= BASE_URL ?>shop/category/<?= $cat['id'] ?>" class="cat-item" style="text-decoration: none; color: inherit; display: block;">
-                    <?php
-                    $catPath = 'assets/uploads/' . $cat['image'];
-                    $img = (!empty($cat['image']) && file_exists(ROOT_PATH . $catPath))
-                        ? BASE_URL . $catPath
-                        : 'https://via.placeholder.com/60?text=' . urlencode($cat['name']);
-                    ?>
-                    <img src="<?= $img ?>" class="cat-img" alt="<?= htmlspecialchars($cat['name']) ?>">
-                    <div class="cat-name">
-                        <?= htmlspecialchars($cat['name']) ?>
-                    </div>
-                </a>
-            <?php endforeach; ?>
+        <div style="position: relative;">
+            <button class="scroll-btn left d-lg-flex" onclick="scrollSection(this, -1)" style="display: none; position: absolute; top: 50%; left: -15px; transform: translateY(-50%); z-index: 10; 
+                       width: 35px; height: 35px; border-radius: 50%; background: white; 
+                       box-shadow: 0 2px 5px rgba(0,0,0,0.1); border: 1px solid #eee; 
+                       cursor: pointer; align-items: center; justify-content: center;">
+                <i class="fas fa-chevron-left" style="color: black; font-size: 14px;"></i>
+            </button>
+            <div class="categories-scroll">
+                <?php foreach ($categories as $cat): ?>
+                    <a href="<?= BASE_URL ?>shop/category/<?= $cat['id'] ?>" class="cat-item"
+                        style="text-decoration: none; color: inherit; display: block;">
+                        <?php
+                        $catPath = 'assets/uploads/' . $cat['image'];
+                        $img = (!empty($cat['image']) && file_exists(ROOT_PATH . $catPath))
+                            ? BASE_URL . $catPath
+                            : 'https://via.placeholder.com/60?text=' . urlencode($cat['name']);
+                        ?>
+                        <img src="<?= $img ?>" class="cat-img" alt="<?= htmlspecialchars($cat['name']) ?>">
+                        <div class="cat-name">
+                            <?= htmlspecialchars($cat['name']) ?>
+                        </div>
+                    </a>
+                <?php endforeach; ?>
+            </div>
+            <button class="scroll-btn right d-lg-flex" onclick="scrollSection(this, 1)" style="display: none; position: absolute; top: 50%; right: -15px; transform: translateY(-50%); z-index: 10; 
+                       width: 35px; height: 35px; border-radius: 50%; background: white; 
+                       box-shadow: 0 2px 5px rgba(0,0,0,0.1); border: 1px solid #eee; 
+                       cursor: pointer; align-items: center; justify-content: center;">
+                <i class="fas fa-chevron-right" style="color: black; font-size: 14px;"></i>
+            </button>
         </div>
 
         <!-- Featured Products -->
@@ -58,10 +73,24 @@
             <div class="section-header">
                 <h2 class="section-title">Featured Products <span class="tag special">SPECIAL</span></h2>
             </div>
-            <div class="products-scroll">
-                <?php foreach ($featuredProducts as $prod): ?>
-                    <?php include 'views/customer/partials/product_card.php'; ?>
-                <?php endforeach; ?>
+            <div style="position: relative;">
+                <button class="scroll-btn left d-lg-flex" onclick="scrollSection(this, -1)" style="display: none; position: absolute; top: 50%; left: -15px; transform: translateY(-50%); z-index: 10; 
+                       width: 35px; height: 35px; border-radius: 50%; background: white; 
+                       box-shadow: 0 2px 5px rgba(0,0,0,0.1); border: 1px solid #eee; 
+                       cursor: pointer; align-items: center; justify-content: center;">
+                    <i class="fas fa-chevron-left" style="color: black; font-size: 14px;"></i>
+                </button>
+                <div class="products-scroll">
+                    <?php foreach ($featuredProducts as $prod): ?>
+                        <?php include 'views/customer/partials/product_card.php'; ?>
+                    <?php endforeach; ?>
+                </div>
+                <button class="scroll-btn right d-lg-flex" onclick="scrollSection(this, 1)" style="display: none; position: absolute; top: 50%; right: -15px; transform: translateY(-50%); z-index: 10; 
+                       width: 35px; height: 35px; border-radius: 50%; background: white; 
+                       box-shadow: 0 2px 5px rgba(0,0,0,0.1); border: 1px solid #eee; 
+                       cursor: pointer; align-items: center; justify-content: center;">
+                    <i class="fas fa-chevron-right" style="color: black; font-size: 14px;"></i>
+                </button>
             </div>
         <?php endif; ?>
 
@@ -69,10 +98,24 @@
         <div class="section-header">
             <h2 class="section-title">Latest Products <span class="tag new">NEW</span></h2>
         </div>
-        <div class="products-scroll">
-            <?php foreach ($latestProducts as $prod): ?>
-                <?php include 'views/customer/partials/product_card.php'; ?>
-            <?php endforeach; ?>
+        <div style="position: relative;">
+            <button class="scroll-btn left d-lg-flex" onclick="scrollSection(this, -1)" style="display: none; position: absolute; top: 50%; left: -15px; transform: translateY(-50%); z-index: 10; 
+                       width: 35px; height: 35px; border-radius: 50%; background: white; 
+                       box-shadow: 0 2px 5px rgba(0,0,0,0.1); border: 1px solid #eee; 
+                       cursor: pointer; align-items: center; justify-content: center;">
+                <i class="fas fa-chevron-left" style="color: black; font-size: 14px;"></i>
+            </button>
+            <div class="products-scroll">
+                <?php foreach ($latestProducts as $prod): ?>
+                    <?php include 'views/customer/partials/product_card.php'; ?>
+                <?php endforeach; ?>
+            </div>
+            <button class="scroll-btn right d-lg-flex" onclick="scrollSection(this, 1)" style="display: none; position: absolute; top: 50%; right: -15px; transform: translateY(-50%); z-index: 10; 
+                       width: 35px; height: 35px; border-radius: 50%; background: white; 
+                       box-shadow: 0 2px 5px rgba(0,0,0,0.1); border: 1px solid #eee; 
+                       cursor: pointer; align-items: center; justify-content: center;">
+                <i class="fas fa-chevron-right" style="color: black; font-size: 14px;"></i>
+            </button>
         </div>
 
         <!-- Sale Products -->
@@ -80,15 +123,41 @@
             <div class="section-header">
                 <h2 class="section-title">Sale Products <span class="tag sale">Sale..!</span></h2>
             </div>
-            <div class="products-scroll">
-                <?php foreach ($saleProducts as $prod): ?>
-                    <?php include 'views/customer/partials/product_card.php'; ?>
-                <?php endforeach; ?>
+            <div style="position: relative;">
+                <button class="scroll-btn left d-lg-flex" onclick="scrollSection(this, -1)" style="display: none; position: absolute; top: 50%; left: -15px; transform: translateY(-50%); z-index: 10; 
+                       width: 35px; height: 35px; border-radius: 50%; background: white; 
+                       box-shadow: 0 2px 5px rgba(0,0,0,0.1); border: 1px solid #eee; 
+                       cursor: pointer; align-items: center; justify-content: center;">
+                    <i class="fas fa-chevron-left" style="color: black; font-size: 14px;"></i>
+                </button>
+                <div class="products-scroll">
+                    <?php foreach ($saleProducts as $prod): ?>
+                        <?php include 'views/customer/partials/product_card.php'; ?>
+                    <?php endforeach; ?>
+                </div>
+                <button class="scroll-btn right d-lg-flex" onclick="scrollSection(this, 1)" style="display: none; position: absolute; top: 50%; right: -15px; transform: translateY(-50%); z-index: 10; 
+                       width: 35px; height: 35px; border-radius: 50%; background: white; 
+                       box-shadow: 0 2px 5px rgba(0,0,0,0.1); border: 1px solid #eee; 
+                       cursor: pointer; align-items: center; justify-content: center;">
+                    <i class="fas fa-chevron-right" style="color: black; font-size: 14px;"></i>
+                </button>
             </div>
         <?php endif; ?>
 
     </main>
 
 </div>
+
+<script>
+    function scrollSection(btn, direction) {
+        var container = btn.parentElement.querySelector('.categories-scroll, .products-scroll, .gallery-slider');
+        if (container) {
+            container.scrollBy({
+                left: direction * 300,
+                behavior: 'smooth'
+            });
+        }
+    }
+</script>
 
 <?php require_once 'views/layouts/customer_footer.php'; ?>

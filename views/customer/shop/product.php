@@ -22,29 +22,44 @@ require_once 'views/layouts/customer_header.php';
                     <i class="fas fa-arrow-left" style="color: black; font-size: 16px;"></i>
                 </a>
 
-                <div class="gallery-slider">
-                    <!-- Main Image First -->
-                    <?php
-                    $mainImg = 'assets/uploads/' . $product['main_image'];
-                    if (empty($product['main_image']) || !file_exists(ROOT_PATH . $mainImg)) {
-                        $mainImg = 'https://via.placeholder.com/600x600?text=' . urlencode($product['title']);
-                    } else {
-                        $mainImg = BASE_URL . $mainImg;
-                    }
-                    ?>
-                    <img src="<?= $mainImg ?>" class="gallery-img current" alt="Main Image"
-                        onclick="openImageModal(this.src)">
+                <div style="position: relative;">
+                    <button class="scroll-btn left d-lg-flex" onclick="scrollSection(this, -1)" style="display: none; position: absolute; top: 50%; left: 10px; transform: translateY(-50%); z-index: 10; 
+                           width: 35px; height: 35px; border-radius: 50%; background: white; 
+                           box-shadow: 0 2px 5px rgba(0,0,0,0.1); border: 1px solid #eee; 
+                           cursor: pointer; align-items: center; justify-content: center;">
+                        <i class="fas fa-chevron-left" style="color: black; font-size: 14px;"></i>
+                    </button>
+                    <div class="gallery-slider">
+                        <!-- Main Image First -->
+                        <?php
+                        $mainImg = 'assets/uploads/' . $product['main_image'];
+                        if (empty($product['main_image']) || !file_exists(ROOT_PATH . $mainImg)) {
+                            $mainImg = 'https://via.placeholder.com/600x600?text=' . urlencode($product['title']);
+                        } else {
+                            $mainImg = BASE_URL . $mainImg;
+                        }
+                        ?>
+                        <img src="<?= $mainImg ?>" class="gallery-img current" alt="Main Image"
+                            onclick="openImageModal(this.src)">
 
-                    <!-- Gallery Images -->
-                    <?php if (!empty($gallery)): ?>
-                        <?php foreach ($gallery as $gImg):
-                            $gPath = 'assets/uploads/' . $gImg;
-                            $gUrl = (file_exists(ROOT_PATH . $gPath)) ? BASE_URL . $gPath : '';
-                            if ($gUrl):
-                                ?>
-                                <img src="<?= $gUrl ?>" class="gallery-img" alt="Gallery Image" onclick="openImageModal(this.src)">
-                            <?php endif; endforeach; ?>
-                    <?php endif; ?>
+                        <!-- Gallery Images -->
+                        <?php if (!empty($gallery)): ?>
+                            <?php foreach ($gallery as $gImg):
+                                $gPath = 'assets/uploads/' . $gImg;
+                                $gUrl = (file_exists(ROOT_PATH . $gPath)) ? BASE_URL . $gPath : '';
+                                if ($gUrl):
+                                    ?>
+                                    <img src="<?= $gUrl ?>" class="gallery-img" alt="Gallery Image"
+                                        onclick="openImageModal(this.src)">
+                                <?php endif; endforeach; ?>
+                        <?php endif; ?>
+                    </div>
+                    <button class="scroll-btn right d-lg-flex" onclick="scrollSection(this, 1)" style="display: none; position: absolute; top: 50%; right: 10px; transform: translateY(-50%); z-index: 10; 
+                           width: 35px; height: 35px; border-radius: 50%; background: white; 
+                           box-shadow: 0 2px 5px rgba(0,0,0,0.1); border: 1px solid #eee; 
+                           cursor: pointer; align-items: center; justify-content: center;">
+                        <i class="fas fa-chevron-right" style="color: black; font-size: 14px;"></i>
+                    </button>
                 </div>
 
                 <!-- Pagination Dots  -->
@@ -176,10 +191,24 @@ require_once 'views/layouts/customer_header.php';
         <?php if (!empty($relatedProducts)): ?>
             <div style="margin-top: 50px; border-top: 1px solid #eee; padding-top: 30px;">
                 <h3 style="margin-bottom: 20px;">You May Also Like...</h3>
-                <div class="products-scroll" style="display:flex; overflow-x:auto; gap:15px; padding-bottom:10px;">
-                    <?php foreach ($relatedProducts as $prod): ?>
-                        <?php include 'views/customer/partials/product_card.php'; ?>
-                    <?php endforeach; ?>
+                <div style="position: relative;">
+                    <button class="scroll-btn left d-lg-flex" onclick="scrollSection(this, -1)" style="display: none; position: absolute; top: 50%; left: -15px; transform: translateY(-50%); z-index: 10; 
+                       width: 35px; height: 35px; border-radius: 50%; background: white; 
+                       box-shadow: 0 2px 5px rgba(0,0,0,0.1); border: 1px solid #eee; 
+                       cursor: pointer; align-items: center; justify-content: center;">
+                        <i class="fas fa-chevron-left" style="color: black; font-size: 14px;"></i>
+                    </button>
+                    <div class="products-scroll" style="display:flex; overflow-x:auto; gap:15px; padding-bottom:10px;">
+                        <?php foreach ($relatedProducts as $prod): ?>
+                            <?php include 'views/customer/partials/product_card.php'; ?>
+                        <?php endforeach; ?>
+                    </div>
+                    <button class="scroll-btn right d-lg-flex" onclick="scrollSection(this, 1)" style="display: none; position: absolute; top: 50%; right: -15px; transform: translateY(-50%); z-index: 10; 
+                       width: 35px; height: 35px; border-radius: 50%; background: white; 
+                       box-shadow: 0 2px 5px rgba(0,0,0,0.1); border: 1px solid #eee; 
+                       cursor: pointer; align-items: center; justify-content: center;">
+                        <i class="fas fa-chevron-right" style="color: black; font-size: 14px;"></i>
+                    </button>
                 </div>
             </div>
         <?php endif; ?>
@@ -207,24 +236,21 @@ if (!empty($product['size_guide_image']) && file_exists(ROOT_PATH . $sgPath)):
 <?php endif; ?>
 
 <!-- Image Lightbox Modal (Refined: Corner Button) -->
-<div id="imgModal" class="modal-overlay" onclick="closeImageModal()" 
-     style="display: none; align-items: center; justify-content: center; z-index: 3000;">
-    
+<div id="imgModal" class="modal-overlay" onclick="closeImageModal()"
+    style="display: none; align-items: center; justify-content: center; z-index: 3000;">
+
     <!-- Image Wrapper (Relative for button positioning) -->
-    <div onclick="event.stopPropagation()"
-        style="position: relative; display: inline-block;">
-        
+    <div onclick="event.stopPropagation()" style="position: relative; display: inline-block;">
+
         <!-- Close Button (Absolute Top-Right of Image) -->
-        <div onclick="closeImageModal()"
-            style="position: absolute; top: -15px; right: -15px; cursor: pointer; z-index: 3001; 
+        <div onclick="closeImageModal()" style="position: absolute; top: -15px; right: -15px; cursor: pointer; z-index: 3001; 
                    background: white; border-radius: 50%; width: 35px; height: 35px; 
                    display: flex; align-items: center; justify-content: center; 
                    box-shadow: 0 2px 10px rgba(0,0,0,0.2); border: 1px solid #eee;">
             <i class="fas fa-times" style="color: black; font-size: 16px;"></i>
         </div>
 
-        <img id="imgModalSrc" src=""
-            style="max-width: 85vw; max-height: 80vh; width: auto; height: auto; 
+        <img id="imgModalSrc" src="" style="max-width: 85vw; max-height: 80vh; width: auto; height: auto; 
                    object-fit: contain; border-radius: 12px; display: block; background: #fff;">
     </div>
 </div>
@@ -265,6 +291,17 @@ if (!empty($product['size_guide_image']) && file_exists(ROOT_PATH . $sgPath)):
         }
     });
 
+</script>
+<script>
+    function scrollSection(btn, direction) {
+        var container = btn.parentElement.querySelector('.categories-scroll, .products-scroll, .gallery-slider');
+        if (container) {
+            container.scrollBy({
+                left: direction * 300,
+                behavior: 'smooth'
+            });
+        }
+    }
 </script>
 
 
@@ -370,13 +407,13 @@ if (!empty($product['size_guide_image']) && file_exists(ROOT_PATH . $sgPath)):
 
     function openOrderModal() {
         // Load Saved Data
-        if(localStorage.getItem('cus_name')) document.getElementById('ordName').value = localStorage.getItem('cus_name');
-        if(localStorage.getItem('cus_address')) document.getElementById('ordAddress').value = localStorage.getItem('cus_address');
-        if(localStorage.getItem('cus_city')) document.getElementById('ordCity').value = localStorage.getItem('cus_city');
-        if(localStorage.getItem('cus_district')) document.getElementById('ordDistrict').value = localStorage.getItem('cus_district');
-        if(localStorage.getItem('cus_postal')) document.getElementById('ordPostal').value = localStorage.getItem('cus_postal');
-        if(localStorage.getItem('cus_phone1')) document.getElementById('ordPhone1').value = localStorage.getItem('cus_phone1');
-        if(localStorage.getItem('cus_phone2')) document.getElementById('ordPhone2').value = localStorage.getItem('cus_phone2');
+        if (localStorage.getItem('cus_name')) document.getElementById('ordName').value = localStorage.getItem('cus_name');
+        if (localStorage.getItem('cus_address')) document.getElementById('ordAddress').value = localStorage.getItem('cus_address');
+        if (localStorage.getItem('cus_city')) document.getElementById('ordCity').value = localStorage.getItem('cus_city');
+        if (localStorage.getItem('cus_district')) document.getElementById('ordDistrict').value = localStorage.getItem('cus_district');
+        if (localStorage.getItem('cus_postal')) document.getElementById('ordPostal').value = localStorage.getItem('cus_postal');
+        if (localStorage.getItem('cus_phone1')) document.getElementById('ordPhone1').value = localStorage.getItem('cus_phone1');
+        if (localStorage.getItem('cus_phone2')) document.getElementById('ordPhone2').value = localStorage.getItem('cus_phone2');
 
         document.getElementById('orderModal').style.display = 'flex';
     }
@@ -385,7 +422,7 @@ if (!empty($product['size_guide_image']) && file_exists(ROOT_PATH . $sgPath)):
         document.getElementById('orderModal').style.display = 'none';
     }
 
-        function submitOrderToWhatsApp() {
+    function submitOrderToWhatsApp() {
         // Get Form Values
         const name = document.getElementById('ordName').value.trim();
         const address = document.getElementById('ordAddress').value.trim();
@@ -409,7 +446,7 @@ if (!empty($product['size_guide_image']) && file_exists(ROOT_PATH . $sgPath)):
         const qty = parseInt(document.getElementById('qtyInput').value) || 1;
         const unitPrice = <?= $product['sale_price'] ?: $product['price'] ?>;
         const total = unitPrice * qty;
-        
+
         // SKU Injection
         const sku = "<?= htmlspecialchars($product['sku'] ?? 'N/A') ?>";
 
@@ -428,7 +465,7 @@ if (!empty($product['size_guide_image']) && file_exists(ROOT_PATH . $sgPath)):
                 // We use the text value stored in current logic
                 msg += key + ": " + val + ", ";
             }
-            msg = msg.slice(0, -2); 
+            msg = msg.slice(0, -2);
             msg += "\n";
         }
 
@@ -440,7 +477,7 @@ if (!empty($product['size_guide_image']) && file_exists(ROOT_PATH . $sgPath)):
         msg += "Postal: " + postal + "\n";
         msg += "Phone 01: " + phone1 + "\n";
         msg += "Phone 02: " + phone2 + "\n";
-                if (note) msg += "Note: " + note + "\n";
+        if (note) msg += "Note: " + note + "\n";
 
         // --- Save Data for Next Time ---
         localStorage.setItem('cus_name', name);
@@ -451,10 +488,10 @@ if (!empty($product['size_guide_image']) && file_exists(ROOT_PATH . $sgPath)):
         localStorage.setItem('cus_phone1', phone1);
         localStorage.setItem('cus_phone2', phone2);
 
-               // Redirect
+        // Redirect
         const shopPhone = "<?= str_replace(['+', ' '], '', $settings['shop_whatsapp'] ?? '') ?>";
         const url = "https://wa.me/" + shopPhone + "?text=" + encodeURIComponent(msg);
-        
+
         // Show Loader & Delay
         if (typeof showGlobalLoader === 'function') showGlobalLoader();
 
@@ -466,7 +503,7 @@ if (!empty($product['size_guide_image']) && file_exists(ROOT_PATH . $sgPath)):
     }
 
 
-        // --- Add to Cart Logic (AJAX) ---
+    // --- Add to Cart Logic (AJAX) ---
     function addToCartFromProductPage() {
         // Show Loader
         if (typeof showGlobalLoader === 'function') showGlobalLoader();
@@ -514,35 +551,35 @@ if (!empty($product['size_guide_image']) && file_exists(ROOT_PATH . $sgPath)):
             },
             body: JSON.stringify(payload)
         })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                if (typeof showCartToast === 'function') showCartToast();
-                
-                const bubbleCount = document.querySelector('.floating-cart-count');
-                const headerCount = document.querySelector('.cart-badge-count');
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    if (typeof showCartToast === 'function') showCartToast();
 
-                if (data.count) {
-                    if (bubbleCount) bubbleCount.innerText = data.count;
-                    if (headerCount) {
-                        headerCount.innerText = data.count;
-                        headerCount.style.display = 'inline-block';
+                    const bubbleCount = document.querySelector('.floating-cart-count');
+                    const headerCount = document.querySelector('.cart-badge-count');
+
+                    if (data.count) {
+                        if (bubbleCount) bubbleCount.innerText = data.count;
+                        if (headerCount) {
+                            headerCount.innerText = data.count;
+                            headerCount.style.display = 'inline-block';
+                        }
+                        const floatingCart = document.querySelector('.floating-cart');
+                        if (floatingCart) floatingCart.style.display = 'flex';
                     }
-                    const floatingCart = document.querySelector('.floating-cart');
-                    if (floatingCart) floatingCart.style.display = 'flex';
+                } else {
+                    alert('Failed to add to cart');
                 }
-            } else {
-                alert('Failed to add to cart');
-            }
-        })
-        .catch(error => {
-            console.error('Error:', error);
-            alert('Something went wrong. Please try again.');
-        })
-        .finally(() => {
-            //  Hide Loader Always
-            if (typeof hideGlobalLoader === 'function') hideGlobalLoader();
-        });
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Something went wrong. Please try again.');
+            })
+            .finally(() => {
+                //  Hide Loader Always
+                if (typeof hideGlobalLoader === 'function') hideGlobalLoader();
+            });
     }
 
 
