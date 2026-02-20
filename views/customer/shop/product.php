@@ -293,13 +293,67 @@ if (!empty($product['size_guide_image']) && file_exists(ROOT_PATH . $sgPath)):
 
 </script>
 <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const containers = document.querySelectorAll('.categories-scroll, .products-scroll, .gallery-slider');
+
+        containers.forEach(container => {
+            // 1. Mouse Wheel Horizontal Scroll
+            container.addEventListener('wheel', (e) => {
+                if (window.innerWidth >= 1024) { // Desktop Only
+                    e.preventDefault();
+                    container.scrollLeft += e.deltaY;
+                }
+            });
+
+            // 2. Smart Button Visibility (Initialize)
+            updateButtons(container);
+
+            // 3. Update Buttons on Scroll
+            container.addEventListener('scroll', () => {
+                updateButtons(container);
+            });
+        });
+    });
+
     function scrollSection(btn, direction) {
-        var container = btn.parentElement.querySelector('.categories-scroll, .products-scroll, .gallery-slider');
+        // Find sibling container
+        const container = btn.parentElement.querySelector('.categories-scroll, .products-scroll, .gallery-slider');
         if (container) {
             container.scrollBy({
                 left: direction * 300,
                 behavior: 'smooth'
             });
+            // Buttons will auto-update via scroll listener
+        }
+    }
+
+    function updateButtons(container) {
+        if (!container) return;
+
+        const parent = container.parentElement;
+        const leftBtn = parent.querySelector('.scroll-btn.left');
+        const rightBtn = parent.querySelector('.scroll-btn.right');
+
+        if (!leftBtn || !rightBtn) return;
+
+        // Logic: 
+        // Start (0) -> Hide Left
+        // End (Max) -> Hide Right
+        // Else -> Show Both
+
+        const tolerance = 5; // Pixel tolerance (some browsers have sub-pixel rendering)
+        const maxScroll = container.scrollWidth - container.clientWidth;
+
+        if (container.scrollLeft <= tolerance) {
+            leftBtn.style.display = 'none';
+        } else {
+            leftBtn.style.display = 'flex'; // Restore inline-flex/flex
+        }
+
+        if (container.scrollLeft >= maxScroll - tolerance) {
+            rightBtn.style.display = 'none';
+        } else {
+            rightBtn.style.display = 'flex';
         }
     }
 </script>
