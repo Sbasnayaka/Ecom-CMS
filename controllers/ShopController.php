@@ -80,10 +80,11 @@ class ShopController extends BaseController
         $product = $this->productModel->getById($id);
 
         if (!$product) {
-            // Handle 404
-            echo "Product not found.";
-            return;
-        }
+         // Handle 404
+         http_response_code(404);
+         require_once 'views/errors/404.php';
+         return;
+     }
 
         // Fetch additional details
         $gallery = $this->productModel->getGalleryImages($id);
