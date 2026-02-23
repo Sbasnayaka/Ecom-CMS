@@ -363,6 +363,29 @@
                     </div>
                 </div>
             </div>
+            <div class="style-card">
+                <div class="card-header">Mobile Search Bar</div>
+                <div style="display:flex; flex-wrap:wrap; gap:20px;">
+                    <div style="flex:1;">
+                        <div class="control-group">
+                            <label class="control-label">Search Background</label>
+                            <div class="color-picker-row">
+                                <input type="color" name="search_mobile_bg" class="color-input" value="<?= $styles['search_mobile_bg'] ?? '#ede7f6' ?>">
+                                <input type="text" class="color-text" value="<?= $styles['search_mobile_bg'] ?? '#ede7f6' ?>" readonly>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="flex:1;">
+                        <div class="control-group">
+                            <label class="control-label">Search Icon & Text</label>
+                             <div class="color-picker-row">
+                                <input type="color" name="search_mobile_icon" class="color-input" value="<?= $styles['search_mobile_icon'] ?? '#5e35b1' ?>">
+                                <input type="text" class="color-text" value="<?= $styles['search_mobile_icon'] ?? '#5e35b1' ?>" readonly>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
             <!-- =========================== -->
             <!-- SECTION 3: DESKTOP STYLES   -->
