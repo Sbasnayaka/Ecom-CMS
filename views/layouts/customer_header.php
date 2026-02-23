@@ -143,9 +143,9 @@
         <?php endif; ?>
 
         /* Granular Button Overrides (Safe List) */
-        /* 1. Add to Cart */
+        /* Add to Cart */
         <?php if (!empty($settings['btn_addcart_bg'])): ?>
-            .btn-cart.custom-btn {
+            .btn-action.btn-cart {
                 background-color:
                     <?= $settings['btn_addcart_bg'] ?>
                     !important;
@@ -153,7 +153,7 @@
 
         <?php endif; ?>
         <?php if (!empty($settings['btn_addcart_text'])): ?>
-            .btn-cart.custom-btn {
+            .btn-action.btn-cart {
                 color:
                     <?= $settings['btn_addcart_text'] ?>
                     !important;
@@ -235,7 +235,7 @@
 
         /*Size Guide */
         <?php if (!empty($settings['btn_sizeguide_bg'])): ?>
-            .btn-size-guide {
+            button.btn-size-guide {
                 background-color:
                     <?= $settings['btn_sizeguide_bg'] ?>
                     !important;
@@ -243,7 +243,7 @@
 
         <?php endif; ?>
         <?php if (!empty($settings['btn_sizeguide_text'])): ?>
-            .btn-size-guide {
+            button.btn-size-guide {
                 color:
                     <?= $settings['btn_sizeguide_text'] ?>
                     !important;
@@ -320,6 +320,38 @@
 
         <?php endif; ?>
     </style>
+        /* Custom Search Bars */
+        <?php if (!empty($settings['search_mobile_bg'])): ?>
+            #searchTriggerBtn, #mobileSearchInput {
+                background-color: <?= $settings['search_mobile_bg'] ?> !important;
+            }
+        <?php endif; ?>
+        
+        <?php if (!empty($settings['search_mobile_icon'])): ?>
+            #searchTriggerBtn i, #mobileSearchInput + i, #mobileSearchInput {
+                color: <?= $settings['search_mobile_icon'] ?> !important;
+            }
+            #mobileSearchInput::placeholder {
+                color: <?= $settings['search_mobile_icon'] ?> !important;
+                opacity: 0.7;
+            }
+        <?php endif; ?>
+
+        <?php if (!empty($settings['search_desktop_bg'])): ?>
+            .desktop-header .search-input {
+                background-color: <?= $settings['search_desktop_bg'] ?> !important;
+            }
+        <?php endif; ?>
+
+        <?php if (!empty($settings['search_desktop_icon'])): ?>
+            .desktop-header .search-input, .desktop-header #desktopSearchIcon {
+                color: <?= $settings['search_desktop_icon'] ?> !important;
+            }
+            .desktop-header .search-input::placeholder {
+                color: <?= $settings['search_desktop_icon'] ?> !important;
+                opacity: 0.7;
+            }
+        <?php endif; ?>
 </head>
 
 <body>
