@@ -319,7 +319,7 @@
             }
 
         <?php endif; ?>
-    </style>
+
         /* Custom Search Bars */
         <?php if (!empty($settings['search_mobile_bg'])): ?>
             #searchTriggerBtn, #mobileSearchInput {
@@ -352,6 +352,8 @@
                 opacity: 0.7;
             }
         <?php endif; ?>
+
+    </style>
 </head>
 
 <body>
