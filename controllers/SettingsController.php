@@ -253,7 +253,13 @@ class SettingsController extends BaseController
             'nav_mobile_active_color',
             'nav_desktop_bg',
             'nav_desktop_link_color',
+            // Search Bars 
+            'search_mobile_bg',
+            'search_mobile_icon',
+            'search_desktop_bg',
+            'search_desktop_icon',
             // Floating Cart
+
             'floating_cart_bg',
             'floating_cart_text'
 
