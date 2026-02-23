@@ -142,9 +142,7 @@
                 <div class="header-title">Global Styles</div>
             </div>
 
-            <!-- =========================== -->
             <!-- SECTION 1: COMMON STYLES    -->
-            <!-- =========================== -->
             <div class="section-header-block">1. Common Styles (All Devices)</div>
             
             <div style="display:flex; flex-wrap:wrap; gap:20px;">
@@ -324,9 +322,7 @@
                     </div>
                 </div>
             </div>
-            <!-- =========================== -->
             <!-- SECTION 2: MOBILE STYLES    -->
-            <!-- =========================== -->
             <div class="section-header-block">2. Mobile Styles</div>
             
             <div class="style-card">
@@ -387,9 +383,7 @@
                 </div>
             </div>
 
-            <!-- =========================== -->
             <!-- SECTION 3: DESKTOP STYLES   -->
-            <!-- =========================== -->
             <div class="section-header-block">3. Desktop Styles</div>
 
             <div class="style-card">
@@ -423,11 +417,31 @@
                     </div>
                 </div>
             </div>
-
+            <div class="style-card">
+                <div class="card-header">Desktop Search Bar</div>
+                <div style="display:flex; flex-wrap:wrap; gap:20px;">
+                    <div style="flex:1;">
+                        <div class="control-group">
+                            <label class="control-label">Search Background</label>
+                            <div class="color-picker-row">
+                                <input type="color" name="search_desktop_bg" class="color-input" value="<?= $styles['search_desktop_bg'] ?? '#f5f5f5' ?>">
+                                <input type="text" class="color-text" value="<?= $styles['search_desktop_bg'] ?? '#f5f5f5' ?>" readonly>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="flex:1;">
+                        <div class="control-group">
+                            <label class="control-label">Search Icon & Text</label>
+                             <div class="color-picker-row">
+                                <input type="color" name="search_desktop_icon" class="color-input" value="<?= $styles['search_desktop_icon'] ?? '#333333' ?>">
+                                <input type="text" class="color-text" value="<?= $styles['search_desktop_icon'] ?? '#333333' ?>" readonly>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <!-- Global Action -->
             <button type="submit" class="btn-save">Save All Global Styles</button>
-
-
         </div>
     </form>
 
