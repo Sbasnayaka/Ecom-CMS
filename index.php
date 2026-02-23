@@ -68,8 +68,8 @@ if (file_exists($controllerFile)) {
         call_user_func_array([$controller, $actionName], array_slice($params, 2));
     } else {
         // Action not found
-        // TODO: Show a 404 Error Page
-        echo "Error: Action '$actionName' not found in $controllerClass.";
+        http_response_code(404);
+        require_once 'views/errors/404.php';
     }
 } else {
     // Controller not found
@@ -78,7 +78,8 @@ if (file_exists($controllerFile)) {
     if ($controllerName == 'home') {
         echo "<h1>Welcome to Ecom-CMS</h1><p>Routing is working!</p>";
     } else {
-        echo "Error: Controller '$controllerClass' not found.";
+        http_response_code(404);
+        require_once 'views/errors/404.php';
     }
 }
 ?>
