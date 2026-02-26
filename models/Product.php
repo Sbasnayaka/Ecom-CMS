@@ -462,7 +462,7 @@ class Product extends BaseModel
         $sql = "SELECT p.*, c.name as category_name 
                 FROM products p
                 LEFT JOIN categories c ON p.category_id = c.id
-                WHERE p.category_id = :catId AND p.id != :excludeId
+                WHERE p.category_id = :catId AND p.id != :excludeId AND p.is_active = 1
                 ORDER BY RAND() LIMIT :limit";
         $stmt = $this->conn->prepare($sql);
         $stmt->bindParam(':catId', $categoryId);
@@ -534,11 +534,19 @@ class Product extends BaseModel
             }
         }
 
+        $sql .= " AND p.is_active = 1";
         $sql .= " ORDER BY p.created_at DESC";
 
         $stmt = $this->conn->prepare($sql);
         $stmt->execute($params);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+    public function toggleActive($id)
+    {
+        $sql = "UPDATE products SET is_active = NOT is_active WHERE id = :id";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bindParam(':id', $id);
+        return $stmt->execute();
     }
 }
 ?>
