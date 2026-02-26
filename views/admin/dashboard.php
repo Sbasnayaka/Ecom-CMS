@@ -129,18 +129,20 @@
                         </div>
                         <img src="<?= BASE_URL ?>assets/uploads/<?= $product['main_image'] ?? 'default.png' ?>"
                             class="product-thumb" alt="Img">
-                        <div class="product-info">
-                            <h4 class="product-name"><?= htmlspecialchars($product['title']) ?></h4>
-                            <p class="product-category"><?= htmlspecialchars($product['category_name'] ?? 'Uncategorized') ?>
-                            </p>
+                        <div style="flex: 1; display: flex; justify-content: space-between; align-items: center;">
+                            <div class="product-info" style="flex: unset;">
+                                <h4 class="product-name"><?= htmlspecialchars($product['title']) ?></h4>
+                                <p class="product-category"><?= htmlspecialchars($product['category_name'] ?? 'Uncategorized') ?></p>
+                            </div>
+                            
+                            <!-- Visibility Toggle -->
+                            <a href="<?= BASE_URL ?>product/toggleActive/<?= $product['id'] ?>" 
+                               class="toggle-btn <?= $product['is_active'] ? 'active' : '' ?>" 
+                               title="Toggle Visibility" 
+                               onclick="showGlobalLoader();">
+                                <div class="toggle-circle"></div>
+                            </a>
                         </div>
-                        <!-- Visibility Toggle -->
-                        <a href="<?= BASE_URL ?>product/toggleActive/<?= $product['id'] ?>" 
-                           class="toggle-btn <?= $product['is_active'] ? 'active' : '' ?>" 
-                           title="Toggle Visibility" 
-                           onclick="showGlobalLoader();">
-                            <div class="toggle-circle"></div>
-                        </a>
 
                     </div>
                 <?php endforeach; ?>
