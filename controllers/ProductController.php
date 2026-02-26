@@ -383,5 +383,15 @@ class ProductController extends BaseController
 
         }
     }
+        public function toggleActive($id)
+    {
+        $this->productModel->toggleActive($id);
+        if (isset($_SERVER['HTTP_REFERER'])) {
+            header('Location: ' . $_SERVER['HTTP_REFERER']);
+        } else {
+            $this->redirect('product/index');
+        }
+    }
+
 }
 ?>
