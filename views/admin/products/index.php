@@ -203,6 +203,14 @@
                             <div class="prod-title"><?= htmlspecialchars($prod['title']) ?></div>
                             <div class="prod-cat"><?= htmlspecialchars($prod['category_name'] ?? 'Uncategorized') ?></div>
                         </div>
+                        <!-- Visibility Toggle -->
+                        <a href="<?= BASE_URL ?>product/toggleActive/<?= $prod['id'] ?>" 
+                           class="toggle-btn <?= $prod['is_active'] ? 'active' : '' ?>" 
+                           title="Toggle Visibility" 
+                           onclick="showGlobalLoader();">
+                            <div class="toggle-circle"></div>
+                        </a>
+
                     </div>
                 <?php endforeach; ?>
             <?php else: ?>
