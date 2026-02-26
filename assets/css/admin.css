@@ -159,7 +159,7 @@ body {
     height: 24px;
     border-radius: 12px;
     border: 2px solid transparent;
-    background-color: #25d366; /* Green when active */
+    background-color: #3d9af7; /* blue when active */
     position: relative;
     display: inline-block;
     box-sizing: border-box;
