@@ -158,32 +158,34 @@ body {
     width: 44px;
     height: 24px;
     border-radius: 12px;
-    border: 1.5px solid #000;
+    border: 2px solid transparent;
+    background-color: #25d366; /* Green when active */
     position: relative;
     display: inline-block;
     box-sizing: border-box;
     text-decoration: none;
     transition: all 0.3s ease;
     flex-shrink: 0;
+    cursor: pointer;
 }
 .toggle-circle {
-    width: 14px;
-    height: 14px;
+    width: 20px;
+    height: 20px;
     border-radius: 50%;
-    border: 1.5px solid #000;
+    background-color: #ffffff; /* Solid White circle */
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    left: 3px;
+    left: 2px;
     transition: left 0.3s ease;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.3);
 }
 .toggle-btn.active .toggle-circle {
-    left: 23px;
+    left: 22px;
 }
 .toggle-btn:not(.active) {
-    border-color: #aaa;
+    background-color: #cccccc; /* Gray when off */
 }
 .toggle-btn:not(.active) .toggle-circle {
-    border-color: #aaa;
+    background-color: #ffffff;
 }
-
